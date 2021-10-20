@@ -1,51 +1,81 @@
 ---
 layout: single
-title: Ready - Hack The Box
-excerpt: "Ready was a pretty straighforward box to get an initial shell on: We identify that's it running a vulnerable instance of Gitlab and we use an exploit against version 11.4.7 to land a shell. Once inside, we quickly figure out we're in a container and by looking at the docker compose file we can see the container is running in privileged mode. We then mount the host filesystem within the container then we can access the flag or add our SSH keys to the host root user home directory."
-date: 2021-05-15
+title: Configure dhcp server in linux with isc-dhcp-server
+excerpt: "we are going to learn how to configure a dhcp server in linux using the isc-dhcp-server service, we are going to learn how to create subnets and make reserved ips."
+date: 2021-10-20
 classes: wide
 header:
-  teaser: /assets/images/htb-writeup-ready/ready_logo.png
+  teaser: /assets/images/img-dhcp/servidor-DHCP-e1511228735448.png
   teaser_home_page: true
-  icon: /assets/images/hackthebox.webp
+  icon: /assets/images/img-dhcp/ics_logo.png
 categories:
-  - hackthebox
-  - infosec
+  - Networking
+  - Linux
 tags:
+  - dhcp
+  - isc-dhcp-server
   - linux
-  - gitlab
-  - cve
-  - docker
-  - privileged container
+  - subnetting
 ---
 
-![](/assets/images/htb-writeup-ready/ready_logo.png)
+<p align = "center">
+<img src = "/assets/images/img-dhcp/servidor-DHCP-e1511228735448.png">
+</p>
 
-Ready was a pretty straighforward box to get an initial shell on: We identify that's it running a vulnerable instance of Gitlab and we use an exploit against version 11.4.7 to land a shell. Once inside, we quickly figure out we're in a container and by looking at the docker compose file we can see the container is running in privileged mode. We then mount the host filesystem within the container then we can access the flag or add our SSH keys to the host root user home directory.
+we are going to learn how to configure a dhcp server in linux using the isc-dhcp-server service, we are going to learn: create a fixed ip for our server machine, create subnets, exclude ips ranges, create an ips address concession and finally make a reserved ip for a specific host with its mac address.
+ 
+## What is a dhcp server?
 
-## Portscan
+Dynamic Host Configuration Protocol (DHCP), is a network management protocol that allows us to automatically assign IP addresses to client computers, default gateways, and other network parameters. allowing them to use network services such as DNS, NTP and any communication protocol based on UDP or TCP.
+
+To understand more clearly how the dhcp protocol works, the following diagram shows us how it works:
+
+<p align = "center">
+<img src = "/assets/images/img-dhcp/dhcp.png">
+</p>
+
+## Installing dhcp-server and adding fix ip address in our server machine.
+The first thing we are going to do to configure the dhcp server is to install it with the following command shown in the image: (in my case I am using OS ubuntu server)
+
+<p align = "center">
+<img src = "/assets/images/img-dhcp/captura1.png">
+</p>
+
+In my case I am going to assign a fixed IP address on the server machine. For this we will go to the path "/ etc / netplan" and then we will enter with the «nano» editor in the configuration file that haswithin that route. Inside the file we will put the following parameters:
+
+<p align = "center">
+<img src = "/assets/images/img-dhcp/captura2.png">
+</p>
+
+After we are going to save the changes to the file, we use the command "netplan apply" so that the ip is added to our server. And we use the command "ifconfig" to see if the ip address has been apply.
+
+<p align = "center">
+<img src = "/assets/images/img-dhcp/captura3.png">
+</p>
+
+## Configuring our dhcp sever  
+
+Once we have configured an ip for our server, we will go to the file "/etc/default/isc-dhcp.server", where it says "interfacesv4 (ipv4 version)" we put the name of the network card where it will listen to the requests that we are going to configure. In my case I want it to assign the ips addresses in the "enp0s8" adapter on the client machines.
+
+<p align = "center">
+<img src = "/assets/images/img-dhcp/captura4.png">
+</p>
+
+We are going to create a subnet declaration specifying the ip range, open dhcp configure file ("/etc/dhcp/dhcpd.conf"). what we have to do inside a subnet declaration and then with the command «range» we will first put the lowest ip (in my case it is 10) the second the highest ip ( which in my case is 200).
+
+<p align = "center">
+<img src = "/assets/images/img-dhcp/captura6.png">
+</p>
+
+To add any changes it is important to ***restart*** the dhcp service with the command:
 
 ```
-sudo nmap -T4 -sC -sV -oA scan -p- 10.129.149.31
-Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-09 22:41 EDT
-Nmap scan report for 10.129.149.31
-Host is up (0.015s latency).
-Not shown: 65533 closed ports
-PORT     STATE SERVICE VERSION
-22/tcp   open  ssh     OpenSSH 8.2p1 Ubuntu 4 (Ubuntu Linux; protocol 2.0)
-| ssh-hostkey: 
-|   3072 48:ad:d5:b8:3a:9f:bc:be:f7:e8:20:1e:f6:bf:de:ae (RSA)
-|   256 b7:89:6c:0b:20:ed:49:b2:c1:86:7c:29:92:74:1c:1f (ECDSA)
-|_  256 18:cd:9d:08:a6:21:a8:b8:b6:f7:9f:8d:40:51:54:fb (ED25519)
-5080/tcp open  http    nginx
-| http-robots.txt: 53 disallowed entries (15 shown)
-| / /autocomplete/users /search /api /admin /profile 
-| /dashboard /projects/new /groups/new /groups/*/edit /users /help 
-|_/s/ /snippets/new /snippets/*/edit
-| http-title: Sign in \xC2\xB7 GitLab
-|_Requested resource was http://10.129.149.31:5080/users/sign_in
-|_http-trane-info: Problem with XML parsing of /evox/about
+sudo service isc-dhcp-server restart
 ```
 
-## Gitlab
+In the same configuration file we can establish the default time that an IP address is going to be lend (defualt-lease-time) and the second would be the maximum rental time of an IP address (max-lease-time). In my case, in both, the time is 1 and 3 hours, which I have indicated in seconds.
+
+<p align = "center">
+<img src = "/assets/images/img-dhcp/captura8.png">
+</p>
 

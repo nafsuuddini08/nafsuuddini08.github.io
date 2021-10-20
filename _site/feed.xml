@@ -1,28 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.1.11:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.1.11:4000/" rel="alternate" type="text/html" /><updated>2021-10-08T01:40:07+02:00</updated><id>http://192.168.1.11:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Ready - Hack The Box</title><link href="http://192.168.1.11:4000/azure-appservice/" rel="alternate" type="text/html" title="Ready - Hack The Box" /><published>2021-05-15T00:00:00+02:00</published><updated>2021-05-15T00:00:00+02:00</updated><id>http://192.168.1.11:4000/azure-appservice</id><content type="html" xml:base="http://192.168.1.11:4000/azure-appservice/">&lt;p&gt;&lt;img src=&quot;/assets/images/htb-writeup-ready/ready_logo.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.1.11:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.1.11:4000/" rel="alternate" type="text/html" /><updated>2021-10-20T03:12:31+02:00</updated><id>http://192.168.1.11:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://192.168.1.11:4000/azure-appservice/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00+02:00</published><updated>2021-10-20T00:00:00+02:00</updated><id>http://192.168.1.11:4000/azure-appservice</id><content type="html" xml:base="http://192.168.1.11:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-dhcp/servidor-DHCP-e1511228735448.png&quot; /&gt;
+&lt;/p&gt;
 
-&lt;p&gt;Ready was a pretty straighforward box to get an initial shell on: We identify that’s it running a vulnerable instance of Gitlab and we use an exploit against version 11.4.7 to land a shell. Once inside, we quickly figure out we’re in a container and by looking at the docker compose file we can see the container is running in privileged mode. We then mount the host filesystem within the container then we can access the flag or add our SSH keys to the host root user home directory.&lt;/p&gt;
+&lt;p&gt;we are going to learn how to configure a dhcp server in linux using the isc-dhcp-server service, we are going to learn: create a fixed ip for our server machine, create subnets, exclude ips ranges, create an ips address concession and finally make a reserved ip for a specific host with its mac address.&lt;/p&gt;
 
-&lt;h2 id=&quot;portscan&quot;&gt;Portscan&lt;/h2&gt;
+&lt;h2 id=&quot;what-is-a-dhcp-server&quot;&gt;What is a dhcp server?&lt;/h2&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo nmap -T4 -sC -sV -oA scan -p- 10.129.149.31
-Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-09 22:41 EDT
-Nmap scan report for 10.129.149.31
-Host is up (0.015s latency).
-Not shown: 65533 closed ports
-PORT     STATE SERVICE VERSION
-22/tcp   open  ssh     OpenSSH 8.2p1 Ubuntu 4 (Ubuntu Linux; protocol 2.0)
-| ssh-hostkey: 
-|   3072 48:ad:d5:b8:3a:9f:bc:be:f7:e8:20:1e:f6:bf:de:ae (RSA)
-|   256 b7:89:6c:0b:20:ed:49:b2:c1:86:7c:29:92:74:1c:1f (ECDSA)
-|_  256 18:cd:9d:08:a6:21:a8:b8:b6:f7:9f:8d:40:51:54:fb (ED25519)
-5080/tcp open  http    nginx
-| http-robots.txt: 53 disallowed entries (15 shown)
-| / /autocomplete/users /search /api /admin /profile 
-| /dashboard /projects/new /groups/new /groups/*/edit /users /help 
-|_/s/ /snippets/new /snippets/*/edit
-| http-title: Sign in \xC2\xB7 GitLab
-|_Requested resource was http://10.129.149.31:5080/users/sign_in
-|_http-trane-info: Problem with XML parsing of /evox/about
+&lt;p&gt;Dynamic Host Configuration Protocol (DHCP), is a network management protocol that allows us to automatically assign IP addresses to client computers, default gateways, and other network parameters. allowing them to use network services such as DNS, NTP and any communication protocol based on UDP or TCP.&lt;/p&gt;
+
+&lt;p&gt;To understand more clearly how the dhcp protocol works, the following diagram shows us how it works:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-dhcp/dhcp.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;installing-dhcp-server-and-adding-fix-ip-address-in-our-server-machine&quot;&gt;Installing dhcp-server and adding fix ip address in our server machine.&lt;/h2&gt;
+&lt;p&gt;The first thing we are going to do to configure the dhcp server is to install it with the following command shown in the image: (in my case I am using OS ubuntu server)&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-dhcp/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In my case I am going to assign a fixed IP address on the server machine. For this we will go to the path “/ etc / netplan” and then we will enter with the «nano» editor in the configuration file that haswithin that route. Inside the file we will put the following parameters:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-dhcp/captura2.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;After we are going to save the changes to the file, we use the command “netplan apply” so that the ip is added to our server. And we use the command “ifconfig” to see if the ip address has been apply.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-dhcp/captura3.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;configuring-our-dhcp-sever&quot;&gt;Configuring our dhcp sever&lt;/h2&gt;
+
+&lt;p&gt;Once we have configured an ip for our server, we will go to the file “/etc/default/isc-dhcp.server”, where it says “interfacesv4 (ipv4 version)” we put the name of the network card where it will listen to the requests that we are going to configure. In my case I want it to assign the ips addresses in the “enp0s8” adapter on the client machines.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-dhcp/captura4.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We are going to create a subnet declaration specifying the ip range, open dhcp configure file (“/etc/dhcp/dhcpd.conf”). what we have to do inside a subnet declaration and then with the command «range» we will first put the lowest ip (in my case it is 10) the second the highest ip ( which in my case is 200).&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-dhcp/captura6.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;To add any changes it is important to &lt;strong&gt;&lt;em&gt;restart&lt;/em&gt;&lt;/strong&gt; the dhcp service with the command:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo service isc-dhcp-server restart
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;gitlab&quot;&gt;Gitlab&lt;/h2&gt;</content><author><name>Nafsu Uddin</name></author><category term="linux" /><category term="gitlab" /><category term="cve" /><category term="docker" /><category term="privileged container" /><summary type="html">Ready was a pretty straighforward box to get an initial shell on: We identify that's it running a vulnerable instance of Gitlab and we use an exploit against version 11.4.7 to land a shell. Once inside, we quickly figure out we're in a container and by looking at the docker compose file we can see the container is running in privileged mode. We then mount the host filesystem within the container then we can access the flag or add our SSH keys to the host root user home directory.</summary></entry></feed>
+&lt;p&gt;In the same configuration file we can establish the default time that an IP address is going to be lend (defualt-lease-time) and the second would be the maximum rental time of an IP address (max-lease-time). In my case, in both, the time is 1 and 3 hours, which I have indicated in seconds.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-dhcp/captura8.png&quot; /&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="dhcp" /><category term="isc-dhcp-server" /><category term="linux" /><category term="subnetting" /><summary type="html">we are going to learn how to configure a dhcp server in linux using the isc-dhcp-server service, we are going to learn how to create subnets and make reserved ips.</summary></entry></feed>

@@ -1,6 +1,6 @@
 var store = [{
-        "title": "Ready - Hack The Box",
-        "excerpt":"Ready was a pretty straighforward box to get an initial shell on: We identify that’s it running a vulnerable instance of Gitlab and we use an exploit against version 11.4.7 to land a shell. Once inside, we quickly figure out we’re in a container and by looking at the docker...","categories": ["hackthebox","infosec"],
-        "tags": ["linux","gitlab","cve","docker","privileged container"],
+        "title": "Configure dhcp server in linux with isc-dhcp-server",
+        "excerpt":"we are going to learn how to configure a dhcp server in linux using the isc-dhcp-server service, we are going to learn: create a fixed ip for our server machine, create subnets, exclude ips ranges, create an ips address concession and finally make a reserved ip for a specific host...","categories": ["Networking","Linux"],
+        "tags": ["dhcp","isc-dhcp-server","linux","subnetting"],
         "url": "http://192.168.1.11:4000/azure-appservice/",
-        "teaser":"http://192.168.1.11:4000/assets/images/htb-writeup-ready/ready_logo.png"}]
+        "teaser":"http://192.168.1.11:4000/assets/images/img-dhcp/servidor-DHCP-e1511228735448.png"}]
