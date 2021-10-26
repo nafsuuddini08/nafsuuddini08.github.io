@@ -1,4 +1,71 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.1.11:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.1.11:4000/" rel="alternate" type="text/html" /><updated>2021-10-20T19:24:24+02:00</updated><id>http://192.168.1.11:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://192.168.1.11:4000/isc-dhcp-server/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00+02:00</published><updated>2021-10-20T00:00:00+02:00</updated><id>http://192.168.1.11:4000/isc-dhcp-server</id><content type="html" xml:base="http://192.168.1.11:4000/isc-dhcp-server/">&lt;p align=&quot;center&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.43.129:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.43.129:4000/" rel="alternate" type="text/html" /><updated>2021-10-25T18:22:38-07:00</updated><id>http://192.168.43.129:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Azure - Appservice</title><link href="http://192.168.43.129:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-07:00</published><updated>2021-10-24T00:00:00-07:00</updated><id>http://192.168.43.129:4000/azure-appservice</id><content type="html" xml:base="http://192.168.43.129:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/appservice.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.&lt;/p&gt;
+
+&lt;p&gt;In this article we are going to learn:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What is app service and azure concepts&lt;/li&gt;
+  &lt;li&gt;How to create a resource group&lt;/li&gt;
+  &lt;li&gt;Create an App service plan&lt;/li&gt;
+  &lt;li&gt;How to creat a appservice in azure&lt;/li&gt;
+  &lt;li&gt;Deploy our web app in the multiple ways:
+    &lt;ul&gt;
+      &lt;li&gt;Deploying with ftp&lt;/li&gt;
+      &lt;li&gt;Deploying with our github repository&lt;/li&gt;
+      &lt;li&gt;Deploying with bitbuket&lt;/li&gt;
+      &lt;li&gt;Deploying with azure repo&lt;/li&gt;
+      &lt;li&gt;Deploying with vs code 2019&lt;/li&gt;
+      &lt;li&gt;Push our repo in github in vs code 2019&lt;/li&gt;
+      &lt;li&gt;Deploying with vs code&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Create appservice with azure start devops&lt;/li&gt;
+  &lt;li&gt;Some azure CLI commands&lt;/li&gt;
+  &lt;li&gt;Create app service and deploy our web app in docker container
+    &lt;ul&gt;
+      &lt;li&gt;Create webhook&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;what-is-app-service&quot;&gt;What is app service?&lt;/h2&gt;
+
+&lt;p&gt;App service is a fully managed web hosting service for building web applications, services and RESTful APIs. The service offers a variety of plans to meet the needs of any application, from small web sites to worldwide web applications.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/azure-app-service-diagram.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In azure there are three models of cloud computing offered to us as a service, and each one covers some degree of management and this includes other cloud providers, which is the iaaS, PaaS and SaaS.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;iaaS&lt;/em&gt;&lt;/strong&gt;: this service manage virtual machines and storage in the cloud.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;PaaS&lt;/em&gt;&lt;/strong&gt;: It provides operating systems, databases, etc. that you can raise, modify and shut down with a few clicks.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;SaaS&lt;/em&gt;&lt;/strong&gt;: Allows users to connect to applications that are in the cloud over the Internet and use them (hosting, outlook, google docs).&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/azuremodels.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;There is one important thing we have to keep in mind when using azure is that it charges us for reading data and this includes with other providers.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-create-resource-group&quot;&gt;How to create resource group&lt;/h2&gt;
+
+&lt;p&gt;A &lt;strong&gt;&lt;em&gt;resource group&lt;/em&gt;&lt;/strong&gt; allows us to manage resources in a flexible and simple way (vm, web app, databases, networks, etc.) The resource group can include all the resources of the solution or only those that you want to manage as group.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/group.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;To create a group of resources, we go to the azure portal and click on the three stripes that appear in the upper left. And then we select a resource group and click on “create” .&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura1.png&quot; /&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://192.168.43.129:4000/isc-dhcp-server/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00-07:00</published><updated>2021-10-20T00:00:00-07:00</updated><id>http://192.168.43.129:4000/isc-dhcp-server</id><content type="html" xml:base="http://192.168.43.129:4000/isc-dhcp-server/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-dhcp/servidor-DHCP-e1511228735448.png&quot; /&gt;
 &lt;/p&gt;
 
