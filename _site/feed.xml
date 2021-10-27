@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.43.129:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.43.129:4000/" rel="alternate" type="text/html" /><updated>2021-10-25T18:22:38-07:00</updated><id>http://192.168.43.129:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Azure - Appservice</title><link href="http://192.168.43.129:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-07:00</published><updated>2021-10-24T00:00:00-07:00</updated><id>http://192.168.43.129:4000/azure-appservice</id><content type="html" xml:base="http://192.168.43.129:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-10-26T18:23:40-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Azure - Appservice</title><link href="http://localhost:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-07:00</published><updated>2021-10-24T00:00:00-07:00</updated><id>http://localhost:4000/azure-appservice</id><content type="html" xml:base="http://localhost:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/appservice.png&quot; /&gt;
 &lt;/p&gt;
 
@@ -65,7 +65,29 @@
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/captura1.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://192.168.43.129:4000/isc-dhcp-server/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00-07:00</published><updated>2021-10-20T00:00:00-07:00</updated><id>http://192.168.43.129:4000/isc-dhcp-server</id><content type="html" xml:base="http://192.168.43.129:4000/isc-dhcp-server/">&lt;p align=&quot;center&quot;&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In case we have other types of azure subscriptions we will select it, and we gon a put name our resource group. It is important to check which region we choose, because depending on the region, there are different costs. And click on “review + finish”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura2.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;create-an-app-service-plan&quot;&gt;Create an app service plan&lt;/h2&gt;
+
+&lt;p&gt;We are going to create a plan for our app service, and when we are going to create a new app service we can select this plan.&lt;/p&gt;
+
+&lt;p&gt;So to create a app service plan, we are going to search “app service plans” in the azure portal navegation bar. Here we are gon a click in “create”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura3.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Here we are going to select our resource group that we have just created, we put the name of our plan, we will choose an operating system this is important since each operating system offers us different functionalities in the app service, we choose a region (it is important to select the region where we are located) and finally we will choose the price plan, there are two price plans that are for testing, which is f1 (which is free) and b2 (which is paid and with more capacity) there are other price plans but we’ll see later.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura4.png&quot; /&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://localhost:4000/isc-dhcp-server/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00-07:00</published><updated>2021-10-20T00:00:00-07:00</updated><id>http://localhost:4000/isc-dhcp-server</id><content type="html" xml:base="http://localhost:4000/isc-dhcp-server/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-dhcp/servidor-DHCP-e1511228735448.png&quot; /&gt;
 &lt;/p&gt;
 

@@ -82,3 +82,24 @@ To create a group of resources, we go to the azure portal and click on the three
 <img src = "/assets/images/img-appservice/captura1.png">
 </p>
 
+In case we have other types of azure subscriptions we will select it, and we gon a put name our resource group. It is important to check which region we choose, because depending on the region, there are different costs. And click on "review + finish".
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura2.png">
+</p>
+
+## Create an app service plan
+
+We are going to create a plan for our app service, and when we are going to create a new app service we can select this plan. 
+
+So to create a app service plan, we are going to search "app service plans" in the azure portal navegation bar. Here we are gon a click in "create".
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura3.png">
+</p>
+
+Here we are going to select our resource group that we have just created, we put the name of our plan, we will choose an operating system this is important since each operating system offers us different functionalities in the app service, we choose a region (it is important to select the region where we are located) and finally we will choose the price plan, there are two price plans that are for testing, which is f1 (which is free) and b2 (which is paid and with more capacity) there are other price plans but we'll see later. 
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura4.png">
+</p>
