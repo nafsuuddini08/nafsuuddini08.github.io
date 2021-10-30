@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-10-26T18:23:40-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Azure - Appservice</title><link href="http://localhost:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-07:00</published><updated>2021-10-24T00:00:00-07:00</updated><id>http://localhost:4000/azure-appservice</id><content type="html" xml:base="http://localhost:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-10-29T18:28:08-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Azure - Appservice</title><link href="http://localhost:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-07:00</published><updated>2021-10-24T00:00:00-07:00</updated><id>http://localhost:4000/azure-appservice</id><content type="html" xml:base="http://localhost:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/appservice.png&quot; /&gt;
 &lt;/p&gt;
 
@@ -10,7 +10,7 @@
   &lt;li&gt;What is app service and azure concepts&lt;/li&gt;
   &lt;li&gt;How to create a resource group&lt;/li&gt;
   &lt;li&gt;Create an App service plan&lt;/li&gt;
-  &lt;li&gt;How to creat a appservice in azure&lt;/li&gt;
+  &lt;li&gt;Creat a appservice in azure&lt;/li&gt;
   &lt;li&gt;Deploy our web app in the multiple ways:
     &lt;ul&gt;
       &lt;li&gt;Deploying with ftp&lt;/li&gt;
@@ -87,6 +87,276 @@
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/captura4.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;After selecting the sku, we click on “create and review” and a summary of the configuration that we have put in our app service plan will appear. and we click “create” to finish.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura5.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;create-an-app-service&quot;&gt;Create an app service&lt;/h2&gt;
+
+&lt;p&gt;We will type “app service” in the search engine of the azure portal and click on app service.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura6.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Here in the app service panel we are going to click on “create”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura7.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;First we are going to select the group of resources that we have created previously, and then we will put a domain name for our web app. In “publish” we are going to select code, since the second option is if we want our app service to be published within a docker container, but we will see that later.&lt;/p&gt;
+
+&lt;p&gt;Where it says “runtime stack” defines the technology stack used to develop the application, in my case I will choose php 7.3. We choose an OS as I said before, it is important that we select a suitable one for our needs since each OS offers different features in app service.&lt;/p&gt;
+
+&lt;p&gt;We choose a region closer to where we are located and in “plan” we will choose the plan that we created previously, in this case I put another app service plan since the plan that I created previously put the Linux OS. or if we want we can create a plan directly from here by clicking on “creat new”. And to finish we click on “review and finish”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura8.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And here we can see the summary of the configuration that we put to create the app service (if we see any wrong configuration we can go back) and we click on “create” to finish the process.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura9.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We are going to wait for the implementation process of our app service to finish. And once it is finished we click on the notification bell and we click on “go to resource” or from the same panel where it is being deployed.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura10.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We are in the overview section of our app service. And we can see we have the domain that we put for our app service, in case if we click on the url the default azure page will appear.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura11.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we go to “Scale up” here we can change our contract plan for our app service.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura12.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we want to upload our app service in production we have other types of plans.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura13.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we go to the configuration of our app service, in “general settings” we can change some settings of our app service in the event that when creating the app service we put some configuration that we didn’t want.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura14.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;deploy-our-web-app-in-the-multiple-ways&quot;&gt;Deploy our web app in the multiple ways:&lt;/h2&gt;
+
+&lt;h3 id=&quot;deploying-with-ftp&quot;&gt;Deploying with ftp:&lt;/h3&gt;
+
+&lt;p&gt;In this case, to deploy our web app we are going to use an ftp client, in this case I am going to use filezilla. but if we want we can use the terminal.&lt;/p&gt;
+
+&lt;p&gt;In my case I am going to upload an html file that I just created.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;What we are going to do is connect the server to our ftp client. If in your case you are using filezilla, what we are going to do is go to “archives” and click on “site manager”. and we click on “new site” and in this case we are going to put the name of our app service that we just created.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura16.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In the ftp client it will ask us for the name of our server, username and password. for this we go to our app service and we will go where it says “Deployment center” and click on “ftps credentials”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura17.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In the filezilla will are going to copy and paste “ftps endpoint”, copy the username and password and paste in filezilla. and click in “connect”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura18.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If everyting is all right we should get a popup of the ftp certificate that we are using, when we click in “connect”. And click “accept”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura19.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;To deploy our web app just where it says “remote site” we go to the path “/site/wwwroot” and here we drag the folder where we have developed our web app. in my case I am just going to upload the html file that I created before.&lt;/p&gt;
+
+&lt;p&gt;where it says “status” we can see if our files have been uploaded correctly to the server.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura20.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If I go to the domain of my app service we can see that the deploy has been done correctly.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura21.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h3 id=&quot;deploying-with-our-github-repository&quot;&gt;Deploying with our github repository:&lt;/h3&gt;
+
+&lt;p&gt;In my case i have created an repository in my github account, and in that repository i add an html file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura22.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now what we are going to do is to connect our github account and the repository. for this I am going to use the app service that I have created in azure CLI. To do this we go to our app service, and in “deployment center” -&amp;gt; “settings” -&amp;gt; “source” -&amp;gt; “continuous deployment” we select github.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura23.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Then a popup will appear and we will log in to our github account (in case we are not logged in) and click on “Authorize app service”. And we will have already connected our github account to our app service.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura24.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In organization we are going to select an organization that we have created in github, in my case I don’t have one so I am going to select the name of my account. In “repository” we are going to select the repo where we have uploaded our web app. And select the branch we want, in this case I have selected the “main” branch. And finally we click on “save”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura25.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And as we can see, it has been deployed correctly.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura26.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If in case we want another repo in our app service or disconnect our repo. We go to “deployment center” and click on “disconnect”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura27.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h3 id=&quot;deploying-with-bitbucket&quot;&gt;Deploying with bitbucket:&lt;/h3&gt;
+
+&lt;p&gt;In bitbucket it is the same process we have done in github to deploy our web app.&lt;/p&gt;
+
+&lt;p&gt;The first thing I have done in bitbucket is create a workspace.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura28.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Then i create a project.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura29.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And then i create a repository in bitbucket.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura30.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Inside the repository I have created an index.html file with the following content.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura31.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Once I finished I made a commit of the changes.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura32.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In this case I have created another app service for this time.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura33.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;To deploy our web app in the app service we go to “deployment center” and in “source” we choose “bitbucket” (we can use the app service that we have created before and disconnect it and instead of github put bitbucket). we put the organization that we have created in bitbucket, in my case I have created one called “testazure9”, we select the repository and the branch, and we click on save.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura34.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And as we can see that the deploy has been done correctly.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura35.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h3 id=&quot;deploying-with-azure-repo&quot;&gt;Deploying with Azure repo:&lt;/h3&gt;
+
+&lt;p&gt;To deploy our web app in azure repos is the same process we did in bitbucket and github.&lt;/p&gt;
+
+&lt;p&gt;The first thing we will do is go to the azure repo page and click on “start” to configure azure repo or just go to the azure portal and search for “azure devops”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura36.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now we are going to name our project, choose whether we want it to be private or public and select the region. And click on “continue”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura37.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And now put the project name and clic in “create project”&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura38.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And as we can see we have already created a workspace and an organization. Now let’s create a repository.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura39.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;To create the repository we click on the arrow indicated in the previous image and click on “new repository”, here we select git and put a name for the repository.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura40.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Inside the repository I have added an index.html file with the following content:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura41.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And click on “commit” to commit the changes we have made.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura42.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In my case I will create another app service to deploy (as I said before, we can go to the app service we have created and in “deployment centre” we disconnect the previous repo and in “source” we can select “Azure repo”).&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura43.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;To deploy we go to “deployment center” -&amp;gt; “settings” in source we select “Azure repo” and in the “organization” select the organization that you have, and select the project we just created and the repo where we have our web app. And click on “save”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura44.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And we can see that the deploy has been done correctly and the changes have been applied correctly.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura45.png&quot; /&gt;
 &lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://localhost:4000/isc-dhcp-server/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00-07:00</published><updated>2021-10-20T00:00:00-07:00</updated><id>http://localhost:4000/isc-dhcp-server</id><content type="html" xml:base="http://localhost:4000/isc-dhcp-server/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-dhcp/servidor-DHCP-e1511228735448.png&quot; /&gt;
 &lt;/p&gt;
