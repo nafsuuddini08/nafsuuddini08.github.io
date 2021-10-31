@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-10-29T18:28:08-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Azure - Appservice</title><link href="http://localhost:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-07:00</published><updated>2021-10-24T00:00:00-07:00</updated><id>http://localhost:4000/azure-appservice</id><content type="html" xml:base="http://localhost:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-10-30T17:58:22-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Azure - Appservice</title><link href="http://localhost:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-07:00</published><updated>2021-10-24T00:00:00-07:00</updated><id>http://localhost:4000/azure-appservice</id><content type="html" xml:base="http://localhost:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/appservice.png&quot; /&gt;
 &lt;/p&gt;
 
@@ -16,9 +16,13 @@
       &lt;li&gt;Deploying with ftp&lt;/li&gt;
       &lt;li&gt;Deploying with our github repository&lt;/li&gt;
       &lt;li&gt;Deploying with bitbuket&lt;/li&gt;
+      &lt;li&gt;Deploying with git local&lt;/li&gt;
       &lt;li&gt;Deploying with azure repo&lt;/li&gt;
-      &lt;li&gt;Deploying with vs code 2019&lt;/li&gt;
-      &lt;li&gt;Push our repo in github in vs code 2019&lt;/li&gt;
+      &lt;li&gt;Deploying with vs code 2019
+        &lt;ul&gt;
+          &lt;li&gt;Push our repo in github in vs code 2019&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
       &lt;li&gt;Deploying with vs code&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -243,6 +247,12 @@
 &lt;img src=&quot;/assets/images/img-appservice/captura27.png&quot; /&gt;
 &lt;/p&gt;
 
+&lt;p&gt;If we go to “deployment center” it notifies us and tells us the date and time and the user who made a pull request or any modification in the repository (it’s the same feature we have in github).&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/registro.png&quot; /&gt;
+&lt;/p&gt;
+
 &lt;h3 id=&quot;deploying-with-bitbucket&quot;&gt;Deploying with bitbucket:&lt;/h3&gt;
 
 &lt;p&gt;In bitbucket it is the same process we have done in github to deploy our web app.&lt;/p&gt;
@@ -357,6 +367,56 @@
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/captura45.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h3 id=&quot;deploying-with-git-local&quot;&gt;Deploying with git local:&lt;/h3&gt;
+
+&lt;p&gt;I have created another app service for this demonstration (but as I said before we can go to “deployment center” and disconnect and in “source” change the implementation).&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura46.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Once we have selected “git local” we click on “save”. because this time it won’t ask for the repository and branch. Copy the link to clone the repository.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura47.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;When cloning the repository we will be asked for the username and password, the same will happen if we want to push the repo.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura49.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;To find the username and password, in the same “deployment center” in the section where it says “Local GIT or FTP credentials”, copy the username and password and paste it to clone the repo.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura48.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Obviously when cloning the repo it tells us that there is no file as we have just created the app service and deployed it.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura50.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In my case I have added an html file in the cloned folder with the following content.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura51.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;we push the repository with the link that appears in the “deployment centre”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura52.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;as we can see that the deploy has been successful and the changes have been applied, when we have done the push.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura53.png&quot; /&gt;
 &lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://localhost:4000/isc-dhcp-server/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00-07:00</published><updated>2021-10-20T00:00:00-07:00</updated><id>http://localhost:4000/isc-dhcp-server</id><content type="html" xml:base="http://localhost:4000/isc-dhcp-server/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-dhcp/servidor-DHCP-e1511228735448.png&quot; /&gt;
 &lt;/p&gt;

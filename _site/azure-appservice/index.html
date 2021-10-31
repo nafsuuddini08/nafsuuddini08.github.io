@@ -327,9 +327,13 @@
       <li>Deploying with ftp</li>
       <li>Deploying with our github repository</li>
       <li>Deploying with bitbuket</li>
+      <li>Deploying with git local</li>
       <li>Deploying with azure repo</li>
-      <li>Deploying with vs code 2019</li>
-      <li>Push our repo in github in vs code 2019</li>
+      <li>Deploying with vs code 2019
+        <ul>
+          <li>Push our repo in github in vs code 2019</li>
+        </ul>
+      </li>
       <li>Deploying with vs code</li>
     </ul>
   </li>
@@ -554,6 +558,12 @@
 <img src="/assets/images/img-appservice/captura27.png" />
 </p>
 
+<p>If we go to “deployment center” it notifies us and tells us the date and time and the user who made a pull request or any modification in the repository (it’s the same feature we have in github).</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/registro.png" />
+</p>
+
 <h3 id="deploying-with-bitbucket">Deploying with bitbucket:</h3>
 
 <p>In bitbucket it is the same process we have done in github to deploy our web app.</p>
@@ -669,6 +679,57 @@
 <p align="center">
 <img src="/assets/images/img-appservice/captura45.png" />
 </p>
+
+<h3 id="deploying-with-git-local">Deploying with git local:</h3>
+
+<p>I have created another app service for this demonstration (but as I said before we can go to “deployment center” and disconnect and in “source” change the implementation).</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura46.png" />
+</p>
+
+<p>Once we have selected “git local” we click on “save”. because this time it won’t ask for the repository and branch. Copy the link to clone the repository.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura47.png" />
+</p>
+
+<p>When cloning the repository we will be asked for the username and password, the same will happen if we want to push the repo.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura49.png" />
+</p>
+
+<p>To find the username and password, in the same “deployment center” in the section where it says “Local GIT or FTP credentials”, copy the username and password and paste it to clone the repo.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura48.png" />
+</p>
+
+<p>Obviously when cloning the repo it tells us that there is no file as we have just created the app service and deployed it.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura50.png" />
+</p>
+
+<p>In my case I have added an html file in the cloned folder with the following content.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura51.png" />
+</p>
+
+<p>we push the repository with the link that appears in the “deployment centre”.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura52.png" />
+</p>
+
+<p>as we can see that the deploy has been successful and the changes have been applied, when we have done the push.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura53.png" />
+</p>
+
 
         
       </section>
