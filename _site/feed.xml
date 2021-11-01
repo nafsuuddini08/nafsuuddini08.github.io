@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-10-30T17:58:22-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Azure - Appservice</title><link href="http://localhost:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-07:00</published><updated>2021-10-24T00:00:00-07:00</updated><id>http://localhost:4000/azure-appservice</id><content type="html" xml:base="http://localhost:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-10-31T18:31:30-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Azure - Appservice</title><link href="http://localhost:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-07:00</published><updated>2021-10-24T00:00:00-07:00</updated><id>http://localhost:4000/azure-appservice</id><content type="html" xml:base="http://localhost:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/appservice.png&quot; /&gt;
 &lt;/p&gt;
 
@@ -417,7 +417,85 @@
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/captura53.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://localhost:4000/isc-dhcp-server/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00-07:00</published><updated>2021-10-20T00:00:00-07:00</updated><id>http://localhost:4000/isc-dhcp-server</id><content type="html" xml:base="http://localhost:4000/isc-dhcp-server/">&lt;p align=&quot;center&quot;&gt;
+&lt;/p&gt;
+
+&lt;h3 id=&quot;deploying-with-vs-code-2019&quot;&gt;Deploying with vs code 2019:&lt;/h3&gt;
+
+&lt;p&gt;In this case the IDE I am using is the community version, but this applied to the pro version.&lt;/p&gt;
+
+&lt;p&gt;We open the vs elbow 2019 and we will create a project.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura54.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now we are going to choose one of the extensions we want, in this case as we are going to deploy a web app we are going to choose the following extension shown on the screen.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura55.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We will name the project and choose a framework for .NET.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura56.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We choose what type of template we are going to make for our web application and then we click on “create”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura57.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;For this demo I am going to modify the default index.html file in vs code 2019.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura58.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now we are going to deploy our project in the app service we have created. To do this we are going to right click on the “explorer” of our project and click on “publish”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura59.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We will see a popup of which way we want to publish our project. In this case we will select “azure”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura60.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And in this case we will choose the app service option and click “next”. But we can see that we have other options to deploy.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura61.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now if we want to create a new app service in vs code 2019 we click on the following icon that is displayed on the screen, and fill in the following options. and click on “create” (Being the first time we may be asked to log in with our azure account).&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura62.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Once the app service has been created, we select the app service we have just created and click on “finish”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura63.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Once we have clicked on “finish”, we will see a summary of the app service we have just created. Finally we click on “publish” to finish the deploy process.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura64.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And as we can see our web app has been published correctly with the changes I have added.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura65.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h3 id=&quot;deploying-with-vs-code&quot;&gt;Deploying with vs code:&lt;/h3&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://localhost:4000/isc-dhcp-server/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00-07:00</published><updated>2021-10-20T00:00:00-07:00</updated><id>http://localhost:4000/isc-dhcp-server</id><content type="html" xml:base="http://localhost:4000/isc-dhcp-server/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-dhcp/servidor-DHCP-e1511228735448.png&quot; /&gt;
 &lt;/p&gt;
 
