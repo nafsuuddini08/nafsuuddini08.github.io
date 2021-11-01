@@ -511,3 +511,64 @@ And as we can see our web app has been published correctly with the changes I ha
 
 ### Deploying with vs code:
 
+Now we are going to learn how to create an app service and deploy our web app in vs code.
+
+First we will go to the extensions section for vs code, and search for app service and install it.
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura66.png">
+</p>
+
+For the first time we will be asked to log in with our azure account, to create the app service we simply click on "+". 
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura67.png">
+</p>
+
+It will ask us to name the app service and then we will choose a language for the runtime stack.
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura68.png">
+</p>
+
+It will ask us to choose a plan for our app service. (if we already have a plan created we select it or we can create another plan).
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura69.png">
+</p>
+
+After selecting the plan, you will be notified that the app service has been created successfully.
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura70.png">
+</p>
+
+Now once we have created the app service, we are going to deploy our web app.
+
+For this demo i have created a html file with the he following content shown in the image. To deploy, right click on the app service and select the option "deploy" and select the folder where we have all the code of our app.
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura71.png">
+</p>
+
+We will get a warning if we are sure to deploy. Click on "deploy" to finish the process.
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura72.png">
+</p>
+
+If the deploy has been done correctly, we will see a warning that the deploy is being done. click on "browser website" to open the browser.
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura73.png">
+</p>
+
+And as we can see the deploy has been done correctly and the changes have been applied.
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura74.png">
+</p>
+
+## Create appservice with azure start devops
+
+
