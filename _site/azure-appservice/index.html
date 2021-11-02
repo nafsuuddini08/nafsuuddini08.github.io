@@ -868,6 +868,130 @@
 
 <h2 id="create-appservice-with-azure-start-devops">Create appservice with azure start devops</h2>
 
+<p>Devops started creates a web app in azure devops. DevOps Starter configures everything we need to develop, deploy and monitor our application.</p>
+
+<p>The first thing we are going to do is from the azure portal look for “Devops starter”, and here we are going to choose a framework or language that we are going to use for our web app.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura76.png" />
+</p>
+
+<p>Then you must choose two options, the first one is to create an app service running on windows, and the second one if we want our web app to be inside a container. in my case I will choose the first option, because the second option we will see it in a different way later. Click on “next” to continue</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura77.png" />
+</p>
+
+<p>In this option we will be asked to give permissions with our github account. And this will create a workflow in our repo.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura78.png" />
+</p>
+
+<p>Now we will select the organisation, the repository and the branch. We will choose a region and the service plan we want to apply.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura79.png" />
+</p>
+
+<p>Once we have clicked on “create”, we wait for the process to finish and click on “authorize” so that it can deploy.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura80.png" />
+</p>
+
+<p>To do a test, I am going to go to the repository where the workflow has been created, and go to the “armtemplete” folder to modify a bit the default template.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura81.png" />
+</p>
+
+<p>In this case I have modified the default index.html file a bit, and we commit to save the changes.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura82.png" />
+</p>
+
+<p>we go back to devops starter, we will see that we will see that we have modified the repo and the commit we have just done, we also have the “yml” file which is where we have all the configuration we have done of devops starter.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura83.png" />
+</p>
+
+<p>And as we can see the changes have been applied correctly. The good thing about this is that it applies the changes quickly and we don’t have to restart any kind of service.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura84.png" />
+</p>
+
+<h2 id="azure-cli-commands">Azure CLI commands</h2>
+
+<p>All the steps we have done, we can also be done from the azure cli command line in a much faster way. in this case we are going to use some of the azure cli commands.</p>
+
+<p>There are two ways to use the azure cli command line, the first is from the azure portal by opening the cloud shell, and the second option if you are on windows is to download the azure cli .exe to be able to use the commands in the cmd.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura85.png" />
+</p>
+
+<p><strong><em>All azure CLI commands start with “az”.</em></strong></p>
+
+<p>if we use the azure cli from your computer, we have to use the following command to log in with our azure account. with this command we will jump to the browser to log in.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az login
+</code></pre></div></div>
+
+<p>If we want to login in our azure account in the terminal. (I don’t recommend this option because it is insecure.)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az login -u username -p pass
+</code></pre></div></div>
+
+<p>command to list all the resource groups we have created.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az group list
+</code></pre></div></div>
+<p>see all available regions.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az account list-locations
+</code></pre></div></div>
+
+<p>Create a resource group.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az group create --name yourresourcegroupname --location westeurope
+</code></pre></div></div>
+
+<p>Delete resource groups.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az group delete --name resourcegroupname
+</code></pre></div></div>
+
+<p>Create an app service plan.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az appservice plan create -g resourgroupname -n namaoftheplan
+</code></pre></div></div>
+
+<p>List all the plans we have created in our azure account.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az appservice plan list
+</code></pre></div></div>
+
+<p>Create an app service.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az webapp create --resource-group yourresourgroupname --plan theplanname --name nameoftheappservice --runtime "PHP|7.4"
+</code></pre></div></div>
+<p>As we can see, the app service has been created correctly.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura86.png" />
+</p>
+
+<p>logout our azure account in the terminal.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az logout
+</code></pre></div></div>
+
+<h2 id="create-app-service-and-deploy-our-web-app-in-docker-container">Create app service and deploy our web app in docker container</h2>
+
 
         
       </section>
