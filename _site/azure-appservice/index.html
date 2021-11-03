@@ -18,14 +18,14 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="nafrez.io">
 <meta property="og:title" content="Azure - Appservice">
-<meta property="og:url" content="http://localhost:4000/azure-appservice/">
+<meta property="og:url" content="http://192.168.43.129:4000/azure-appservice/">
 
 
   <meta property="og:description" content="We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.">
 
 
 
-  <meta property="og:image" content="http://localhost:4000/assets/images/img-appservice/appservice.png">
+  <meta property="og:image" content="http://192.168.43.129:4000/assets/images/img-appservice/appservice.png">
 
 
 
@@ -42,7 +42,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/azure-appservice/">
+<link rel="canonical" href="http://192.168.43.129:4000/azure-appservice/">
 
 
 
@@ -55,7 +55,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Nafsu",
-      "url": "http://localhost:4000",
+      "url": "http://192.168.43.129:4000",
       "sameAs": null
     }
   </script>
@@ -160,7 +160,7 @@
     
       
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <a href="http://192.168.43.129:4000/" itemprop="item"><span itemprop="name">Home</span></a>
           <meta itemprop="position" content="1" />
         </li>
         <span class="sep">/</span>
@@ -339,9 +339,9 @@
   </li>
   <li>Create appservice with azure start devops</li>
   <li>Some azure CLI commands</li>
-  <li>Create app service and deploy our web app in docker container
+  <li>Create an app service inside a container
     <ul>
-      <li>Create webhook</li>
+      <li>Create an webhook</li>
     </ul>
   </li>
 </ul>
@@ -990,8 +990,216 @@
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az logout
 </code></pre></div></div>
 
-<h2 id="create-app-service-and-deploy-our-web-app-in-docker-container">Create app service and deploy our web app in docker container</h2>
+<h2 id="create-an-app-service-inside-a-container">Create an app service inside a container</h2>
 
+<p>What we are going to do is first create a dockerfile in our web app folder and with that create a container from our local machine, then we are going to use the acr service to deploy the container and create an app service from the container we have created.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura87.png" />
+</p>
+
+<p>The first thing we are going to do is inside the azure portal we are going to create a registry of our containers (ACR). To do this we go to the search menu and in containers we click on “container registry”, or you can search for “acr” in the search bar from the azure portal.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura88.png" />
+</p>
+
+<p>Now we will select the resource group, put the name of your acr, and we will choose the region and finally in SKU we are going to select a plan. And click on “review and create”.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura89.png" />
+</p>
+
+<p>As we can see we have successfully created our ACR.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura90.png" />
+</p>
+
+<p>For this demo, I will use a simple node project.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura91.png" />
+</p>
+
+<p>In the project folder I have created an simple dockerfile with the following instructions. in “FORM” I have indicated which image I am going to use for my container in this case I have indicated “node”, in “WORK DIR” the path where my web app will be running, and with the command “COPY” and “RUN” I am indicating that I copy all the code of my web app, and with the “run” I indicate to install the dependencies and with this I will always update the container, and finally the parameter “CMD” I indicate that when my container runs I execute the command “nmp start”.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura92.png" />
+</p>
+
+<p>So in my package.json file yo can see the startup script simply just runs node app.js.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura93.png" />
+</p>
+
+<p>So in my app.js file i simply idicate the following message.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura94.png" />
+</p>
+
+<p>And in the app.js file i indicate to run “app.listen” to specify a port thats exported in that configuration to listening on the port 3000 by defualt.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura95.png" />
+</p>
+
+<p>We are going to create a docker image of our web app. for this we are going to use the command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker built -t acrname.azurecr.io/your-webapp-name:lastest .
+</code></pre></div></div>
+<p>In the last paremeter we are going to use “lastest” so that in our container is always the last version of our web app.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura96.png" />
+</p>
+
+<p>Once the image build process is finished, we are going to use “docker images” command to check if the image has been created correctly.</p>
+
+<p>And then with the command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d -p 8080:3000 IMAGE ID
+</code></pre></div></div>
+
+<p>To run the container from local to see if our app is working correctly. The “-p” parameter specifies the port I want my web app to run.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura97.png" />
+</p>
+
+<p>And as we can see our web app is working correctly inside the container.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura98.png" />
+</p>
+
+<p>Now we are going to publish the container image we have just created in ACR. To do this we will use the command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker login yourACRname.azurecr.io
+</code></pre></div></div>
+
+<p>Now let’s log into our ACR to deploy our container image, it will ask us for the user and password. To do this we are going to go to  your ACR =&gt; Access key. Copy and paste the username and password into the terminal.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura99.jpg" />
+</p>
+
+<p>Now we are going to deploy our container image in ACR. for this we are going to use the command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker push name-of-the-image:lastest
+</code></pre></div></div>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura100.png" />
+</p>
+
+<p>And once we have finished the deploy process we are going to check it. for this we will go to: ACR =&gt; repository. And as we can see that the image has been published correctly.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura101.png" />
+</p>
+
+<p>If we click on the image we can see what the latest version is and the date when we made the push.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura102.png" />
+</p>
+
+<p>Now we are going to connect our container that we have uploaded and we are going to connect it with the app service, for this we will go to: Create a resource =&gt; containers =&gt; Web App for containers.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura103.png" />
+</p>
+
+<p>Now select the resource group, name our app service, under “publish” it is important that we select the option <strong><em>“docker container”</em></strong>, choose the OS and the region. And click on “Next”.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura104.png" />
+</p>
+
+<p>In the docker section it is important that where it says <strong><em>“Image source”</em></strong> we select the <strong><em>ACR</em></strong>, and in registry we are going to select the name of our ACR, and in where says “image” select the <strong><em>docker image</em></strong> that we have deploy, and in label we are going to put <strong><em>“lastest”</em></strong> to indicate that we want the latest version of the image. And click on “review and create”.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura105.png" />
+</p>
+
+<p>A notification will appear if it has been successfully created and we click on “go to resource”.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura106.png" />
+</p>
+
+<p>And as we can see that we have created our app service. now we have our app service inside a container.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura107.png" />
+</p>
+
+<p>And we can see that my web app is working correctly.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura108.png" />
+</p>
+
+<h3 id="create-an-webhook">Create an webhook:</h3>
+
+<p>Go to your app service =&gt; click where it says “Deployment center” =&gt; in settings you select the first option “container registry” (here your docker image that you have created will automatically appear) =&gt; select the option “On” in “Continuous deployment”.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura109.png" />
+</p>
+
+<p>What this will do is it’ll create a webhook rosource that will fire whenever we push a new version to the docker container image in the ACR and it will actomatically kick off deployment.</p>
+
+<p>So go to the group of resources where we have created the app service, we can observe that the webhook has been created.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura110.png" />
+</p>
+
+<p>We click in the webhook, and we can see it’s never run yet but if we push a new version of the image to the registry it should fire, it should cause a deployment to take place and update our web app.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura111.png" />
+</p>
+
+<p>For this demo, I am going to make a modification of my web app.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura112.png" />
+</p>
+
+<p>And I’m going to reassemble the image.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura113.png" />
+</p>
+
+<p>And I’m going to push the image again.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura114.png" />
+</p>
+
+<p>So going back to the portal heading over to the webhook rosource and click on “refresh”, we can see that we got a push action taking place.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura115.png" />
+</p>
+
+<p>And if we go to our app service in the “deployment center” section and select the log section, we can see the logs when we have published the image.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura116.png" />
+</p>
+
+<p>And as you can see the changes have been applied correctly in my web app.</p>
+
+<p align="center">
+<img src="/assets/images/img-appservice/captura117.png" />
+</p>
 
         
       </section>

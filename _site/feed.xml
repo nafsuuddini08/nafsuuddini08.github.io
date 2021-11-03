@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-11-01T18:19:18-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Azure - Appservice</title><link href="http://localhost:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-07:00</published><updated>2021-10-24T00:00:00-07:00</updated><id>http://localhost:4000/azure-appservice</id><content type="html" xml:base="http://localhost:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.43.129:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.43.129:4000/" rel="alternate" type="text/html" /><updated>2021-11-02T18:54:54-07:00</updated><id>http://192.168.43.129:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Azure - Appservice</title><link href="http://192.168.43.129:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-07:00</published><updated>2021-10-24T00:00:00-07:00</updated><id>http://192.168.43.129:4000/azure-appservice</id><content type="html" xml:base="http://192.168.43.129:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/appservice.png&quot; /&gt;
 &lt;/p&gt;
 
@@ -28,9 +28,9 @@
   &lt;/li&gt;
   &lt;li&gt;Create appservice with azure start devops&lt;/li&gt;
   &lt;li&gt;Some azure CLI commands&lt;/li&gt;
-  &lt;li&gt;Create app service and deploy our web app in docker container
+  &lt;li&gt;Create an app service inside a container
     &lt;ul&gt;
-      &lt;li&gt;Create webhook&lt;/li&gt;
+      &lt;li&gt;Create an webhook&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
@@ -679,7 +679,216 @@
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;az logout
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;create-app-service-and-deploy-our-web-app-in-docker-container&quot;&gt;Create app service and deploy our web app in docker container&lt;/h2&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://localhost:4000/isc-dhcp-server/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00-07:00</published><updated>2021-10-20T00:00:00-07:00</updated><id>http://localhost:4000/isc-dhcp-server</id><content type="html" xml:base="http://localhost:4000/isc-dhcp-server/">&lt;p align=&quot;center&quot;&gt;
+&lt;h2 id=&quot;create-an-app-service-inside-a-container&quot;&gt;Create an app service inside a container&lt;/h2&gt;
+
+&lt;p&gt;What we are going to do is first create a dockerfile in our web app folder and with that create a container from our local machine, then we are going to use the acr service to deploy the container and create an app service from the container we have created.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura87.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The first thing we are going to do is inside the azure portal we are going to create a registry of our containers (ACR). To do this we go to the search menu and in containers we click on “container registry”, or you can search for “acr” in the search bar from the azure portal.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura88.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now we will select the resource group, put the name of your acr, and we will choose the region and finally in SKU we are going to select a plan. And click on “review and create”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura89.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;As we can see we have successfully created our ACR.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura90.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;For this demo, I will use a simple node project.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura91.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In the project folder I have created an simple dockerfile with the following instructions. in “FORM” I have indicated which image I am going to use for my container in this case I have indicated “node”, in “WORK DIR” the path where my web app will be running, and with the command “COPY” and “RUN” I am indicating that I copy all the code of my web app, and with the “run” I indicate to install the dependencies and with this I will always update the container, and finally the parameter “CMD” I indicate that when my container runs I execute the command “nmp start”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura92.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So in my package.json file yo can see the startup script simply just runs node app.js.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura93.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So in my app.js file i simply idicate the following message.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura94.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And in the app.js file i indicate to run “app.listen” to specify a port thats exported in that configuration to listening on the port 3000 by defualt.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura95.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We are going to create a docker image of our web app. for this we are going to use the command:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker built -t acrname.azurecr.io/your-webapp-name:lastest .
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;In the last paremeter we are going to use “lastest” so that in our container is always the last version of our web app.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura96.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Once the image build process is finished, we are going to use “docker images” command to check if the image has been created correctly.&lt;/p&gt;
+
+&lt;p&gt;And then with the command:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -d -p 8080:3000 IMAGE ID
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To run the container from local to see if our app is working correctly. The “-p” parameter specifies the port I want my web app to run.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura97.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And as we can see our web app is working correctly inside the container.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura98.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now we are going to publish the container image we have just created in ACR. To do this we will use the command:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker login yourACRname.azurecr.io
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now let’s log into our ACR to deploy our container image, it will ask us for the user and password. To do this we are going to go to  your ACR =&amp;gt; Access key. Copy and paste the username and password into the terminal.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura99.jpg&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now we are going to deploy our container image in ACR. for this we are going to use the command:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker push name-of-the-image:lastest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura100.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And once we have finished the deploy process we are going to check it. for this we will go to: ACR =&amp;gt; repository. And as we can see that the image has been published correctly.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura101.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we click on the image we can see what the latest version is and the date when we made the push.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura102.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now we are going to connect our container that we have uploaded and we are going to connect it with the app service, for this we will go to: Create a resource =&amp;gt; containers =&amp;gt; Web App for containers.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura103.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now select the resource group, name our app service, under “publish” it is important that we select the option &lt;strong&gt;&lt;em&gt;“docker container”&lt;/em&gt;&lt;/strong&gt;, choose the OS and the region. And click on “Next”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura104.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In the docker section it is important that where it says &lt;strong&gt;&lt;em&gt;“Image source”&lt;/em&gt;&lt;/strong&gt; we select the &lt;strong&gt;&lt;em&gt;ACR&lt;/em&gt;&lt;/strong&gt;, and in registry we are going to select the name of our ACR, and in where says “image” select the &lt;strong&gt;&lt;em&gt;docker image&lt;/em&gt;&lt;/strong&gt; that we have deploy, and in label we are going to put &lt;strong&gt;&lt;em&gt;“lastest”&lt;/em&gt;&lt;/strong&gt; to indicate that we want the latest version of the image. And click on “review and create”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura105.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;A notification will appear if it has been successfully created and we click on “go to resource”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura106.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And as we can see that we have created our app service. now we have our app service inside a container.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura107.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And we can see that my web app is working correctly.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura108.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h3 id=&quot;create-an-webhook&quot;&gt;Create an webhook:&lt;/h3&gt;
+
+&lt;p&gt;Go to your app service =&amp;gt; click where it says “Deployment center” =&amp;gt; in settings you select the first option “container registry” (here your docker image that you have created will automatically appear) =&amp;gt; select the option “On” in “Continuous deployment”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura109.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;What this will do is it’ll create a webhook rosource that will fire whenever we push a new version to the docker container image in the ACR and it will actomatically kick off deployment.&lt;/p&gt;
+
+&lt;p&gt;So go to the group of resources where we have created the app service, we can observe that the webhook has been created.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura110.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We click in the webhook, and we can see it’s never run yet but if we push a new version of the image to the registry it should fire, it should cause a deployment to take place and update our web app.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura111.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;For this demo, I am going to make a modification of my web app.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura112.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And I’m going to reassemble the image.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura113.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And I’m going to push the image again.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura114.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So going back to the portal heading over to the webhook rosource and click on “refresh”, we can see that we got a push action taking place.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura115.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And if we go to our app service in the “deployment center” section and select the log section, we can see the logs when we have published the image.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura116.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And as you can see the changes have been applied correctly in my web app.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura117.png&quot; /&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://192.168.43.129:4000/isc-dhcp-server/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00-07:00</published><updated>2021-10-20T00:00:00-07:00</updated><id>http://192.168.43.129:4000/isc-dhcp-server</id><content type="html" xml:base="http://192.168.43.129:4000/isc-dhcp-server/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-dhcp/servidor-DHCP-e1511228735448.png&quot; /&gt;
 &lt;/p&gt;
 
