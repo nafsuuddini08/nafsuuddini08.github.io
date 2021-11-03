@@ -47,6 +47,8 @@ In this article we are going to learn:
 + Create an app service inside a container
 	- Create an webhook 
 
+***Sorry for the screenshots that are in Spanish, I have not been able to make the guide again since my azure subscription has expired. But the process is the same.***
+
 ## What is app service?
 
 App service is a fully managed web hosting service for building web applications, services and RESTful APIs. The service offers a variety of plans to meet the needs of any application, from small web sites to worldwide web applications.

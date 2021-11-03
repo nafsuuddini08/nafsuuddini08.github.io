@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.43.129:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.43.129:4000/" rel="alternate" type="text/html" /><updated>2021-11-03T09:55:02-07:00</updated><id>http://192.168.43.129:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Azure - Appservice</title><link href="http://192.168.43.129:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-07:00</published><updated>2021-10-24T00:00:00-07:00</updated><id>http://192.168.43.129:4000/azure-appservice</id><content type="html" xml:base="http://192.168.43.129:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.43.129:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.43.129:4000/" rel="alternate" type="text/html" /><updated>2021-11-03T10:45:09-07:00</updated><id>http://192.168.43.129:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Azure - Appservice</title><link href="http://192.168.43.129:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-07:00</published><updated>2021-10-24T00:00:00-07:00</updated><id>http://192.168.43.129:4000/azure-appservice</id><content type="html" xml:base="http://192.168.43.129:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/appservice.png&quot; /&gt;
 &lt;/p&gt;
 
@@ -34,6 +34,8 @@
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Sorry for the screenshots that are in Spanish, I have not been able to make the guide again since my azure subscription has expired. But the process is the same.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;what-is-app-service&quot;&gt;What is app service?&lt;/h2&gt;
 
