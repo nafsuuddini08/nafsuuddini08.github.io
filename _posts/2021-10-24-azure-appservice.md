@@ -509,6 +509,57 @@ And as we can see our web app has been published correctly with the changes I ha
 <img src = "/assets/images/img-appservice/captura65.png">
 </p>
 
+### Push our repo in github in vs code 2019:
+
+let's create a remote repo and upload it to our github account, right click on the project explorer and select the option "create a git repo".
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura118.png">
+</p>
+
+We select github and we will have to log in with our github account to upload the project. And we click on "create and submit changes" to upload our project in github.
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura119.png">
+</p>
+
+to verify that the project has been push, wright click on the project explorer and in git select the option "view history (we can view the logs history)".
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura120.png">
+</p>
+
+And as we can see the repository is uploaded in my github account.
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura121.png">
+</p>
+
+And to commit the changes, simply select the "git" option, and it will be appear the commit option.
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura122.png">
+</p>
+
+And to compare the old version of the code with the new version, we simply click on the warning that will appear when committing.
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura123.png">
+</p>
+
+And to push the changes in github simply in the same option we select "submit changes" and an alert will appear below that the changes are being push in our github repo.
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura124.png">
+</p>
+
+And as we can see the changes have been push (in my case I added three "s" in the h1).
+
+<p align = "center">
+<img src = "/assets/images/img-appservice/captura125.png">
+</p>
+
+
 ### Deploying with vs code:
 
 Now we are going to learn how to create an app service and deploy our web app in vs code.

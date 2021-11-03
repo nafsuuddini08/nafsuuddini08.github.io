@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.43.129:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.43.129:4000/" rel="alternate" type="text/html" /><updated>2021-11-02T18:54:54-07:00</updated><id>http://192.168.43.129:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Azure - Appservice</title><link href="http://192.168.43.129:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-07:00</published><updated>2021-10-24T00:00:00-07:00</updated><id>http://192.168.43.129:4000/azure-appservice</id><content type="html" xml:base="http://192.168.43.129:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.43.129:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.43.129:4000/" rel="alternate" type="text/html" /><updated>2021-11-03T09:55:02-07:00</updated><id>http://192.168.43.129:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Azure - Appservice</title><link href="http://192.168.43.129:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-07:00</published><updated>2021-10-24T00:00:00-07:00</updated><id>http://192.168.43.129:4000/azure-appservice</id><content type="html" xml:base="http://192.168.43.129:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/appservice.png&quot; /&gt;
 &lt;/p&gt;
 
@@ -493,6 +493,56 @@
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/captura65.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h3 id=&quot;push-our-repo-in-github-in-vs-code-2019&quot;&gt;Push our repo in github in vs code 2019:&lt;/h3&gt;
+
+&lt;p&gt;let’s create a remote repo and upload it to our github account, right click on the project explorer and select the option “create a git repo”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura118.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We select github and we will have to log in with our github account to upload the project. And we click on “create and submit changes” to upload our project in github.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura119.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;to verify that the project has been push, wright click on the project explorer and in git select the option “view history (we can view the logs history)”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura120.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And as we can see the repository is uploaded in my github account.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura121.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And to commit the changes, simply select the “git” option, and it will be appear the commit option.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura122.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And to compare the old version of the code with the new version, we simply click on the warning that will appear when committing.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura123.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And to push the changes in github simply in the same option we select “submit changes” and an alert will appear below that the changes are being push in our github repo.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura124.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And as we can see the changes have been push (in my case I added three “s” in the h1).&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-appservice/captura125.png&quot; /&gt;
 &lt;/p&gt;
 
 &lt;h3 id=&quot;deploying-with-vs-code&quot;&gt;Deploying with vs code:&lt;/h3&gt;
