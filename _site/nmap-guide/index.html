@@ -1,0 +1,566 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Nmap Guide - nafrez.io</title>
+<meta name="description" content="we are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="nafrez.io">
+<meta property="og:title" content="Nmap Guide">
+<meta property="og:url" content="http://192.168.43.131:4000/nmap-guide/">
+
+
+  <meta property="og:description" content="we are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest.">
+
+
+
+  <meta property="og:image" content="http://192.168.43.131:4000/assets/images/img-nmap/nmap.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-11-09T00:00:00-06:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://192.168.43.131:4000/nmap-guide/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Nafsu",
+      "url": "http://192.168.43.131:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="nafrez.io Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+   <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Article</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/buscador/" >Search</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://192.168.43.131:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Nmap Guide</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/avatar1.png" alt="Nafsu Uddin" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Nafsu Uddin</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        System Administration / Networking / Cybersecurity
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Barcelona, Spain</span>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/https://es.linkedin.com/in/nafsuuddin" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/nafsuuddini08" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Nmap Guide">
+    <meta itemprop="description" content="we are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest.">
+    <meta itemprop="datePublished" content="November 09, 2021">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Nmap Guide
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2021-11-09T00:00:00-06:00">November 09, 2021 </time>&emsp;
+          
+          
+        </p>
+        <p align="center">
+<img src="/assets/images/img-nmap/nmap.jpg" />
+</p>
+
+<p>we are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest, and we are going to use some nmap scripts to speed up the scanning process.</p>
+
+<h2 id="what-is-nmap">What is nmap?</h2>
+
+<p>Nmap is a very powerful tool that allows us to scan networks and hots to detect possible ports that are open or vulnerable, and also this tool will be very helpful if we are learning pentest or if you want become a hacker.</p>
+
+<h2 id="nmap-simple-commands-and-parameters">Nmap simple commands and parameters</h2>
+
+<p>Use the command “nmap -help” to see the parameters and options offered by nmap, or you can use the command “man nmap” to see the full documentation.</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/captura1.png" />
+</p>
+
+<p>Using nmap commands:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ nmap [Scan Type(s)] [Options] {target specification}
+</code></pre></div></div>
+
+<p>This is a basic scan to find all open ports and running services (this scan is not very good if we want to speed up the process and we will make a lot of noise on the network if we are attackers).</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/captura2.png" />
+</p>
+
+<p>We can do the same scan with the domain name.</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/captura3.png" />
+</p>
+
+<p>If we want to report information about the machine in the scanning process we will use the parameter “-v” (from verbose). it is advisable to use this parameter to not wait for the scan to finish and meanwhile we can speed up the work.</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/captura4.png" />
+</p>
+
+<p>If we do a triple verbose we will get more information about the machine.</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/captura5.png" />
+</p>
+
+<p>We can scan several hots by puting the ip.</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/captura6.png" />
+</p>
+
+<p>We can perform the same scan of several hosts using the last octet of the ip address.</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/captura7.png" />
+</p>
+
+<p>Escaneo de una subred, nos reporta los puertos abiertos de esa subred y los equipos que están activos en esa subred. (hay que recordar si hacemos estos tipos de escaneo vamos a hacer más ruido en la red)</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/captura8.png" />
+</p>
+
+<p>Scanning with a range of ip addresses.</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/captura9.png" />
+</p>
+
+<p>Scan the list of hosts that are in a file. In my case what i created a file and indicate the ip address, the localhost and the dns of htb.</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/captura10.png" />
+</p>
+
+<p>Now we will use the parameter “-iL (Input from hosts/network list)” and specify the file that we have created, to scan all IP addresses that we specify in the file.</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/captura11.png" />
+</p>
+
+<p>Scan the OS used by the target machine with the parameter “-O (os detection)”.</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/captura12.png" />
+</p>
+
+<p>With the “-A” parameter it shows more information about the machine’s OS. this parameter is interesting because it shows us the ssh-hostkey that is to authenticate to connect in the ssh protocol, in this case this key is public. and below we can see the traceroute that would be the intermediary nodes where they have passed the packets that we have sent.</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/captura13.png" />
+</p>
+
+<p>Scan a host to detect if the machine uses packet filters or firewall. In my case it is not filtered.</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/captura14.png" />
+</p>
+
+<p>To view all active hosts within the subnet, this command allows you to ping all hosts on the subnet.</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/captura15.png" />
+</p>
+
+<p>Print hotspot interfaces and routes to the terminal. You can find out the host interface and route information with nmap by using the “-iflist” option.</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/captura16.png" />
+</p>
+
+<h2 id="difference-between-tcp-connect-scan-and-syn-scan">Difference between TCP connect scan and SYN scan</h2>
+
+<p>Before using these types of scanning we must know how the TCP protocol works, the TCP protocol (Transmission Control Protocol) for example if we want to access a web site from our computer to the server where the web site is hosted, tcp allows how we must start the communication and how we can access that page. the rules that the tcp protocol uses to start a communication is with “3 wey handshake”. first the client sends a request called “syn”, the server resive the request and responds by sending the client a packet called “syn ack” and then the client sends another packet called “ack” so that the server receives the message that the client is successfully communicating with the server.</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/tcp.png" />
+</p>
+
+<p>Scan specific ports on the subnet to see if any hosts within the subnet have open ports 80 and 443 via tcp. With the “-sT” parameter we specify that we are going to use the full TCP connection (full open scan), and the magic of this is with the TCP protocol using the “3 way handshake”. using the 3 wey handshake nmap can find out if the ports are open or not.</p>
+
+<p align="center">
+<img src="/assets/images/img-nmap/captura17.png" />
+</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#hack-the-box" class="page__taxonomy-item" rel="tag">Hack the box</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#kali-linux" class="page__taxonomy-item" rel="tag">Kali linux</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#nmap" class="page__taxonomy-item" rel="tag">Nmap</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#networking" class="page__taxonomy-item" rel="tag">Networking</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#pentest" class="page__taxonomy-item" rel="tag">Pentest</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Fecha:</strong> <time datetime="2021-11-09T00:00:00-06:00">November 09, 2021</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/azure-appservice/" class="pagination--pager" title="Azure - Appservice
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Nafsu</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

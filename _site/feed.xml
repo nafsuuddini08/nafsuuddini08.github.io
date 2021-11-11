@@ -1,4 +1,129 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.43.129:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.43.129:4000/" rel="alternate" type="text/html" /><updated>2021-11-03T10:45:09-07:00</updated><id>http://192.168.43.129:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Azure - Appservice</title><link href="http://192.168.43.129:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-07:00</published><updated>2021-10-24T00:00:00-07:00</updated><id>http://192.168.43.129:4000/azure-appservice</id><content type="html" xml:base="http://192.168.43.129:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.43.131:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.43.131:4000/" rel="alternate" type="text/html" /><updated>2021-11-10T20:07:17-06:00</updated><id>http://192.168.43.131:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Nmap Guide</title><link href="http://192.168.43.131:4000/nmap-guide/" rel="alternate" type="text/html" title="Nmap Guide" /><published>2021-11-09T00:00:00-06:00</published><updated>2021-11-09T00:00:00-06:00</updated><id>http://192.168.43.131:4000/nmap-guide</id><content type="html" xml:base="http://192.168.43.131:4000/nmap-guide/">&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/nmap.jpg&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;we are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest, and we are going to use some nmap scripts to speed up the scanning process.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-nmap&quot;&gt;What is nmap?&lt;/h2&gt;
+
+&lt;p&gt;Nmap is a very powerful tool that allows us to scan networks and hots to detect possible ports that are open or vulnerable, and also this tool will be very helpful if we are learning pentest or if you want become a hacker.&lt;/p&gt;
+
+&lt;h2 id=&quot;nmap-simple-commands-and-parameters&quot;&gt;Nmap simple commands and parameters&lt;/h2&gt;
+
+&lt;p&gt;Use the command “nmap -help” to see the parameters and options offered by nmap, or you can use the command “man nmap” to see the full documentation.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Using nmap commands:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ nmap [Scan Type(s)] [Options] {target specification}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is a basic scan to find all open ports and running services (this scan is not very good if we want to speed up the process and we will make a lot of noise on the network if we are attackers).&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura2.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We can do the same scan with the domain name.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura3.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we want to report information about the machine in the scanning process we will use the parameter “-v” (from verbose). it is advisable to use this parameter to not wait for the scan to finish and meanwhile we can speed up the work.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura4.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we do a triple verbose we will get more information about the machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura5.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We can scan several hots by puting the ip.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura6.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We can perform the same scan of several hosts using the last octet of the ip address.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura7.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Escaneo de una subred, nos reporta los puertos abiertos de esa subred y los equipos que están activos en esa subred. (hay que recordar si hacemos estos tipos de escaneo vamos a hacer más ruido en la red)&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura8.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Scanning with a range of ip addresses.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura9.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Scan the list of hosts that are in a file. In my case what i created a file and indicate the ip address, the localhost and the dns of htb.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura10.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now we will use the parameter “-iL (Input from hosts/network list)” and specify the file that we have created, to scan all IP addresses that we specify in the file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura11.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Scan the OS used by the target machine with the parameter “-O (os detection)”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura12.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;With the “-A” parameter it shows more information about the machine’s OS. this parameter is interesting because it shows us the ssh-hostkey that is to authenticate to connect in the ssh protocol, in this case this key is public. and below we can see the traceroute that would be the intermediary nodes where they have passed the packets that we have sent.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura13.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Scan a host to detect if the machine uses packet filters or firewall. In my case it is not filtered.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura14.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;To view all active hosts within the subnet, this command allows you to ping all hosts on the subnet.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Print hotspot interfaces and routes to the terminal. You can find out the host interface and route information with nmap by using the “-iflist” option.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura16.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;difference-between-tcp-connect-scan-and-syn-scan&quot;&gt;Difference between TCP connect scan and SYN scan&lt;/h2&gt;
+
+&lt;p&gt;Before using these types of scanning we must know how the TCP protocol works, the TCP protocol (Transmission Control Protocol) for example if we want to access a web site from our computer to the server where the web site is hosted, tcp allows how we must start the communication and how we can access that page. the rules that the tcp protocol uses to start a communication is with “3 wey handshake”. first the client sends a request called “syn”, the server resive the request and responds by sending the client a packet called “syn ack” and then the client sends another packet called “ack” so that the server receives the message that the client is successfully communicating with the server.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/tcp.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Scan specific ports on the subnet to see if any hosts within the subnet have open ports 80 and 443 via tcp. With the “-sT” parameter we specify that we are going to use the full TCP connection (full open scan), and the magic of this is with the TCP protocol using the “3 way handshake”. using the 3 wey handshake nmap can find out if the ports are open or not.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura17.png&quot; /&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Nmap" /><category term="Kali linux" /><category term="Hack the box" /><summary type="html">we are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest.</summary></entry><entry><title type="html">Azure - Appservice</title><link href="http://192.168.43.131:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-06:00</published><updated>2021-10-24T00:00:00-06:00</updated><id>http://192.168.43.131:4000/azure-appservice</id><content type="html" xml:base="http://192.168.43.131:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/appservice.png&quot; /&gt;
 &lt;/p&gt;
 
@@ -940,7 +1065,7 @@
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/captura117.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://192.168.43.129:4000/isc-dhcp-server/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00-07:00</published><updated>2021-10-20T00:00:00-07:00</updated><id>http://192.168.43.129:4000/isc-dhcp-server</id><content type="html" xml:base="http://192.168.43.129:4000/isc-dhcp-server/">&lt;p align=&quot;center&quot;&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://192.168.43.131:4000/isc-dhcp-server/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00-06:00</published><updated>2021-10-20T00:00:00-06:00</updated><id>http://192.168.43.131:4000/isc-dhcp-server</id><content type="html" xml:base="http://192.168.43.131:4000/isc-dhcp-server/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-dhcp/servidor-DHCP-e1511228735448.png&quot; /&gt;
 &lt;/p&gt;
 
