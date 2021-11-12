@@ -11,7 +11,7 @@ date: 2020-01-29
 <img src = "/assets/images/avatar1.png">
 </p>
 
-My name is Nafsu Uddin and right now I live in barcelona, spain. I am currently a computer science student. At the moment I have a degree in micro-computer systems and networks, and soon I will obtain the degree of ASIX (System administration and networks) - in cybersecurity profile. 
+My name is Nafsu Uddin and right now I live in barcelona, spain. I am currently a computer science student. 
 
 ## Certifications obtained
 

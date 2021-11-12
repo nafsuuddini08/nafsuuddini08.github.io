@@ -1,14 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.43.131:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.43.131:4000/" rel="alternate" type="text/html" /><updated>2021-11-10T20:07:17-06:00</updated><id>http://192.168.43.131:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Nmap Guide</title><link href="http://192.168.43.131:4000/nmap-guide/" rel="alternate" type="text/html" title="Nmap Guide" /><published>2021-11-09T00:00:00-06:00</published><updated>2021-11-09T00:00:00-06:00</updated><id>http://192.168.43.131:4000/nmap-guide</id><content type="html" xml:base="http://192.168.43.131:4000/nmap-guide/">&lt;p align=&quot;center&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.43.131:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.43.131:4000/" rel="alternate" type="text/html" /><updated>2021-11-11T18:45:42-06:00</updated><id>http://192.168.43.131:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Scanning network with nmap</title><link href="http://192.168.43.131:4000/nmap-guide/" rel="alternate" type="text/html" title="Scanning network with nmap" /><published>2021-11-09T00:00:00-06:00</published><updated>2021-11-09T00:00:00-06:00</updated><id>http://192.168.43.131:4000/nmap-guide</id><content type="html" xml:base="http://192.168.43.131:4000/nmap-guide/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-nmap/nmap.jpg&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;we are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest, and we are going to use some nmap scripts to speed up the scanning process.&lt;/p&gt;
+&lt;p&gt;We are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest, and we are going to use some nmap scripts to speed up the scanning process.&lt;/p&gt;
+
+&lt;p&gt;We are going to cover:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What is nmap&lt;/li&gt;
+  &lt;li&gt;Basics commands and parameters with nmap&lt;/li&gt;
+  &lt;li&gt;Difference between TCP connect scan and SYN scan&lt;/li&gt;
+  &lt;li&gt;Nmap script&lt;/li&gt;
+  &lt;li&gt;Useful set of parameters&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;what-is-nmap&quot;&gt;What is nmap?&lt;/h2&gt;
 
-&lt;p&gt;Nmap is a very powerful tool that allows us to scan networks and hots to detect possible ports that are open or vulnerable, and also this tool will be very helpful if we are learning pentest or if you want become a hacker.&lt;/p&gt;
+&lt;p&gt;Nmap is a very powerful tool that allows us to scan networks and hots to detect possible ports that are open or vulnerable, and also this tool will be very helpful if we are learning pentest or if you want become a hacker. we can use nmap in windows, mac and linux in my case i going to use in linux, but the commands it’s the same in others OS.&lt;/p&gt;
 
-&lt;h2 id=&quot;nmap-simple-commands-and-parameters&quot;&gt;Nmap simple commands and parameters&lt;/h2&gt;
+&lt;h2 id=&quot;basics-commands-and-parameters-with-nmap&quot;&gt;Basics commands and parameters with nmap&lt;/h2&gt;
 
 &lt;p&gt;Use the command “nmap -help” to see the parameters and options offered by nmap, or you can use the command “man nmap” to see the full documentation.&lt;/p&gt;
 
@@ -81,7 +91,7 @@
 &lt;img src=&quot;/assets/images/img-nmap/captura11.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Scan the OS used by the target machine with the parameter “-O (os detection)”.&lt;/p&gt;
+&lt;p&gt;Scan the OS used by the target machine with the parameter “-O (os detection)”. First what it has done is to ping the host and then it has used the 3 wey handshake to discover the ports, and below we can see that it is a linux machine.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-nmap/captura12.png&quot; /&gt;
@@ -111,6 +121,86 @@
 &lt;img src=&quot;/assets/images/img-nmap/captura16.png&quot; /&gt;
 &lt;/p&gt;
 
+&lt;p&gt;With the “-F” parameter we indicate that we want a fast scan, but I don’t recommend to use this option as I will show better options for fast scanning below.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura26.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Scan ports consecutively with the “-r (Scan ports consecutively, do not randomize)” parameter.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura27.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Scan udp port&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura28.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Scan and view the versions of different services running on each port.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura29.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;With the “-sN” parameter we do a null scan via tcp to fool the firewall. And it reports us by consala if the ports are filtered or not, by the firewall.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura32.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We can specify if we want the scan to go faster by setting a timer templet “-T4”. The maximum is 5 but obviously if we want to go faster we will make more noise on the network.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura33.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;With the parameter “-n” we indicate that we do not want dns resolution, by default nmap applies the dns resolution and that is why we must specify it because there are times that the dns resolution takes more than 1 min and this makes the scan take longer.&lt;/p&gt;
+
+&lt;p&gt;With the parameter “-Pn (no ping)” we indicate that we do not want to discover hosts, in case we are only interested in the ports that are open, and this helps us to speed up the scanning process.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura35.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;With the “-sL (list scan)” parameter, simply list the targets to scan.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura36.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Scan remote hosts using TCP ACK (TA) and TCP SYN (TS). These types of parameters are used when the firewall blocks standard ICMP ping requests, in which case you can use these two methods to scan remote hotspots.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura30.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The same with the “-PA” paremeter of “ack” to port spool hosts by specifying the ports, but sending “ack” packet.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura31.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Also nmap allows us to export the evidences in a file with certain parameters, depending on the parameter we use it has certain formats. We have to indicate these parameters after indicating the ip address and put the name of the file from where we want to export the evidences.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura41.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;As we have seen above we can specify the scan time. But we also have another option that can optimize the scanning process even more. For example the parameter “–min-rate” we can indicate how many packets we want to emit per second.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura42.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;There are several parameters that I have not mentioned but that can be useful in certain situations.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura37.png&quot; /&gt;
+&lt;/p&gt;
+
 &lt;h2 id=&quot;difference-between-tcp-connect-scan-and-syn-scan&quot;&gt;Difference between TCP connect scan and SYN scan&lt;/h2&gt;
 
 &lt;p&gt;Before using these types of scanning we must know how the TCP protocol works, the TCP protocol (Transmission Control Protocol) for example if we want to access a web site from our computer to the server where the web site is hosted, tcp allows how we must start the communication and how we can access that page. the rules that the tcp protocol uses to start a communication is with “3 wey handshake”. first the client sends a request called “syn”, the server resive the request and responds by sending the client a packet called “syn ack” and then the client sends another packet called “ack” so that the server receives the message that the client is successfully communicating with the server.&lt;/p&gt;
@@ -123,7 +213,147 @@
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-nmap/captura17.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Nmap" /><category term="Kali linux" /><category term="Hack the box" /><summary type="html">we are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest.</summary></entry><entry><title type="html">Azure - Appservice</title><link href="http://192.168.43.131:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-06:00</published><updated>2021-10-24T00:00:00-06:00</updated><id>http://192.168.43.131:4000/azure-appservice</id><content type="html" xml:base="http://192.168.43.131:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The problem with parameter types such as “-sT” is that we are indicating that we want to tcp the connection, and this can cause a lot of noise in the network and be detected by IDS.&lt;/p&gt;
+
+&lt;p&gt;To avoid this type of problems we are going to use the same command but with the parameter “-sS”, this parameter comes from “stealthy” this type of scanning is known as “syn scan” or “half-open scan”. with this parameter we indicate that we do not want the whole process of communication with tcp, as we have seen to communicate through tcp we have to complete the “3 way handshake” to establish the connection, if it does not complete these three processes there will be no connection. But still if the server has well configured firewall we can be detected, but with this parameter at least we avoid that problem a little.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura18.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We are going to use these two commands again, but we are going to look at the traffic using wireshark.&lt;/p&gt;
+
+&lt;p&gt;Let’s use the “-sT” parameter to indicate all tcp scanning. If we do not specify the ports nothing happens, since by default if you do not specify it nmap scans the 1000 most common ports.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura19.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Campturing the packages in wireshark:&lt;/p&gt;
+
+&lt;p&gt;First I send a “syn” packet, then the server sends me back a “syn ack” packet (to tell the client that it can communicate with port 443) and once the client receives it, it sends another “ack” packet (to tell the server that it can communicate perfectly). And the “rst, ack” means that this is the end of the communication. As we can see, the “3 wey handshake” has been successfully completed.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura20.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now let’s try with the parameter “-sS”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura21.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Campturing the packages in wireshark:&lt;/p&gt;
+
+&lt;p&gt;First the client sends a “syn” packet, the server replies with “syn. Ack” (telling the client that it can communicate in the port 443), and the communication is finished. In this case it does not comply with the “3 wey handshake” rule because the client does not send the “ack” packet to verify it. And with this we more or less avoid making a lot of noise on the network and being discovered by the firewall.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura22.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;we are going to use a parametor that is a bit similar “-sS”. With the parameter “-D (Cover up a scan with decoys)”, allows us to cover our traffic to not be discovered easily. As I said before if we are attackers and we are scanning a network and we are sending all that traffic we will make a lot of noise in the network, combining with the parameter “-sS”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/decoy.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;What we have done with the previous command is to send a packet of “syn (-sS)”, but what we do is that there is another host that sends the same packet at the same time changing the ip which in this case is 10.10.16.8, and if someone is looking at the network traffic will see many hots sending that packet and will not know who is sending all those packets over the network, and this as an attacker helps us to cover up.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura23.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In wireshark we can see that the packet has been sent at the same time with a duplicate, in my case I have added only one ip, but if we want we can specify ip ranges and more hosts would appear sending the same packet and it would be more difficult to find which computer is sending that traffic.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura25.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;nmap-script&quot;&gt;Nmap script&lt;/h2&gt;
+
+&lt;p&gt;We can run custom scripts in nmap to find vulnerabilities in certain services. For example with the “-sC” parameter we can launch basic port scanning scripts, etc. If we go to the scripting section in the nmap documentation we can see the options we have.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura38.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;From the official nmap site there are many categories of scripting that can help us a lot when doing some kind of audit. For example in the “vuln (vulnerabilities)” section we can scan a host and see which ports are open or filtered and report us through the console if some of the ports that run certain services are vulnerable that we can exploit.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura39.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;With the parameter “-script” we are going to specify which script we are going to use, in my case I have put “vuln” with this I specify that it uses all the scripts of the vuln category, but with this it takes more time the scanning and it tends to make noise in the network. But we can specify script that you need and we will go even faster. As we can see it has reported me in the terminal the vulnerability that we can exploit in the ports that has been scanned.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura40.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;useful-set-of-parameters&quot;&gt;Useful set of parameters&lt;/h2&gt;
+
+&lt;p&gt;First of all, I have used the parameter “-p-“ to scan all the existing port ranges, which are 65535 ports in total, with this parameter is a way to indicate it. We can use the other option of this parameter which is “-p1-65535”.&lt;/p&gt;
+
+&lt;p&gt;And the parameter “–open” is to indicate that we want to report in the terminal the ports that are in open status not filtered in the tcp protocol.&lt;/p&gt;
+
+&lt;p&gt;With the parameter “-T” is to control the timing and the performance of our scan, as I said before the faster we want our scan to go the more noise we are going to generate in the network.&lt;/p&gt;
+
+&lt;p&gt;And the “-v” parameter of verbose indicates that we want to report information during the scanning process.&lt;/p&gt;
+
+&lt;p&gt;And the parameter “-n” we specify that we don’t want dns resolution, if we don’t indicate it there are occasions that the dns resolution takes more than 1 min.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura43.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we want to go even faster and speed up the scanning process we can use the following parameters. With the “-sS” parameter we indicate a “tcp syn port scan” as I have already indicated what this parameter deos. And with the parameter “–min-rate [number of packets]” to indicate that I want to send packets no slower than 5000 packets per second, with this we get that our scan goes faster and with this combination we don’t need to use the parameter “-T”.&lt;/p&gt;
+
+&lt;p&gt;With the parameter “-vvv (verbose)” I am indicating that I want more information. And with the parameter “-Pn” we indicate that we don’t want host discovery through the arp address resolution protocol. And with the parameter “-oG” we indicate in which format we want to save the evidences and the file name.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura44.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we do a “cat” to the file we can see that the nmap capture is saved.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura45.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In this case I used this format because I have a utility in the “~/.zshrc” file that shows me the available ports and ip in a more elegant way and copies the range of ports to the clipboard.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura46.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;To copy the function:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;extractPorts&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-oP&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\d{1,5}/open'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $1}'&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;FS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/'&lt;/span&gt; | xargs | &lt;span class=&quot;nb&quot;&gt;tr&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;','&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;ip_address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-oP&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] Extracting information...&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
+        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] IP Address: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ip_address&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
+        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] Open ports: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ports&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
+        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ports&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;tr&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\n'&lt;/span&gt; | xclip &lt;span class=&quot;nt&quot;&gt;-sel&lt;/span&gt; clip
+        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[*] Ports copied to clipboard&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
+        &lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;extractPorts.tmp&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;extractPorts.tmp
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;With the “-sC” parameter we tell it to run some basic recon scripts. With the “-sV” parameter, we tell it to report the version of the services, this parameter can be used with the other “-sCV” to speed up the process even more. I indicate the ports that I have just discovered and I want to save the evidence with the nmap format “-oN” to the targeted file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura47.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And as we can see, the evidence has been saved correctly.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/captura48.png&quot; /&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Nmap" /><category term="Linux" /><category term="Hack the box" /><summary type="html">we are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest.</summary></entry><entry><title type="html">Azure - Appservice</title><link href="http://192.168.43.131:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-06:00</published><updated>2021-10-24T00:00:00-06:00</updated><id>http://192.168.43.131:4000/azure-appservice</id><content type="html" xml:base="http://192.168.43.131:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/appservice.png&quot; /&gt;
 &lt;/p&gt;
 
@@ -1167,4 +1397,4 @@
 &lt;img src=&quot;/assets/images/img-dhcp/captura14.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;In conclusion we have been able to learn some concepts of the dhcp protocol, and also how to administer the dhcp service in linux in a very easy and fasty way.&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="dhcp" /><category term="isc-dhcp-server" /><category term="linux" /><category term="subnetting" /><summary type="html">we are going to learn how to configure a dhcp server in linux using the isc-dhcp-server service, we are going to learn how to create subnets and make reserved ips.</summary></entry></feed>
+&lt;p&gt;In conclusion we have been able to learn some concepts of the dhcp protocol, and also how to administer the dhcp service in linux in a very easy and fasty way.&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="dhcp" /><category term="isc-dhcp-server" /><category term="Linux" /><summary type="html">we are going to learn how to configure a dhcp server in linux using the isc-dhcp-server service, we are going to learn how to create subnets and make reserved ips.</summary></entry></feed>

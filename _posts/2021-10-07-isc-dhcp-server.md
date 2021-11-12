@@ -10,12 +10,11 @@ header:
   icon: /assets/images/img-dhcp/ics_logo.png
 categories:
   - Networking
-  - Linux
+  - Subnetting
 tags:
   - dhcp
   - isc-dhcp-server
-  - linux
-  - subnetting
+  - Linux
 ---
 
 <p align = "center">
