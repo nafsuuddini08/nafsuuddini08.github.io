@@ -310,6 +310,13 @@ With the parameter "-script" we are going to specify which script we are going t
 <img src = "/assets/images/img-nmap/captura40.png">
 </p>
 
+If we see that there is an open http port with nmap we can apply fuzzing along with an nmap dictionary of possible routes. There are several better tools for fuzzing, but nmap also has a built-in script for this task even if it is not very useful.
+
+<p align = "center">
+<img src = "/assets/images/img-nmap/http-enum.png">
+</p>
+
+
 ## Useful set of parameters
 
 First of all, I have used the parameter "-p-" to scan all the existing port ranges, which are 65535 ports in total, with this parameter is a way to indicate it. We can use the other option of this parameter which is "-p1-65535". 
