@@ -2,15 +2,19 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>http://192.168.43.131:4000/isc-dhcp-server/</loc>
-<lastmod>2021-10-20T00:00:00-06:00</lastmod>
+<lastmod>2021-10-20T00:00:00+02:00</lastmod>
 </url>
 <url>
 <loc>http://192.168.43.131:4000/azure-appservice/</loc>
-<lastmod>2021-10-24T00:00:00-06:00</lastmod>
+<lastmod>2021-10-24T00:00:00+02:00</lastmod>
 </url>
 <url>
 <loc>http://192.168.43.131:4000/nmap-guide/</loc>
-<lastmod>2021-11-09T00:00:00-06:00</lastmod>
+<lastmod>2021-11-09T00:00:00+01:00</lastmod>
+</url>
+<url>
+<loc>http://192.168.43.131:4000/netcat-reveshell/</loc>
+<lastmod>2021-11-14T00:00:00+01:00</lastmod>
 </url>
 <url>
 <loc>http://192.168.43.131:4000/404/</loc>
@@ -38,6 +42,6 @@
 </url>
 <url>
 <loc>http://192.168.43.131:4000/videos/</loc>
-<lastmod>2021-11-09T16:21:15-06:00</lastmod>
+<lastmod>2021-11-09T23:21:15+01:00</lastmod>
 </url>
 </urlset>

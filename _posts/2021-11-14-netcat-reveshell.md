@@ -5,20 +5,19 @@ excerpt: "We are going to learn how we can reverse shell in every OS, and some n
 date: 2021-11-14
 classes: wide
 header:
-  teaser: /assets/images/
+  teaser: /assets/images/img-netcat/netcat.jpg
   teaser_home_page: true
-  icon: /assets/images/
+  icon: /assets/images/img-netcat/logo.png
 categories:
   - Networking
   - Pentest
 tags:
-  - Netcat
+  - netcat
   - Linux
-  - Hack the box
   - reverse shell
 ---
 
 <p align = "center">
-<img src = "/assets/images/img-nmap/">
+<img src = "/assets/images/img-netcat/netcat.jpg">
 </p>
 	

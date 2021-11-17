@@ -13,4 +13,9 @@ var store = [{
         "excerpt":"We are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest, and we are going to use some nmap scripts to speed up the scanning process. We are going to...","categories": ["Networking","Pentest"],
         "tags": ["Nmap","Linux","Hack the box"],
         "url": "http://192.168.43.131:4000/nmap-guide/",
-        "teaser":"http://192.168.43.131:4000/assets/images/img-nmap/nmap.jpg"}]
+        "teaser":"http://192.168.43.131:4000/assets/images/img-nmap/nmap.jpg"},{
+        "title": "Reverse shell using netcat",
+        "excerpt":"     ","categories": ["Networking","Pentest"],
+        "tags": ["netcat","Linux","reverse shell"],
+        "url": "http://192.168.43.131:4000/netcat-reveshell/",
+        "teaser":"http://192.168.43.131:4000/assets/images/img-netcat/netcat.jpg"}]

@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.43.131:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.43.131:4000/" rel="alternate" type="text/html" /><updated>2021-11-11T18:45:42-06:00</updated><id>http://192.168.43.131:4000/feed.xml</id><title type="html">nafrez.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Scanning network with nmap</title><link href="http://192.168.43.131:4000/nmap-guide/" rel="alternate" type="text/html" title="Scanning network with nmap" /><published>2021-11-09T00:00:00-06:00</published><updated>2021-11-09T00:00:00-06:00</updated><id>http://192.168.43.131:4000/nmap-guide</id><content type="html" xml:base="http://192.168.43.131:4000/nmap-guide/">&lt;p align=&quot;center&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.43.131:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.43.131:4000/" rel="alternate" type="text/html" /><updated>2021-11-17T02:49:24+01:00</updated><id>http://192.168.43.131:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Reverse shell using netcat</title><link href="http://192.168.43.131:4000/netcat-reveshell/" rel="alternate" type="text/html" title="Reverse shell using netcat" /><published>2021-11-14T00:00:00+01:00</published><updated>2021-11-14T00:00:00+01:00</updated><id>http://192.168.43.131:4000/netcat-reveshell</id><content type="html" xml:base="http://192.168.43.131:4000/netcat-reveshell/">&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-netcat/netcat.jpg&quot; /&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="netcat" /><category term="Linux" /><category term="reverse shell" /><summary type="html">We are going to learn how we can reverse shell in every OS, and some netcat commands that can help us when we are pentesting or scanning our environment.</summary></entry><entry><title type="html">Scanning network with nmap</title><link href="http://192.168.43.131:4000/nmap-guide/" rel="alternate" type="text/html" title="Scanning network with nmap" /><published>2021-11-09T00:00:00+01:00</published><updated>2021-11-09T00:00:00+01:00</updated><id>http://192.168.43.131:4000/nmap-guide</id><content type="html" xml:base="http://192.168.43.131:4000/nmap-guide/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-nmap/nmap.jpg&quot; /&gt;
 &lt;/p&gt;
 
@@ -291,6 +293,12 @@
 &lt;img src=&quot;/assets/images/img-nmap/captura40.png&quot; /&gt;
 &lt;/p&gt;
 
+&lt;p&gt;If we see that there is an open http port with nmap we can apply fuzzing along with an nmap dictionary of possible routes. There are several better tools for fuzzing, but nmap also has a built-in script for this task even if it is not very useful.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-nmap/http-enum.png&quot; /&gt;
+&lt;/p&gt;
+
 &lt;h2 id=&quot;useful-set-of-parameters&quot;&gt;Useful set of parameters&lt;/h2&gt;
 
 &lt;p&gt;First of all, I have used the parameter “-p-“ to scan all the existing port ranges, which are 65535 ports in total, with this parameter is a way to indicate it. We can use the other option of this parameter which is “-p1-65535”.&lt;/p&gt;
@@ -353,7 +361,7 @@
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-nmap/captura48.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Nmap" /><category term="Linux" /><category term="Hack the box" /><summary type="html">we are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest.</summary></entry><entry><title type="html">Azure - Appservice</title><link href="http://192.168.43.131:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00-06:00</published><updated>2021-10-24T00:00:00-06:00</updated><id>http://192.168.43.131:4000/azure-appservice</id><content type="html" xml:base="http://192.168.43.131:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Nmap" /><category term="Linux" /><category term="Hack the box" /><summary type="html">we are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest.</summary></entry><entry><title type="html">Azure - Appservice</title><link href="http://192.168.43.131:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00+02:00</published><updated>2021-10-24T00:00:00+02:00</updated><id>http://192.168.43.131:4000/azure-appservice</id><content type="html" xml:base="http://192.168.43.131:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/appservice.png&quot; /&gt;
 &lt;/p&gt;
 
@@ -1295,7 +1303,7 @@
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/captura117.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://192.168.43.131:4000/isc-dhcp-server/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00-06:00</published><updated>2021-10-20T00:00:00-06:00</updated><id>http://192.168.43.131:4000/isc-dhcp-server</id><content type="html" xml:base="http://192.168.43.131:4000/isc-dhcp-server/">&lt;p align=&quot;center&quot;&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://192.168.43.131:4000/isc-dhcp-server/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00+02:00</published><updated>2021-10-20T00:00:00+02:00</updated><id>http://192.168.43.131:4000/isc-dhcp-server</id><content type="html" xml:base="http://192.168.43.131:4000/isc-dhcp-server/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-dhcp/servidor-DHCP-e1511228735448.png&quot; /&gt;
 &lt;/p&gt;
 
