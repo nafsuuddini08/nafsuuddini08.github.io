@@ -18,14 +18,14 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="nafsuuddini08.io">
 <meta property="og:title" content="Reverse shell using netcat">
-<meta property="og:url" content="http://192.168.43.131:4000/netcat-reveshell/">
+<meta property="og:url" content="http://192.168.118.128:4000/netcat-reveshell/">
 
 
   <meta property="og:description" content="We are going to learn how we can reverse shell in every OS, and some netcat commands that can help us when we are pentesting or scanning our environment.">
 
 
 
-  <meta property="og:image" content="http://192.168.43.131:4000/assets/images/img-netcat/netcat.jpg">
+  <meta property="og:image" content="http://192.168.118.128:4000/assets/images/img-netcat/netcat.jpg">
 
 
 
@@ -42,7 +42,7 @@
   
 
 
-<link rel="canonical" href="http://192.168.43.131:4000/netcat-reveshell/">
+<link rel="canonical" href="http://192.168.118.128:4000/netcat-reveshell/">
 
 
 
@@ -55,7 +55,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Nafsu",
-      "url": "http://192.168.43.131:4000",
+      "url": "http://192.168.118.128:4000",
       "sameAs": null
     }
   </script>
@@ -160,7 +160,7 @@
     
       
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="http://192.168.43.131:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <a href="http://192.168.118.128:4000/" itemprop="item"><span itemprop="name">Home</span></a>
           <meta itemprop="position" content="1" />
         </li>
         <span class="sep">/</span>
@@ -313,6 +313,48 @@
 <img src="/assets/images/img-netcat/netcat.jpg" />
 </p>
 
+<p>We are going to learn how we can reverse shell in every OS, and some netcat commands that can help us when we are pentesting or scanning our environment.</p>
+
+<p>We are going to learn:</p>
+
+<ul>
+  <li>What is netcat</li>
+  <li>Basics netcat commands</li>
+  <li>Web server in netcat</li>
+  <li>What is reverse shell</li>
+  <li>Create a reverse shell in netcat</li>
+  <li>Reverse shell scripts</li>
+</ul>
+
+<h2 id="what-is-netcat">What is netcat?</h2>
+
+<p>Netcat <strong><em>(The Network Swiss Army knife)</em></strong> it is a command line tool that reads and writes data over network connections using TCP, allows us to open TCP and UDP ports for listening and allows us to scan ports similar to nmap but with some limitations. The main use of this tool is in reverse shell.</p>
+
+<h2 id="basics-netcat-commands">Basics netcat commands</h2>
+
+<p>On linux systems netcat is installed by default and if it is not installed we use the following command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install netcat
+</code></pre></div></div>
+<p>In some Windows versions it is not installed by default, so we have to install the file called nc.exe.</p>
+
+<p>With the <strong><em>-help</em></strong> parameter we can see the possibilities that netcat offers us and if we want to know more information about each parameter is to use the command <strong><em>man</em></strong> to see the netcat documentation.</p>
+
+<p align="center">
+<img src="/assets/images/img-netcat/captura1.png" />
+</p>
+
+<p>Scan ports. we can specify port ranges to report if any of those port ranges are open. it doesn’t do a full scan like nmap, but it reports back to the console if the port we specified is open or not.</p>
+
+<p align="center">
+<img src="/assets/images/img-netcat/captura2.png" />
+</p>
+
+<p>With the <strong><em>-u</em></strong> parameter we specify that we want to scan udp ports.</p>
+
+<p align="center">
+<img src="/assets/images/img-netcat/captura3.png" />
+</p>
 
         
       </section>

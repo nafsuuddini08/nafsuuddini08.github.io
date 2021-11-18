@@ -1,6 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.43.131:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.43.131:4000/" rel="alternate" type="text/html" /><updated>2021-11-17T02:49:24+01:00</updated><id>http://192.168.43.131:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Reverse shell using netcat</title><link href="http://192.168.43.131:4000/netcat-reveshell/" rel="alternate" type="text/html" title="Reverse shell using netcat" /><published>2021-11-14T00:00:00+01:00</published><updated>2021-11-14T00:00:00+01:00</updated><id>http://192.168.43.131:4000/netcat-reveshell</id><content type="html" xml:base="http://192.168.43.131:4000/netcat-reveshell/">&lt;p align=&quot;center&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://192.168.118.128:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.118.128:4000/" rel="alternate" type="text/html" /><updated>2021-11-18T03:00:55+01:00</updated><id>http://192.168.118.128:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Reverse shell using netcat</title><link href="http://192.168.118.128:4000/netcat-reveshell/" rel="alternate" type="text/html" title="Reverse shell using netcat" /><published>2021-11-14T00:00:00+01:00</published><updated>2021-11-14T00:00:00+01:00</updated><id>http://192.168.118.128:4000/netcat-reveshell</id><content type="html" xml:base="http://192.168.118.128:4000/netcat-reveshell/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-netcat/netcat.jpg&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="netcat" /><category term="Linux" /><category term="reverse shell" /><summary type="html">We are going to learn how we can reverse shell in every OS, and some netcat commands that can help us when we are pentesting or scanning our environment.</summary></entry><entry><title type="html">Scanning network with nmap</title><link href="http://192.168.43.131:4000/nmap-guide/" rel="alternate" type="text/html" title="Scanning network with nmap" /><published>2021-11-09T00:00:00+01:00</published><updated>2021-11-09T00:00:00+01:00</updated><id>http://192.168.43.131:4000/nmap-guide</id><content type="html" xml:base="http://192.168.43.131:4000/nmap-guide/">&lt;p align=&quot;center&quot;&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We are going to learn how we can reverse shell in every OS, and some netcat commands that can help us when we are pentesting or scanning our environment.&lt;/p&gt;
+
+&lt;p&gt;We are going to learn:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What is netcat&lt;/li&gt;
+  &lt;li&gt;Basics netcat commands&lt;/li&gt;
+  &lt;li&gt;Web server in netcat&lt;/li&gt;
+  &lt;li&gt;What is reverse shell&lt;/li&gt;
+  &lt;li&gt;Create a reverse shell in netcat&lt;/li&gt;
+  &lt;li&gt;Reverse shell scripts&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;what-is-netcat&quot;&gt;What is netcat?&lt;/h2&gt;
+
+&lt;p&gt;Netcat &lt;strong&gt;&lt;em&gt;(The Network Swiss Army knife)&lt;/em&gt;&lt;/strong&gt; it is a command line tool that reads and writes data over network connections using TCP, allows us to open TCP and UDP ports for listening and allows us to scan ports similar to nmap but with some limitations. The main use of this tool is in reverse shell.&lt;/p&gt;
+
+&lt;h2 id=&quot;basics-netcat-commands&quot;&gt;Basics netcat commands&lt;/h2&gt;
+
+&lt;p&gt;On linux systems netcat is installed by default and if it is not installed we use the following command:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt install netcat
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;In some Windows versions it is not installed by default, so we have to install the file called nc.exe.&lt;/p&gt;
+
+&lt;p&gt;With the &lt;strong&gt;&lt;em&gt;-help&lt;/em&gt;&lt;/strong&gt; parameter we can see the possibilities that netcat offers us and if we want to know more information about each parameter is to use the command &lt;strong&gt;&lt;em&gt;man&lt;/em&gt;&lt;/strong&gt; to see the netcat documentation.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-netcat/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Scan ports. we can specify port ranges to report if any of those port ranges are open. it doesn’t do a full scan like nmap, but it reports back to the console if the port we specified is open or not.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-netcat/captura2.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;With the &lt;strong&gt;&lt;em&gt;-u&lt;/em&gt;&lt;/strong&gt; parameter we specify that we want to scan udp ports.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-netcat/captura3.png&quot; /&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="netcat" /><category term="Linux" /><category term="reverse shell" /><summary type="html">We are going to learn how we can reverse shell in every OS, and some netcat commands that can help us when we are pentesting or scanning our environment.</summary></entry><entry><title type="html">Scanning network with nmap</title><link href="http://192.168.118.128:4000/nmap-guide/" rel="alternate" type="text/html" title="Scanning network with nmap" /><published>2021-11-09T00:00:00+01:00</published><updated>2021-11-09T00:00:00+01:00</updated><id>http://192.168.118.128:4000/nmap-guide</id><content type="html" xml:base="http://192.168.118.128:4000/nmap-guide/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-nmap/nmap.jpg&quot; /&gt;
 &lt;/p&gt;
 
@@ -361,7 +404,7 @@
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-nmap/captura48.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Nmap" /><category term="Linux" /><category term="Hack the box" /><summary type="html">we are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest.</summary></entry><entry><title type="html">Azure - Appservice</title><link href="http://192.168.43.131:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00+02:00</published><updated>2021-10-24T00:00:00+02:00</updated><id>http://192.168.43.131:4000/azure-appservice</id><content type="html" xml:base="http://192.168.43.131:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Nmap" /><category term="Linux" /><category term="Hack the box" /><summary type="html">we are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest.</summary></entry><entry><title type="html">Azure - Appservice</title><link href="http://192.168.118.128:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00+02:00</published><updated>2021-10-24T00:00:00+02:00</updated><id>http://192.168.118.128:4000/azure-appservice</id><content type="html" xml:base="http://192.168.118.128:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/appservice.png&quot; /&gt;
 &lt;/p&gt;
 
@@ -1303,7 +1346,7 @@
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/captura117.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://192.168.43.131:4000/isc-dhcp-server/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00+02:00</published><updated>2021-10-20T00:00:00+02:00</updated><id>http://192.168.43.131:4000/isc-dhcp-server</id><content type="html" xml:base="http://192.168.43.131:4000/isc-dhcp-server/">&lt;p align=&quot;center&quot;&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://192.168.118.128:4000/isc-dhcp-server/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00+02:00</published><updated>2021-10-20T00:00:00+02:00</updated><id>http://192.168.118.128:4000/isc-dhcp-server</id><content type="html" xml:base="http://192.168.118.128:4000/isc-dhcp-server/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-dhcp/servidor-DHCP-e1511228735448.png&quot; /&gt;
 &lt;/p&gt;
 
