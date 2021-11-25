@@ -1,1 +1,1 @@
-Sitemap: http://192.168.118.128:4000/sitemap.xml
+Sitemap: http://localhost:4000/sitemap.xml
