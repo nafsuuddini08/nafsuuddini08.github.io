@@ -23,4 +23,9 @@ var store = [{
         "excerpt":"Tmux is a tool that allows us to divide a terminal in several panels and also to speed up when we are working in the console with different functions and shortcuts. Tmux shortcuts prefix ctrl + b close session tmux new -s \"nameofthesession\" change session name prefix + $ list...","categories": ["zsh"],
         "tags": ["tmux","linux"],
         "url": "http://localhost:4000/tmux-short/",
-        "teaser":"http://localhost:4000/assets/images/tmux/tmux22.png"}]
+        "teaser":"http://localhost:4000/assets/images/tmux/tmux22.png"},{
+        "title": "HTB - Backdoor",
+        "excerpt":"Backdoor is a machine that has linux OS with easy level of difficulty both in terms of intrusion and privilege escalation. on the port 80 runs wordpress which is vulnerable to local file inclusion and also the machine is vulnerable to remote command execution. Machine matrix: First I will create...","categories": ["CTF","Pentest","web pentesting"],
+        "tags": ["Hack the box","wordpress","reverse shell","lfi"],
+        "url": "http://localhost:4000/htb-backdoor/",
+        "teaser":"http://localhost:4000/assets/images/img-backdoor/portada.png"}]
