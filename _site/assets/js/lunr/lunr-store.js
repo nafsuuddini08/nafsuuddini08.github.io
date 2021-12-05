@@ -28,4 +28,9 @@ var store = [{
         "excerpt":"Backdoor is a machine that has linux OS with easy level of difficulty both in terms of intrusion and privilege escalation. on the port 80 runs wordpress which is vulnerable to local file inclusion and also the machine is vulnerable to remote command execution. Machine matrix: First I will create...","categories": ["CTF","Pentest","web pentesting"],
         "tags": ["Hack the box","wordpress","reverse shell","lfi"],
         "url": "http://localhost:4000/htb-backdoor/",
-        "teaser":"http://localhost:4000/assets/images/img-backdoor/portada.png"}]
+        "teaser":"http://localhost:4000/assets/images/img-backdoor/portada.png"},{
+        "title": "HTB - Pikaboo",
+        "excerpt":"pikaboo is a machine with hard difficulty both at the level of instruction and escalation of privileges. machine matrix: First we are going to create a directory as the name of the machine and with mkt we are going to create the following directories to better locate the content. mkt...","categories": ["CTF","Pentest","web pentesting"],
+        "tags": ["Hack the box","reverse shell","lfi"],
+        "url": "http://localhost:4000/htb-pikaboo/",
+        "teaser":"http://localhost:4000/assets/images/img-pikaboo/portada.png"}]

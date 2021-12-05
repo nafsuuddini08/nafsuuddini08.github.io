@@ -4,4 +4,4 @@ sudo bundle update --bundler
 
 Run the jekyll in local.
 
-sudo bundle exec jekyll serve --hots=
+sudo bundle exec jekyll serve
