@@ -209,7 +209,7 @@ Now what occurs to me is to fuzz this page to see some potential route, in this 
 <img src = "/assets/images/img-pikaboo/captura28.png">
 </p>
 
-Y podemos observar que podemos ver los logs del servico ftp que corre en el puerto 21.
+And we can see that we can view the logs of the ftp service running on port 21.
 
 <p align = "center">
 <img src = "/assets/images/img-pikaboo/captura29.png">
@@ -220,6 +220,8 @@ We are going to visualize the content better with ***curl***, and we see that th
 <p align = "center">
 <img src = "/assets/images/img-pikaboo/captura30.png">
 </p>
+
+## Exploitation
 
 Seeing this, what we are going to do is to make a reverse shell with php at the time of putting the credentials in the ftp and at the same time connect through curl. and boom!!! we have access to the machine.
 
@@ -312,6 +314,8 @@ let's check if this password works when accessing via ftp. and we see that if we
 <p align = "center">
 <img src = "/assets/images/img-pikaboo/captura45.png">
 </p>
+
+## Privilege Escalation
 
 OK, what now? After logging in as pwnmeow user we can upload the file in one of the directories via this FTP server, We need ***.csv*** at the as to bypass the check in the payload file. Now let's create the payload as .csv file on the local machine.
 
