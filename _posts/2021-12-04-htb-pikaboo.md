@@ -18,7 +18,7 @@ tags:
   - lfi 
 ---
 
-pikaboo is a machine with hard difficulty both at the level of instruction and escalation of privileges.
+pikaboo is a machine with hard difficulty both at the level of instruction and escalation of privileges, It has vunlerabilities such as lfi on the web side and also perl vunlerability, as well as crendential access via ldap.
 
 <p align = "center">
 <img src = "/assets/images/img-pikaboo/portada.png">
