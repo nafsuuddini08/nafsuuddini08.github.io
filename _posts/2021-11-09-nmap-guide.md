@@ -85,7 +85,7 @@ We can perform the same scan of several hosts using the last octet of the ip add
 <img src = "/assets/images/img-nmap/captura7.png">
 </p>
 
-Escaneo de una subred, nos reporta los puertos abiertos de esa subred y los equipos que están activos en esa subred. (hay que recordar si hacemos estos tipos de escaneo vamos a hacer más ruido en la red)
+Scanning a subnet, it reports the open ports on that subnet and the machines that are active on that subnet. (remember that if we do these types of scans we will make more noise on the network).
 
 <p align = "center">
 <img src = "/assets/images/img-nmap/captura8.png">
