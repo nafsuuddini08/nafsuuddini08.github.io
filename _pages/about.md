@@ -22,9 +22,8 @@ Currently the only certificate I have is LE-1: Linux Essentials.
 </p>
 
 ## Upcoming certifications 
-
+- CCNA
 - compTIA Security+
-- CCNP (Cisco Certified Network Professional)
 
 If you want to contact me here is my email: 
 
