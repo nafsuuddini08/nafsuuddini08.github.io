@@ -316,7 +316,7 @@
           
           
         </p>
-        <p>pikaboo is a machine with hard difficulty both at the level of instruction and escalation of privileges.</p>
+        <p>pikaboo is a machine with hard difficulty both at the level of instruction and escalation of privileges, It has vunlerabilities such as lfi on the web side and also perl vunlerability, as well as crendential access via ldap.</p>
 
 <p align="center">
 <img src="/assets/images/img-pikaboo/portada.png">
@@ -506,7 +506,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 <img src="/assets/images/img-pikaboo/captura28.png">
 </p>
 
-<p>Y podemos observar que podemos ver los logs del servico ftp que corre en el puerto 21.</p>
+<p>And we can see that we can view the logs of the ftp service running on port 21.</p>
 
 <p align="center">
 <img src="/assets/images/img-pikaboo/captura29.png">
@@ -517,6 +517,8 @@ Service detection performed. Please report any incorrect results at https://nmap
 <p align="center">
 <img src="/assets/images/img-pikaboo/captura30.png">
 </p>
+
+<h2 id="exploitation">Exploitation</h2>
 
 <p>Seeing this, what we are going to do is to make a reverse shell with php at the time of putting the credentials in the ftp and at the same time connect through curl. and boom!!! we have access to the machine.</p>
 
@@ -609,6 +611,8 @@ Service detection performed. Please report any incorrect results at https://nmap
 <p align="center">
 <img src="/assets/images/img-pikaboo/captura45.png">
 </p>
+
+<h2 id="privilege-escalation">Privilege Escalation</h2>
 
 <p>OK, what now? After logging in as pwnmeow user we can upload the file in one of the directories via this FTP server, We need <strong><em>.csv</em></strong> at the as to bypass the check in the payload file. Now let’s create the payload as .csv file on the local machine.</p>
 
@@ -711,7 +715,8 @@ Service detection performed. Please report any incorrect results at https://nmap
 ">Previous</a>
     
     
-      <a href="#" class="pagination--pager disabled">Next</a>
+      <a href="/htb-previse/" class="pagination--pager" title="HTB - Previse
+">Next</a>
     
   </nav>
 
@@ -742,7 +747,7 @@ Service detection performed. Please report any incorrect results at https://nmap
   </ul>
 </div>
 
-<div class="page__footer-copyright">© 2021 Nafsu</div>
+<div class="page__footer-copyright">© 2022 Nafsu</div>
 
       </footer>
     </div>

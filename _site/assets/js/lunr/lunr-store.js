@@ -30,7 +30,17 @@ var store = [{
         "url": "http://localhost:4000/htb-backdoor/",
         "teaser":"http://localhost:4000/assets/images/img-backdoor/portada.png"},{
         "title": "HTB - Pikaboo",
-        "excerpt":"pikaboo is a machine with hard difficulty both at the level of instruction and escalation of privileges. machine matrix: First we are going to create a directory as the name of the machine and with mkt we are going to create the following directories to better locate the content. mkt...","categories": ["CTF","Pentest","web pentesting"],
+        "excerpt":"pikaboo is a machine with hard difficulty both at the level of instruction and escalation of privileges, It has vunlerabilities such as lfi on the web side and also perl vunlerability, as well as crendential access via ldap. machine matrix: First we are going to create a directory as the...","categories": ["CTF","Pentest","web pentesting"],
         "tags": ["Hack the box","reverse shell","lfi"],
         "url": "http://localhost:4000/htb-pikaboo/",
-        "teaser":"http://localhost:4000/assets/images/img-pikaboo/portada.png"}]
+        "teaser":"http://localhost:4000/assets/images/img-pikaboo/portada.png"},{
+        "title": "HTB - Previse",
+        "excerpt":"Previse is a linux machine with difficulty esay pulling a little to medium both the level of intrusion and privilege escalation pulls a little to medium level of difficulty. this machine has vulnerabilities such as log poisoning and in the part of escalation we take advantage of nopasswd. Machine rating...","categories": ["CTF","Pentest"],
+        "tags": ["Hack the box","Linux","reverse shell"],
+        "url": "http://localhost:4000/htb-previse/",
+        "teaser":"http://localhost:4000/assets/images/img-previse/portada.png"},{
+        "title": "HTB - Secret",
+        "excerpt":"Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explain this later in the blog) and the escalation of privileges is at medium level of difficulty, this machine is vulnerable to RCE through...","categories": ["CTF","Pentest"],
+        "tags": ["Hack the box","Linux"],
+        "url": "http://localhost:4000/htb-secret/",
+        "teaser":"http://localhost:4000/assets/images/img-secret/portada.png"}]
