@@ -1,5 +1,5 @@
 ---
-layout: single
+layout: protected
 title: HTB - Horinzontall
 excerpt: "Horizontall is a linux machine with easy difficulty level both in the exploitation phase and the escalation of privelegios is cataloged as medium difficulty, this machine uses the cms strapi version 3.0 beta that has vulnerabilities such as RCE, change users passwords and also the machine has an http server running on port 8000 that is running laravel version 8 that has the vulnerability CVE-2021-3129 (RCE)."
 date: 2022-01-06
