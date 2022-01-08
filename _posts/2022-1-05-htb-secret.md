@@ -1,5 +1,5 @@
 ---
-layout: single
+layout: protected
 title: HTB - Secret
 excerpt: "Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explain this later in the blog) and the escalation of privileges is at medium level of difficulty, this machine is vulnerable to RCE through jwt."
 date: 2022-1-05
