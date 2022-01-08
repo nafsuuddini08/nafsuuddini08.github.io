@@ -163,7 +163,7 @@ We access the web and the wappalyzer reports the following information about the
 <img src = "/assets/images/img-secret/webw.png">
 </p>
 
-in the web it indicates us a route to register in the web, I have tried to accede to that route but it does not allow me to accede, it can be that we need credentials of user admin.
+in the web it indicates us a route to register on the website, I have tried to access to that route but it does not allow me to accede, it can be that we need credentials of user admin.
 
 <p align = "center">
 <img src = "/assets/images/img-secret/register.png">
@@ -175,7 +175,7 @@ We also have a path to log in, but we can't access it.
 <img src = "/assets/images/img-secret/login.png">
 </p>
 
-And in this path it tells us that only admins can access to see if there are other admin users and I imagine that there is something else in this path, at the moment we do not have any valid credentials so we can not do anything.
+And in this path it tells us that only admins can access to see if there are other admin users and i imagine that there is something else in this path, at the moment we don't have any valid credentials so we can't do anything.
 
 <p align = "center">
 <img src = "/assets/images/img-secret/priv.png">
@@ -199,19 +199,19 @@ And these are the files contained in the repo, I'm seeing some interesting files
 <img src = "/assets/images/img-secret/captura11.png">
 </p>
 
-But before looking at the content of each directory in the repo i go to see if there is something in the code of the web and i don't see anything useful.
+But before looking at the content of each directory in that repo i go to see if there is something in the code of the website, and i don't see anything useful.
 
 <p align = "center">
 <img src = "/assets/images/img-secret/captura6.png">
 </p>
 
-I am going to proceed with the fuzzing process to see if there is any more route on the web and i don't see anything interesting, only the api but i can't access because I don't have the credentials at the moment.
+I am going to proceed with the fuzzing process to see if there is any more route on the website and i don't see anything interesting, only the api but i can't access because it's says access denied and i don't have the credentials at the moment.
 
 <p align = "center">
 <img src = "/assets/images/img-secret/captura8.png">
 </p>
 
-In the ***/etc/hots*** file I have applied a virtual hosting to see if there is any difference in the web with the domain but nothing.
+In the ***/etc/hots*** file i have applied a virtual hosting to see if there is any difference in the website with the domain, but nothing.
 
 <p align = "center">
 <img src = "/assets/images/img-secret/captura10.png">
@@ -223,13 +223,13 @@ Since the ssh port is open on the victim machine i wanted to check if the user *
 <img src = "/assets/images/img-secret/captura7.png">
 </p>
 
-Going back to the repository that I downloaded earlier, before we saw that there was the ***.git*** folder, what I have done is first look at the logs of the commits that have been made in that repository and we can see the user who has made the commits and his email. 
+Going back to the repository that i downloaded earlier, before we saw that there was the ***.git*** folder, what i have done is first look at the logs of the commits that have been made in that repository and we can see the user who has made the commits and his email, and we can see that there is a commit that says ***removed .env for security reasons*** let's see what changes were made in that commit.
 
 <p align = "center">
 <img src = "/assets/images/img-secret/captura12.png">
 </p>
 
-And with the command ***git diff*** I wanted to see what changes there were in this repository to see if there is something that might interest me, and we see that there is a ***secret token***, hmm interesting i can now imagine how to use this token that was deleted from the code.
+And with the command ***git diff*** we can see that there is a ***secret token***, hmm interesting i can now imagine how to use this token that was deleted from that code.
 
 <p align = "center">
 <img src = "/assets/images/img-secret/captura13.png">
@@ -237,13 +237,13 @@ And with the command ***git diff*** I wanted to see what changes there were in t
 
 By reading the following article we can do the following: [The article](https://en.internetwache.org/dont-publicly-expose-git-or-how-we-downloaded-your-websites-sourcecode-an-analysis-of-alexas-1m-28-07-2015/)
 
-Reading that article, what we can do instead of seeing the changes of the repo one by one, we can dumpaer the old versions of this git repository, for this there is a tool called ***GitTools*** that basically allows us to do this that i just mentioned and more.
+Reading that article, what we can do instead of seeing the changes of the repo one by one, we can dump the old versions of this git repository, for this there is a tool called ***GitTools*** that basically allows us to do this that i just mentioned and more.
 
 <p align = "center">
 <img src = "/assets/images/img-secret/github.png">
 </p>
 
-Ok, first we go to where we have this tool installed (in my case in / opt) and we are going to use the following command: *** / opt / GitTools / Extractor / extractor.sh local-web / dump (specify the name of the folder) ***. 
+Ok, first we go to where we have this tool installed (in my case in / opt) and we are going to use the following command: ***/ opt / GitTools / Extractor / extractor.sh local-web / dump (specify the name of the folder)***. 
 
 And as we can see, we already have the previous versions of that repository (and we know it from the hashes of the commits that have been assigned) and now we can view the content of those directories more easily. 
 
@@ -257,13 +257,13 @@ And by accessing one of the directories that we have just extracted, we can see 
 <img src = "/assets/images/img-secret/captura15.png">
 </p>
 
-Access in the path directory we find javascript files (which is the source code of the API that was mentioned on the web):
+by accessing the route directory we can find the following javascript files (which is the source code of the API that was mentioned on the website):
 
 <p align = "center">
 <img src = "/assets/images/img-secret/route.png">
 </p> 
 
-auth.js file:
+auth.js file content:
 
 ```js
 const router = require('express').Router();
@@ -344,23 +344,141 @@ router.use(function (req, res, next) {
 
 module.exports = router
 ```
+forgot.js file content:
+
+```js
+st router = require('express').Router();
+const verifytoken = require('./verifytoken')
+const User = require('../model/user');
+
+router.get('/priv', verifytoken, (req, res) => {
+    // res.send(req.user)
+
+    const userinfo = { name: req.user }
+
+    const name = userinfo.name.name;
+
+    if (name == 'theadmin') {
+        res.json({
+            role: {
+                role: "you are admin",
+                desc: "{path to the binary}"
+            }
+        })
+    }
+    else {
+        res.json({
+            role: {
+                role: "not enough privilages",
+                desc: userinfo.name.name
+            }
+        })
+    }
+
+})
 
 
+module.exports = router
+```
+private.js file content:
+
+```js
+onst router = require('express').Router();
+const verifytoken = require('./verifytoken')
+const User = require('../model/user');
+
+router.get('/priv', verifytoken, (req, res) => {
+   // res.send(req.user)
+
+    const userinfo = { name: req.user }
+
+    const name = userinfo.name.name;
+    
+    if (name == 'theadmin'){
+        res.json({
+            role:{
+
+                role:"you are admin", 
+                desc : "{flag will be here}"
+            }
+        })
+    }
+    else{
+        res.json({
+            role: {
+                role: "you are normal user",
+                desc: userinfo.name.name
+            }
+        })
+    }
+
+})
+
+router.use(function (req, res, next) {
+    res.json({
+        message: {
+
+            message: "404 page not found",
+            desc: "page you are looking for is not found. "
+        }
+    })
+});
 
 
-<p align = "center">
-<img src = "/assets/images/img-secret/captura11.png">
-</p><p align = "center">
-<img src = "/assets/images/img-secret/captura11.png">
-</p><p align = "center">
-<img src = "/assets/images/img-secret/captura11.png">
-</p><p align = "center">
-<img src = "/assets/images/img-secret/captura11.png">
-</p><p align = "center">
-<img src = "/assets/images/img-secret/captura11.png">
-</p><p align = "center">
-<img src = "/assets/images/img-secret/captura11.png">
-</p><p align = "center">
-<img src = "/assets/images/img-secret/captura11.png">
-</p>
+module.exports = router
+```
+
+verifytoken.js file content:
+
+```js
+const jwt = require("jsonwebtoken");
+
+module.exports = function (req, res, next) {
+    const token = req.header("auth-token");
+    if (!token) return res.status(401).send("Access Denied");
+
+    try {
+        const verified = jwt.verify(token, process.env.TOKEN_SECRET);
+        req.user = verified;
+        next();
+    } catch (err) {
+        res.status(400).send("Invalid Token");
+    }
+};
+```
+Another file that i found interesting is to validate users when they register, validations.js file contet:
+
+```js
+const Joi = require('@hapi/joi')
+
+
+// register validation 
+
+const registerValidation = data =>{
+    const schema = {
+        name: Joi.string().min(6).required(),
+        email: Joi.string().min(6).required().email(),
+        password: Joi.string().min(6).required()
+    };
+
+    return Joi.validate(data, schema)
+}
+
+// login validation
+
+const loginValidation = data => {
+    const schema2 = {
+        email: Joi.string().min(6).required().email(),
+        password: Joi.string().min(6).required()
+    };
+
+    return Joi.validate(data, schema2)
+}
+
+
+module.exports.registerValidation = registerValidation
+module.exports.loginValidation = loginValidation
+```
+
+Upcoming more info about this machine....
 

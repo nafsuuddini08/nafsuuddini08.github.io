@@ -459,7 +459,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 <img src="/assets/images/img-secret/webw.png">
 </p>
 
-<p>in the web it indicates us a route to register in the web, I have tried to accede to that route but it does not allow me to accede, it can be that we need credentials of user admin.</p>
+<p>in the web it indicates us a route to register on the website, I have tried to access to that route but it does not allow me to accede, it can be that we need credentials of user admin.</p>
 
 <p align="center">
 <img src="/assets/images/img-secret/register.png">
@@ -471,7 +471,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 <img src="/assets/images/img-secret/login.png">
 </p>
 
-<p>And in this path it tells us that only admins can access to see if there are other admin users and I imagine that there is something else in this path, at the moment we do not have any valid credentials so we can not do anything.</p>
+<p>And in this path it tells us that only admins can access to see if there are other admin users and i imagine that there is something else in this path, at the moment we don’t have any valid credentials so we can’t do anything.</p>
 
 <p align="center">
 <img src="/assets/images/img-secret/priv.png">
@@ -495,19 +495,19 @@ Service detection performed. Please report any incorrect results at https://nmap
 <img src="/assets/images/img-secret/captura11.png">
 </p>
 
-<p>But before looking at the content of each directory in the repo i go to see if there is something in the code of the web and i don’t see anything useful.</p>
+<p>But before looking at the content of each directory in that repo i go to see if there is something in the code of the website, and i don’t see anything useful.</p>
 
 <p align="center">
 <img src="/assets/images/img-secret/captura6.png">
 </p>
 
-<p>I am going to proceed with the fuzzing process to see if there is any more route on the web and i don’t see anything interesting, only the api but i can’t access because I don’t have the credentials at the moment.</p>
+<p>I am going to proceed with the fuzzing process to see if there is any more route on the website and i don’t see anything interesting, only the api but i can’t access because it’s says access denied and i don’t have the credentials at the moment.</p>
 
 <p align="center">
 <img src="/assets/images/img-secret/captura8.png">
 </p>
 
-<p>In the <strong><em>/etc/hots</em></strong> file I have applied a virtual hosting to see if there is any difference in the web with the domain but nothing.</p>
+<p>In the <strong><em>/etc/hots</em></strong> file i have applied a virtual hosting to see if there is any difference in the website with the domain, but nothing.</p>
 
 <p align="center">
 <img src="/assets/images/img-secret/captura10.png">
@@ -519,13 +519,13 @@ Service detection performed. Please report any incorrect results at https://nmap
 <img src="/assets/images/img-secret/captura7.png">
 </p>
 
-<p>Going back to the repository that I downloaded earlier, before we saw that there was the <strong><em>.git</em></strong> folder, what I have done is first look at the logs of the commits that have been made in that repository and we can see the user who has made the commits and his email.</p>
+<p>Going back to the repository that i downloaded earlier, before we saw that there was the <strong><em>.git</em></strong> folder, what i have done is first look at the logs of the commits that have been made in that repository and we can see the user who has made the commits and his email, and we can see that there is a commit that says <strong><em>removed .env for security reasons</em></strong> let’s see what changes were made in that commit.</p>
 
 <p align="center">
 <img src="/assets/images/img-secret/captura12.png">
 </p>
 
-<p>And with the command <strong><em>git diff</em></strong> I wanted to see what changes there were in this repository to see if there is something that might interest me, and we see that there is a <strong><em>secret token</em></strong>, hmm interesting i can now imagine how to use this token that was deleted from the code.</p>
+<p>And with the command <strong><em>git diff</em></strong> we can see that there is a <strong><em>secret token</em></strong>, hmm interesting i can now imagine how to use this token that was deleted from that code.</p>
 
 <p align="center">
 <img src="/assets/images/img-secret/captura13.png">
@@ -533,13 +533,13 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 <p>By reading the following article we can do the following: <a href="https://en.internetwache.org/dont-publicly-expose-git-or-how-we-downloaded-your-websites-sourcecode-an-analysis-of-alexas-1m-28-07-2015/">The article</a></p>
 
-<p>Reading that article, what we can do instead of seeing the changes of the repo one by one, we can dumpaer the old versions of this git repository, for this there is a tool called <strong><em>GitTools</em></strong> that basically allows us to do this that i just mentioned and more.</p>
+<p>Reading that article, what we can do instead of seeing the changes of the repo one by one, we can dump the old versions of this git repository, for this there is a tool called <strong><em>GitTools</em></strong> that basically allows us to do this that i just mentioned and more.</p>
 
 <p align="center">
 <img src="/assets/images/img-secret/github.png">
 </p>
 
-<p>Ok, first we go to where we have this tool installed (in my case in / opt) and we are going to use the following command: <em>** / opt / GitTools / Extractor / extractor.sh local-web / dump (specify the name of the folder) **</em>.</p>
+<p>Ok, first we go to where we have this tool installed (in my case in / opt) and we are going to use the following command: <strong><em>/ opt / GitTools / Extractor / extractor.sh local-web / dump (specify the name of the folder)</em></strong>.</p>
 
 <p>And as we can see, we already have the previous versions of that repository (and we know it from the hashes of the commits that have been assigned) and now we can view the content of those directories more easily.</p>
 
@@ -553,13 +553,13 @@ Service detection performed. Please report any incorrect results at https://nmap
 <img src="/assets/images/img-secret/captura15.png">
 </p>
 
-<p>Access in the path directory we find javascript files (which is the source code of the API that was mentioned on the web):</p>
+<p>by accessing the route directory we can find the following javascript files (which is the source code of the API that was mentioned on the website):</p>
 
 <p align="center">
 <img src="/assets/images/img-secret/route.png">
 </p>
 
-<p>auth.js file:</p>
+<p>auth.js file content:</p>
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">).</span><span class="nx">Router</span><span class="p">();</span>
 <span class="kd">const</span> <span class="nx">User</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../model/user</span><span class="dl">'</span><span class="p">);</span>
@@ -639,28 +639,139 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span>
 </code></pre></div></div>
+<p>forgot.js file content:</p>
 
-<p align="center">
-<img src="/assets/images/img-secret/captura11.png">
-</p>
-<p align="center">
-<img src="/assets/images/img-secret/captura11.png">
-</p>
-<p align="center">
-<img src="/assets/images/img-secret/captura11.png">
-</p>
-<p align="center">
-<img src="/assets/images/img-secret/captura11.png">
-</p>
-<p align="center">
-<img src="/assets/images/img-secret/captura11.png">
-</p>
-<p align="center">
-<img src="/assets/images/img-secret/captura11.png">
-</p>
-<p align="center">
-<img src="/assets/images/img-secret/captura11.png">
-</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">st</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">).</span><span class="nx">Router</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">verifytoken</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./verifytoken</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">User</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../model/user</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/priv</span><span class="dl">'</span><span class="p">,</span> <span class="nx">verifytoken</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// res.send(req.user)</span>
+
+    <span class="kd">const</span> <span class="nx">userinfo</span> <span class="o">=</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">user</span> <span class="p">}</span>
+
+    <span class="kd">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">userinfo</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">name</span> <span class="o">==</span> <span class="dl">'</span><span class="s1">theadmin</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
+            <span class="na">role</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">role</span><span class="p">:</span> <span class="dl">"</span><span class="s2">you are admin</span><span class="dl">"</span><span class="p">,</span>
+                <span class="na">desc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{path to the binary}</span><span class="dl">"</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
+            <span class="na">role</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">role</span><span class="p">:</span> <span class="dl">"</span><span class="s2">not enough privilages</span><span class="dl">"</span><span class="p">,</span>
+                <span class="na">desc</span><span class="p">:</span> <span class="nx">userinfo</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">name</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+
+<span class="p">})</span>
+
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span>
+</code></pre></div></div>
+<p>private.js file content:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">onst</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">).</span><span class="nx">Router</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">verifytoken</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./verifytoken</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">User</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../model/user</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/priv</span><span class="dl">'</span><span class="p">,</span> <span class="nx">verifytoken</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+   <span class="c1">// res.send(req.user)</span>
+
+    <span class="kd">const</span> <span class="nx">userinfo</span> <span class="o">=</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">user</span> <span class="p">}</span>
+
+    <span class="kd">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">userinfo</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="nx">name</span> <span class="o">==</span> <span class="dl">'</span><span class="s1">theadmin</span><span class="dl">'</span><span class="p">){</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
+            <span class="na">role</span><span class="p">:{</span>
+
+                <span class="na">role</span><span class="p">:</span><span class="dl">"</span><span class="s2">you are admin</span><span class="dl">"</span><span class="p">,</span> 
+                <span class="na">desc</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">{flag will be here}</span><span class="dl">"</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+    <span class="k">else</span><span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
+            <span class="na">role</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">role</span><span class="p">:</span> <span class="dl">"</span><span class="s2">you are normal user</span><span class="dl">"</span><span class="p">,</span>
+                <span class="na">desc</span><span class="p">:</span> <span class="nx">userinfo</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">name</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+
+<span class="p">})</span>
+
+<span class="nx">router</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
+        <span class="na">message</span><span class="p">:</span> <span class="p">{</span>
+
+            <span class="na">message</span><span class="p">:</span> <span class="dl">"</span><span class="s2">404 page not found</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">desc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">page you are looking for is not found. </span><span class="dl">"</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">});</span>
+
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span>
+</code></pre></div></div>
+
+<p>verifytoken.js file content:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">jwt</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">jsonwebtoken</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="dl">"</span><span class="s2">auth-token</span><span class="dl">"</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">token</span><span class="p">)</span> <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">401</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="dl">"</span><span class="s2">Access Denied</span><span class="dl">"</span><span class="p">);</span>
+
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">verified</span> <span class="o">=</span> <span class="nx">jwt</span><span class="p">.</span><span class="nx">verify</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">TOKEN_SECRET</span><span class="p">);</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">user</span> <span class="o">=</span> <span class="nx">verified</span><span class="p">;</span>
+        <span class="nx">next</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="dl">"</span><span class="s2">Invalid Token</span><span class="dl">"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+<p>Another file that i found interesting is to validate users when they register, validations.js file contet:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Joi</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@hapi/joi</span><span class="dl">'</span><span class="p">)</span>
+
+
+<span class="c1">// register validation </span>
+
+<span class="kd">const</span> <span class="nx">registerValidation</span> <span class="o">=</span> <span class="nx">data</span> <span class="o">=&gt;</span><span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">schema</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">name</span><span class="p">:</span> <span class="nx">Joi</span><span class="p">.</span><span class="nx">string</span><span class="p">().</span><span class="nx">min</span><span class="p">(</span><span class="mi">6</span><span class="p">).</span><span class="nx">required</span><span class="p">(),</span>
+        <span class="na">email</span><span class="p">:</span> <span class="nx">Joi</span><span class="p">.</span><span class="nx">string</span><span class="p">().</span><span class="nx">min</span><span class="p">(</span><span class="mi">6</span><span class="p">).</span><span class="nx">required</span><span class="p">().</span><span class="nx">email</span><span class="p">(),</span>
+        <span class="na">password</span><span class="p">:</span> <span class="nx">Joi</span><span class="p">.</span><span class="nx">string</span><span class="p">().</span><span class="nx">min</span><span class="p">(</span><span class="mi">6</span><span class="p">).</span><span class="nx">required</span><span class="p">()</span>
+    <span class="p">};</span>
+
+    <span class="k">return</span> <span class="nx">Joi</span><span class="p">.</span><span class="nx">validate</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">schema</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// login validation</span>
+
+<span class="kd">const</span> <span class="nx">loginValidation</span> <span class="o">=</span> <span class="nx">data</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">schema2</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">email</span><span class="p">:</span> <span class="nx">Joi</span><span class="p">.</span><span class="nx">string</span><span class="p">().</span><span class="nx">min</span><span class="p">(</span><span class="mi">6</span><span class="p">).</span><span class="nx">required</span><span class="p">().</span><span class="nx">email</span><span class="p">(),</span>
+        <span class="na">password</span><span class="p">:</span> <span class="nx">Joi</span><span class="p">.</span><span class="nx">string</span><span class="p">().</span><span class="nx">min</span><span class="p">(</span><span class="mi">6</span><span class="p">).</span><span class="nx">required</span><span class="p">()</span>
+    <span class="p">};</span>
+
+    <span class="k">return</span> <span class="nx">Joi</span><span class="p">.</span><span class="nx">validate</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">schema2</span><span class="p">)</span>
+<span class="p">}</span>
+
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">registerValidation</span> <span class="o">=</span> <span class="nx">registerValidation</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">loginValidation</span> <span class="o">=</span> <span class="nx">loginValidation</span>
+</code></pre></div></div>
+
+<p>Upcoming more info about this machine….</p>
 
 
         
@@ -731,7 +842,8 @@ Service detection performed. Please report any incorrect results at https://nmap
 ">Previous</a>
     
     
-      <a href="#" class="pagination--pager disabled">Next</a>
+      <a href="/htb-horizontall/" class="pagination--pager" title="HTB - Horinzontall
+">Next</a>
     
   </nav>
 

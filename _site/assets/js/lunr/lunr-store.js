@@ -43,4 +43,9 @@ var store = [{
         "excerpt":"Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explain this later in the blog) and the escalation of privileges is at medium level of difficulty, this machine is vulnerable to RCE through...","categories": ["CTF","Pentest"],
         "tags": ["Hack the box","Linux"],
         "url": "http://localhost:4000/htb-secret/",
-        "teaser":"http://localhost:4000/assets/images/img-secret/portada.png"}]
+        "teaser":"http://localhost:4000/assets/images/img-secret/portada.png"},{
+        "title": "HTB - Horinzontall",
+        "excerpt":"Horizontall is a linux machine with easy difficulty level both in the exploitation phase and the escalation of privelegios is cataloged as medium difficulty, this machine uses the cms strapi version 3.0 beta that has vulnerabilities such as RCE, changes users passwords, and also the machine has an http server...","categories": ["CTF","Pentest"],
+        "tags": ["Hack the box","Linux","CVE","RCE"],
+        "url": "http://localhost:4000/htb-horizontall/",
+        "teaser":"http://localhost:4000/assets/images/img-horizontall/portada.png"}]
