@@ -106,7 +106,7 @@
 
   </head>
 
-  <body class="layout--single wide">
+  <body class="layout--protected wide">
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -119,26 +119,19 @@
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
                 
-        <ul class="visible-links">
-<li class="masthead__menu-item">
-              <a href="/">Home</a>
-            </li>
-<li class="masthead__menu-item">
-              <a href="/year-archive/">Article</a>
-            </li>
-<li class="masthead__menu-item">
-              <a href="/categories/">Categories</a>
-            </li>
-<li class="masthead__menu-item">
-              <a href="/tags/">Tags</a>
-            </li>
-<li class="masthead__menu-item">
-              <a href="/buscador/">Search</a>
-            </li>
-<li class="masthead__menu-item">
-              <a href="/about/">About</a>
-            </li>
-</ul>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Article</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/buscador/" >Search</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
         
         <button class="greedy-nav__toggle hidden" type="button">
           <span class="visually-hidden">Toggle menu</span>
@@ -152,709 +145,50 @@
     
 
     <div class="initial-content">
-      
+      HTB - Secret
 
-
-  
-    
-
-
-
-<nav class="breadcrumbs">
-  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
-    
-    
-    
-      
-        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
-          <meta itemprop="position" content="1">
-        </li>
-        <span class="sep">/</span>
-      
-      
-        <li class="current">HTB - Secret</li>
-      
-    
-  </ol>
-</nav>
-
-  
-
-
-<div id="main" role="main">
-  
-  <div class="sidebar sticky">
-  
-
-
-<div itemscope itemtype="https://schema.org/Person">
-
-  
-    <div class="author__avatar">
-      
-
-      
-        <img src="/assets/images/avatar1.png" alt="Nafsu Uddin" itemprop="image">
-      
-    </div>
-  
-
-  <div class="author__content">
-    
-      <h3 class="author__name" itemprop="name">Nafsu Uddin</h3>
-    
-    
-      <p class="author__bio" itemprop="description">
-        System Administration / Networking / Cybersecurity
-      </p>
-    
-  </div>
-
-  <div class="author__urls-wrapper">
-    <button class="btn btn--inverse">Follow</button>
-    <ul class="author__urls social-icons">
-      
-        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
-          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Barcelona, Spain</span>
-        </li>
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-        <li>
-          <a href="https://github.com/nafsuuddini08" itemprop="sameAs" rel="nofollow noopener noreferrer">
-            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
-          </a>
-        </li>
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <!--
-  <li>
-    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
-      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
-    </a>
-  </li>
--->
-    </ul>
-  </div>
+<div id="content">
+  Insert password for decryption
+  <input id="password" type="password">
+  <button onclick="decrypt()">Decrypt</button>
+  <p id="errmsg" style="color: red;"></p>
 </div>
 
-  
-  </div>
 
-
-  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="HTB - Secret">
-    <meta itemprop="description" content="Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explain this later in the blog) and the escalation of privileges is at medium level of difficulty, this machine is vulnerable to RCE through jwt.">
-    <meta itemprop="datePublished" content="January 05, 2022">
-    
-
-    <div class="page__inner-wrap">
-      
-        <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">HTB - Secret
-</h1>
-          
-        </header>
-      
-
-      <section class="page__content" itemprop="text">
-        
-        <p class="page__meta">
-          
-            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2022-01-05T00:00:00+01:00">January 05, 2022 </time> 
-          
-          
-        </p>
-        <p>Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explain this later in the blog) and the escalation of privileges is at medium level of difficulty, this machine is vulnerable to RCE through jwt.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/portada.png">
-</p>
-
-<p>Machine rating according to the people.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/calificacion.png">
-</p>
-
-<p>Machine matrix:</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/matrix.png">
-</p>
-
-<p>The first thing we are going to do is to create a file with the machine name, and inside of that file with <strong><em>mkt</em></strong> we are going to create to following directories (the mkt function remember that I have it defined in the <strong><em>~/.zshr</em></strong> to create those directories.).</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/captura1.png">
-</p>
-
-<h2 id="recognition">recognition</h2>
-
-<p>First we send an icmp trace to see if we have a connection on the victim machine, and with the ttl i know this is a linux machine, remember that linux machines have ttl 64 and windows machines have ttl 128. In my machine I have defined a python script that through the ttl reports me if it is a windows or linux machine in a more elegant way, in the case if we don’t remember which ttl belongs to which OS.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/captura2.png">
-</p>
-
-<p>wichsystem script:</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/python3
-#coding: utf-8
-</span> 
-<span class="kn">import</span> <span class="nn">re</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">subprocess</span>
- 
-<span class="c1"># python3 wichSystem.py YOURIP 
-</span> 
-<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">[!] Uso: python3 "</span> <span class="o">+</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">" &lt;direccion-ip&gt;</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
-    <span class="n">sys</span><span class="o">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
- 
-<span class="k">def</span> <span class="nf">get_ttl</span><span class="p">(</span><span class="n">ip_address</span><span class="p">):</span>
- 
-    <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s">"/usr/bin/ping -c 1 </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="n">ip_address</span><span class="p">,</span> <span class="s">""</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="n">err</span><span class="p">)</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
- 
-    <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
- 
-    <span class="n">ttl_value</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r"\d{1,3}"</span><span class="p">,</span> <span class="n">out</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
- 
-    <span class="k">return</span> <span class="n">ttl_value</span>
- 
-<span class="k">def</span> <span class="nf">get_os</span><span class="p">(</span><span class="n">ttl</span><span class="p">):</span>
- 
-    <span class="n">ttl</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ttl</span><span class="p">)</span>
- 
-    <span class="k">if</span> <span class="n">ttl</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">ttl</span> <span class="o">&lt;=</span> <span class="mi">64</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s">"Linux"</span>
-    <span class="k">elif</span> <span class="n">ttl</span> <span class="o">&gt;=</span> <span class="mi">65</span> <span class="ow">and</span> <span class="n">ttl</span> <span class="o">&lt;=</span> <span class="mi">128</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s">"Windows"</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s">"Not Found"</span>
- 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
- 
-    <span class="n">ip_address</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
- 
-    <span class="n">ttl</span> <span class="o">=</span> <span class="n">get_ttl</span><span class="p">(</span><span class="n">ip_address</span><span class="p">)</span>
- 
-    <span class="n">os_name</span> <span class="o">=</span> <span class="n">get_os</span><span class="p">(</span><span class="n">ttl</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="si">%</span><span class="s">s (ttl -&gt; </span><span class="si">%</span><span class="s">s): </span><span class="si">%</span><span class="s">s</span><span class="se">\n</span><span class="s">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">ip_address</span><span class="p">,</span> <span class="n">ttl</span><span class="p">,</span> <span class="n">os_name</span><span class="p">))</span>
-</code></pre></div></div>
-
-<h2 id="scanning---ports-recognition">Scanning - Ports recognition</h2>
-
-<p>I am going to perform a tcp syn scan by adding the <strong><em>min-rate</em></strong> parameter to make the scan go as fast as possible, and the evidence of the scan I will save it in grepable format.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Nmap 7.92 scan initiated Thu Dec 30 22:42:19 2021 as: nmap -p- -sS --min-rate 5000 --open -vvv -n -Pn -oG allports 10.10.11.120
-# Ports scanned: TCP(65535;1-65535) UDP(0;) SCTP(0;) PROTOCOLS(0;)
-Host: 10.10.11.120 ()   Status: Up
-Host: 10.10.11.120 ()   Ports: 22/open/tcp//ssh///, 80/open/tcp//http///, 3000/open/tcp//ppp/// Ignored State: closed (65532)
-# Nmap done at Thu Dec 30 22:42:30 2021 -- 1 IP address (1 host up) scanned in 11.72 seconds
-</code></pre></div></div>
-<p>Basically i save it in the grepable format is that i have a function defined in the <strong><em>~/.zshrc</em></strong> called <strong><em>extractports</em></strong> that indicating the name of the file shows me the ports in a more elegant way and copies the ports it to clipboard.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/captura3.png">
-</p>
-
-<p>Extractports script:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
-
-<span class="k">function </span>extractPorts<span class="o">(){</span>
-        <span class="nv">ports</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span><span class="nb">cat</span> <span class="nv">$1</span> | <span class="nb">grep</span> <span class="nt">-oP</span> <span class="s1">'\d{1,5}/open'</span> | <span class="nb">awk</span> <span class="s1">'{print $1}'</span> <span class="nv">FS</span><span class="o">=</span><span class="s1">'/'</span> | xargs | <span class="nb">tr</span> <span class="s1">' '</span> <span class="s1">','</span><span class="si">)</span><span class="s2">"</span>
-        <span class="nv">ip_address</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span><span class="nb">cat</span> <span class="nv">$1</span> | <span class="nb">grep</span> <span class="nt">-oP</span> <span class="s1">'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'</span> | <span class="nb">sort</span> <span class="nt">-u</span> | <span class="nb">head</span> <span class="nt">-n</span> 1<span class="si">)</span><span class="s2">"</span>
-        <span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">[*] Extracting information...</span><span class="se">\n</span><span class="s2">"</span> <span class="o">&gt;</span> extractPorts.tmp
-        <span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">[*] IP Address: </span><span class="nv">$ip_address</span><span class="s2">"</span>  <span class="o">&gt;&gt;</span> extractPorts.tmp
-        <span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">[*] Open ports: </span><span class="nv">$ports</span><span class="se">\n</span><span class="s2">"</span>  <span class="o">&gt;&gt;</span> extractPorts.tmp
-        <span class="nb">echo</span> <span class="nv">$ports</span> | <span class="nb">tr</span> <span class="nt">-d</span> <span class="s1">'\n'</span> | xclip <span class="nt">-sel</span> clip
-        <span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"[*] Ports copied to clipboard</span><span class="se">\n</span><span class="s2">"</span>  <span class="o">&gt;&gt;</span> extractPorts.tmp
-        <span class="nb">cat </span>extractPorts.tmp<span class="p">;</span> <span class="nb">rm </span>extractPorts.tmp
-<span class="o">}</span>
-</code></pre></div></div>
-<p>And with the ports discovered we are going to perform another scan to know the versions of the services that run those ports with some recognition scripts (-sCV), and i will save the evidence of the scan in nmap format (it is advisable to save the scans in a file to avoid re-scanning).</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Nmap 7.92 scan initiated Thu Dec 30 22:44:07 2021 as: nmap -sCV -p22,80,3000 -oN targeted 10.10.11.120
-Nmap scan report for 10.10.11.120
-Host is up (0.051s latency).
-
-PORT     STATE SERVICE VERSION
-22/tcp   open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
-| ssh-hostkey:
-|   3072 97:af:61:44:10:89:b9:53:f0:80:3f:d7:19:b1:e2:9c (RSA)
-|   256 95:ed:65:8d:cd:08:2b:55:dd:17:51:31:1e:3e:18:12 (ECDSA)
-|_  256 33:7b:c1:71:d3:33:0f:92:4e:83:5a:1f:52:02:93:5e (ED25519)
-80/tcp   open  http    nginx 1.18.0 (Ubuntu)
-|_http-title: DUMB Docs
-|_http-server-header: nginx/1.18.0 (Ubuntu)
-3000/tcp open  http    Node.js (Express middleware)
-|_http-title: DUMB Docs
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-# Nmap done at Thu Dec 30 22:44:22 2021 -- 1 IP address (1 host up) scanned in 15.32 seconds
-</code></pre></div></div>
-<p>As there is a web server on port 80 with <strong><em>whatweb</em></strong> we do a small recognition as if it were wappalyzere extension, to know the version of the web service, cms, etc.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/captura4.png">
-</p>
-
-<p>We access the web and the wappalyzer reports the following information about the web.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/webw.png">
-</p>
-
-<p>in the web it indicates us a route to register on the website, I have tried to access to that route but it does not allow me to accede, it can be that we need credentials of user admin.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/register.png">
-</p>
-
-<p>We also have a path to log in, but we can’t access it.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/login.png">
-</p>
-
-<p>And in this path it tells us that only admins can access to see if there are other admin users and i imagine that there is something else in this path, at the moment we don’t have any valid credentials so we can’t do anything.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/priv.png">
-</p>
-
-<p>And we go further down in the documentation section we can see something interesting, I am already thinking of some attacks that we can perform.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/jwt.png">
-</p>
-
-<p>Well we have an option to download the repository of this project.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/download.png">
-</p>
-
-<p>And these are the files contained in the repo, I’m seeing some interesting files and directories.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/captura11.png">
-</p>
-
-<p>But before looking at the content of each directory in that repo i go to see if there is something in the code of the website, and i don’t see anything useful.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/captura6.png">
-</p>
-
-<p>I am going to proceed with the fuzzing process to see if there is any more route on the website and i don’t see anything interesting, only the api but i can’t access because it’s says access denied and i don’t have the credentials at the moment.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/captura8.png">
-</p>
-
-<p>In the <strong><em>/etc/hots</em></strong> file i have applied a virtual hosting to see if there is any difference in the website with the domain, but nothing.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/captura10.png">
-</p>
-
-<p>Since the ssh port is open on the victim machine i wanted to check if the user <strong><em>anonymous</em></strong> is enabled but in this case it is not enabled.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/captura7.png">
-</p>
-
-<p>Going back to the repository that i downloaded earlier, before we saw that there was the <strong><em>.git</em></strong> folder, what i have done is first look at the logs of the commits that have been made in that repository and we can see the user who has made the commits and his email, and we can see that there is a commit that says <strong><em>removed .env for security reasons</em></strong> let’s see what changes were made in that commit.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/captura12.png">
-</p>
-
-<p>And with the command <strong><em>git diff</em></strong> we can see that there is a <strong><em>secret token</em></strong>, hmm interesting i can now imagine how to use this token that was deleted from that code.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/captura13.png">
-</p>
-
-<p>By reading the following article we can do the following: <a href="https://en.internetwache.org/dont-publicly-expose-git-or-how-we-downloaded-your-websites-sourcecode-an-analysis-of-alexas-1m-28-07-2015/">The article</a></p>
-
-<p>Reading that article, what we can do instead of seeing the changes of the repo one by one, we can dump the old versions of this git repository, for this there is a tool called <strong><em>GitTools</em></strong> that basically allows us to do this that i just mentioned and more.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/github.png">
-</p>
-
-<p>Ok, first we go to where we have this tool installed (in my case in / opt) and we are going to use the following command: <strong><em>/ opt / GitTools / Extractor / extractor.sh local-web / dump (specify the name of the folder)</em></strong>.</p>
-
-<p>And as we can see, we already have the previous versions of that repository (and we know it from the hashes of the commits that have been assigned) and now we can view the content of those directories more easily.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/captura14.png">
-</p>
-
-<p>And by accessing one of the directories that we have just extracted, we can see that it is the same structure of files and folders that we have seen previously.</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/captura15.png">
-</p>
-
-<p>by accessing the route directory we can find the following javascript files (which is the source code of the API that was mentioned on the website):</p>
-
-<p align="center">
-<img src="/assets/images/img-secret/route.png">
-</p>
-
-<p>auth.js file content:</p>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">).</span><span class="nx">Router</span><span class="p">();</span>
-<span class="kd">const</span> <span class="nx">User</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../model/user</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">const</span> <span class="nx">bcrypt</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">bcryptjs</span><span class="dl">'</span><span class="p">)</span>
-<span class="kd">const</span> <span class="nx">jwt</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">jsonwebtoken</span><span class="dl">'</span><span class="p">)</span>
-<span class="kd">const</span> <span class="p">{</span> <span class="nx">registerValidation</span><span class="p">,</span> <span class="nx">loginValidation</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../validations</span><span class="dl">'</span><span class="p">)</span>
-
-<span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/register</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-
-    <span class="c1">// validation</span>
-    <span class="kd">const</span> <span class="p">{</span> <span class="nx">error</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">registerValidation</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">details</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">message</span><span class="p">);</span>
-
-    <span class="c1">// check if user exists</span>
-    <span class="kd">const</span> <span class="nx">emailExist</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">User</span><span class="p">.</span><span class="nx">findOne</span><span class="p">({</span><span class="na">email</span><span class="p">:</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">email</span><span class="p">})</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">emailExist</span><span class="p">)</span> <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">Email already Exist</span><span class="dl">'</span><span class="p">)</span>
-
-    <span class="c1">// check if user name exist </span>
-    <span class="kd">const</span> <span class="nx">unameexist</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">User</span><span class="p">.</span><span class="nx">findOne</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">name</span> <span class="p">})</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">unameexist</span><span class="p">)</span> <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">Name already Exist</span><span class="dl">'</span><span class="p">)</span>
-
-    <span class="c1">//hash the password</span>
-    <span class="kd">const</span> <span class="nx">salt</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">bcrypt</span><span class="p">.</span><span class="nx">genSalt</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-    <span class="kd">const</span> <span class="nx">hashPaswrod</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">bcrypt</span><span class="p">.</span><span class="nx">hash</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">password</span><span class="p">,</span> <span class="nx">salt</span><span class="p">)</span>
-
-
-    <span class="c1">//create a user </span>
-    <span class="kd">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">({</span>
-        <span class="na">name</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
-        <span class="na">email</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">email</span><span class="p">,</span>
-        <span class="na">password</span><span class="p">:</span><span class="nx">hashPaswrod</span>
-    <span class="p">});</span>
-
-    <span class="k">try</span><span class="p">{</span>
-        <span class="kd">const</span> <span class="nx">saveduser</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">user</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
-        <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span> <span class="na">user</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="p">})</span>
-    
-    <span class="p">}</span>
-    <span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-    <span class="p">}</span>
-
-<span class="p">});</span>
-
-
-<span class="c1">// login </span>
-
-<span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/login</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span>  <span class="p">(</span><span class="nx">req</span> <span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-
-    <span class="kd">const</span> <span class="p">{</span> <span class="nx">error</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">loginValidation</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">details</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">message</span><span class="p">);</span>
-
-    <span class="c1">// check if email is okay </span>
-    <span class="kd">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">User</span><span class="p">.</span><span class="nx">findOne</span><span class="p">({</span> <span class="na">email</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">email</span> <span class="p">})</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">user</span><span class="p">)</span> <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">Email is wrong</span><span class="dl">'</span><span class="p">);</span>
-
-    <span class="c1">// check password </span>
-    <span class="kd">const</span> <span class="nx">validPass</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">bcrypt</span><span class="p">.</span><span class="nx">compare</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">password</span><span class="p">,</span> <span class="nx">user</span><span class="p">.</span><span class="nx">password</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">validPass</span><span class="p">)</span> <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">Password is wrong</span><span class="dl">'</span><span class="p">);</span>
-
-
-    <span class="c1">// create jwt </span>
-    <span class="kd">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">jwt</span><span class="p">.</span><span class="nx">sign</span><span class="p">({</span> <span class="na">_id</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">name</span> <span class="p">,</span> <span class="na">email</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">email</span><span class="p">},</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">TOKEN_SECRET</span> <span class="p">)</span>
-    <span class="nx">res</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="dl">'</span><span class="s1">auth-token</span><span class="dl">'</span><span class="p">,</span> <span class="nx">token</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="nx">token</span><span class="p">);</span>
-
-<span class="p">})</span>
-
-<span class="nx">router</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
-        <span class="na">message</span><span class="p">:</span> <span class="p">{</span>
-
-            <span class="na">message</span><span class="p">:</span> <span class="dl">"</span><span class="s2">404 page not found</span><span class="dl">"</span><span class="p">,</span>
-            <span class="na">desc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">page you are looking for is not found. </span><span class="dl">"</span>
-        <span class="p">}</span>
-    <span class="p">})</span>
-<span class="p">});</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span>
-</code></pre></div></div>
-<p>forgot.js file content:</p>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">st</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">).</span><span class="nx">Router</span><span class="p">();</span>
-<span class="kd">const</span> <span class="nx">verifytoken</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./verifytoken</span><span class="dl">'</span><span class="p">)</span>
-<span class="kd">const</span> <span class="nx">User</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../model/user</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/priv</span><span class="dl">'</span><span class="p">,</span> <span class="nx">verifytoken</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="c1">// res.send(req.user)</span>
-
-    <span class="kd">const</span> <span class="nx">userinfo</span> <span class="o">=</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">user</span> <span class="p">}</span>
-
-    <span class="kd">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">userinfo</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="nx">name</span> <span class="o">==</span> <span class="dl">'</span><span class="s1">theadmin</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
-            <span class="na">role</span><span class="p">:</span> <span class="p">{</span>
-                <span class="na">role</span><span class="p">:</span> <span class="dl">"</span><span class="s2">you are admin</span><span class="dl">"</span><span class="p">,</span>
-                <span class="na">desc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{path to the binary}</span><span class="dl">"</span>
-            <span class="p">}</span>
-        <span class="p">})</span>
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="p">{</span>
-        <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
-            <span class="na">role</span><span class="p">:</span> <span class="p">{</span>
-                <span class="na">role</span><span class="p">:</span> <span class="dl">"</span><span class="s2">not enough privilages</span><span class="dl">"</span><span class="p">,</span>
-                <span class="na">desc</span><span class="p">:</span> <span class="nx">userinfo</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">name</span>
-            <span class="p">}</span>
-        <span class="p">})</span>
-    <span class="p">}</span>
-
-<span class="p">})</span>
-
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span>
-</code></pre></div></div>
-<p>private.js file content:</p>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">onst</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">).</span><span class="nx">Router</span><span class="p">();</span>
-<span class="kd">const</span> <span class="nx">verifytoken</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./verifytoken</span><span class="dl">'</span><span class="p">)</span>
-<span class="kd">const</span> <span class="nx">User</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../model/user</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/priv</span><span class="dl">'</span><span class="p">,</span> <span class="nx">verifytoken</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-   <span class="c1">// res.send(req.user)</span>
-
-    <span class="kd">const</span> <span class="nx">userinfo</span> <span class="o">=</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">user</span> <span class="p">}</span>
-
-    <span class="kd">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">userinfo</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
-    
-    <span class="k">if</span> <span class="p">(</span><span class="nx">name</span> <span class="o">==</span> <span class="dl">'</span><span class="s1">theadmin</span><span class="dl">'</span><span class="p">){</span>
-        <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
-            <span class="na">role</span><span class="p">:{</span>
-
-                <span class="na">role</span><span class="p">:</span><span class="dl">"</span><span class="s2">you are admin</span><span class="dl">"</span><span class="p">,</span> 
-                <span class="na">desc</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">{flag will be here}</span><span class="dl">"</span>
-            <span class="p">}</span>
-        <span class="p">})</span>
-    <span class="p">}</span>
-    <span class="k">else</span><span class="p">{</span>
-        <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
-            <span class="na">role</span><span class="p">:</span> <span class="p">{</span>
-                <span class="na">role</span><span class="p">:</span> <span class="dl">"</span><span class="s2">you are normal user</span><span class="dl">"</span><span class="p">,</span>
-                <span class="na">desc</span><span class="p">:</span> <span class="nx">userinfo</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">name</span>
-            <span class="p">}</span>
-        <span class="p">})</span>
-    <span class="p">}</span>
-
-<span class="p">})</span>
-
-<span class="nx">router</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
-        <span class="na">message</span><span class="p">:</span> <span class="p">{</span>
-
-            <span class="na">message</span><span class="p">:</span> <span class="dl">"</span><span class="s2">404 page not found</span><span class="dl">"</span><span class="p">,</span>
-            <span class="na">desc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">page you are looking for is not found. </span><span class="dl">"</span>
-        <span class="p">}</span>
-    <span class="p">})</span>
-<span class="p">});</span>
-
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span>
-</code></pre></div></div>
-
-<p>verifytoken.js file content:</p>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">jwt</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">jsonwebtoken</span><span class="dl">"</span><span class="p">);</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="dl">"</span><span class="s2">auth-token</span><span class="dl">"</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">token</span><span class="p">)</span> <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">401</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="dl">"</span><span class="s2">Access Denied</span><span class="dl">"</span><span class="p">);</span>
-
-    <span class="k">try</span> <span class="p">{</span>
-        <span class="kd">const</span> <span class="nx">verified</span> <span class="o">=</span> <span class="nx">jwt</span><span class="p">.</span><span class="nx">verify</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">TOKEN_SECRET</span><span class="p">);</span>
-        <span class="nx">req</span><span class="p">.</span><span class="nx">user</span> <span class="o">=</span> <span class="nx">verified</span><span class="p">;</span>
-        <span class="nx">next</span><span class="p">();</span>
-    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="dl">"</span><span class="s2">Invalid Token</span><span class="dl">"</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div></div>
-<p>Another file that i found interesting is to validate users when they register, validations.js file contet:</p>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Joi</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@hapi/joi</span><span class="dl">'</span><span class="p">)</span>
-
-
-<span class="c1">// register validation </span>
-
-<span class="kd">const</span> <span class="nx">registerValidation</span> <span class="o">=</span> <span class="nx">data</span> <span class="o">=&gt;</span><span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">schema</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="na">name</span><span class="p">:</span> <span class="nx">Joi</span><span class="p">.</span><span class="nx">string</span><span class="p">().</span><span class="nx">min</span><span class="p">(</span><span class="mi">6</span><span class="p">).</span><span class="nx">required</span><span class="p">(),</span>
-        <span class="na">email</span><span class="p">:</span> <span class="nx">Joi</span><span class="p">.</span><span class="nx">string</span><span class="p">().</span><span class="nx">min</span><span class="p">(</span><span class="mi">6</span><span class="p">).</span><span class="nx">required</span><span class="p">().</span><span class="nx">email</span><span class="p">(),</span>
-        <span class="na">password</span><span class="p">:</span> <span class="nx">Joi</span><span class="p">.</span><span class="nx">string</span><span class="p">().</span><span class="nx">min</span><span class="p">(</span><span class="mi">6</span><span class="p">).</span><span class="nx">required</span><span class="p">()</span>
-    <span class="p">};</span>
-
-    <span class="k">return</span> <span class="nx">Joi</span><span class="p">.</span><span class="nx">validate</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">schema</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="c1">// login validation</span>
-
-<span class="kd">const</span> <span class="nx">loginValidation</span> <span class="o">=</span> <span class="nx">data</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">schema2</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="na">email</span><span class="p">:</span> <span class="nx">Joi</span><span class="p">.</span><span class="nx">string</span><span class="p">().</span><span class="nx">min</span><span class="p">(</span><span class="mi">6</span><span class="p">).</span><span class="nx">required</span><span class="p">().</span><span class="nx">email</span><span class="p">(),</span>
-        <span class="na">password</span><span class="p">:</span> <span class="nx">Joi</span><span class="p">.</span><span class="nx">string</span><span class="p">().</span><span class="nx">min</span><span class="p">(</span><span class="mi">6</span><span class="p">).</span><span class="nx">required</span><span class="p">()</span>
-    <span class="p">};</span>
-
-    <span class="k">return</span> <span class="nx">Joi</span><span class="p">.</span><span class="nx">validate</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">schema2</span><span class="p">)</span>
-<span class="p">}</span>
-
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">registerValidation</span> <span class="o">=</span> <span class="nx">registerValidation</span>
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">loginValidation</span> <span class="o">=</span> <span class="nx">loginValidation</span>
-</code></pre></div></div>
-
-<p>Upcoming more info about this machine….</p>
-
-
-        
-      </section>
-
-      <footer class="page__meta">
-        
-        
-  
-
-
-  
-  
-  
-
-  <p class="page__taxonomy">
-    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
-    <span itemprop="keywords">
-    
-      
-      
-      <a href="/tags/#hack-the-box" class="page__taxonomy-item" rel="tag">Hack the box</a><span class="sep">, </span>
-    
-      
-      
-      <a href="/tags/#linux" class="page__taxonomy-item" rel="tag">Linux</a>
-    
-    </span>
-  </p>
-
-
-
-
-  
-
-
-  
-  
-  
-
-  <p class="page__taxonomy">
-    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
-    <span itemprop="keywords">
-    
-      
-      
-      <a href="/categories/#ctf" class="page__taxonomy-item" rel="tag">CTF</a><span class="sep">, </span>
-    
-      
-      
-      <a href="/categories/#pentest" class="page__taxonomy-item" rel="tag">Pentest</a>
-    
-    </span>
-  </p>
-
-
-        
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Fecha:</strong> <time datetime="2022-01-05T00:00:00+01:00">January 05, 2022</time></p>
-        
-      </footer>
-
-      
-
-      
-  <nav class="pagination">
-    
-      <a href="/htb-previse/" class="pagination--pager" title="HTB - Previse
-">Previous</a>
-    
-    
-      <a href="/htb-horizontall/" class="pagination--pager" title="HTB - Horinzontall
-">Next</a>
-    
-  </nav>
-
-    </div>
-
-    
-  </article>
-
-  
-</div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js" integrity="sha256-u6BamZiW5tCemje2nrteKC2KoLIKX9lKPSpvCkOhamw=" crossorigin="anonymous"></script>
+<script>
+  function decrypt() {
+    var protectedContent = "";
+    var password = document.getElementById('password').value;
+
+    var payload = protectedContent.split("|");
+    var iv = payload[0];
+    var hmac = payload[1];
+    var cipherText = payload[2];
+
+    var passphraseDgst = CryptoJS.SHA256(password).toString();
+    var decryptedhmac = CryptoJS.HmacSHA256(cipherText, CryptoJS.enc.Hex.parse(passphraseDgst)).toString().trim();
+    if(CryptoJS.enc.Base64.parse(hmac).toString() === decryptedhmac){
+      var decrypted = CryptoJS.AES.decrypt(
+        {ciphertext:CryptoJS.enc.Base64.parse(cipherText)},
+        CryptoJS.enc.Hex.parse(passphraseDgst),
+        {iv:CryptoJS.enc.Base64.parse(iv)}
+      );
+      var content = CryptoJS.enc.Utf8.stringify(decrypted);
+      document.getElementById('content').innerHTML = content;
+    } else {
+      document.getElementById('errmsg').innerHTML = "Wrong password";
+    }
+  }
+
+  var passwordInput = document.getElementById('password');
+  passwordInput.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+      decrypt();
+    }
+  })
+</script>
     </div>
 
     
@@ -874,7 +208,7 @@ Service detection performed. Please report any incorrect results at https://nmap
   </ul>
 </div>
 
-<div class="page__footer-copyright">© 2022 Nafsu</div>
+<div class="page__footer-copyright">&copy; 2022 Nafsu</div>
 
       </footer>
     </div>

@@ -45,7 +45,7 @@ var store = [{
         "url": "http://localhost:4000/htb-secret/",
         "teaser":"http://localhost:4000/assets/images/img-secret/portada.png"},{
         "title": "HTB - Horinzontall",
-        "excerpt":"Horizontall is a linux machine with easy difficulty level both in the exploitation phase and the escalation of privelegios is cataloged as medium difficulty, this machine uses the cms strapi version 3.0 beta that has vulnerabilities such as RCE, changes users passwords, and also the machine has an http server...","categories": ["CTF","Pentest"],
+        "excerpt":"Horizontall is a linux machine with easy difficulty level both in the exploitation phase and the privilege escalation is cataloged as medium difficulty, this machine uses the cms strapi version 3.0 beta that has vulnerabilities such as RCE, changes users passwords, and also the machine has an http server running...","categories": ["CTF","Pentest"],
         "tags": ["Hack the box","Linux","CVE","RCE"],
         "url": "http://localhost:4000/htb-horizontall/",
         "teaser":"http://localhost:4000/assets/images/img-horizontall/portada.png"}]
