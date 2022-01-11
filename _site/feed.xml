@@ -1,4 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-01-11T01:24:09+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Horinzontall</title><link href="http://localhost:4000/htb-horizontall/" rel="alternate" type="text/html" title="HTB - Horinzontall" /><published>2022-01-06T00:00:00+01:00</published><updated>2022-01-06T00:00:00+01:00</updated><id>http://localhost:4000/htb-horizontall</id><content type="html" xml:base="http://localhost:4000/htb-horizontall/">&lt;p&gt;Horizontall is a linux machine with easy difficulty level both in the exploitation phase and the privilege escalation is cataloged as medium difficulty, this machine uses the cms strapi version 3.0 beta that has vulnerabilities such as RCE, changes users passwords, and also the machine has an http server running on port 8000 that is running laravel version 8 that has the vulnerability CVE-2021-3129 (RCE).&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-01-11T03:03:34+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Hak5 - Rubber Ducky</title><link href="http://localhost:4000/hak5-rubberducky/" rel="alternate" type="text/html" title="Hak5 - Rubber Ducky" /><published>2022-01-11T00:00:00+01:00</published><updated>2022-01-11T00:00:00+01:00</updated><id>http://localhost:4000/hak5-rubberducky</id><content type="html" xml:base="http://localhost:4000/hak5-rubberducky/">&lt;p&gt;Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will perform some payloads and attacks that we can perform and how to mitigate these types of attacks.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/portada1.jpg&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Here we can see the parts that make up the rubber ducky and the tools we need that are already included in the package we bought, which in this case is the micro-SD card, sd to usb adapter (to put our payloads on the micro-sd card to our pc) and the usb to mini usb adapter if we want to connect the rubber ducky to an andriod phone or tablet.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/foto.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now what we need is an encoder for our rubber ducky payloads, in my case I’m going to use the shell to encode my payloads which you can download from my &lt;a href=&quot;https://github.com/nafsuuddini08/USB-Rubber-Ducky&quot;&gt;repo&lt;/a&gt;, but there are websites that allow us to do this like &lt;a href=&quot;https://ducktoolkit.com/encode&quot;&gt;Ducktoolkit&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In the hak5 repo we have a lot of payloads that we can use, but in this case we are going to make our own payloads.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura2.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Rubber ducky" /><category term="Linux" /><summary type="html">Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will perform some payloads and attacks that we can perform and how to mitigate these types of attacks.</summary></entry><entry><title type="html">HTB - Horinzontall</title><link href="http://localhost:4000/htb-horizontall/" rel="alternate" type="text/html" title="HTB - Horinzontall" /><published>2022-01-06T00:00:00+01:00</published><updated>2022-01-06T00:00:00+01:00</updated><id>http://localhost:4000/htb-horizontall</id><content type="html" xml:base="http://localhost:4000/htb-horizontall/">&lt;p&gt;Horizontall is a linux machine with easy difficulty level both in the exploitation phase and the privilege escalation is cataloged as medium difficulty, this machine uses the cms strapi version 3.0 beta that has vulnerabilities such as RCE, changes users passwords, and also the machine has an http server running on port 8000 that is running laravel version 8 that has the vulnerability CVE-2021-3129 (RCE).&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-horizontall/portada.png&quot; /&gt;
@@ -4082,106 +4153,4 @@ $ python3 {sys.argv[0]} 10.10.10.200:1337 rev.bin
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-appservice/captura117.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry><entry><title type="html">Configure dhcp server in linux with isc-dhcp-server</title><link href="http://localhost:4000/isc-dhcp-server/" rel="alternate" type="text/html" title="Configure dhcp server in linux with isc-dhcp-server" /><published>2021-10-20T00:00:00+02:00</published><updated>2021-10-20T00:00:00+02:00</updated><id>http://localhost:4000/isc-dhcp-server</id><content type="html" xml:base="http://localhost:4000/isc-dhcp-server/">&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-dhcp/servidor-DHCP-e1511228735448.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;we are going to learn how to configure a dhcp server in linux using the isc-dhcp-server service, we are going to learn: create a fixed ip for our server machine, create subnets, exclude ips ranges, create an ips address concession and finally make a reserved ip for a specific host with its mac address.&lt;/p&gt;
-
-&lt;h2 id=&quot;what-is-a-dhcp-server&quot;&gt;What is a dhcp server?&lt;/h2&gt;
-
-&lt;p&gt;Dynamic Host Configuration Protocol (DHCP), is a network management protocol that allows us to automatically assign IP addresses to client computers, default gateways, and other network parameters. allowing them to use network services such as DNS, NTP and any communication protocol based on UDP or TCP.&lt;/p&gt;
-
-&lt;p&gt;To understand more clearly how the dhcp protocol works, the following diagram shows us how it works:&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-dhcp/dhcp.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&quot;installing-dhcp-server-and-adding-fix-ip-address-in-our-server-machine&quot;&gt;Installing dhcp-server and adding fix ip address in our server machine.&lt;/h2&gt;
-&lt;p&gt;Before configuring the dhcp server, we are going to install it with the command:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install isc-dhcp-server
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;In my case I am going to assign a fixed IP address on the server machine. For this we will go to the path “/ etc / netplan” and then we will enter with the «nano» editor in the configuration file that haswithin that route. Inside the file we will put the following parameters:&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-dhcp/captura2.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;After we are going to save the changes to the file, we use the command “netplan apply” so that the ip is added to our server. And we use the command “ifconfig” to see if the ip address has been apply.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-dhcp/captura3.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&quot;configuring-our-dhcp-sever&quot;&gt;Configuring our dhcp sever&lt;/h2&gt;
-
-&lt;p&gt;Once we have configured an ip for our server, we will go to the file “/etc/default/isc-dhcp.server”, where it says “interfacesv4 (ipv4 version)” we put the name of the network card where it will listen to the requests that we are going to configure. In my case I want it to assign the ips addresses in the “enp0s8” adapter on the client machines.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-dhcp/captura4.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We are going to create a subnet declaration specifying the ip range, open dhcp configure file (“/etc/dhcp/dhcpd.conf”). what we have to do inside a subnet declaration and then with the command «range» we will first put the lowest ip (in my case it is 10) the second the highest ip ( which in my case is 200).&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-dhcp/captura6.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;To add any changes it is important to &lt;strong&gt;&lt;em&gt;restart&lt;/em&gt;&lt;/strong&gt; the dhcp service with the command:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo service isc-dhcp-server restart
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;In the same configuration file we can establish the default time that an IP address is going to be lend (defualt-lease-time) and the second would be the maximum rental time of an IP address (max-lease-time). In my case, in both, the time is 1 and 3 hours, which I have indicated in seconds.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-dhcp/captura8.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;If in the case that we want to exclude ip ranges, within the same subnet declaration, we are going to specify which range of ip we want to exclude, for example in my case what I did is within the subnet declaration is to add a new range ip that is from 10 to 49 and change the ip range that I put previously, in this case it is from 61 to 200, and with this we exclude the ip range from 50 to 60.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-dhcp/captura7.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&quot;reserve-ip-for-a-host&quot;&gt;Reserve ip for a host&lt;/h2&gt;
-
-&lt;p&gt;To reserve an IP with the mac address of a specific host, inside the dhcp configuration file we add a new host declaration (in my case I put the name of the client machine which is name “nafsuclient”) and with the command «hardware ethernet “we put the client’s mac address and with the command” fixed-address “we add the ip that we want to assign for that machine. once we done, save the file and restart de dhcp service.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-dhcp/captura9.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And this is my client machine, we can see that the mac address is the same as I have put in the configuration file.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-dhcp/captura10.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Before we have to make sure that the “isc-dhcp-client” service is installed on the client’s machine. If in the case that it is not installed we execute the following command:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install isc-dhcp-client
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;In the client machine that we are going to reserve the IP, we are going to use the following command so that it can carry out the process of obtaining the IP, indicating the network adapter that will obtain the IP that we put on the server.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-dhcp/captura12.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Then in the client machine, we turn off and on the adapter that will get the ip (in my case it is 8).&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-dhcp/captura13.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We use the “ifconfig” command on the client machine to verify that we have added the ip that we declared on the server.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-dhcp/captura14.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;In conclusion we have been able to learn some concepts of the dhcp protocol, and also how to administer the dhcp service in linux in a very easy and fasty way.&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="dhcp" /><category term="isc-dhcp-server" /><category term="Linux" /><summary type="html">we are going to learn how to configure a dhcp server in linux using the isc-dhcp-server service, we are going to learn how to create subnets and make reserved ips.</summary></entry></feed>
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry></feed>

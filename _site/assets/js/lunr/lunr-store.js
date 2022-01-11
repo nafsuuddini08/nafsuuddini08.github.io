@@ -48,4 +48,9 @@ var store = [{
         "excerpt":"Horizontall is a linux machine with easy difficulty level both in the exploitation phase and the privilege escalation is cataloged as medium difficulty, this machine uses the cms strapi version 3.0 beta that has vulnerabilities such as RCE, changes users passwords, and also the machine has an http server running...","categories": ["CTF","Pentest"],
         "tags": ["Hack the box","Linux","CVE","RCE"],
         "url": "http://localhost:4000/htb-horizontall/",
-        "teaser":"http://localhost:4000/assets/images/img-horizontall/portada.png"}]
+        "teaser":"http://localhost:4000/assets/images/img-horizontall/portada.png"},{
+        "title": "Hak5 - Rubber Ducky",
+        "excerpt":"Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will perform some payloads and attacks that we can...","categories": ["Hacking gadgets","Hak5"],
+        "tags": ["Rubber ducky","Linux"],
+        "url": "http://localhost:4000/hak5-rubberducky/",
+        "teaser":"http://localhost:4000/assets/images/img-rubberd/portada1.jpg"}]

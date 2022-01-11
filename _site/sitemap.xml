@@ -41,6 +41,10 @@
 <lastmod>2022-01-06T00:00:00+01:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/hak5-rubberducky/</loc>
+<lastmod>2022-01-11T00:00:00+01:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/404/</loc>
 </url>
 <url>
@@ -63,6 +67,9 @@
 </url>
 <url>
 <loc>http://localhost:4000/usefulcommand/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page2/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/videos/</loc>
