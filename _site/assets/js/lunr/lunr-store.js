@@ -50,7 +50,7 @@ var store = [{
         "url": "http://localhost:4000/htb-horizontall/",
         "teaser":"http://localhost:4000/assets/images/img-horizontall/portada.png"},{
         "title": "Hak5 - Rubber Ducky",
-        "excerpt":"Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will perform some payloads and attacks that we can...","categories": ["Hacking gadgets","Hak5"],
+        "excerpt":"Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will create some payloads and attacks that we can...","categories": ["Hacking gadgets","Hak5"],
         "tags": ["Rubber ducky","Linux"],
         "url": "http://localhost:4000/hak5-rubberducky/",
         "teaser":"http://localhost:4000/assets/images/img-rubberd/portada1.jpg"}]
