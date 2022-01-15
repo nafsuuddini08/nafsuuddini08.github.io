@@ -53,4 +53,9 @@ var store = [{
         "excerpt":"Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will create some payloads and attacks that we can...","categories": ["Hacking gadgets","Hak5"],
         "tags": ["Rubber ducky","Linux"],
         "url": "http://localhost:4000/hak5-rubberducky/",
-        "teaser":"http://localhost:4000/assets/images/img-rubberd/portada1.jpg"}]
+        "teaser":"http://localhost:4000/assets/images/img-rubberd/portada1.jpg"},{
+        "title": "HTB - LogForge",
+        "excerpt":"LogForge is a linux machine with a medium level of difficulty both in the exploitation phase and the escalation of privileges, in this machine we take advantage of the vulnerability of the apache tomcat service to have access to the manager panel and we will also be exploiting a very...","categories": ["CTF","Pentest"],
+        "tags": ["Hack the box","Linux","CVE","RCE"],
+        "url": "http://localhost:4000/htb-logforge/",
+        "teaser":"http://localhost:4000/assets/images/img-logforge/portada.png"}]

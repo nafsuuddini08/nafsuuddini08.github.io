@@ -1,4 +1,247 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-01-12T02:29:47+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Hak5 - Rubber Ducky</title><link href="http://localhost:4000/hak5-rubberducky/" rel="alternate" type="text/html" title="Hak5 - Rubber Ducky" /><published>2022-01-11T00:00:00+01:00</published><updated>2022-01-11T00:00:00+01:00</updated><id>http://localhost:4000/hak5-rubberducky</id><content type="html" xml:base="http://localhost:4000/hak5-rubberducky/">&lt;p&gt;Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will create some payloads and attacks that we can done and how to mitigate these types of attacks.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-01-15T03:16:58+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - LogForge</title><link href="http://localhost:4000/htb-logforge/" rel="alternate" type="text/html" title="HTB - LogForge" /><published>2022-01-14T00:00:00+01:00</published><updated>2022-01-14T00:00:00+01:00</updated><id>http://localhost:4000/htb-logforge</id><content type="html" xml:base="http://localhost:4000/htb-logforge/">&lt;p&gt;LogForge is a linux machine with a medium level of difficulty both in the exploitation phase and the escalation of privileges, in this machine we take advantage of the vulnerability of the apache tomcat service to have access to the manager panel and we will also be exploiting a very critical vulnerability that has just been released recently which is the log4shell.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/portada.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Machine rating according to the people.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-horizontall/calificacion.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Machine matrix:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/matrix.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The first thing we are going to do is to create a file with the machine name, and inside of that file with &lt;strong&gt;&lt;em&gt;mkt&lt;/em&gt;&lt;/strong&gt; we are going to create to following directories (the mkt function remember that I have it defined in the &lt;strong&gt;&lt;em&gt;~/.zshr&lt;/em&gt;&lt;/strong&gt; to create those directories.).&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;recognition&quot;&gt;Recognition&lt;/h2&gt;
+
+&lt;p&gt;First we send an icmp trace to see if we have a connection on the victim machine, and with the ttl i know this is a linux machine, remember that linux machines have ttl 64 and windows machines have ttl 128.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura2.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In my machine I have defined a python script that through the ttl reports me if it is a windows or linux machine in a more elegant way, in the case if we don’t remember which ttl belongs to which OS.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura3.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Wichsystem script:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/python3
+#coding: utf-8
+&lt;/span&gt; 
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;
+ 
+&lt;span class=&quot;c1&quot;&gt;# python3 wichSystem.py YOURIP 
+&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[!] Uso: python3 &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &amp;lt;direccion-ip&amp;gt;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ 
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+ 
+    &lt;span class=&quot;n&quot;&gt;proc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Popen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/usr/bin/ping -c 1 &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ip_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PIPE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shell&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;proc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;communicate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+ 
+    &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ 
+    &lt;span class=&quot;n&quot;&gt;ttl_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findall&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r&quot;\d{1,3}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+ 
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl_value&lt;/span&gt;
+ 
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+ 
+    &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ 
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Linux&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;65&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;128&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Windows&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Not Found&quot;&lt;/span&gt;
+ 
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+ 
+    &lt;span class=&quot;n&quot;&gt;ip_address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+ 
+    &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ 
+    &lt;span class=&quot;n&quot;&gt;os_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s (ttl -&amp;gt; &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s): &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And if you asking why the ttl in the image shows 63 but not 64?, this happens because the packet that we send in the hackthebox machine does not go directly to the machine but tha packet goes through a series of intermediary nodes. and if we do a trace route when we ping the machine &lt;strong&gt;&lt;em&gt;(-R)&lt;/em&gt;&lt;/strong&gt; we can see those intermediate nodes.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura4.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;scanning---ports-recognition&quot;&gt;Scanning - Ports recognition&lt;/h2&gt;
+
+&lt;p&gt;i am going to perform a tcp syn scan by adding the &lt;strong&gt;&lt;em&gt;min-rate&lt;/em&gt;&lt;/strong&gt; parameter to make the scan go as fast as possible, and the evidence of the scan I will save it in grepable format in the allports file.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Nmap 7.92 scan initiated Wed Jan 12 16:36:01 2022 as: nmap -p- -sS --min-rate 5000 --open -vvv -n -Pn -oG allports 10.10.11.138
+# Ports scanned: TCP(65535;1-65535) UDP(0;) SCTP(0;) PROTOCOLS(0;)
+Host: 10.10.11.138 ()   Status: Up
+Host: 10.10.11.138 ()   Ports: 22/open/tcp//ssh///, 80/open/tcp//http///
+# Nmap done at Wed Jan 12 16:36:13 2022 -- 1 IP address (1 host up) scanned in 11.62 seconds
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Basically i save it in the grepable format is that i have a function defined in the ~/.zshrc called extractports that indicating the name of the file shows me the ports in a more elegant way and copies the ports it to clipboard.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura5.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Extractports script:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;extractPorts&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-oP&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\d{1,5}/open'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $1}'&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;FS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/'&lt;/span&gt; | xargs | &lt;span class=&quot;nb&quot;&gt;tr&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;','&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;ip_address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-oP&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] Extracting information...&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
+        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] IP Address: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ip_address&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
+        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] Open ports: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ports&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
+        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ports&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;tr&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\n'&lt;/span&gt; | xclip &lt;span class=&quot;nt&quot;&gt;-sel&lt;/span&gt; clip
+        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[*] Ports copied to clipboard&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
+        &lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;extractPorts.tmp&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;extractPorts.tmp
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And with the ports discovered we are going to perform another scan to know the versions of the services that run those ports with some recognition scripts (-sCV), and i will save the evidence of the scan in nmap format (it is advisable to save the scans in a file to avoid re-scanning).&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Nmap 7.92 scan initiated Wed Jan 12 16:37:32 2022 as: nmap -sCV -p22,80 -oN targeted 10.10.11.138
+Nmap scan report for 10.10.11.138
+Host is up (0.055s latency).
+
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey:
+|   3072 ea:84:21:a3:22:4a:7d:f9:b5:25:51:79:83:a4:f5:f2 (RSA)
+|   256 b8:39:9e:f4:88:be:aa:01:73:2d:10:fb:44:7f:84:61 (ECDSA)
+|_  256 22:21:e9:f4:85:90:87:45:16:1f:73:36:41:ee:3b:32 (ED25519)
+80/tcp open  http    Apache httpd 2.4.41 ((Ubuntu))
+|_http-title: Ultimate Hacking Championship
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Wed Jan 12 16:37:43 2022 -- 1 IP address (1 host up) scanned in 11.34 seconds
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As there is a web server on port 80 with whatweb we do a small recognition as if it were wappalyzere extension, to know the version of the web service, cms, etc.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura6.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We access on the website with the domain and the wappalyzer reports the following information about the web. Ok, so seeing that there is an apache server and also that the website uses java, it means that the website is probably using the apache tomcat service.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura7.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;But first of all let’s check if there is anything interesting in the code of this website, and we don’t see anything useful.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura8.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We are going to do a little fuzzing with nmap but in this case we do not find anything, well nothing happens as we already know that apache tomcat is running we can check sevaral routes.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura9.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And this case if we are go to the page error 404 we can see that it’s shows as the version that is being using the apache tomcat service, but something even more interesting is that if we right click and select in “inspect”, in the network section and reload tha website we see that is reports different versions of apache and it is probably because there is a apache reverse proxy configured in the website.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura10.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So if there is an apache tomcat there is for sure a path that is the &lt;strong&gt;&lt;em&gt;/manager/html&lt;/em&gt;&lt;/strong&gt; which is where is the apache tomcat admin panel for deploy issues of our web app. and we see it exists but it tells us &lt;strong&gt;&lt;em&gt;forbidden&lt;/em&gt;&lt;/strong&gt; that we do not have access to this route.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura12.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And as we know the version of the apache tomcat service let’s look for the possible vulnerabilities that exist.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura13.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Well and we see that there is a vulnerability that is the path traversal through the reverse proxy, that by putting the character &lt;strong&gt;&lt;em&gt;/..;/&lt;/em&gt;&lt;/strong&gt; some resources can be accessed that normally cannot be accessed through the reverse proxy. So let’s try it.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura14.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Then what we are going to do is to put a resource that does not exist and we will add that character that indicates us in the article, and in this case what i want is to access the path &lt;strong&gt;&lt;em&gt;/manager/html&lt;/em&gt;&lt;/strong&gt; that did not allow us to access. And now instead of the 403 error (forbidden) now it’s appear a popup to authenticate.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;!--&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
+&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
+&lt;/p&gt;--&gt;
+
+&lt;p&gt;Not finish&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="Linux" /><category term="CVE" /><category term="RCE" /><summary type="html">LogForge is a linux machine with a medium level of difficulty both in the exploitation phase and the privileges escalation, in this machine we take advantage of the vulnerability of the apache tomcat service to have access to the manager panel and we will also be exploiting a very critical vulnerability that has just been released recently which is the log4shell.</summary></entry><entry><title type="html">Hak5 - Rubber Ducky</title><link href="http://localhost:4000/hak5-rubberducky/" rel="alternate" type="text/html" title="Hak5 - Rubber Ducky" /><published>2022-01-11T00:00:00+01:00</published><updated>2022-01-11T00:00:00+01:00</updated><id>http://localhost:4000/hak5-rubberducky</id><content type="html" xml:base="http://localhost:4000/hak5-rubberducky/">&lt;p&gt;Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will create some payloads and attacks that we can done and how to mitigate these types of attacks.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-rubberd/portada1.jpg&quot; /&gt;
@@ -3327,946 +3570,4 @@ $ python3 {sys.argv[0]} 10.10.10.200:1337 rev.bin
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-nmap/captura48.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Nmap" /><category term="Linux" /><category term="Hack the box" /><summary type="html">we are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest.</summary></entry><entry><title type="html">Azure - Appservice</title><link href="http://localhost:4000/azure-appservice/" rel="alternate" type="text/html" title="Azure - Appservice" /><published>2021-10-24T00:00:00+02:00</published><updated>2021-10-24T00:00:00+02:00</updated><id>http://localhost:4000/azure-appservice</id><content type="html" xml:base="http://localhost:4000/azure-appservice/">&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/appservice.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.&lt;/p&gt;
-
-&lt;p&gt;In this article we are going to learn:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;What is app service and azure concepts&lt;/li&gt;
-  &lt;li&gt;How to create a resource group&lt;/li&gt;
-  &lt;li&gt;Create an App service plan&lt;/li&gt;
-  &lt;li&gt;Creat a appservice in azure&lt;/li&gt;
-  &lt;li&gt;Deploy our web app in the multiple ways:
-    &lt;ul&gt;
-      &lt;li&gt;Deploying with ftp&lt;/li&gt;
-      &lt;li&gt;Deploying with our github repository&lt;/li&gt;
-      &lt;li&gt;Deploying with bitbuket&lt;/li&gt;
-      &lt;li&gt;Deploying with git local&lt;/li&gt;
-      &lt;li&gt;Deploying with azure repo&lt;/li&gt;
-      &lt;li&gt;Deploying with vs code 2019
-        &lt;ul&gt;
-          &lt;li&gt;Push our repo in github in vs code 2019&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;Deploying with vs code&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Create appservice with azure start devops&lt;/li&gt;
-  &lt;li&gt;Some azure CLI commands&lt;/li&gt;
-  &lt;li&gt;Create an app service inside a container
-    &lt;ul&gt;
-      &lt;li&gt;Create an webhook&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;Sorry for the screenshots that are in Spanish, I have not been able to make the guide again since my azure subscription has expired. But the process is the same.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;what-is-app-service&quot;&gt;What is app service?&lt;/h2&gt;
-
-&lt;p&gt;App service is a fully managed web hosting service for building web applications, services and RESTful APIs. The service offers a variety of plans to meet the needs of any application, from small web sites to worldwide web applications.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/azure-app-service-diagram.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;In azure there are three models of cloud computing offered to us as a service, and each one covers some degree of management and this includes other cloud providers, which is the iaaS, PaaS and SaaS.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;iaaS&lt;/em&gt;&lt;/strong&gt;: this service manage virtual machines and storage in the cloud.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;PaaS&lt;/em&gt;&lt;/strong&gt;: It provides operating systems, databases, etc. that you can raise, modify and shut down with a few clicks.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;SaaS&lt;/em&gt;&lt;/strong&gt;: Allows users to connect to applications that are in the cloud over the Internet and use them (hosting, outlook, google docs).&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/azuremodels.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;There is one important thing we have to keep in mind when using azure is that it charges us for reading data and this includes with other providers.&lt;/p&gt;
-
-&lt;h2 id=&quot;how-to-create-resource-group&quot;&gt;How to create resource group&lt;/h2&gt;
-
-&lt;p&gt;A &lt;strong&gt;&lt;em&gt;resource group&lt;/em&gt;&lt;/strong&gt; allows us to manage resources in a flexible and simple way (vm, web app, databases, networks, etc.) The resource group can include all the resources of the solution or only those that you want to manage as group.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/group.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;To create a group of resources, we go to the azure portal and click on the three stripes that appear in the upper left. And then we select a resource group and click on “create” .&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura1.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;In case we have other types of azure subscriptions we will select it, and we gon a put name our resource group. It is important to check which region we choose, because depending on the region, there are different costs. And click on “review + finish”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura2.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&quot;create-an-app-service-plan&quot;&gt;Create an app service plan&lt;/h2&gt;
-
-&lt;p&gt;We are going to create a plan for our app service, and when we are going to create a new app service we can select this plan.&lt;/p&gt;
-
-&lt;p&gt;So to create a app service plan, we are going to search “app service plans” in the azure portal navegation bar. Here we are gon a click in “create”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura3.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Here we are going to select our resource group that we have just created, we put the name of our plan, we will choose an operating system this is important since each operating system offers us different functionalities in the app service, we choose a region (it is important to select the region where we are located) and finally we will choose the price plan, there are two price plans that are for testing, which is f1 (which is free) and b2 (which is paid and with more capacity) there are other price plans but we’ll see later.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura4.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;After selecting the sku, we click on “create and review” and a summary of the configuration that we have put in our app service plan will appear. and we click “create” to finish.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura5.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&quot;create-an-app-service&quot;&gt;Create an app service&lt;/h2&gt;
-
-&lt;p&gt;We will type “app service” in the search engine of the azure portal and click on app service.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura6.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Here in the app service panel we are going to click on “create”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura7.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;First we are going to select the group of resources that we have created previously, and then we will put a domain name for our web app. In “publish” we are going to select code, since the second option is if we want our app service to be published within a docker container, but we will see that later.&lt;/p&gt;
-
-&lt;p&gt;Where it says “runtime stack” defines the technology stack used to develop the application, in my case I will choose php 7.3. We choose an OS as I said before, it is important that we select a suitable one for our needs since each OS offers different features in app service.&lt;/p&gt;
-
-&lt;p&gt;We choose a region closer to where we are located and in “plan” we will choose the plan that we created previously, in this case I put another app service plan since the plan that I created previously put the Linux OS. or if we want we can create a plan directly from here by clicking on “creat new”. And to finish we click on “review and finish”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura8.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And here we can see the summary of the configuration that we put to create the app service (if we see any wrong configuration we can go back) and we click on “create” to finish the process.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura9.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We are going to wait for the implementation process of our app service to finish. And once it is finished we click on the notification bell and we click on “go to resource” or from the same panel where it is being deployed.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura10.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We are in the overview section of our app service. And we can see we have the domain that we put for our app service, in case if we click on the url the default azure page will appear.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura11.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;If we go to “Scale up” here we can change our contract plan for our app service.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura12.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;If we want to upload our app service in production we have other types of plans.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura13.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;If we go to the configuration of our app service, in “general settings” we can change some settings of our app service in the event that when creating the app service we put some configuration that we didn’t want.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura14.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&quot;deploy-our-web-app-in-the-multiple-ways&quot;&gt;Deploy our web app in the multiple ways:&lt;/h2&gt;
-
-&lt;h3 id=&quot;deploying-with-ftp&quot;&gt;Deploying with ftp:&lt;/h3&gt;
-
-&lt;p&gt;In this case, to deploy our web app we are going to use an ftp client, in this case I am going to use filezilla. but if we want we can use the terminal.&lt;/p&gt;
-
-&lt;p&gt;In my case I am going to upload an html file that I just created.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura15.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;What we are going to do is connect the server to our ftp client. If in your case you are using filezilla, what we are going to do is go to “archives” and click on “site manager”. and we click on “new site” and in this case we are going to put the name of our app service that we just created.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura16.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;In the ftp client it will ask us for the name of our server, username and password. for this we go to our app service and we will go where it says “Deployment center” and click on “ftps credentials”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura17.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;In the filezilla will are going to copy and paste “ftps endpoint”, copy the username and password and paste in filezilla. and click in “connect”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura18.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;If everyting is all right we should get a popup of the ftp certificate that we are using, when we click in “connect”. And click “accept”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura19.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;To deploy our web app just where it says “remote site” we go to the path “/site/wwwroot” and here we drag the folder where we have developed our web app. in my case I am just going to upload the html file that I created before.&lt;/p&gt;
-
-&lt;p&gt;where it says “status” we can see if our files have been uploaded correctly to the server.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura20.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;If I go to the domain of my app service we can see that the deploy has been done correctly.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura21.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h3 id=&quot;deploying-with-our-github-repository&quot;&gt;Deploying with our github repository:&lt;/h3&gt;
-
-&lt;p&gt;In my case i have created an repository in my github account, and in that repository i add an html file.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura22.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now what we are going to do is to connect our github account and the repository. for this I am going to use the app service that I have created in azure CLI. To do this we go to our app service, and in “deployment center” -&amp;gt; “settings” -&amp;gt; “source” -&amp;gt; “continuous deployment” we select github.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura23.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Then a popup will appear and we will log in to our github account (in case we are not logged in) and click on “Authorize app service”. And we will have already connected our github account to our app service.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura24.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;In organization we are going to select an organization that we have created in github, in my case I don’t have one so I am going to select the name of my account. In “repository” we are going to select the repo where we have uploaded our web app. And select the branch we want, in this case I have selected the “main” branch. And finally we click on “save”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura25.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And as we can see, it has been deployed correctly.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura26.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;If in case we want another repo in our app service or disconnect our repo. We go to “deployment center” and click on “disconnect”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura27.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;If we go to “deployment center” it notifies us and tells us the date and time and the user who made a pull request or any modification in the repository (it’s the same feature we have in github).&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/registro.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h3 id=&quot;deploying-with-bitbucket&quot;&gt;Deploying with bitbucket:&lt;/h3&gt;
-
-&lt;p&gt;In bitbucket it is the same process we have done in github to deploy our web app.&lt;/p&gt;
-
-&lt;p&gt;The first thing I have done in bitbucket is create a workspace.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura28.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Then i create a project.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura29.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And then i create a repository in bitbucket.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura30.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Inside the repository I have created an index.html file with the following content.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura31.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Once I finished I made a commit of the changes.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura32.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;In this case I have created another app service for this time.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura33.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;To deploy our web app in the app service we go to “deployment center” and in “source” we choose “bitbucket” (we can use the app service that we have created before and disconnect it and instead of github put bitbucket). we put the organization that we have created in bitbucket, in my case I have created one called “testazure9”, we select the repository and the branch, and we click on save.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura34.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And as we can see that the deploy has been done correctly.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura35.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h3 id=&quot;deploying-with-azure-repo&quot;&gt;Deploying with Azure repo:&lt;/h3&gt;
-
-&lt;p&gt;To deploy our web app in azure repos is the same process we did in bitbucket and github.&lt;/p&gt;
-
-&lt;p&gt;The first thing we will do is go to the azure repo page and click on “start” to configure azure repo or just go to the azure portal and search for “azure devops”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura36.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now we are going to name our project, choose whether we want it to be private or public and select the region. And click on “continue”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura37.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And now put the project name and clic in “create project”&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura38.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And as we can see we have already created a workspace and an organization. Now let’s create a repository.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura39.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;To create the repository we click on the arrow indicated in the previous image and click on “new repository”, here we select git and put a name for the repository.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura40.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Inside the repository I have added an index.html file with the following content:&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura41.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And click on “commit” to commit the changes we have made.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura42.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;In my case I will create another app service to deploy (as I said before, we can go to the app service we have created and in “deployment centre” we disconnect the previous repo and in “source” we can select “Azure repo”).&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura43.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;To deploy we go to “deployment center” -&amp;gt; “settings” in source we select “Azure repo” and in the “organization” select the organization that you have, and select the project we just created and the repo where we have our web app. And click on “save”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura44.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And we can see that the deploy has been done correctly and the changes have been applied correctly.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura45.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h3 id=&quot;deploying-with-git-local&quot;&gt;Deploying with git local:&lt;/h3&gt;
-
-&lt;p&gt;I have created another app service for this demonstration (but as I said before we can go to “deployment center” and disconnect and in “source” change the implementation).&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura46.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Once we have selected “git local” we click on “save”. because this time it won’t ask for the repository and branch. Copy the link to clone the repository.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura47.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;When cloning the repository we will be asked for the username and password, the same will happen if we want to push the repo.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura49.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;To find the username and password, in the same “deployment center” in the section where it says “Local GIT or FTP credentials”, copy the username and password and paste it to clone the repo.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura48.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Obviously when cloning the repo it tells us that there is no file as we have just created the app service and deployed it.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura50.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;In my case I have added an html file in the cloned folder with the following content.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura51.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;we push the repository with the link that appears in the “deployment centre”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura52.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;as we can see that the deploy has been successful and the changes have been applied, when we have done the push.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura53.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h3 id=&quot;deploying-with-vs-code-2019&quot;&gt;Deploying with vs code 2019:&lt;/h3&gt;
-
-&lt;p&gt;In this case the IDE I am using is the community version, but this applied to the pro version.&lt;/p&gt;
-
-&lt;p&gt;We open the vs elbow 2019 and we will create a project.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura54.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now we are going to choose one of the extensions we want, in this case as we are going to deploy a web app we are going to choose the following extension shown on the screen.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura55.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We will name the project and choose a framework for .NET.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura56.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We choose what type of template we are going to make for our web application and then we click on “create”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura57.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;For this demo I am going to modify the default index.html file in vs code 2019.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura58.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now we are going to deploy our project in the app service we have created. To do this we are going to right click on the “explorer” of our project and click on “publish”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura59.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We will see a popup of which way we want to publish our project. In this case we will select “azure”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura60.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And in this case we will choose the app service option and click “next”. But we can see that we have other options to deploy.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura61.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now if we want to create a new app service in vs code 2019 we click on the following icon that is displayed on the screen, and fill in the following options. and click on “create” (Being the first time we may be asked to log in with our azure account).&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura62.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Once the app service has been created, we select the app service we have just created and click on “finish”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura63.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Once we have clicked on “finish”, we will see a summary of the app service we have just created. Finally we click on “publish” to finish the deploy process.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura64.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And as we can see our web app has been published correctly with the changes I have added.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura65.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h3 id=&quot;push-our-repo-in-github-in-vs-code-2019&quot;&gt;Push our repo in github in vs code 2019:&lt;/h3&gt;
-
-&lt;p&gt;let’s create a remote repo and upload it to our github account, right click on the project explorer and select the option “create a git repo”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura118.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We select github and we will have to log in with our github account to upload the project. And we click on “create and submit changes” to upload our project in github.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura119.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;to verify that the project has been push, wright click on the project explorer and in git select the option “view history (we can view the logs history)”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura120.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And as we can see the repository is uploaded in my github account.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura121.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And to commit the changes, simply select the “git” option, and it will be appear the commit option.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura122.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And to compare the old version of the code with the new version, we simply click on the warning that will appear when committing.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura123.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And to push the changes in github simply in the same option we select “submit changes” and an alert will appear below that the changes are being push in our github repo.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura124.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And as we can see the changes have been push (in my case I added three “s” in the h1).&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura125.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h3 id=&quot;deploying-with-vs-code&quot;&gt;Deploying with vs code:&lt;/h3&gt;
-
-&lt;p&gt;Now we are going to learn how to create an app service and deploy our web app in vs code.&lt;/p&gt;
-
-&lt;p&gt;First we will go to the extensions section for vs code, and search for app service and install it.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura66.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;For the first time we will be asked to log in with our azure account, to create the app service we simply click on “+”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura67.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;It will ask us to name the app service and then we will choose a language for the runtime stack.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura68.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;It will ask us to choose a plan for our app service. (if we already have a plan created we select it or we can create another plan).&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura69.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;After selecting the plan, you will be notified that the app service has been created successfully.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura70.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now once we have created the app service, we are going to deploy our web app.&lt;/p&gt;
-
-&lt;p&gt;For this demo i have created a html file with the he following content shown in the image. To deploy, right click on the app service and select the option “deploy” and select the folder where we have all the code of our app.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura71.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We will get a warning if we are sure to deploy. Click on “deploy” to finish the process.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura72.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;If the deploy has been done correctly, we will see a warning that the deploy is being done. click on “browser website” to open the browser.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura73.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And as we can see the deploy has been done correctly and the changes have been applied.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura74.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&quot;create-appservice-with-azure-start-devops&quot;&gt;Create appservice with azure start devops&lt;/h2&gt;
-
-&lt;p&gt;Devops started creates a web app in azure devops. DevOps Starter configures everything we need to develop, deploy and monitor our application.&lt;/p&gt;
-
-&lt;p&gt;The first thing we are going to do is from the azure portal look for “Devops starter”, and here we are going to choose a framework or language that we are going to use for our web app.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura76.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Then you must choose two options, the first one is to create an app service running on windows, and the second one if we want our web app to be inside a container. in my case I will choose the first option, because the second option we will see it in a different way later. Click on “next” to continue&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura77.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;In this option we will be asked to give permissions with our github account. And this will create a workflow in our repo.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura78.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now we will select the organisation, the repository and the branch. We will choose a region and the service plan we want to apply.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura79.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Once we have clicked on “create”, we wait for the process to finish and click on “authorize” so that it can deploy.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura80.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;To do a test, I am going to go to the repository where the workflow has been created, and go to the “armtemplete” folder to modify a bit the default template.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura81.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;In this case I have modified the default index.html file a bit, and we commit to save the changes.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura82.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;we go back to devops starter, we will see that we will see that we have modified the repo and the commit we have just done, we also have the “yml” file which is where we have all the configuration we have done of devops starter.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura83.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And as we can see the changes have been applied correctly. The good thing about this is that it applies the changes quickly and we don’t have to restart any kind of service.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura84.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&quot;azure-cli-commands&quot;&gt;Azure CLI commands&lt;/h2&gt;
-
-&lt;p&gt;All the steps we have done, we can also be done from the azure cli command line in a much faster way. in this case we are going to use some of the azure cli commands.&lt;/p&gt;
-
-&lt;p&gt;There are two ways to use the azure cli command line, the first is from the azure portal by opening the cloud shell, and the second option if you are on windows is to download the azure cli .exe to be able to use the commands in the cmd.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura85.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;All azure CLI commands start with “az”.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;if we use the azure cli from your computer, we have to use the following command to log in with our azure account. with this command we will jump to the browser to log in.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;az login
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If we want to login in our azure account in the terminal. (I don’t recommend this option because it is insecure.)&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;az login -u username -p pass
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;command to list all the resource groups we have created.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;az group list
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;see all available regions.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;az account list-locations
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Create a resource group.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;az group create --name yourresourcegroupname --location westeurope
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Delete resource groups.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;az group delete --name resourcegroupname
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Create an app service plan.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;az appservice plan create -g resourgroupname -n namaoftheplan
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;List all the plans we have created in our azure account.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;az appservice plan list
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Create an app service.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;az webapp create --resource-group yourresourgroupname --plan theplanname --name nameoftheappservice --runtime &quot;PHP|7.4&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;As we can see, the app service has been created correctly.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura86.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;logout our azure account in the terminal.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;az logout
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;create-an-app-service-inside-a-container&quot;&gt;Create an app service inside a container&lt;/h2&gt;
-
-&lt;p&gt;What we are going to do is first create a dockerfile in our web app folder and with that create a container from our local machine, then we are going to use the acr service to deploy the container and create an app service from the container we have created.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura87.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;The first thing we are going to do is inside the azure portal we are going to create a registry of our containers (ACR). To do this we go to the search menu and in containers we click on “container registry”, or you can search for “acr” in the search bar from the azure portal.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura88.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now we will select the resource group, put the name of your acr, and we will choose the region and finally in SKU we are going to select a plan. And click on “review and create”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura89.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;As we can see we have successfully created our ACR.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura90.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;For this demo, I will use a simple node project.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura91.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;In the project folder I have created an simple dockerfile with the following instructions. in “FORM” I have indicated which image I am going to use for my container in this case I have indicated “node”, in “WORK DIR” the path where my web app will be running, and with the command “COPY” and “RUN” I am indicating that I copy all the code of my web app, and with the “run” I indicate to install the dependencies and with this I will always update the container, and finally the parameter “CMD” I indicate that when my container runs I execute the command “nmp start”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura92.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;So in my package.json file yo can see the startup script simply just runs node app.js.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura93.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;So in my app.js file i simply idicate the following message.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura94.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And in the app.js file i indicate to run “app.listen” to specify a port thats exported in that configuration to listening on the port 3000 by defualt.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura95.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We are going to create a docker image of our web app. for this we are going to use the command:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker built -t acrname.azurecr.io/your-webapp-name:lastest .
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;In the last paremeter we are going to use “lastest” so that in our container is always the last version of our web app.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura96.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Once the image build process is finished, we are going to use “docker images” command to check if the image has been created correctly.&lt;/p&gt;
-
-&lt;p&gt;And then with the command:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -d -p 8080:3000 IMAGE ID
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;To run the container from local to see if our app is working correctly. The “-p” parameter specifies the port I want my web app to run.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura97.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And as we can see our web app is working correctly inside the container.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura98.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now we are going to publish the container image we have just created in ACR. To do this we will use the command:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker login yourACRname.azurecr.io
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now let’s log into our ACR to deploy our container image, it will ask us for the user and password. To do this we are going to go to  your ACR =&amp;gt; Access key. Copy and paste the username and password into the terminal.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura99.jpg&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now we are going to deploy our container image in ACR. for this we are going to use the command:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker push name-of-the-image:lastest
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura100.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And once we have finished the deploy process we are going to check it. for this we will go to: ACR =&amp;gt; repository. And as we can see that the image has been published correctly.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura101.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;If we click on the image we can see what the latest version is and the date when we made the push.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura102.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now we are going to connect our container that we have uploaded and we are going to connect it with the app service, for this we will go to: Create a resource =&amp;gt; containers =&amp;gt; Web App for containers.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura103.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now select the resource group, name our app service, under “publish” it is important that we select the option &lt;strong&gt;&lt;em&gt;“docker container”&lt;/em&gt;&lt;/strong&gt;, choose the OS and the region. And click on “Next”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura104.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;In the docker section it is important that where it says &lt;strong&gt;&lt;em&gt;“Image source”&lt;/em&gt;&lt;/strong&gt; we select the &lt;strong&gt;&lt;em&gt;ACR&lt;/em&gt;&lt;/strong&gt;, and in registry we are going to select the name of our ACR, and in where says “image” select the &lt;strong&gt;&lt;em&gt;docker image&lt;/em&gt;&lt;/strong&gt; that we have deploy, and in label we are going to put &lt;strong&gt;&lt;em&gt;“lastest”&lt;/em&gt;&lt;/strong&gt; to indicate that we want the latest version of the image. And click on “review and create”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura105.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;A notification will appear if it has been successfully created and we click on “go to resource”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura106.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And as we can see that we have created our app service. now we have our app service inside a container.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura107.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And we can see that my web app is working correctly.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura108.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h3 id=&quot;create-an-webhook&quot;&gt;Create an webhook:&lt;/h3&gt;
-
-&lt;p&gt;Go to your app service =&amp;gt; click where it says “Deployment center” =&amp;gt; in settings you select the first option “container registry” (here your docker image that you have created will automatically appear) =&amp;gt; select the option “On” in “Continuous deployment”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura109.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;What this will do is it’ll create a webhook rosource that will fire whenever we push a new version to the docker container image in the ACR and it will actomatically kick off deployment.&lt;/p&gt;
-
-&lt;p&gt;So go to the group of resources where we have created the app service, we can observe that the webhook has been created.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura110.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We click in the webhook, and we can see it’s never run yet but if we push a new version of the image to the registry it should fire, it should cause a deployment to take place and update our web app.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura111.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;For this demo, I am going to make a modification of my web app.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura112.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And I’m going to reassemble the image.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura113.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And I’m going to push the image again.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura114.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;So going back to the portal heading over to the webhook rosource and click on “refresh”, we can see that we got a push action taking place.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura115.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And if we go to our app service in the “deployment center” section and select the log section, we can see the logs when we have published the image.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura116.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And as you can see the changes have been applied correctly in my web app.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-appservice/captura117.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Azure" /><category term="App service" /><category term="git" /><category term="github" /><category term="Azure devops" /><category term="Docker" /><category term="webhook" /><summary type="html">We are going to learn how the app service works and the possibilities it offers us to manage the hosting since the app service is still a hosting but the difference is that we can manage it.</summary></entry></feed>
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Nmap" /><category term="Linux" /><category term="Hack the box" /><summary type="html">we are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest.</summary></entry></feed>
