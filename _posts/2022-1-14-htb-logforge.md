@@ -296,7 +296,7 @@ And if we received a connection on netcat that means that the log4j is deployed 
 So to exploit this vulnerability what we need is a ldap or rmi server that offers us jdni url. for this we are going to clone this [repo](https://github.com/welk1n/JNDI-Injection-Exploit):
 
 <p align = "center">
-<img src = "/assets/images/img-logforge/repo.png">
+<img src = "/assets/images/img-logforge/repos.png">
 </p>
 
 Ok so with this repo we can execute two parameters the first one is ***-A*** to specify our ip address and ***-C*** the command or code that we want to execute in the victim machine, in this case we are going to execute a reverse shell that we will encode in base64, we do this to generate a payload for exec.
