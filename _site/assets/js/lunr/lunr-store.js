@@ -58,4 +58,9 @@ var store = [{
         "excerpt":"LogForge is a linux machine with a medium level of difficulty both in the exploitation phase and the escalation of privileges, in this machine we take advantage of the vulnerability of the apache tomcat service to have access to the manager panel and we will also be exploiting a very...","categories": ["CTF","Pentest"],
         "tags": ["Hack the box","Linux","CVE","RCE"],
         "url": "http://localhost:4000/htb-logforge/",
-        "teaser":"http://localhost:4000/assets/images/img-logforge/portada.png"}]
+        "teaser":"http://localhost:4000/assets/images/img-logforge/portada.png"},{
+        "title": "Tryhackme - Solar",
+        "excerpt":"Solar is a linux machine with medium difficulty level in the exploitation phase and easy in privilege escalation, this machine runs the apache solr 8.11.0 service which is vulnerable to log4shell and also explains what is log4j, how it works, how to exploit log4shell step by step and ways to...","categories": ["CTF","Pentest"],
+        "tags": ["Tryhackme","Linux","CVE","RCE"],
+        "url": "http://localhost:4000/tryh-solar/",
+        "teaser":"http://localhost:4000/assets/images/img-solar/portada.png"}]
