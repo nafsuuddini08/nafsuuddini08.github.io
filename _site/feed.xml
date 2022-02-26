@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-02-16T01:58:25+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Attacking Web Browser - Beef</title><link href="http://localhost:4000/Beef/" rel="alternate" type="text/html" title="Attacking Web Browser - Beef" /><published>2022-02-16T00:00:00+01:00</published><updated>2022-02-16T00:00:00+01:00</updated><id>http://localhost:4000/Beef</id><content type="html" xml:base="http://localhost:4000/Beef/">&lt;p align=&quot;center&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-02-26T04:08:28+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Attacking Web Browser - Beef</title><link href="http://localhost:4000/Beef/" rel="alternate" type="text/html" title="Attacking Web Browser - Beef" /><published>2022-02-16T00:00:00+01:00</published><updated>2022-02-16T00:00:00+01:00</updated><id>http://localhost:4000/Beef</id><content type="html" xml:base="http://localhost:4000/Beef/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-beef/beef.jpg&quot; /&gt;
 &lt;/p&gt;
 
@@ -3436,142 +3436,217 @@ $ python3 {sys.argv[0]} 10.10.10.200:1337 rev.bin
 &lt;img src=&quot;/assets/images/tmux/tmux22.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Tmux is a tool that allows us to divide a terminal in several panels and also to speed up when we are working in the console with different functions and shortcuts.&lt;/p&gt;
+&lt;p&gt;Tmux is a tool that allows us to divide a terminal in several panes and also to speed up when we are working in the console with different functions and shortcuts. tmux sessions are persistent, which means that programs running in tmux will continue to run if we get disconnect our computer.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-works&quot;&gt;How works?&lt;/h2&gt;
+
+&lt;p&gt;Tmux is a multiplexer terminal, the term multiplexer is a term used in telecommunications where multiple signals converge into one. And this term in tmux means that we can use multiple terminals in a single terminal.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/tmux/multiplexer.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;To use tmux we have to understand these concepts: sessions, windows, panes&lt;/p&gt;
+
+&lt;p&gt;The sessions are collection of virtual consoles managed by tmux that the session can have one or more windows associate, the window occupy the entire terminal screen and can be devided into a rectangular regions called panes, and in the panes is execute multiple virtual consoles.&lt;/p&gt;
+
+&lt;p&gt;The tmux architecture is client/server, when we execute the tmux command in our terminal, there are gonna be two process that are executing, one for the client and one for the server, these processes can communicate with each other by sending commands.&lt;/p&gt;
+
+&lt;p&gt;The functions of the client is to send to the server the commands that we want tmux to execute, create sessions, windows and panels that the server is going to manage. While the tmux server is responsable for executing the commands it receives from the client and managing our sessions and virtual consoles. And thanks to this architecture, if the client process is finish, the server will continue executing the tasks in the background and this allows us to recover the sessions in the case that we have closed the terminal or shutdown our computer.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/tmux/arctmux.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So if you list the processes on your machine, your are gonna see processes like “tmux: client” which is the client of the tmux (we are the clients) and tmux which is the tmux server.&lt;/p&gt;
+
+&lt;p&gt;For example if we need to connect via ssh into a particular server or machine and we are opening several terminals and make sevaral ssh connections to that server, we can use tmux and it will make our life easier and we don’t need to open another terminal and connect to the server via ssh.&lt;/p&gt;
 
 &lt;h2 id=&quot;tmux-shortcuts&quot;&gt;Tmux shortcuts&lt;/h2&gt;
 
-&lt;p&gt;prefix&lt;/p&gt;
+&lt;p&gt;Prefix&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ctrl + b 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;close session&lt;/p&gt;
+&lt;p&gt;Create session&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tmux new -s &quot;nameofthesession&quot;  
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;change session name&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + $  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;list session&lt;/p&gt;
+&lt;p&gt;List session&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tmux ls 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;kill session&lt;/p&gt;
+&lt;p&gt;Change session name&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + $  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Kill session&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tmux kill-session -t [name]  
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;enter a session&lt;/p&gt;
+&lt;p&gt;Enter a session&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tmux attach -t [name] 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;rename window&lt;/p&gt;
+
+&lt;p&gt;Save the session&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + d
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Another wey to save a session if we are in on that particular session.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + shift + : = &quot;detach&quot; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Rename window&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ctrl + b + , 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;create a window&lt;/p&gt;
+&lt;p&gt;Create a window&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ctrl + b + c  
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;move from windows&lt;/p&gt;
+&lt;p&gt;Move from windows&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ctrl + b + 1,2,3,4  
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;vertical window&lt;/p&gt;
+&lt;p&gt;Vertical panel&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ctrl + b + shift + 2 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;window in horizontal position&lt;/p&gt;
+&lt;p&gt;Panel in horizontal position&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ctrl + b + shift + 5   
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;move the second panel in horizontal or in vertical.&lt;/p&gt;
+&lt;p&gt;Move the second panel in horizontal or in vertical.&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ctrl + b + space
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;see the hour in the panel.&lt;/p&gt;
+&lt;p&gt;See the hour in the panel.&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + t 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;move in terminal to write&lt;/p&gt;
+&lt;p&gt;If we want to write in the panel 1,2,3,4 use this shortcut.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + arrows - up - down  
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + arrows - ↑ - ↓ - ← - →  
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;delete bash o zsh window&lt;/p&gt;
+&lt;p&gt;Delete bash o zsh window&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + &amp;amp; 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;resize the windows, (hold down the ctrl key)&lt;/p&gt;
+&lt;p&gt;Resize the panel, (hold the ctrl key and use the arrows)&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + arrows 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;see the modification of a file in another window in real time, like a live serve.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tail -f namefile 
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + arrows ↑ and ↓, if we have horizontal panel to resize use ← and →
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;allows us to see the sessions that we have created in tmux and windows that we have created, and we can see what we have done in that session or sale previously.&lt;/p&gt;
+&lt;p&gt;View the sessions, panes and windows that we have created and their contents, we can use this shortcut if we are in a prevoius tmux session and we do not want to leave that session to list the available sessions.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ctrl + a + s 
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + s 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;another way to view sessions with hierarchy.&lt;/p&gt;
+&lt;p&gt;Another way to view sessions with hierarchy. We can use both shortcuts to move betweeen sessions, we simply select the sessions that we want with the arrows key and press enter. I presonally recommend using this shortcut since it shows us the sessions and their window in a hierarchical wey.&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + w 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;to see the number of panels in the terminal.&lt;/p&gt;
+
+&lt;p&gt;Delete a session if we are inside a previous session of tmux and we don’t want to leave that session.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + s + [Select the session that u want to delete with the arrows] + x + y (yes option)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To see the number of panes, This is useful if we dont what is the order of the panel.&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + q  
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;delete or kill sessions.&lt;/p&gt;
+&lt;p&gt;Move the content of a panel in another.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ctrl + a + s + enter 
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + {} (&quot;{&quot; means right and &quot;}&quot; left)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;allows you to move the content of a panel from bottom to top, right or left.&lt;/p&gt;
+&lt;p&gt;Allows you to move the contents of the panes in a clockwise direction.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + {} 
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + o 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;permite mover los contenidos de los paneles en el sentido de agujas del reloj.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + o  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;If we have made a mistake in putting a command in the window that we don’t want, we can move to another new window and do “prefix + shift 1” to move the other content in the correct window.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + shift + 1 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;use the mouse to size the panels and move windows. To deactivate this option, execute the same shurcut and enter again.&lt;/p&gt;
+&lt;p&gt;Use the mouse on the tmux session, so you can move through panes and split panels with the mouse like in terminator. To disable this option, use the same shurcut. Personally i don’t recommend use this shortcut because the main function of tmux is using shortcuts with the keyboard so that we are much faster and more versatility using the terminal.&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + m
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Unify or compact windows.&lt;/p&gt;
 
-&lt;p&gt;unify or compact windows with = &lt;strong&gt;&lt;em&gt;“join-pane -s (window we are currently in) 1 -t (and in the window we want to move) 2”&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + shift + :
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + shift + : write this command &quot;join-pane -s (window we are currently in) 1 -t (and in the window we want to move) 2&quot; -&amp;gt; join-pane -s 1 -t 2
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;copy the content of a file.&lt;/p&gt;
+&lt;p&gt;Copy the content of a file or some command output.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + [ (copy mode), ctrl + espacio (selection mode), alt + w (copy content), prefix + ] (paste content in the clipboard)   
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + [ (copy mode), ctrl + space (selection mode), alt + w (copy content), prefix + ] (paste content in the clipboard or in a file)   
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;search for info using filters.&lt;/p&gt;
+&lt;p&gt;Search for info using filters.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + [ (copy mode) + ctrl + s  
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + [ (copy mode) + ctrl + s + Write what u are searching for + enter
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Do window swap, for example if I want window 2 to be in window 1.&lt;/p&gt;
+
+&lt;p&gt;If we want to scroll up some output of a command we can use the copy mode to do that.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + alt + [ (copy mode) - ctrl + u (if we want to sroll up slowly) - Repag (if u want to scroll up fast) - Avpag (if u want to scroll down fast, this is useful when we need to copy some output on the terminal) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Window swap, for example if u want window 2 to be in window 1.&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + shift + : = &quot;swap-window -s 2(current window) -t 1 (window you want to move)  
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;close a session in tmux&lt;/p&gt;
+&lt;p&gt;Move a pane in a new window.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + shift + : = &quot;detach&quot; 
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + shift + 1 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;edit-a-file-with-micro-command&quot;&gt;Edit a file with micro command&lt;/h2&gt;
+&lt;p&gt;Zoom a particular pane to view better the content of that pane. Use the same shortcut if u want to disable the zoom mode.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + z
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;bonus&quot;&gt;Bonus&lt;/h2&gt;
+
+&lt;p&gt;Concatenate files with micro&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cat /etc/passwd | micro
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;Create a script using micro and it will detect the syntax in bash or zsh.&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;micro script.sh 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Nafsu Uddin</name></author><category term="tmux" /><category term="linux" /><summary type="html">Tmux is a tool that allows us to divide a terminal in several panels and also to speed up when we are working in the console with different functions and shortcuts.</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;See the modification of a file in another window in real time, like a live serve.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tail -f namefile 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;tmux-autopwn-script&quot;&gt;Tmux autopwn script&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Put the session name: '&lt;/span&gt; sessions
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'First window name: '&lt;/span&gt; firstwin
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Seconde window name: '&lt;/span&gt; secondwin
+
+tmux new-session &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$sessions&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sleep&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$time&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# u can use the &quot;-t&quot; flag to put the num of the session on the name of the session.&lt;/span&gt;
+tmux rename-window &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$firstwin&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; tmux split-window &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; tmux &lt;span class=&quot;k&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-pane&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; 1
+&lt;span class=&quot;c&quot;&gt;#tmux new-window -t $sessions:2 -n &quot;$secondwin&quot;&lt;/span&gt;
+tmux &lt;span class=&quot;k&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-window&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; 1
+&lt;span class=&quot;c&quot;&gt;#---------------------------------------------------------------------------&lt;/span&gt;
+tmux send-keys &lt;span class=&quot;s2&quot;&gt;&quot;ifconfig&quot;&lt;/span&gt; C-m &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sleep&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$time&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# -&amp;gt; &quot;C-m&quot; means that write the command and hide enter&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#tmux send-keys &quot;id&quot; C-m &amp;amp;&amp;amp; sleep $time # -&amp;gt; &quot;send-keys&quot; this command option is to send keystroke in the terminal&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#tmux send-keys &quot;ps -a&quot; C-m &amp;amp;&amp;amp; sleep $time&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#tmux send-keys &quot;ifconfig&quot; C-m &amp;amp;&amp;amp; sleep $time&lt;/span&gt;
+tmux &lt;span class=&quot;k&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-pane&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; 2 &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; tmux send-keys &lt;span class=&quot;s2&quot;&gt;&quot;cat /etc/passwd&quot;&lt;/span&gt; C-m &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sleep&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$time&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# this line on the pane of the window 1 it gonna be execute &quot;cat /etc/passwd&quot;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#---------------------------------------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#tmux select-window -t 2 &amp;amp;&amp;amp; sleep $time &amp;amp;&amp;amp; tmux send-keys &quot;cat /etc/group&quot; C-m &amp;amp;&amp;amp; sleep $time &amp;amp;&amp;amp; tmux select-window -t 1 # -&amp;gt; this line it will execute the command &quot;cat /etc/group&quot; on the window 2&lt;/span&gt;
+tmux new-window &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$sessions&lt;/span&gt;:2 &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$secondwin&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sleep&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; tmux send-keys &lt;span class=&quot;s2&quot;&gt;&quot;cat /etc/group&quot;&lt;/span&gt; C-m &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sleep&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; tmux &lt;span class=&quot;k&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-window&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; 1 &lt;span class=&quot;c&quot;&gt;#if we want to create a new window and execute some command.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#---------------------------------------------------------------------------&lt;/span&gt;
+tmux attach &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$sessions&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Nafsu Uddin</name></author><category term="tmux" /><category term="linux" /><summary type="html">Tmux is a tool that allows us to divide a terminal in several panes and also to speed up when we are working in the console with different functions and shortcuts.</summary></entry></feed>

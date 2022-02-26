@@ -20,7 +20,7 @@ var store = [{
         "url": "http://localhost:4000/netcat-reveshell/",
         "teaser":"http://localhost:4000/assets/images/img-netcat/netcat.jpg"},{
         "title": "Tmux Shortcuts",
-        "excerpt":"Tmux is a tool that allows us to divide a terminal in several panels and also to speed up when we are working in the console with different functions and shortcuts. Tmux shortcuts prefix ctrl + b close session tmux new -s \"nameofthesession\" change session name prefix + $ list...","categories": ["zsh"],
+        "excerpt":"Tmux is a tool that allows us to divide a terminal in several panes and also to speed up when we are working in the console with different functions and shortcuts. tmux sessions are persistent, which means that programs running in tmux will continue to run if we get disconnect...","categories": ["zsh"],
         "tags": ["tmux","linux"],
         "url": "http://localhost:4000/tmux-short/",
         "teaser":"http://localhost:4000/assets/images/tmux/tmux22.png"},{
