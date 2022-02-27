@@ -1,8 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-02-26T04:08:28+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Attacking Web Browser - Beef</title><link href="http://localhost:4000/Beef/" rel="alternate" type="text/html" title="Attacking Web Browser - Beef" /><published>2022-02-16T00:00:00+01:00</published><updated>2022-02-16T00:00:00+01:00</updated><id>http://localhost:4000/Beef</id><content type="html" xml:base="http://localhost:4000/Beef/">&lt;p align=&quot;center&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-02-27T03:46:46+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">Attacking Web Browser - Beef</title><link href="http://localhost:4000/Beef/" rel="alternate" type="text/html" title="Attacking Web Browser - Beef" /><published>2022-02-16T00:00:00+01:00</published><updated>2022-02-16T00:00:00+01:00</updated><id>http://localhost:4000/Beef</id><content type="html" xml:base="http://localhost:4000/Beef/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-beef/beef.jpg&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;BeEF is short for The Browser Exploitation Framework. It is a penetration testing tool that focuses on the web browser, It allows hooking the browser of the victim machine, allowing attackers to carry out social engineering attacks, scan the victim’s network, see the traffic of the victim’s browser and allows the use of tools such as metasploit.&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Beef" /><category term="Linux" /><category term="Social engineering" /><category term="Metasploit" /><summary type="html">BeEF is short for The Browser Exploitation Framework. It is a penetration testing tool that focuses on the web browser, It allows hooking the browser of the victim machine, allowing attackers to carry out social engineering attacks, scan the victim's network, see the traffic of the victim's browser and allows the use of tools such as metasploit.</summary></entry><entry><title type="html">Tryhackme - Solar</title><link href="http://localhost:4000/tryh-solar/" rel="alternate" type="text/html" title="Tryhackme - Solar" /><published>2022-01-16T00:00:00+01:00</published><updated>2022-01-16T00:00:00+01:00</updated><id>http://localhost:4000/tryh-solar</id><content type="html" xml:base="http://localhost:4000/tryh-solar/">&lt;p&gt;Solar is a linux machine with medium difficulty level in the exploitation phase and easy in privilege escalation, this machine runs the apache solr 8.11.0 service which is vulnerable to log4shell and also explains what is log4j, how it works, how to exploit log4shell step by step and ways to mitigate this vulnerability.&lt;/p&gt;
+&lt;p&gt;BeEF is short for The Browser Exploitation Framework. It is a penetration testing tool that focuses on the web browser, It allows hooking the browser of the victim machine, allowing attackers to carry out social engineering attacks, scan the victim’s network, see the traffic of the victim’s browser and allows the use of tools such as metasploit. What it’s does this framwork is to snip up a fake website with embedded malicious code and all we need to do is send the url that generate this framework and send it to the victim, and once the victim click that url it will execute a malicious js file called “hook.js” and it will hooked the browser of the victim.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-works&quot;&gt;How works?&lt;/h2&gt;
+
+&lt;p&gt;Firt to understand beef we need to know some few concepts:&lt;/p&gt;
+
+&lt;p&gt;API:&lt;/p&gt;
+
+&lt;p&gt;Rest API:&lt;/p&gt;
+
+&lt;p&gt;Restfull API:&lt;/p&gt;
+
+&lt;p&gt;Hooking attack:&lt;/p&gt;
+
+&lt;p&gt;Man-in-the-browser attack:&lt;/p&gt;
+
+&lt;p&gt;What i mention before beef uses a javascript file called &lt;strong&gt;&lt;em&gt;hook.js&lt;/em&gt;&lt;/strong&gt; that will hook one or more browsers and will use them for launching directed command modiles and further attacks against the system though a opem door: the we browser context, beef use a web interface to manega and sedn commands (attacks) to the browser zombies.&lt;/p&gt;
+
+&lt;p&gt;Features:&lt;/p&gt;
+
+&lt;p&gt;Beef has a page list with 128 exploits that we can use on the victim machine, beef is a modular framework means that it can be easily extended with custom browser exploitation commands, it provides restful api that allows to control beef throuth HTTP request in json format and beef it can be configured to be integrated with metasploit.&lt;/p&gt;
+
+&lt;h2 id=&quot;configuration&quot;&gt;Configuration&lt;/h2&gt;
+
+&lt;p&gt;In kali linux and i think in parrot this tool comes by default, but if you don’t have install it you can use the following command:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt install beef-xss -y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;note&lt;/em&gt;&lt;/strong&gt;: In some distros it may be that you can’t install it with the apt packege manager, you will need to install it manually cloning the &lt;a href=&quot;https://github.com/beefproject/beef/wiki/Installation&quot;&gt;repo&lt;/a&gt;.&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Beef" /><category term="Linux" /><category term="Social engineering" /><category term="Metasploit" /><summary type="html">BeEF is short for The Browser Exploitation Framework. It is a penetration testing tool that focuses on the web browser, It allows hooking the browser of the victim machine, allowing attackers to carry out social engineering attacks, scan the victim's network, see the traffic of the victim's browser and allows the use of tools such as metasploit.</summary></entry><entry><title type="html">Tryhackme - Solar</title><link href="http://localhost:4000/tryh-solar/" rel="alternate" type="text/html" title="Tryhackme - Solar" /><published>2022-01-16T00:00:00+01:00</published><updated>2022-01-16T00:00:00+01:00</updated><id>http://localhost:4000/tryh-solar</id><content type="html" xml:base="http://localhost:4000/tryh-solar/">&lt;p&gt;Solar is a linux machine with medium difficulty level in the exploitation phase and easy in privilege escalation, this machine runs the apache solr 8.11.0 service which is vulnerable to log4shell and also explains what is log4j, how it works, how to exploit log4shell step by step and ways to mitigate this vulnerability.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-solar/portada.png&quot; /&gt;
