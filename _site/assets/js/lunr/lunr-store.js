@@ -68,4 +68,9 @@ var store = [{
         "excerpt":"BeEF is short for The Browser Exploitation Framework. It is a penetration testing tool that focuses on the web browser, It allows hooking the browser of the victim machine, allowing attackers to carry out social engineering attacks, scan the victim’s network, see the traffic of the victim’s browser and allows...","categories": ["Kali tools","Pentest"],
         "tags": ["Beef","Linux","Social engineering","Metasploit"],
         "url": "http://localhost:4000/Beef/",
-        "teaser":"http://localhost:4000/assets/images/img-beef/beef.jpg"}]
+        "teaser":"http://localhost:4000/assets/images/img-beef/beef.jpg"},{
+        "title": "HTB - Ransom",
+        "excerpt":"Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps u s gain access to the web page, and we will also have an encrypted zip file that we must access through a plaintext...","categories": ["CTF","Pentest"],
+        "tags": ["Hack the box","Linux","Web","PHP","Api"],
+        "url": "http://localhost:4000/htb-ransom/",
+        "teaser":"http://localhost:4000/assets/images/img-ransom/portada.png"}]
