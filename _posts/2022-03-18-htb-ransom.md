@@ -117,6 +117,16 @@ We are going to perform nmap scanning to discover ports and other relevant infor
 |-Pn | Means that we don't to ping to discover ports.
 |-oG | Means that we want to save the scan in grapable format to not rescan again, you have more formats to save like nmap, xml, etc.
 
+The scan:
+
+```
+# Nmap 7.92 scan initiated Thu Mar 17 16:51:23 2022 as: nmap -p- -sS --min-rate 5000 --open -vvv -n -Pn -oG allports 10.10.11.153
+# Ports scanned: TCP(65535;1-65535) UDP(0;) SCTP(0;) PROTOCOLS(0;)
+Host: 10.10.11.153 ()   Status: Up
+Host: 10.10.11.153 ()   Ports: 22/open/tcp//ssh///, 80/open/tcp//http///        Ignored State: closed (65533)
+# Nmap done at Thu Mar 17 16:51:35 2022 -- 1 IP address (1 host up) scanned in 12.01 seconds
+```
+
 And basically i save the scan in grapable format because i have defined in zshrc a function called ***extractports***, that specifying the file name shows me the ports and the IP address of the target machine in a much more elegant way and copies the ports to the clipboard. And this can be useful if there is a machine that has many ports enbled and we do not have to write those ports one by one.
 
 <p align = "center">
@@ -159,5 +169,138 @@ Remember that nmap scripts have many categories that we can search for.
 
 <p align = "center">
 <img src = "/assets/images/img-ransom/categories.png">
+</p>
+
+Once the scan is finish we can see the versions of the services, and it output that the target machine is an ubuntu but it does not specify anu version of ubuntu.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura6.png">
+</p>
+
+If we want to know the version of the ubuntu that the target machine is using, what we can do is copy the version that of some services like apache or openssh that is using on the target machine and we can search in launchpad to see what version of ubuntu is used that particular version.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura9.png">
+</p>
+
+And we see that it is a ubuntu focal, this will not help us much to exploit the machine, but it would be good for us, to know what machine we are attacking.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura10.png">
+</p>
+
+Before we have seen a port 80 on the scan process, what we can so is using the command ***whatweb*** to do a little recognition, to know if the website is using any cms or some particular frameworks. And we can see that the website is using a old version of jquery that can be vulnerable to xss and prototype pollution attack, and we can see that the website is using laravel, that we will have to keeping that in mind these informations for the exploitation phase.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura11.png">
+</p>
+
+And if we access to the website and we can see an authentication panel that asks us to put a password. btw, we can use the wappalyzer extension in our browser, which is the same when we have used the whatweb command.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura12.png">
+</p>
+
+We are going to check with the typical defualt passwords and didn't work.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura13.png">
+</p>
+
+What we can do is see if the website is vulnerable to sql injections, for this we are going to edit a little bit the html to the website and we are going to modify the password field to be able to see what we are writing.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura14.png">
+</p>
+
+We try a simple sql injection and we can see that is not vulnerable to sql injections.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura15.png">
+</p>
+
+Now what we can do is open burpsuite to intercept the request and manipulate them. Remembe that burpsuite is act like proxy between your browser and the web server.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura16.png">
+</p>
+
+We put any password in the password field and click login on the website to capture the request before sending it to the web server. And we can two cookies and we can see that is using laravel session cookie, another way to to know that the target website is using laravel framework. and on the other side is using cross-site request forgery token (xsrf). 
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura17.png">
+</p>
+
+We see that it is using and api behind the login form and now because it's going into this api this xsrf token it's not to useful. There's also a second thing that happens in a lot laravel forms that's if it not going to api it also normally likes passing in ***&_token*** parameter which is another xsrf thing, but in this case it not having this parameter and also having api in the url mean's we're hitting the api middleware of laravel.
+
+So what we could have done is save this burpsuite request and with sqlmap make several sql injections to check if it is injectable or not, but as we have seen before, the website it's not vulnerable to sql injections. So if we try to send the request it says "invalid password".
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura18.png">
+</p>
+
+So what we can try is to change the request method to send the same data but in  ***POST***, so in order to do that we right click and click where is says ***change request method***. And when sending the request and it will output the status http code 405, so by post we do not see information that can be useful to us. 
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura19.png">
+</p>
+
+What we can do is to change POST to GET, but keeping the same format as post. And we can see that it returns the request in json format, and we get the status code 422, and this happen because the ***content-type*** it doesn't in json format. So what we're going to do is change the content-type in json and put the password field in json format.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura20.png">
+</p>
+
+
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura21.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura6.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura6.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura6.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura6.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura6.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura6.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura6.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura6.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura6.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura6.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura6.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura6.png">
 </p>
 
