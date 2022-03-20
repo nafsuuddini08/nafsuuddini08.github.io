@@ -244,63 +244,262 @@ So what we can try is to change the request method to send the same data but in 
 <img src = "/assets/images/img-ransom/captura19.png">
 </p>
 
-What we can do is to change POST to GET, but keeping the same format as post. And we can see that it returns the request in json format, and we get the status code 422, and this happen because the ***content-type*** it doesn't in json format. So what we're going to do is change the content-type in json and put the password field in json format.
+What we can do is to change POST to GET, but keeping the same format as post. And we can see that it returns the request in json format, and we get the status code 422, and this happen because the ***content-type*** it doesn't in json format. 
 
 <p align = "center">
 <img src = "/assets/images/img-ransom/captura20.png">
 </p>
 
-
+So what we're going to do is change the content-type in json and put the password field in json format. And we can see the status code is 200 and it's says "invalid password", and depending on how the validation of the password field is being applied from the backend at the code level (in this case php) we can exploit vulnerabilities such as type juggling.
 
 <p align = "center">
 <img src = "/assets/images/img-ransom/captura21.png">
 </p>
 
-<p align = "center">
-<img src = "/assets/images/img-ransom/captura6.png">
-</p>
+For example, here we are making a comparison between two inputs, if "jonh" is equal to "jonh" the credentials will be valid, and if it's not, the credentials will be invalid. Let's imagine that this is the input field of the password and in the backend side is being compared with a password.
 
 <p align = "center">
-<img src = "/assets/images/img-ransom/captura6.png">
+<img src = "/assets/images/img-ransom/captura22.png">
 </p>
 
-<p align = "center">
-<img src = "/assets/images/img-ransom/captura6.png">
-</p>
+So inside the comparison we put a ***true*** and because we are in json we can remove the strings ("") and php will interpreted this as a boolean state. And here is says if "jonh" is equal to the boolean "true", which is essentially saying if that variable "jonh" is not empty then secceded. But in the case that we put an invalid comparison, it will be false.
 
 <p align = "center">
-<img src = "/assets/images/img-ransom/captura6.png">
+<img src = "/assets/images/img-ransom/true.png">
 </p>
 
-<p align = "center">
-<img src = "/assets/images/img-ransom/captura6.png">
-</p>
+## Exploitation
+
+Well now back on the burpsuite, in the password field we remove the quotes and we put ***true*** and send the request, and as you can see it's says loggin succed. And with this we already know that the website is vulnerable to type juggling attack and we have already hacked the password field.
 
 <p align = "center">
-<img src = "/assets/images/img-ransom/captura6.png">
+<img src = "/assets/images/img-ransom/captura24.png">
 </p>
 
-<p align = "center">
-<img src = "/assets/images/img-ransom/captura6.png">
-</p>
+So if we now go to the ***intercept***, and keep the data format as post and we do the same porcess as we did in the repeater, which is change the ***content-type*** to json and change the password field to json format. And if we click in ***forward*** we should already have access to the website.
 
 <p align = "center">
-<img src = "/assets/images/img-ransom/captura6.png">
+<img src = "/assets/images/img-ransom/captura25.png">
 </p>
 
-<p align = "center">
-<img src = "/assets/images/img-ransom/captura6.png">
-</p>
+And indeed we already have access to the website and can already visualize the first flag.
 
 <p align = "center">
-<img src = "/assets/images/img-ransom/captura6.png">
+<img src = "/assets/images/img-ransom/captura26.png">
 </p>
 
-<p align = "center">
-<img src = "/assets/images/img-ransom/captura6.png">
-</p>
+So for example, if we change the value with 0 it's says "valid credentials" and if we put 1 it's says "invalid credentials", because ***true*** is 0 and 1 is ***false***. But if we want to mitigate or fix this type of attacks is using tree equals ("===") to enforce type comparison in php, so if we do three equals it make sure the content is the same and how it's declaring it's the same (one thing to metion the "==" is ***lose comparison*** and "===" is ***strict comparison***).
 
 <p align = "center">
-<img src = "/assets/images/img-ransom/captura6.png">
+<img src = "/assets/images/img-ransom/mitigate.png">
 </p>
+
+So now if i do "jonh" is equal to "jonh" its says "valid credentials" means that is true. So this is a common php logic bug that affects a lot of applications that a lot of developers don't really test for it, because you have to convert the request to json, so after we will look de source code of that vulnerable website. 
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/mitigate2.png">
+</p>
+
+To understand this better, we can see the following table: We see that a string with clear text in quotes is true, so that's why it gives us a valid password. 
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/losstable.png">
+</p>
+
+And with strict comparison this is not happen:
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/strict.png">
+</p>
+
+So before we see a zip file on the website called ***homedirectory.zip***, so if we try to unzip it will require for a password that we don't know.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura27.png">
+</p>
+
+If we can't unzip the file, remember that using ***7z*** we can view the content of that zip file. So here we can see that this zip file contains some system files for that particular user, and we can see interesting files like ***id_rsa*** which is the ssh private key that will allow us to access through shh without providing the password and we can access to the target machine.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura28.png">
+</p>
+
+In this case what we can do is try to crack this zip file using tools like ***fcrackzip***, or in this case i am going to use ***zip2john*** and speciffyling the name of the compressed file. And it will dump me the password hash that we can try to crack it using brute force attack with tools like john or hashcat.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura29.png">
+</p>
+
+So, lets save the hash in to a file and then try to crack it with john.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura30.png">
+</p>
+
+And we can see that john is not been able to crack the hash, it has check 14 million lines of the ***rockyou.txt*** dictionary and has not found the password.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura31.png">
+</p>
+
+So what we can do now is output more information about the compressed file. So with the utility ***7z*** we can use the flag ***-slt*** that will allow to output more technical information about the zip file. So we can see that the this compressed file is encryted with the zipcrypto method, so thats why we can't crack it before. And because it's encrypted in ***zipcrypto*** is vulnerable to a ***plain text attack***.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura32.png">
+</p>
+
+## Exploitation 2
+
+On the following [website](https://medium.com/@whickey000/how-i-cracked-conti-ransomware-groups-leaked-source-code-zip-file-e15d54663a8) this guide that we can use, basically in this post the conti malware (conti is ransomware) group had a rouge employee leak a bunch of files and one of them is the source code that was encrypted and they use the zipcrypto library to encrypted. And then someone will managed able to crack it through plain text attack using a tool called ***bkcrack***, that we will going to use now.
+
+So to proceed this attack we need to have a file that we fairly know in plain text how its line can be composed, basically we need to have a file that has more or less similarities of lines to a file that is inside the compressed file that we can carry out this attack, when more similarities there are, the faster the attack will be.
+
+In this case we cannot use the "id_rsa" because we cannot compare it with the id_rsa of the compressed since they are very different. In this case, the file that we can use is the ***bash_logout*** to make the comparison since it is a file that usually has the same content in all linux systems.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura33.png">
+</p>
+
+We can see that the size of my bash_logout is the same as the one in the zip file.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura34.png">
+</p>
+
+Let's install the bkcrack tool, first we need to clone the following [repo](https://github.com/kimci86/bkcrack) and then we need to compiled with the following commands.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura35.png">
+</p>
+
+Now if we execute the bkcrack binary with the flag "-h" it will show us the options that we can use.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura36.png">
+</p>
+
+The first thing that we are going to do is locate the file ***bash_logout*** in our machine and we're going to make a copy and move it to the directory where is the bkcrack executable. And then we are goint to zip that file.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura37.png">
+</p>
+
+And as we can see already inside the zip file that we created is our bash_logout.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura38.png">
+</p>
+
+In this case i am also going to move the zip file that is encrypted into the directory where the bkcrack executable is, just for convenience (it's not necessary to do this process).
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura39.png">
+</p>
+
+And now let's proceed with the attack, we invoke the executable and with the flag ***-C***  we are going to specify the zip file that is encrypted, and with the flag ***-c*** we are going the specify the file that we believe that have similarities in this case will be the bash_logout, and then with the flag ***-P*** we are going to specify the zip file that we created and then with the flag ***-p*** we are going to specify our bash_logout file which is inside our zip file.
+
+And this allow us  is to generate a pair of keys (if it's works), which will then be used to create a new compressed file that will have the same files as the encrypted file.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura40.png">
+</p>
+
+Once we get the keys, we are going to do the same attack, but now we are going to specify the keys with the flag ***-k***, and then with the flag ***-U*** we are going to specify the new zip file which will contain the same files as the encrypted one and we are gonna to specify a password for that zip file. and with this we would have created the new zip files, which in my case is called "test.zip".
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura41.png">
+</p>
+
+And in my case what i am going to do is move that compressed file to another directory, and now if we list the content of that zip file that we just created we can see that it contains the same files that had the encrypted file.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura42.png">
+</p>
+
+Now we are going to unzip this zip file and it will asks us for the password, which in this case would be the one we specified in the bkcrack. And as we can see we already have the files that had the encrypted one.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura43.png">
+</p>
+
+So now we can visualize the id_rsa, and now we can use this private key to access the target machine via ssh.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura44.png">
+</p>
+
+First of all you don't know with what user we can access via ssh, what we can do is view the ***authorized_keys*** to see what usets can access on the target machine, and we can see a user called ***htb***.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura45.png">
+</p>
+
+We are going to apply the permission 600, because if we don't it will output an error when we try to access for security reasons. And using the id_rsa we already have access to the target machine, and we can see the flag user.txt that we have seen before.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura46.png">
+</p>
+
+## Privilege Escalation
+
+We do not have access to the root directory and there are no cron jobs.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura47.png">
+</p>
+
+We are going to check the OS version, and we see that we are in a ubuntu focal machine, which we had previously guessed.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura48.png">
+</p>
+
+What we can do is move where the content of the website is hosted, which is normally on the path ***/var/www/html*** and it's not here. we can check the following path which is ***/etc/apache2/sites-enabled/*** and in the default file, we see that he content of the website is hosting in the following path, and we can see the user.txt and the encrypted zip file.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura49.png">
+</p>
+
+And in this case on route ***/srv/prod***, basically i went back one directory since in the other there was nothing interesting. And now if we use the command ***grep -r "login"*** to see where the website login authentication is being applied. And we see a route called ***/route/api*** that is the same route we have seen in burpsuite.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura50.png">
+</p>
+
+We are going to filter the ***authcontroller.php*** file with the find command to see where it is located. 
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura51.png">
+</p>
+
+And we can see that we were right that the type juggling is being applied, we see the password field is compared with the password ***UHC-March-Global-PW!*** and as the name indicates, this password is used for everything. And in the event that they were with three "===" it would not be vulnerable.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura52.png">
+</p>
+
+Let's check this password in the login form.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura53.png">
+</p>
+
+An as you can see we have access.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura54.png">
+</p>
+
+And with the same password we can access with the root user and visualize the last flag which is ***root.txt***.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura55.png">
+</p>
+
+And with this we would already have the machine pwned.
+
+<p align = "center">
+<img src = "/assets/images/img-ransom/captura56.png">
+</p>
+
 

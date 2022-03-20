@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-03-18T19:40:20+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Ransom</title><link href="http://localhost:4000/htb-ransom/" rel="alternate" type="text/html" title="HTB - Ransom" /><published>2022-03-18T00:00:00+01:00</published><updated>2022-03-18T00:00:00+01:00</updated><id>http://localhost:4000/htb-ransom</id><content type="html" xml:base="http://localhost:4000/htb-ransom/">&lt;p&gt;Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps u  s gain access to the web page, and we will also have an encrypted zip file that we must access through a plaintext attack and for privilege escalation we must review some code files of the web page that will help us access as the root user.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-03-20T04:10:57+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Ransom</title><link href="http://localhost:4000/htb-ransom/" rel="alternate" type="text/html" title="HTB - Ransom" /><published>2022-03-18T00:00:00+01:00</published><updated>2022-03-18T00:00:00+01:00</updated><id>http://localhost:4000/htb-ransom</id><content type="html" xml:base="http://localhost:4000/htb-ransom/">&lt;p&gt;Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps u  s gain access to the web page, and we will also have an encrypted zip file that we must access through a plaintext attack and for privilege escalation we must review some code files of the web page that will help us access as the root user.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-ransom/portada.png&quot; /&gt;
@@ -269,62 +269,262 @@ Host: 10.10.11.153 ()   Ports: 22/open/tcp//ssh///, 80/open/tcp//http///        
 &lt;img src=&quot;/assets/images/img-ransom/captura19.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;What we can do is to change POST to GET, but keeping the same format as post. And we can see that it returns the request in json format, and we get the status code 422, and this happen because the &lt;strong&gt;&lt;em&gt;content-type&lt;/em&gt;&lt;/strong&gt; it doesn’t in json format. So what we’re going to do is change the content-type in json and put the password field in json format.&lt;/p&gt;
+&lt;p&gt;What we can do is to change POST to GET, but keeping the same format as post. And we can see that it returns the request in json format, and we get the status code 422, and this happen because the &lt;strong&gt;&lt;em&gt;content-type&lt;/em&gt;&lt;/strong&gt; it doesn’t in json format.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-ransom/captura20.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-ransom/captura6.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;So what we’re going to do is change the content-type in json and put the password field in json format. And we can see the status code is 200 and it’s says “invalid password”, and depending on how the validation of the password field is being applied from the backend at the code level (in this case php) we can exploit vulnerabilities such as type juggling.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-ransom/captura6.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura21.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-ransom/captura6.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;For example, here we are making a comparison between two inputs, if “jonh” is equal to “jonh” the credentials will be valid, and if it’s not, the credentials will be invalid. Let’s imagine that this is the input field of the password and in the backend side is being compared with a password.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-ransom/captura6.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura22.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-ransom/captura6.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;So inside the comparison we put a &lt;strong&gt;&lt;em&gt;true&lt;/em&gt;&lt;/strong&gt; and because we are in json we can remove the strings (“”) and php will interpreted this as a boolean state. And here is says if “jonh” is equal to the boolean “true”, which is essentially saying if that variable “jonh” is not empty then secceded. But in the case that we put an invalid comparison, it will be false.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-ransom/captura6.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-ransom/true.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-ransom/captura6.png&quot; /&gt;
-&lt;/p&gt;
+&lt;h2 id=&quot;exploitation&quot;&gt;Exploitation&lt;/h2&gt;
+
+&lt;p&gt;Well now back on the burpsuite, in the password field we remove the quotes and we put &lt;strong&gt;&lt;em&gt;true&lt;/em&gt;&lt;/strong&gt; and send the request, and as you can see it’s says loggin succed. And with this we already know that the website is vulnerable to type juggling attack and we have already hacked the password field.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-ransom/captura6.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura24.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-ransom/captura6.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;So if we now go to the &lt;strong&gt;&lt;em&gt;intercept&lt;/em&gt;&lt;/strong&gt;, and keep the data format as post and we do the same porcess as we did in the repeater, which is change the &lt;strong&gt;&lt;em&gt;content-type&lt;/em&gt;&lt;/strong&gt; to json and change the password field to json format. And if we click in &lt;strong&gt;&lt;em&gt;forward&lt;/em&gt;&lt;/strong&gt; we should already have access to the website.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-ransom/captura6.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura25.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-ransom/captura6.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;And indeed we already have access to the website and can already visualize the first flag.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-ransom/captura6.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura26.png&quot; /&gt;
 &lt;/p&gt;
 
+&lt;p&gt;So for example, if we change the value with 0 it’s says “valid credentials” and if we put 1 it’s says “invalid credentials”, because &lt;strong&gt;&lt;em&gt;true&lt;/em&gt;&lt;/strong&gt; is 0 and 1 is &lt;strong&gt;&lt;em&gt;false&lt;/em&gt;&lt;/strong&gt;. But if we want to mitigate or fix this type of attacks is using tree equals (“===”) to enforce type comparison in php, so if we do three equals it make sure the content is the same and how it’s declaring it’s the same (one thing to metion the “==” is &lt;strong&gt;&lt;em&gt;lose comparison&lt;/em&gt;&lt;/strong&gt; and “===” is &lt;strong&gt;&lt;em&gt;strict comparison&lt;/em&gt;&lt;/strong&gt;).&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-ransom/captura6.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-ransom/mitigate.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So now if i do “jonh” is equal to “jonh” its says “valid credentials” means that is true. So this is a common php logic bug that affects a lot of applications that a lot of developers don’t really test for it, because you have to convert the request to json, so after we will look de source code of that vulnerable website.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/mitigate2.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;To understand this better, we can see the following table: We see that a string with clear text in quotes is true, so that’s why it gives us a valid password.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/losstable.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And with strict comparison this is not happen:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/strict.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So before we see a zip file on the website called &lt;strong&gt;&lt;em&gt;homedirectory.zip&lt;/em&gt;&lt;/strong&gt;, so if we try to unzip it will require for a password that we don’t know.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura27.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we can’t unzip the file, remember that using &lt;strong&gt;&lt;em&gt;7z&lt;/em&gt;&lt;/strong&gt; we can view the content of that zip file. So here we can see that this zip file contains some system files for that particular user, and we can see interesting files like &lt;strong&gt;&lt;em&gt;id_rsa&lt;/em&gt;&lt;/strong&gt; which is the ssh private key that will allow us to access through shh without providing the password and we can access to the target machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura28.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In this case what we can do is try to crack this zip file using tools like &lt;strong&gt;&lt;em&gt;fcrackzip&lt;/em&gt;&lt;/strong&gt;, or in this case i am going to use &lt;strong&gt;&lt;em&gt;zip2john&lt;/em&gt;&lt;/strong&gt; and speciffyling the name of the compressed file. And it will dump me the password hash that we can try to crack it using brute force attack with tools like john or hashcat.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura29.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So, lets save the hash in to a file and then try to crack it with john.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura30.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And we can see that john is not been able to crack the hash, it has check 14 million lines of the &lt;strong&gt;&lt;em&gt;rockyou.txt&lt;/em&gt;&lt;/strong&gt; dictionary and has not found the password.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura31.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So what we can do now is output more information about the compressed file. So with the utility &lt;strong&gt;&lt;em&gt;7z&lt;/em&gt;&lt;/strong&gt; we can use the flag &lt;strong&gt;&lt;em&gt;-slt&lt;/em&gt;&lt;/strong&gt; that will allow to output more technical information about the zip file. So we can see that the this compressed file is encryted with the zipcrypto method, so thats why we can’t crack it before. And because it’s encrypted in &lt;strong&gt;&lt;em&gt;zipcrypto&lt;/em&gt;&lt;/strong&gt; is vulnerable to a &lt;strong&gt;&lt;em&gt;plain text attack&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura32.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;exploitation-2&quot;&gt;Exploitation 2&lt;/h2&gt;
+
+&lt;p&gt;On the following &lt;a href=&quot;https://medium.com/@whickey000/how-i-cracked-conti-ransomware-groups-leaked-source-code-zip-file-e15d54663a8&quot;&gt;website&lt;/a&gt; this guide that we can use, basically in this post the conti malware (conti is ransomware) group had a rouge employee leak a bunch of files and one of them is the source code that was encrypted and they use the zipcrypto library to encrypted. And then someone will managed able to crack it through plain text attack using a tool called &lt;strong&gt;&lt;em&gt;bkcrack&lt;/em&gt;&lt;/strong&gt;, that we will going to use now.&lt;/p&gt;
+
+&lt;p&gt;So to proceed this attack we need to have a file that we fairly know in plain text how its line can be composed, basically we need to have a file that has more or less similarities of lines to a file that is inside the compressed file that we can carry out this attack, when more similarities there are, the faster the attack will be.&lt;/p&gt;
+
+&lt;p&gt;In this case we cannot use the “id_rsa” because we cannot compare it with the id_rsa of the compressed since they are very different. In this case, the file that we can use is the &lt;strong&gt;&lt;em&gt;bash_logout&lt;/em&gt;&lt;/strong&gt; to make the comparison since it is a file that usually has the same content in all linux systems.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura33.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We can see that the size of my bash_logout is the same as the one in the zip file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura34.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Let’s install the bkcrack tool, first we need to clone the following &lt;a href=&quot;https://github.com/kimci86/bkcrack&quot;&gt;repo&lt;/a&gt; and then we need to compiled with the following commands.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura35.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now if we execute the bkcrack binary with the flag “-h” it will show us the options that we can use.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura36.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The first thing that we are going to do is locate the file &lt;strong&gt;&lt;em&gt;bash_logout&lt;/em&gt;&lt;/strong&gt; in our machine and we’re going to make a copy and move it to the directory where is the bkcrack executable. And then we are goint to zip that file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura37.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And as we can see already inside the zip file that we created is our bash_logout.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura38.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In this case i am also going to move the zip file that is encrypted into the directory where the bkcrack executable is, just for convenience (it’s not necessary to do this process).&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura39.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And now let’s proceed with the attack, we invoke the executable and with the flag &lt;strong&gt;&lt;em&gt;-C&lt;/em&gt;&lt;/strong&gt;  we are going to specify the zip file that is encrypted, and with the flag &lt;strong&gt;&lt;em&gt;-c&lt;/em&gt;&lt;/strong&gt; we are going the specify the file that we believe that have similarities in this case will be the bash_logout, and then with the flag &lt;strong&gt;&lt;em&gt;-P&lt;/em&gt;&lt;/strong&gt; we are going to specify the zip file that we created and then with the flag &lt;strong&gt;&lt;em&gt;-p&lt;/em&gt;&lt;/strong&gt; we are going to specify our bash_logout file which is inside our zip file.&lt;/p&gt;
+
+&lt;p&gt;And this allow us  is to generate a pair of keys (if it’s works), which will then be used to create a new compressed file that will have the same files as the encrypted file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura40.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Once we get the keys, we are going to do the same attack, but now we are going to specify the keys with the flag &lt;strong&gt;&lt;em&gt;-k&lt;/em&gt;&lt;/strong&gt;, and then with the flag &lt;strong&gt;&lt;em&gt;-U&lt;/em&gt;&lt;/strong&gt; we are going to specify the new zip file which will contain the same files as the encrypted one and we are gonna to specify a password for that zip file. and with this we would have created the new zip files, which in my case is called “test.zip”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura41.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And in my case what i am going to do is move that compressed file to another directory, and now if we list the content of that zip file that we just created we can see that it contains the same files that had the encrypted file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura42.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now we are going to unzip this zip file and it will asks us for the password, which in this case would be the one we specified in the bkcrack. And as we can see we already have the files that had the encrypted one.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura43.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So now we can visualize the id_rsa, and now we can use this private key to access the target machine via ssh.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura44.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;First of all you don’t know with what user we can access via ssh, what we can do is view the &lt;strong&gt;&lt;em&gt;authorized_keys&lt;/em&gt;&lt;/strong&gt; to see what usets can access on the target machine, and we can see a user called &lt;strong&gt;&lt;em&gt;htb&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura45.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We are going to apply the permission 600, because if we don’t it will output an error when we try to access for security reasons. And using the id_rsa we already have access to the target machine, and we can see the flag user.txt that we have seen before.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura46.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;privilege-escalation&quot;&gt;Privilege Escalation&lt;/h2&gt;
+
+&lt;p&gt;We do not have access to the root directory and there are no cron jobs.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura47.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We are going to check the OS version, and we see that we are in a ubuntu focal machine, which we had previously guessed.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura48.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;What we can do is move where the content of the website is hosted, which is normally on the path &lt;strong&gt;&lt;em&gt;/var/www/html&lt;/em&gt;&lt;/strong&gt; and it’s not here. we can check the following path which is &lt;strong&gt;&lt;em&gt;/etc/apache2/sites-enabled/&lt;/em&gt;&lt;/strong&gt; and in the default file, we see that he content of the website is hosting in the following path, and we can see the user.txt and the encrypted zip file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura49.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And in this case on route &lt;strong&gt;&lt;em&gt;/srv/prod&lt;/em&gt;&lt;/strong&gt;, basically i went back one directory since in the other there was nothing interesting. And now if we use the command &lt;strong&gt;&lt;em&gt;grep -r “login”&lt;/em&gt;&lt;/strong&gt; to see where the website login authentication is being applied. And we see a route called &lt;strong&gt;&lt;em&gt;/route/api&lt;/em&gt;&lt;/strong&gt; that is the same route we have seen in burpsuite.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura50.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We are going to filter the &lt;strong&gt;&lt;em&gt;authcontroller.php&lt;/em&gt;&lt;/strong&gt; file with the find command to see where it is located.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura51.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And we can see that we were right that the type juggling is being applied, we see the password field is compared with the password &lt;strong&gt;&lt;em&gt;UHC-March-Global-PW!&lt;/em&gt;&lt;/strong&gt; and as the name indicates, this password is used for everything. And in the event that they were with three “===” it would not be vulnerable.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura52.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Let’s check this password in the login form.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura53.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;An as you can see we have access.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura54.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And with the same password we can access with the root user and visualize the last flag which is &lt;strong&gt;&lt;em&gt;root.txt&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura55.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And with this we would already have the machine pwned.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-ransom/captura56.png&quot; /&gt;
 &lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="Linux" /><category term="Web" /><category term="PHP" /><category term="Api" /><summary type="html">Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps us gain access to the web page, and we will also have an encrypted zip file that we must...</summary></entry><entry><title type="html">Attacking Web Browser - Beef</title><link href="http://localhost:4000/Beef/" rel="alternate" type="text/html" title="Attacking Web Browser - Beef" /><published>2022-02-16T00:00:00+01:00</published><updated>2022-02-16T00:00:00+01:00</updated><id>http://localhost:4000/Beef</id><content type="html" xml:base="http://localhost:4000/Beef/">&lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-beef/beef.jpg&quot; /&gt;
 &lt;/p&gt;
