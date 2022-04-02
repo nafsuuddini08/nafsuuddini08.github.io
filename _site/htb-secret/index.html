@@ -31,7 +31,7 @@
 
 
 
-  <meta property="article:published_time" content="2022-01-05T00:00:00+01:00">
+  <meta property="article:published_time" content="2022-01-05T00:00:00-05:00">
 
 
 
@@ -106,7 +106,7 @@
 
   </head>
 
-  <body class="layout--protected wide">
+  <body class="layout--single wide">
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -145,50 +145,630 @@
     
 
     <div class="initial-content">
-      HTB - Secret
+      
 
-<div id="content">
-  Insert password for decryption
-  <input id="password" type="password">
-  <button onclick="decrypt()">Decrypt</button>
-  <p id="errmsg" style="color: red;"></p>
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">HTB - Secret</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/avatar1.png" alt="Nafsu Uddin" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Nafsu Uddin</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Sys Admin / Networking / Pentesting / Offensive Security
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Barcelona, Spain</span>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/nafsuuddini08" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
 </div>
 
+  
+  </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js" integrity="sha256-u6BamZiW5tCemje2nrteKC2KoLIKX9lKPSpvCkOhamw=" crossorigin="anonymous"></script>
-<script>
-  function decrypt() {
-    var protectedContent = "";
-    var password = document.getElementById('password').value;
 
-    var payload = protectedContent.split("|");
-    var iv = payload[0];
-    var hmac = payload[1];
-    var cipherText = payload[2];
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="HTB - Secret">
+    <meta itemprop="description" content="Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explain this later in the blog) and the escalation of privileges is at medium level of difficulty, this machine is vulnerable to RCE through jwt.">
+    <meta itemprop="datePublished" content="January 05, 2022">
+    
 
-    var passphraseDgst = CryptoJS.SHA256(password).toString();
-    var decryptedhmac = CryptoJS.HmacSHA256(cipherText, CryptoJS.enc.Hex.parse(passphraseDgst)).toString().trim();
-    if(CryptoJS.enc.Base64.parse(hmac).toString() === decryptedhmac){
-      var decrypted = CryptoJS.AES.decrypt(
-        {ciphertext:CryptoJS.enc.Base64.parse(cipherText)},
-        CryptoJS.enc.Hex.parse(passphraseDgst),
-        {iv:CryptoJS.enc.Base64.parse(iv)}
-      );
-      var content = CryptoJS.enc.Utf8.stringify(decrypted);
-      document.getElementById('content').innerHTML = content;
-    } else {
-      document.getElementById('errmsg').innerHTML = "Wrong password";
-    }
-  }
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">HTB - Secret
+</h1>
+          
+        </header>
+      
 
-  var passwordInput = document.getElementById('password');
-  passwordInput.addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-      decrypt();
-    }
-  })
-</script>
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2022-01-05T00:00:00-05:00">January 05, 2022 </time>&emsp;
+          
+          
+        </p>
+        <p>Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explain this later in the blog) and the escalation of privileges is at medium level of difficulty, this machine is vulnerable to RCE through jwt.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/portada.png" />
+</p>
+
+<p>Machine rating according to the people.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/calificacion.png" />
+</p>
+
+<p>Machine matrix:</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/matrix.png" />
+</p>
+
+<p>First what we are going to do is create a directory with the name of the machine, and then with the command <strong><em>mkt</em></strong> i am going to create the following directories to organize the files and scripts.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura1.png" />
+</p>
+
+<p>Mkt is a function that i have defined in my <strong><em>~/.zshrc</em></strong>, which is the following:</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/mkt.png" />
+</p>
+
+<p>First we send an icmp packet to check if we have connection with the target machine, and trough the TTL we can know what OS have the machine if is linux or windows. Remember that linux machine hava a TTL 64 and windows 128.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura2.png" />
+</p>
+
+<p>And if we asking why on the output of the ping command have 63 instead of 64? it’s because when we send an icmp packet does not send directly to the target machine, there are some intermediary nodes that pass that packet until arriving the target machine and this make the TTL decrease one unit, so thats why we have 63 instead of 64.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura3.png" />
+</p>
+
+<p>Anyway, i have a command defined on my shell called <strong><em>wichSystem</em></strong> which is a script in python that specifying the IP address of the target machine and through the TTL it will output if the machine is linux or windows. And also this script makes much less noise and traffic than nmap to know the OS of the target machine.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/ttl.png" />
+</p>
+
+<p>wichSystem script:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/python3
+#coding: utf-8
+</span>
+<span class="kn">import</span> <span class="nn">re</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">subprocess</span>
+
+<span class="c1"># python3 wichSystem.py YOURIP
+</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">[!] Uso: python3 "</span> <span class="o">+</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">" &lt;direccion-ip&gt;</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_ttl</span><span class="p">(</span><span class="n">ip_address</span><span class="p">):</span>
+
+    <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s">"/usr/bin/ping -c 1 </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="n">ip_address</span><span class="p">,</span> <span class="s">""</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="n">err</span><span class="p">)</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+
+    <span class="n">ttl_value</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r"\d{1,3}"</span><span class="p">,</span> <span class="n">out</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">ttl_value</span>
+
+<span class="k">def</span> <span class="nf">get_os</span><span class="p">(</span><span class="n">ttl</span><span class="p">):</span>
+
+    <span class="n">ttl</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ttl</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ttl</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">ttl</span> <span class="o">&lt;=</span> <span class="mi">64</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">"Linux"</span>
+    <span class="k">elif</span> <span class="n">ttl</span> <span class="o">&gt;=</span> <span class="mi">65</span> <span class="ow">and</span> <span class="n">ttl</span> <span class="o">&lt;=</span> <span class="mi">128</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">"Windows"</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">"Not Found"</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+
+    <span class="n">ip_address</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">ttl</span> <span class="o">=</span> <span class="n">get_ttl</span><span class="p">(</span><span class="n">ip_address</span><span class="p">)</span>
+
+    <span class="n">os_name</span> <span class="o">=</span> <span class="n">get_os</span><span class="p">(</span><span class="n">ttl</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="si">%</span><span class="s">s (ttl -&gt; </span><span class="si">%</span><span class="s">s): </span><span class="si">%</span><span class="s">s</span><span class="se">\n</span><span class="s">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">ip_address</span><span class="p">,</span> <span class="n">ttl</span><span class="p">,</span> <span class="n">os_name</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="scanning">Scanning</h2>
+
+<p>We are going to perform nmap scanning to discover ports and other relevant information to the target machine, for this we are going to use the following parameters or flags:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Flags</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-p-</td>
+      <td>Means that we want to scan all the ports that exists in tcp and udp which is in total 65,535 ports.</td>
+    </tr>
+    <tr>
+      <td>-sS</td>
+      <td>Means that we want tcp syn scan.</td>
+    </tr>
+    <tr>
+      <td>–min-rate 5000</td>
+      <td>Means we just want to send packets no slower then 5000 packets per second to discover ports, and with that parameter our scan will be most faster.</td>
+    </tr>
+    <tr>
+      <td>–open</td>
+      <td>Means that we want only output the ports with the status open not filtred.</td>
+    </tr>
+    <tr>
+      <td>-vvv</td>
+      <td>Means that we want to output more information.</td>
+    </tr>
+    <tr>
+      <td>-n</td>
+      <td>Means we don’t want DNS resolution, because sometimes the DNS resolution can take our scan much slower.</td>
+    </tr>
+    <tr>
+      <td>-Pn</td>
+      <td>Means that we don’t to ping to discover ports.</td>
+    </tr>
+    <tr>
+      <td>-oN</td>
+      <td>Means that we want to save the scan in nmap format to not rescan again, you have more formats to save like nmap, xml, etc.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>And here we can the result of the scan, and as we can see there is 3 ports on the target machine.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura3.png" />
+</p>
+
+<h2 id="scanning---port-recognition">Scanning - Port Recognition</h2>
+
+<p>Once we have discovered possible ports, we will perform another scan to recognize the services and versions that use each of these ports. To order to do that we going to use the following parameters or flags:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Flags</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-sCV</td>
+      <td>Means that we want to use some nmap scripts, in this case to discover the version and services that are running each of those ports.</td>
+    </tr>
+    <tr>
+      <td>-p</td>
+      <td>To specify the ports.</td>
+    </tr>
+    <tr>
+      <td>-oN</td>
+      <td>Save the scan in nmap format.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Remember that nmap have bunch of scripts that we can use, nmap scripts ends in .nse extension (nmap script engine).</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/nse.png" />
+</p>
+
+<p>Remember that nmap scripts have many categories that we can search for.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/categories.png" />
+</p>
+
+<p>Here we can see the result of the scan and we can the versions of the services that are running on those three ports, and it output that the target machine is an ubuntu but it does not specify anu version of ubuntu.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura7.png" />
+</p>
+
+<p>If we want to know the version of the ubuntu that the target machine is using, what we can do is copy the version of some services like apache or openssh that is using on the target machine and we can search in launchpad to see what version of ubuntu is used that particular version.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/google.png" />
+</p>
+
+<p>And we see that it is a ubuntu focal, this will not help us much to exploit the machine, but it would be good for us, to know what machine we are attacking.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/launchpad.png" />
+</p>
+
+<p>If we click where is says <strong><em>focal</em></strong>, we can see what version of ubuntu supports focal and we can see which version of ubuntu have focal and in this case we can see that focal is in version 20.4 of ubuntu, and with this we can know that the target machine is usinf ubuntu 20.4 which in this case this version is LTS, this can then be confirmed when we gain access to the machine.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/launchpad2.png" />
+</p>
+
+<p>Before we have seen that there is an open port 80, so what can do is with the command <strong><em>whatweb</em></strong> to know if the webserver is using any cms, frameworks that is uses and its version, etc. We are also going to check the port 3000 that uses node.js. And at the moment we don’t anything interesting here, if there is some framework that is vulnerable and that we can exploit.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/whatweb.png" />
+</p>
+
+<p>Visiting the websit we can see that the <strong><em>wappalyzer</em></strong> reports us that this website use node.js, wappalyzer is an extesion similar to the command whatweb. And i try to access to the website with the port 3000 and it’s back me on the same website that has on the port 80, so at the moment nothing interesting on the port 3000.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura8.png" />
+</p>
+
+<p>If we scroll down we can see a button to download to source code fo an API and it will download a zip file. With this we can guess that this website is using an API on the backend side and it’s probably that is on the port 3000, we’ll see later to figure it out.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura9.png" />
+</p>
+
+<p>If we look the content of the website, we can see that it tells us that there is a field to register through the API and that the data is represented in json format.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura11.png" />
+</p>
+
+<p>If we try to access on that particular path it will tell us not found, let’s try to check with burpsuite whats is really going on behind.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura12.png" />
+</p>
+
+<p>In this case i am going togdfghdfgdfgbfvxbfgxt use curl, but you can do the same process with burpsuite. We see that when we send the request with POST it response with “name required”, with this we can know that there is a name field that we need to put to register.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura13.png" />
+</p>
+
+<p>If we visit the website and will continue scrolling, we see that it tells us that there is a login page on the API for authenticate with a valid user and the way in which the data is represented, which in this case is in json format.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura14.png" />
+</p>
+
+<p>If we try to access on that particular path it will say again that the following page is not found.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura15.png" />
+</p>
+
+<p>So let’s do the same process what have we done before, with curl i am going to send the same request with POST. So we can see that is output “email is required”, so with that we know that there is email field to authenticate as an valid user in that particular API.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura16.png" />
+</p>
+
+<p>Back in on the website, if we continue scrolling it shows us a path that is <strong><em>/api/priv</em></strong> that we dont have a access to.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura17.png" />
+</p>
+
+<p>And through curl if i try to send a GET request i get back again the “access denied” message, and try to send the same request with POST and nothing happens.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura18.png" />
+</p>
+
+<p>So what we can do now it’s try to reguster in that API, so with curl we are going to send a POST request method specifying the URL, and with <strong><em>-H</em></strong> flag we are going to specify the data format which in this case is json, because remember that on the website we saw that the representation of the data in regiester form and login form is in json. And with the flag <strong><em>-d</em></strong> we are going to create a user specifying in a json format. And it will output the name of the user in json, so it’s seems that the user is created, let’s going to check.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura19.png" />
+</p>
+
+<p>So i’am going to send the same request to know if the user is created correctly, and it’s says username and user email already exists, so it will created successfully.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura20.png" />
+</p>
+
+<p>Before we saw some user credentials on the website in the example json body, so in this we are going to send the same request as will done before and without changing the email and password let’s check is that user exists, and as you can see it outputs that this user is already exits.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura21.png" />
+</p>
+
+<p>And sending the same request let’s check if there is an admin user, and we can see that there is a admin user.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura22.png" />
+</p>
+
+<p>So on the website we see that if some user is login successfully on the API it will create a jwt for that user.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura_nose.png" />
+</p>
+
+<p>Now, let’s try to loggin with the user that we created and if it’s login seccessfully we are going to receive a jwt. and as we can see i login successfully and it will output with the jwt token, and the it will create a new jwt if we login again.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura23.png" />
+</p>
+
+<p>Now i’am going to try to login with the credentials that was shown on the web page, and it outputs that the password was wrong and we know that the followig email address exists, but we don’t know the password.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura24.png" />
+</p>
+
+<p>So with gobuester let’s try to fuzzing the web page if we can see another path that is interesting to us, and we don’t see anything interesting except the API path that we already saw.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura25.png" />
+</p>
+
+<p>Now if we go on the website jwt.io and we paste the jwt that is created us with the user that we have created previously, it will show the data of that jwt on the decoded section. And we can see the username of that jwt which in my case is “test”.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura26.png" />
+</p>
+
+<p>For example, let’s change the username field in my case i’am going to put the username theadmin and we can see that the jwt it will change.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura27.png" />
+</p>
+
+<p>We can test with this jwt to see if we can authenticate with the admin user, but it still won’t work since we need the correct signature to authenticate (secret token). we can test the jwt by removing the bit-secret field.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura28.png" />
+</p>
+
+<p>So if we go back in the documentation on the website, on the private access route that we can’t access as we saw before, we can send a request with the header <strong><em>auth-token</em></strong> that inside we will put the jwt in this case for user admin and if it works successfully it should output us in a json format on the role field that we are admin user, but at the moment will dont’t have the jwt from the admin user.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/priv.png" />
+</p>
+
+<p>And in the case that if we use our jwt with the user that we create it will output the following on json:</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/normal.png" />
+</p>
+
+<p>Now i’am going to send a GET request with the flag “-H” specifying the <strong><em>auth-token</em></strong> header with the token thet we generate in “jwt.io” for testing reasons to see if its’s works, and it’s output “invalid token” and it was obvious that it did not work because we need the secret token for the signature of the jwt of the admin user.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura30.png" />
+</p>
+
+<p>Let’s try to send the same request with our jwt of the user that we create on the “/api/priv” route. And as you can see it will output in json format that we are normal user, we can pipe it to the command <strong><em>jq</em></strong> to see the data on the json structure (remember that we can do this same process in brupsuite).</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura31.png" />
+</p>
+
+<p>In this case with <strong><em>wfuzz</em></strong> we are going to fuuzzing the <strong><em>/api</em></strong> route specifying the following dictionary to see if there are more routes in that specific route, remember that at the end of the url we need put the word “Fuzz”, and this word it is an integrated word of wfuzz and what allows is to replace that word with the words in the dictionary. And this case it will output responses with 93 characters.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura32.png" />
+</p>
+
+<p>In this case we are going to specify in wfuzz that we don’t responses with 93 characters and we will going to do that specifying with <strong><em>–hh</em></strong> means “hide characters”. And as we can see that it reports a route called logs that we have not yet accessed.</p>
+
+<p align="center">
+<img src="/assets/images/img-secret/captura33.png" />
+</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#hack-the-box" class="page__taxonomy-item" rel="tag">Hack the box</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#linux" class="page__taxonomy-item" rel="tag">Linux</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#ctf" class="page__taxonomy-item" rel="tag">CTF</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#pentest" class="page__taxonomy-item" rel="tag">Pentest</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Fecha:</strong> <time datetime="2022-01-05T00:00:00-05:00">January 05, 2022</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/htb-previse/" class="pagination--pager" title="HTB - Previse
+">Previous</a>
+    
+    
+      <a href="/htb-horizontall/" class="pagination--pager" title="HTB - Horinzontall
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
     </div>
 
     

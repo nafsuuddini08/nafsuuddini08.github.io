@@ -1,5 +1,5 @@
 ---
-layout: protected
+layout: single
 title: HTB - Backdoor
 excerpt: "Backdoor is a machine that has linux OS with easy level of difficulty both in terms of intrusion and privilege escalation. on the port 80 runs wordpress which is vulnerable to local file inclusion and also the machine is vulnerable to remote command execution."
 date: 2021-11-30
