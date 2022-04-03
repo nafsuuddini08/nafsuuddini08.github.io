@@ -346,3 +346,113 @@ In this case we are going to specify in wfuzz that we don't responses with 93 ch
 <img src = "/assets/images/img-secret/captura33.png">
 </p>
 
+If we send the same request as we done before with the "/priv" route indicating the "auth-token" header, we will send the same request but specifying the route that we just discovered now which is ***/api/logs***. And we see that it returns the same output as in the /priv route, i would like to think that we would need the admin user jwt to see the content of the /logs route, so here for now we can do anything. 
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura34.png">
+</p>
+
+So before we download a zip file on the web page let's unzip it and see what's it contains, on the web page it tells us that it is the source code of the API.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura35.png">
+</p>
+
+We move inside of that directory and we are going to list the files and directories that it contains, and we see that there is a ***.git*** folder so we know that this directory is a git project repository.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura36.png">
+</p>
+
+So let's check the file validation.js and here we can see the validation of the reguester and login form, but anything interesting here.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura37.png">
+</p>
+
+Let's check the file ***index.js***, and here we can see that the route ***/api*** and ***/api/user*** are being imported from the route ***/routes*** (specifically ***/routes/private*** and ***/routes/auth***), so we take a look of the directory "routes".
+
+<p align = "center">
+<img src = "/assets/images/img-secret/index.png">
+</p>
+
+So inside of the directory "routes" we can see the following files, let's check one by one.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura38.png">
+</p>
+
+On the file ***verifytoken.js*** and it seems that for verify the jwt it will need some secret token from an environment variable. so i guess that we need to find that secret token, so then in jwt.io we paste that secret token in the admin user's jwt signature part. Now it gets more interesting!!!.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura39.png">
+</p>
+
+Let's check the file ***auth.js***, and we can see the validation for create a user so it will check if the username and email address already exits, and in the case that it exits it will output the message "Email/Name already exist" as we saw before on the curl command and we can the code of creating a user.  
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura40.png">
+</p>
+
+If we continue scrolling down we can the validation for login, so it will check if the email and password is correct and if it's not it will output the message "Email/Password is wrong" as we saw before when we send a request with the curl command. And if the login is successful it will create a jwt with getting an secret token form env as we saw in the file ***verifytoken.js***. Let's check if it is an environment variable that is created in hidden files. 
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura41.png">
+</p>
+
+Before we saw a hidden file called ***.env***, and if we check the content of that file we can see that it will connect to some database and the secret token that we can't see, so nothing here.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura42.png">
+</p>
+
+Let's check the file ***private.js*** and here we can see that the user admin is hardcoded, so if we authenticate on the /priv route it will output "welcome back admin" and if we are normal user it will output "your are normal user"(basically it will comparer it we are the admin user or not). So the key here is to convert or authenticate at the user theadmin. 
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura43.png">
+</p>
+
+If we continue scrolling we can see that if we can authenticate with the user "theadmin" we can execute the command ***git log --online*** and it will put the content of the variable ***file (${file})***, so if we look at what defined the varible "file" and we can see that it is ***req.query.file***, so this is coming from the client side, basically this is our http request so is getting our query of the parameter name "file" and then passing in over to ***exec*** which will execute the command ***git log --online***.
+
+So if we manage to become the user "theadmin" we can control the ***file*** parameter or variable that it receives from an GET request, then we could put "git log --online file=whoami" and with this execute commands remotely, and since this does not is sanitized it will may be vulnerable to ***RCE***. 
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura44.png">
+</p>
+
+Before we jumping in on the exploitation phase we need to find that secret token, so if we check the commits that has been made on this reporsitory we can see one commit which is says "removed .env for security reasons". So let's check what changes have done in that commit.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura45.png">
+</p>
+
+For check the changes for a particular commit use the command ***git show***, so here we can see the changes which it gives us that secret token.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura46.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura47.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura48.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura38.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura38.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura38.png">
+</p>
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura38.png">
+</p>
+
