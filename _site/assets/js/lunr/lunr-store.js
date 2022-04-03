@@ -40,7 +40,7 @@ var store = [{
         "url": "http://localhost:4000/htb-previse/",
         "teaser":"http://localhost:4000/assets/images/img-previse/portada.png"},{
         "title": "HTB - Secret",
-        "excerpt":"Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explain this later in the blog) and the escalation of privileges is at medium level of difficulty, this machine is vulnerable to RCE through...","categories": ["CTF","Pentest"],
+        "excerpt":"Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explaining this in this post) and the escalation of privileges is at medium level of difficulty, and this machine consists secret ways to extract...","categories": ["CTF","Pentest"],
         "tags": ["Hack the box","Linux"],
         "url": "http://localhost:4000/htb-secret/",
         "teaser":"http://localhost:4000/assets/images/img-secret/portada.png"},{

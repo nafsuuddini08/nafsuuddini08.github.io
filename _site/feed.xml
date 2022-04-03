@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-02T20:21:59-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Ransom</title><link href="http://localhost:4000/htb-ransom/" rel="alternate" type="text/html" title="HTB - Ransom" /><published>2022-03-18T00:00:00-04:00</published><updated>2022-03-18T00:00:00-04:00</updated><id>http://localhost:4000/htb-ransom</id><content type="html" xml:base="http://localhost:4000/htb-ransom/">&lt;p&gt;Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps u  s gain access to the web page, and we will also have an encrypted zip file that we must access through a plaintext attack and for privilege escalation we must review some code files of the web page that will help us access as the root user.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-03T19:37:39-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Ransom</title><link href="http://localhost:4000/htb-ransom/" rel="alternate" type="text/html" title="HTB - Ransom" /><published>2022-03-18T00:00:00-04:00</published><updated>2022-03-18T00:00:00-04:00</updated><id>http://localhost:4000/htb-ransom</id><content type="html" xml:base="http://localhost:4000/htb-ransom/">&lt;p&gt;Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps u  s gain access to the web page, and we will also have an encrypted zip file that we must access through a plaintext attack and for privilege escalation we must review some code files of the web page that will help us access as the root user.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-ransom/portada.png&quot; /&gt;
@@ -2147,7 +2147,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-horizontall/captura41.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="Linux" /><category term="CVE" /><category term="RCE" /><summary type="html">Horizontall is a linux machine with easy difficulty level both in the exploitation phase and the privilege escalation is cataloged as medium difficulty, this machine uses the cms strapi version 3.0 beta that has vulnerabilities such as RCE, change users passwords and also the machine has an http server running on port 8000 that is running laravel version 8 that has the vulnerability CVE-2021-3129 (RCE).</summary></entry><entry><title type="html">HTB - Secret</title><link href="http://localhost:4000/htb-secret/" rel="alternate" type="text/html" title="HTB - Secret" /><published>2022-01-05T00:00:00-05:00</published><updated>2022-01-05T00:00:00-05:00</updated><id>http://localhost:4000/htb-secret</id><content type="html" xml:base="http://localhost:4000/htb-secret/">&lt;p&gt;Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explain this later in the blog) and the escalation of privileges is at medium level of difficulty, this machine is vulnerable to RCE through jwt.&lt;/p&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="Linux" /><category term="CVE" /><category term="RCE" /><summary type="html">Horizontall is a linux machine with easy difficulty level both in the exploitation phase and the privilege escalation is cataloged as medium difficulty, this machine uses the cms strapi version 3.0 beta that has vulnerabilities such as RCE, change users passwords and also the machine has an http server running on port 8000 that is running laravel version 8 that has the vulnerability CVE-2021-3129 (RCE).</summary></entry><entry><title type="html">HTB - Secret</title><link href="http://localhost:4000/htb-secret/" rel="alternate" type="text/html" title="HTB - Secret" /><published>2022-01-05T00:00:00-05:00</published><updated>2022-01-05T00:00:00-05:00</updated><id>http://localhost:4000/htb-secret</id><content type="html" xml:base="http://localhost:4000/htb-secret/">&lt;p&gt;Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explaining this in this post) and the escalation of privileges is at medium level of difficulty, and this machine consists secret ways to extract information from applications, and this machine is vulnerable to RCE through an API.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-secret/portada.png&quot; /&gt;
@@ -2599,7 +2599,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 &lt;img src=&quot;/assets/images/img-secret/captura44.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Before we jumping in on the exploitation phase we need to find that secret token, so if we check the commits that has been made on this reporsitory we can see one commit which is says “removed .env for security reasons”. So let’s check what changes have done in that commit.&lt;/p&gt;
+&lt;p&gt;Before we jumping in on the exploitation phase we need to find that secret token, so if we check the commits that has been created on this reporsitory we can see one commit which is says &lt;strong&gt;&lt;em&gt;“removed .env for security reasons”&lt;/em&gt;&lt;/strong&gt;. So let’s check what changes have done in that commit.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-secret/captura45.png&quot; /&gt;
@@ -2611,29 +2611,241 @@ Service detection performed. Please report any incorrect results at https://nmap
 &lt;img src=&quot;/assets/images/img-secret/captura46.png&quot; /&gt;
 &lt;/p&gt;
 
+&lt;h2 id=&quot;exploitation&quot;&gt;Exploitation&lt;/h2&gt;
+
+&lt;p&gt;Now what we are going to do is go back in jwt.io, put the username “theadmin” as we done before, and we are going to paste that secret token on the signature part and it going to change the jwt.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-secret/captura47.png&quot; /&gt;
 &lt;/p&gt;
+
+&lt;p&gt;So now we are going to do the same request on the /priv route as we done before, and on the header &lt;strong&gt;&lt;em&gt;auth-token&lt;/em&gt;&lt;/strong&gt; we are going to paste the token that we generate now in jwt.io. And if it is works it’s gonna say “welcome back admin” message, and we are able to authenticate with the user “theadmin”.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-secret/captura48.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-secret/captura38.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;So let’s try to send the same request but on the /logs route as we enumerate before in wfuzz. Now as we can see it will execute the command &lt;strong&gt;&lt;em&gt;git log –oneline&lt;/em&gt;&lt;/strong&gt; but it’s output us &lt;strong&gt;&lt;em&gt;undefined&lt;/em&gt;&lt;/strong&gt; because remeber that variable &lt;strong&gt;&lt;em&gt;file&lt;/em&gt;&lt;/strong&gt; on the file private.js it’s not receive any data in GET request, and we can try to execute commands since we saw on the code that the &lt;strong&gt;&lt;em&gt;git log –online&lt;/em&gt;&lt;/strong&gt; command is executing using the function &lt;strong&gt;&lt;em&gt;exec&lt;/em&gt;&lt;/strong&gt;, as i mention previously.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-secret/captura38.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura49.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-secret/captura38.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;So to send anu data in GET we need to use the flag &lt;strong&gt;&lt;em&gt;-G&lt;/em&gt;&lt;/strong&gt;, and to specify that &lt;strong&gt;&lt;em&gt;file&lt;/em&gt;&lt;/strong&gt; variable let’s urlencoded it with the flag &lt;strong&gt;&lt;em&gt;–data-urlencode&lt;/em&gt;&lt;/strong&gt; and i’am going to specify the file &lt;strong&gt;&lt;em&gt;/etc/passwd&lt;/em&gt;&lt;/strong&gt; (it’s not necessary to put “/etc/passwd” you can put any string to check if it takes our input). And now it output “/etc/passwd” instead of undefined.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-secret/captura38.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="Linux" /><summary type="html">Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explain this later in the blog) and the escalation of privileges is at medium level of difficulty, this machine is vulnerable to RCE through jwt.</summary></entry><entry><title type="html">HTB - Previse</title><link href="http://localhost:4000/htb-previse/" rel="alternate" type="text/html" title="HTB - Previse" /><published>2021-12-09T00:00:00-05:00</published><updated>2021-12-09T00:00:00-05:00</updated><id>http://localhost:4000/htb-previse</id><content type="html" xml:base="http://localhost:4000/htb-previse/">&lt;p&gt;Previse is a linux machine with difficulty esay pulling a little to medium both the level of intrusion and privilege escalation pulls a little to medium level of difficulty. this machine has vulnerabilities such as log poisoning and in the part of escalation we take advantage of nopasswd.&lt;/p&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura50.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now let’s going to specify any system command on that variable &lt;strong&gt;&lt;em&gt;file&lt;/em&gt;&lt;/strong&gt;, and as we can see we have remote command execution and here we can see the ip address of the target machine which is &lt;strong&gt;&lt;em&gt;10.10.11.120&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura51.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And we can see that the target machine have &lt;strong&gt;&lt;em&gt;curl&lt;/em&gt;&lt;/strong&gt;, so now we can establish an reverse shell with curl.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura52.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now we are going to create a &lt;strong&gt;&lt;em&gt;index.html&lt;/em&gt;&lt;/strong&gt; file and we are going to put the following script in bash which is going to establish the reverse shell, and with python we are going to create an http server to host this index.html file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura53.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now we are going to listen with &lt;strong&gt;&lt;em&gt;netcat&lt;/em&gt;&lt;/strong&gt; in my case on port 4444 and we are going to send the same GET request as we done before, but we are going to specify with curl our attacker ip address and pipe it to &lt;strong&gt;&lt;em&gt;bash&lt;/em&gt;&lt;/strong&gt; which is going to interpret our bash script in that index.html file. And as we can see we gain access on the target machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura54.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Once we gain access let’s set a proper reverse shell, so in this machine we don’t have a tty so let’s set it with the following commands:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura55.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And we going to export two env variable which is &lt;strong&gt;&lt;em&gt;shell=bash&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;term=xterm&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura56.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Once we export those two env variable we can use command like &lt;strong&gt;&lt;em&gt;clear&lt;/em&gt;&lt;/strong&gt;, we can use &lt;strong&gt;&lt;em&gt;ctrl+c&lt;/em&gt;&lt;/strong&gt;, &lt;strong&gt;&lt;em&gt;ctrl+l&lt;/em&gt;&lt;/strong&gt;, and move comfortably on the reverse shell terminal as if we were connected to the machine with ssh.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura57.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now the problem we have is that if use the command &lt;strong&gt;&lt;em&gt;nano&lt;/em&gt;&lt;/strong&gt; we see that the proportions is not adequate for our terminal.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura58.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And that happens because if we look the proportions of the reverse shell session, we can see that the number of rows is 24 and the columns is 80.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura59.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And if we go to our terminal we see that the proportions are different.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura60.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And what we can do is on the target machine add the of our terminal proportions using the command &lt;strong&gt;&lt;em&gt;stty&lt;/em&gt;&lt;/strong&gt;. And now if we execute nano the size of our terminal is adjusted on the target machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura61.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Let’s list user’s that are on the system, and we see can one user with uid 1000 called &lt;strong&gt;&lt;em&gt;desith&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura62.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Let’s move on the home directory of that user, and we can view the first flag which is the &lt;strong&gt;&lt;em&gt;user.txt&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura63.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;privesc---enumaration&quot;&gt;PrivEsc - Enumaration&lt;/h2&gt;
+
+&lt;p&gt;So let’s check how we can convert with root user. So the machine does not have any cron task configured that we can take advantage of, so nothing here.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura64.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And we don’t have permission to access on the root folder, if we look at the version of OS that the machine has we see that is a &lt;strong&gt;&lt;em&gt;ubuntu focal version 20.04 LTS&lt;/em&gt;&lt;/strong&gt;, so we were correct in the recognition phase.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura65.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And if we execute the command &lt;strong&gt;&lt;em&gt;sudo -l&lt;/em&gt;&lt;/strong&gt; to see the sudo permissions, and it requires the password that we don’t know at the moment. So nothing here.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura66.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;With the &lt;strong&gt;&lt;em&gt;find&lt;/em&gt;&lt;/strong&gt; command let’s check what interesting files on the system have SUID perssiona which is the permission &lt;strong&gt;&lt;em&gt;4000&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura67.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we pipe it the previus command with &lt;strong&gt;&lt;em&gt;grep&lt;/em&gt;&lt;/strong&gt; using the flag &lt;strong&gt;&lt;em&gt;-vE&lt;/em&gt;&lt;/strong&gt; for Invert the sense of matching to ignore the path snap and lib, we can a file called &lt;strong&gt;&lt;em&gt;count&lt;/em&gt;&lt;/strong&gt; on the &lt;strong&gt;&lt;em&gt;/opt&lt;/em&gt;&lt;/strong&gt; with SUID permission and it’s created by the root user. Let’s going to check this file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura68.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So basically the file &lt;strong&gt;&lt;em&gt;count&lt;/em&gt;&lt;/strong&gt; is a executable which selecting any file that have on the system it will tell us the line, words and characters that have that file. Basically this little script is like when we use the command &lt;strong&gt;&lt;em&gt;wc&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura69.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So on that executable it ask us for saveing the file, if we save the file and view the content of that file it’s just store the results of that script, but not the content of the file that we specify. So we know that this script it will read any file of the system but it will not show the content, hmm interesing…&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura70.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So if we execute the file and we specify the flag root.txt it will read that file, but not show the content of that file. So here we know that this script can read any files on the system included of the root user.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura71.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So we are able to read the code of that script, and if we look the main function of the code it’s says &lt;strong&gt;&lt;em&gt;“enable coredump”&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura72.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So coredump is a &lt;strong&gt;&lt;em&gt;file that generated automatically by the kernel after any program or computer crashed&lt;/em&gt;&lt;/strong&gt;, and that file contains the status of the memory, the processor register’s contents, memory managment information, the programs counter and stack pointer, etc. Basically when an execption occurs while the program is running the data is stored in memory (basically when the program crashes).&lt;/p&gt;
+
+&lt;p&gt;What we know now is that the binary &lt;strong&gt;&lt;em&gt;count&lt;/em&gt;&lt;/strong&gt; have SUID permission and the owner is root, and that is why it allows us to read all the system files. So what we have to do now is run the binary and cause a coredump and try to generate an execption and with that for store that report of the coredump in any system path, in this on the &lt;strong&gt;&lt;em&gt;/var/crash&lt;/em&gt;&lt;/strong&gt; path (a report when the program crashed).&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura73.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So in this case what i’am going to do is execute the binary &lt;strong&gt;&lt;em&gt;count&lt;/em&gt;&lt;/strong&gt; and i want to specify that i want to read the file “root.txt”, and once it reads the file content, the program will ask us if we want to save the results in a file and this is where we are going to generate this coredump since the program is not finish yet, what we are going to do is while the program is running is put it in the background process with &lt;strong&gt;&lt;em&gt;ctrl+z&lt;/em&gt;&lt;/strong&gt;. And if we execute the command &lt;strong&gt;&lt;em&gt;ps&lt;/em&gt;&lt;/strong&gt; we can see the &lt;strong&gt;&lt;em&gt;count&lt;/em&gt;&lt;/strong&gt; binary in a background process with his &lt;strong&gt;&lt;em&gt;PID&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura74.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So a coredump occurs when data is corrupted, when a file is infected by malware, and in this case when a segmentation fault or a &lt;strong&gt;&lt;em&gt;bus error&lt;/em&gt;&lt;/strong&gt;. So what we can do is kill the bus of this process by specifying the PID, and if we now execute the &lt;strong&gt;&lt;em&gt;fg&lt;/em&gt;&lt;/strong&gt; command to return the process that we have left in the background, it tell us a &lt;strong&gt;&lt;em&gt;bus error&lt;/em&gt;&lt;/strong&gt; and that it has caused a &lt;strong&gt;&lt;em&gt;core dump&lt;/em&gt;&lt;/strong&gt;. We see that the process continues executing, but here an exception has been generated since we have killed parts of that process (so thats why it’s says coredump).&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura75.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And if we list the directory &lt;strong&gt;&lt;em&gt;/var/crash&lt;/em&gt;&lt;/strong&gt; we can see that is generate a new report specifying the user UID, which our case is 1000 because since with the user that we are logged in now have the UID 1000.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura76.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So what we can do now is with a system tool called &lt;strong&gt;&lt;em&gt;apport-unpack&lt;/em&gt;&lt;/strong&gt; let’s say to unzip that file in to a path that we are going to specify, in my case it will be &lt;strong&gt;&lt;em&gt;/tmp/test1&lt;/em&gt;&lt;/strong&gt;. And we see that there is a file called &lt;strong&gt;&lt;em&gt;coredump&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura77.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now if we try to view the contents of this file with the &lt;strong&gt;&lt;em&gt;cat&lt;/em&gt;&lt;/strong&gt; command, we will view the content of that file very messy.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura78.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;What we can do in this situation is use the command &lt;strong&gt;&lt;em&gt;strings&lt;/em&gt;&lt;/strong&gt; and specify that file. Inside the file there will be information about the system and the memory as I mentioned before, but if continue to scrolling ip we can view the content of the file that we have specified in the binary &lt;strong&gt;&lt;em&gt;count&lt;/em&gt;&lt;/strong&gt;, which in this case is the &lt;strong&gt;&lt;em&gt;root.txt&lt;/em&gt;&lt;/strong&gt; flag.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura79.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;privesc&quot;&gt;PrivEsc&lt;/h2&gt;
+
+&lt;p&gt;And now to gain access as the root user, we are going to try to get the &lt;strong&gt;&lt;em&gt;id_rsa&lt;/em&gt;&lt;/strong&gt; of the root user to access with ssh, remember that we can read all the system files with this binary. So we are going to do the same process as we done before.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura80.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now we unpack that report that has been generated in &lt;strong&gt;&lt;em&gt;/var/crash&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura81.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And if we now see the content of the file &lt;strong&gt;&lt;em&gt;coredump&lt;/em&gt;&lt;/strong&gt; with the &lt;strong&gt;&lt;em&gt;strings&lt;/em&gt;&lt;/strong&gt; command we can see the &lt;strong&gt;&lt;em&gt;private ssh key&lt;/em&gt;&lt;/strong&gt; of the root user.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura82.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And now what we are going to do is create a file on our attacker machine and save paste that id_rsa and give the owner read and write permissions &lt;strong&gt;&lt;em&gt;(permission 600)&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura83.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And now with ssh with the flag &lt;strong&gt;&lt;em&gt;-i&lt;/em&gt;&lt;/strong&gt; we are going to specify that private key and we will have access to the target machine as the root user. With this we have already pwned!!! the whole machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-secret/captura84.png&quot; /&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="Linux" /><summary type="html">Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explaining this in this post) and the escalation of privileges is at medium level of difficulty, and this machine consists secret ways to extract information from applications, and this machine is vulnerable to RCE through an API.</summary></entry><entry><title type="html">HTB - Previse</title><link href="http://localhost:4000/htb-previse/" rel="alternate" type="text/html" title="HTB - Previse" /><published>2021-12-09T00:00:00-05:00</published><updated>2021-12-09T00:00:00-05:00</updated><id>http://localhost:4000/htb-previse</id><content type="html" xml:base="http://localhost:4000/htb-previse/">&lt;p&gt;Previse is a linux machine with difficulty esay pulling a little to medium both the level of intrusion and privilege escalation pulls a little to medium level of difficulty. this machine has vulnerabilities such as log poisoning and in the part of escalation we take advantage of nopasswd.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-previse/portada.png&quot; /&gt;

@@ -1,7 +1,7 @@
 ---
 layout: single
 title: HTB - Secret
-excerpt: "Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explain this later in the blog) and the escalation of privileges is at medium level of difficulty, this machine is vulnerable to RCE through jwt."
+excerpt: "Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explaining this in this post) and the escalation of privileges is at medium level of difficulty, and this machine consists secret ways to extract information from applications, and this machine is vulnerable to RCE through an API."
 date: 2022-1-05
 classes: wide
 header:
@@ -16,7 +16,7 @@ tags:
   - Linux
 ---
 
-Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explain this later in the blog) and the escalation of privileges is at medium level of difficulty, this machine is vulnerable to RCE through jwt.
+Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explaining this in this post) and the escalation of privileges is at medium level of difficulty, and this machine consists secret ways to extract information from applications, and this machine is vulnerable to RCE through an API.
 
 <p align = "center">
 <img src = "/assets/images/img-secret/portada.png">
@@ -420,7 +420,7 @@ So if we manage to become the user "theadmin" we can control the ***file*** para
 <img src = "/assets/images/img-secret/captura44.png">
 </p>
 
-Before we jumping in on the exploitation phase we need to find that secret token, so if we check the commits that has been made on this reporsitory we can see one commit which is says "removed .env for security reasons". So let's check what changes have done in that commit.
+Before we jumping in on the exploitation phase we need to find that secret token, so if we check the commits that has been created on this reporsitory we can see one commit which is says ***"removed .env for security reasons"***. So let's check what changes have done in that commit.
 
 <p align = "center">
 <img src = "/assets/images/img-secret/captura45.png">
@@ -432,27 +432,238 @@ For check the changes for a particular commit use the command ***git show***, so
 <img src = "/assets/images/img-secret/captura46.png">
 </p>
 
+## Exploitation
+
+Now what we are going to do is go back in jwt.io, put the username "theadmin" as we done before, and we are going to paste that secret token on the signature part and it going to change the jwt.
+
 <p align = "center">
 <img src = "/assets/images/img-secret/captura47.png">
 </p>
+
+So now we are going to do the same request on the /priv route as we done before, and on the header ***auth-token*** we are going to paste the token that we generate now in jwt.io. And if it is works it's gonna say "welcome back admin" message, and we are able to authenticate with the user "theadmin".
 
 <p align = "center">
 <img src = "/assets/images/img-secret/captura48.png">
 </p>
 
-<p align = "center">
-<img src = "/assets/images/img-secret/captura38.png">
-</p>
+So let's try to send the same request but on the /logs route as we enumerate before in wfuzz. Now as we can see it will execute the command ***git log --oneline*** but it's output us ***undefined*** because remeber that variable ***file*** on the file private.js it's not receive any data in GET request, and we can try to execute commands since we saw on the code that the ***git log --online*** command is executing using the function ***exec***, as i mention previously.
 
 <p align = "center">
-<img src = "/assets/images/img-secret/captura38.png">
+<img src = "/assets/images/img-secret/captura49.png">
 </p>
+
+So to send anu data in GET we need to use the flag ***-G***, and to specify that ***file*** variable let's urlencoded it with the flag ***--data-urlencode*** and i'am going to specify the file ***/etc/passwd*** (it's not necessary to put "/etc/passwd" you can put any string to check if it takes our input). And now it output "/etc/passwd" instead of undefined.
 
 <p align = "center">
-<img src = "/assets/images/img-secret/captura38.png">
+<img src = "/assets/images/img-secret/captura50.png">
 </p>
+
+Now let's going to specify any system command on that variable ***file***, and as we can see we have remote command execution and here we can see the ip address of the target machine which is ***10.10.11.120***.
 
 <p align = "center">
-<img src = "/assets/images/img-secret/captura38.png">
+<img src = "/assets/images/img-secret/captura51.png">
 </p>
 
+And we can see that the target machine have ***curl***, so now we can establish an reverse shell with curl.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura52.png">
+</p>
+
+Now we are going to create a ***index.html*** file and we are going to put the following script in bash which is going to establish the reverse shell, and with python we are going to create an http server to host this index.html file. 
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura53.png">
+</p>
+
+Now we are going to listen with ***netcat*** in my case on port 4444 and we are going to send the same GET request as we done before, but we are going to specify with curl our attacker ip address and pipe it to ***bash*** which is going to interpret our bash script in that index.html file. And as we can see we gain access on the target machine.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura54.png">
+</p>
+
+Once we gain access let's set a proper reverse shell, so in this machine we don't have a tty so let's set it with the following commands:
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura55.png">
+</p>
+
+And we going to export two env variable which is ***shell=bash*** and ***term=xterm***.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura56.png">
+</p>
+
+Once we export those two env variable we can use command like ***clear***, we can use ***ctrl+c***, ***ctrl+l***, and move comfortably on the reverse shell terminal as if we were connected to the machine with ssh.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura57.png">
+</p>
+
+Now the problem we have is that if use the command ***nano*** we see that the proportions is not adequate for our terminal.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura58.png">
+</p>
+
+And that happens because if we look the proportions of the reverse shell session, we can see that the number of rows is 24 and the columns is 80.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura59.png">
+</p>
+
+And if we go to our terminal we see that the proportions are different. 
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura60.png">
+</p>
+
+And what we can do is on the target machine add the of our terminal proportions using the command ***stty***. And now if we execute nano the size of our terminal is adjusted on the target machine.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura61.png">
+</p>
+
+Let's list user's that are on the system, and we see can one user with uid 1000 called ***desith***.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura62.png">
+</p>
+
+Let's move on the home directory of that user, and we can view the first flag which is the ***user.txt***.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura63.png">
+</p>
+
+## PrivEsc - Enumaration
+
+So let's check how we can convert with root user. So the machine does not have any cron task configured that we can take advantage of, so nothing here.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura64.png">
+</p>
+
+And we don't have permission to access on the root folder, if we look at the version of OS that the machine has we see that is a ***ubuntu focal version 20.04 LTS***, so we were correct in the recognition phase.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura65.png">
+</p>
+
+And if we execute the command ***sudo -l*** to see the sudo permissions, and it requires the password that we don't know at the moment. So nothing here.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura66.png">
+</p>
+
+With the ***find*** command let's check what interesting files on the system have SUID perssiona which is the permission ***4000***.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura67.png">
+</p>
+
+If we pipe it the previus command with ***grep*** using the flag ***-vE*** for Invert the sense of matching to ignore the path snap and lib, we can a file called ***count*** on the ***/opt*** with SUID permission and it's created by the root user. Let's going to check this file.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura68.png">
+</p>
+
+So basically the file ***count*** is a executable which selecting any file that have on the system it will tell us the line, words and characters that have that file. Basically this little script is like when we use the command ***wc***. 
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura69.png">
+</p>
+
+So on that executable it ask us for saveing the file, if we save the file and view the content of that file it's just store the results of that script, but not the content of the file that we specify. So we know that this script it will read any file of the system but it will not show the content, hmm interesing...
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura70.png">
+</p>
+
+So if we execute the file and we specify the flag root.txt it will read that file, but not show the content of that file. So here we know that this script can read any files on the system included of the root user.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura71.png">
+</p>
+
+So we are able to read the code of that script, and if we look the main function of the code it's says ***"enable coredump"***.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura72.png">
+</p>
+
+So coredump is a ***file that generated automatically by the kernel after any program or computer crashed***, and that file contains the status of the memory, the processor register's contents, memory managment information, the programs counter and stack pointer, etc. Basically when an execption occurs while the program is running the data is stored in memory (basically when the program crashes). 
+
+What we know now is that the binary ***count*** have SUID permission and the owner is root, and that is why it allows us to read all the system files. So what we have to do now is run the binary and cause a coredump and try to generate an execption and with that for store that report of the coredump in any system path, in this on the ***/var/crash*** path (a report when the program crashed).  
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura73.png">
+</p>
+
+So in this case what i'am going to do is execute the binary ***count*** and i want to specify that i want to read the file "root.txt", and once it reads the file content, the program will ask us if we want to save the results in a file and this is where we are going to generate this coredump since the program is not finish yet, what we are going to do is while the program is running is put it in the background process with ***ctrl+z***. And if we execute the command ***ps*** we can see the ***count*** binary in a background process with his ***PID***. 
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura74.png">
+</p>
+
+So a coredump occurs when data is corrupted, when a file is infected by malware, and in this case when a segmentation fault or a ***bus error***. So what we can do is kill the bus of this process by specifying the PID, and if we now execute the ***fg*** command to return the process that we have left in the background, it tell us a ***bus error*** and that it has caused a ***core dump***. We see that the process continues executing, but here an exception has been generated since we have killed parts of that process (so thats why it's says coredump). 
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura75.png">
+</p>
+
+And if we list the directory ***/var/crash*** we can see that is generate a new report specifying the user UID, which our case is 1000 because since with the user that we are logged in now have the UID 1000.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura76.png">
+</p>
+
+So what we can do now is with a system tool called ***apport-unpack*** let's say to unzip that file in to a path that we are going to specify, in my case it will be ***/tmp/test1***. And we see that there is a file called ***coredump***.
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura77.png">
+</p>
+
+Now if we try to view the contents of this file with the ***cat*** command, we will view the content of that file very messy. 
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura78.png">
+</p>
+
+What we can do in this situation is use the command ***strings*** and specify that file. Inside the file there will be information about the system and the memory as I mentioned before, but if continue to scrolling ip we can view the content of the file that we have specified in the binary ***count***, which in this case is the ***root.txt*** flag. 
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura79.png">
+</p>
+
+## PrivEsc
+
+And now to gain access as the root user, we are going to try to get the ***id_rsa*** of the root user to access with ssh, remember that we can read all the system files with this binary. So we are going to do the same process as we done before. 
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura80.png">
+</p>
+
+Now we unpack that report that has been generated in ***/var/crash***. 
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura81.png">
+</p>
+
+And if we now see the content of the file ***coredump*** with the ***strings*** command we can see the ***private ssh key*** of the root user. 
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura82.png">
+</p>
+
+And now what we are going to do is create a file on our attacker machine and save paste that id_rsa and give the owner read and write permissions ***(permission 600)***. 
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura83.png">
+</p>
+
+And now with ssh with the flag ***-i*** we are going to specify that private key and we will have access to the target machine as the root user. With this we have already pwned!!! the whole machine. 
+
+<p align = "center">
+<img src = "/assets/images/img-secret/captura84.png">
+</p>
