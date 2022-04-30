@@ -1,7 +1,7 @@
 ---
 layout: single
 title: HTB - Backdoor
-excerpt: "Backdoor is a machine that has linux OS with easy level of difficulty both in terms of intrusion and privilege escalation. on the port 80 runs wordpress which is vulnerable to local file inclusion and also the machine is vulnerable to remote command execution."
+excerpt: "Backdoor is a linux machine with easy level both in explatation phase and PrivEs, in my opinion for me the explatation it's medium level of difficulty..."
 date: 2021-11-30
 classes: wide
 header:
@@ -9,17 +9,15 @@ header:
   teaser_home_page: true
   icon: /assets/images/img-backdoor/
 categories:
-  - CTF
-  - Pentest
+  - CTF 
   - web pentesting
 tags:
   - Hack the box
-  - wordpress 
-  - reverse shell
+  - wordpress  
   - lfi 
 ---
 
-Backdoor is a machine that has linux OS with easy level of difficulty both in terms of intrusion and privilege escalation. on the port 80 runs wordpress which is vulnerable to local file inclusion and also the machine is vulnerable to remote command execution.
+Backdoor is a linux machine with easy level both in explatation phase and PrivEs, in my opinion for me the explatation it's medium level of difficulty, this machine is hosting a wordpress website with one plugin install it which is vulnerable to directory path traversal and the machine have a gdbserver running in background on the port 1337 which is vulnerable to RCE, and lastly on the PrivEsc is very simple because is running a screen session to the user root with SUID permission.
 
 <p align = "center">
 <img src = "/assets/images/img-backdoor/portada.png">
@@ -31,7 +29,7 @@ Machine matrix:
 <img src = "/assets/images/img-backdoor/nivel.png">
 </p>
 
-First I will create a directory with the name of the machine, and with ***mkt*** I will create the following directories to be able to move better the content of each one of those directories.
+First we will create a directory with the name of the machine, and with ***mkt*** i will create the following directories to be able to move better the content of each one of those directories.
 
 <p align = "center">
 <img src = "/assets/images/img-backdoor/captura1.png">
@@ -45,25 +43,25 @@ mkt is a function that i have defined in the ***~/.zshrc*** so that I can create
 
 ## Recognition
 
-We send one icmp trace to the victim machine, and we can see that we have sent a packet and received that packet back. and through the TTL I know that I am on a linux machine. since linux machines have ttl 64 and windows machines have ttl 128. 
+We send one icmp trace to the victim machine, and we can see that we have sent a packet and received that packet back. and through the TTL we can know that the target machine is linux. since linux machines have ttl 64 and windows machines have ttl 128. 
 
 <p align = "center">
 <img src = "/assets/images/img-backdoor/captura3.png">
 </p>
 
-If you asking why when I receive the packet the ttl shows 63 instead of 64? this is because when we send icmp traces to the machine it goes through a series of intermediary nodes and this causes the ttl to decrease by one digit or unit whatever you want to call it. we can see this if we do a traceroute with the ***-R*** parameter.
+If you asking why when we receive the packet the ttl shows 63 instead of 64? this is because when we send icmp packet to the machine it goes through a series of intermediary nodes and this causes the ttl to decrease by one digit, and this process is known a traceroute. We can see this if we use the ***-R*** parameter.
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/trace.png">
+<img src = "/assets/images/img-backdoor2/trace.png">
 </p>
 
-Anyway i have a tool on my system called ***wichsystem*** that tells you if the machine is linux or windows through the ttl.
+Anyway i have a tool on my system called ***wichsystem*** that tells if the machine is linux or windows through the ttl.
 
 <p align = "center">
 <img src = "/assets/images/img-backdoor/captura4.png">
 </p>
 
-And this is the python script of the function wichsystem.
+Wichsystem script.
 
 ```python
 #!/usr/bin/python3
@@ -111,23 +109,38 @@ if __name__ == '__main__':
 
 ```
 
-## Ports recognition
+## Scanning
 
-Now with nmap we are going to do the port recognition and services that run those ports.
+Now with nmap we are going to do the scanning process to know what's ports and services are running on the target machine, with the following parameters.
 
-First we are going to scan how many open ports this machine has and export it in grepable format to the allports file.
+|Flags|Description |  
+|-----|----------- |
+|-p-  |Means that we want to scan all the ports that exists in tcp and udp which is in total 65,535 ports.|
+|-sS  |Means that we want tcp syn scan.           |
+|--min-rate 5000 | Means we just want to send packets no slower then 5000 packets per second to discover ports, and with that parameter our scan will be most faster. |
+|--open | Means that we want only output the ports with the status open not filtred.
+|-vvv | Means that we want to output more information.
+|-n | Means we don't want DNS resolution, because sometimes the DNS resolution can take our scan much slower.
+|-Pn | Means that we don't to ping to discover ports.
+|-oG | Means that we want to save the scan in grapable format to not rescan again, you have more formats to save like nmap, xml, etc.
+
+Basically i export the scan in grepable format because I have a function that i define in the ~/.zshrc which is the ***extractports*** function, basically it allows me to visualize the ports in a more elegant way and it copies the ports in the clipboard, so this is useful when we are scanning a target machine and it has to much ports and we don't need to write one by one to scan those ports.
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura6.png">
-</p>
- 
-Basically I export it in grepable format because I have a function define in the ~/.zshrc which is the ***extractports*** function, basically it allows me to visualize the ports in a more elegant way and it copies the ports in the clipboard.
-
-<p align = "center">
-<img src = "/assets/images/img-backdoor/captura7.png">
+<img src = "/assets/images/img-backdoor/extrac.png">
 </p>
 
-Now let's do another scan to see the versions of the services running on each of these ports.
+## Scanning - Port Recognition
+
+Once we discoverd the ports that are open on the target machine, it's time for scanning those ports to know what version of services are running this ports, with the following parameters.
+
+|Flags|Description |  
+|-----|------------|
+|-sCV |Means that we want to use some nmap scripts, in this case to discover the version and services that are running each of those ports. 
+|-p   |To specify the ports.           |
+|-oN  |Save the scan in nmap format. 
+
+The scanning results:
 
 ```
 # Nmap 7.91 scan initiated Tue Nov 30 03:14:40 2021 as: nmap -sCV -p22,80,1337 -oN targeted 10.10.11.125
@@ -151,48 +164,54 @@ Service detection performed. Please report any incorrect results at https://nmap
 # Nmap done at Tue Nov 30 03:17:36 2021 -- 1 IP address (1 host up) scanned in 175.66 seconds
 ```
 
-With the command ***whatweb*** we can make a small recognition of the web, to be able to see the services used by the web.
-
-<p align = "center">
-<img src = "/assets/images/img-backdoor/captura8.png">
-</p>
-
-Now we access the website to see some information that may be useful to us.
+Now we access the website to see some information that may be useful to us. In wappalyzer we can see that this is a wordpress website with the version 5.8.1, let's check if this particular version of wordpress is vulnerable.
 
 <p align = "center">
 <img src = "/assets/images/img-backdoor/captura9.png">
 </p>
 
-When I click on the home menu it does not let me access because it does not find the following domain. And this means that virtual hosting is being applied.
+With searchsploit i didm't find any vuln with this particular version of wordpress.
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura10.png">
+<img src = "/assets/images/img-backdoor/captura16.png">
 </p>
 
-To apply the virtual hosting we have to go to the file ***/etc/hosts*** and we put the ip and the domain.
+When I click on the home menu it does not let me access because it didn't find the following domain. And this means that virtual hosting is being applied.
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura11.png">
+<img src = "/assets/images/img-backdoor2/captura8.png">
 </p>
 
-Now we can see that the domain is now recognized.
+To apply the virtual hosting we need to access on the file ***/etc/hosts*** and we need put the ip of the target machine and the domain. And if we ping that domain it will redirect with that ip address.
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura12.png">
+<img src = "/assets/images/img-backdoor2/captura9.png">
 </p>
 
-Now when accessing the home page with the domain there is no difference in the web by putting the domain.
+Now if we access on the home page it will recognize the domain, but anything interesting on the home page.
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura13.png">
+<img src = "/assets/images/img-backdoor2/captura10.png">
 </p>
 
-Now with nmap we are going to do a simple fuzzing to see potential routes. 
+So if we go on the blog sectition there is a post that is posted by the admin user, so we know that there is an admin users inside on that wordpress site. One way to enumerate users in wordpress is by looking the user who post a certain article if in the case it is a blog or we can find it in some othere section in the site.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura11.png">
+</p>
+
+So normally in wordpress the loggin page it should be located in ***wp-login.php***, and if we try to access with the admin user with some default password we can see that we don't have a access.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura12.png">
+</p>
+
+So, what we can do now it's try to fuzzing the website to see of there is a pontential route that we can take advantage, with nmap you can try fuzzing specifying the script ***http-enum***, and it will output the following routes, normally in wordpress sites the paths will start with ***wp*** which stands for wordpress. 
 
 ```
-# Nmap 7.91 scan initiated Tue Nov 23 20:18:33 2021 as: nmap --script http-enum -p80 -oN WebScan 10.129.109.254
-Nmap scan report for backdoor.htb (10.129.109.254)
-Host is up (0.043s latency).
+# Nmap 7.92 scan initiated Thu Apr 28 11:09:30 2022 as: nmap --script http-enum -p 80 -oN webscan 10.10.11.125
+Nmap scan report for backdoor.htb (10.10.11.125)
+Host is up (0.049s latency).
 
 PORT   STATE SERVICE
 80/tcp open  http
@@ -208,44 +227,28 @@ PORT   STATE SERVICE
 |   /wp-admin/upgrade.php: Wordpress login page.
 |_  /readme.html: Interesting, a readme.
 
-# Nmap done at Tue Nov 23 20:18:47 2021 -- 1 IP address (1 host up) scanned in 13.31 seconds
-
+# Nmap done at Thu Apr 28 11:09:40 2022 -- 1 IP address (1 host up) scanned in 9.56 seconds
 ```
-
-We can see a login page but we don't have credentials at the moment.
-
-<p align = "center">
-<img src = "/assets/images/img-backdoor/captura14.png">
-</p>
-
-
-if we go to the blog section of the web page we see that there is a post published by the admin user so I deduce that in this web there is only one user who is the admin.
-
-<p align = "center">
-<img src = "/assets/images/img-backdoor/captura15.png">
-</p>
-
-With searchspliot tool I tried to search if there is any vulnerability in the version of wordpress that came with this machine, but I did not find anything interesting.
-
-<p align = "center">
-<img src = "/assets/images/img-backdoor/captura16.png">
-</p>
-
-Now what I did is apply fuzzing with ***wfuzz*** to find potential routes. I know I did fuzzing with nmap but nmap is not as powerful as wfuzz and wfuzz gives us more information.
-
-<p align = "center">
-<img src = "/assets/images/img-backdoor/captura17.png">
-</p>
-
-Another alternative to the wfuzz tool is ***gobuster*** which is made in go language and as you know go works well with sockets and connections.
+So nmap can be noisy and sometimes the fuzzing with nmap can be a little bit trash, another alternative is using ***gobuster*** which is made in golang language and go works well with sockets and connections, so the fuzzing process can be much faster.
 
 <p align = "center">
 <img src = "/assets/images/img-backdoor/captura18.png">
 </p>
 
-Using wfuzz and gobuster are almost the same routes that i found with nmap only the only interesting route i found is wp-content as it may contain plugins that are installed on this page, and we can find possible vulnerabilities but we will see that below.
+So, in wordpress sites normally the plugins that are installed are stored on the ***wp-content*** path specifically on ***wp-content/plugins***, what we can do is use a tool called ***wpscan*** which is a wordpress scanner to scan the users, plugins that can have the particular wordpress site and it can output if that plugin is vulnerable or not. So we are going to scan usig this tool with the following parameters:
 
-What I am going to do is with the tool ***WPscan*** we are going to scan this wordpress page to see if there are more plugins or themes that have installed and the possible vulnerabilities they have.
+|Flags|Description |  
+|-----|----------- |
+|-u   | Specify the url.
+|-v   | Verbose mode.|
+|--enumerate | Specify that we want to enumerate someting. 
+|vp | Find Vulnerable plugins. 
+|ap | Scan all plugins.
+|p  | Popular plugins. 
+|vt | Vulnerable themes.
+|cb | Find config backups files.
+|u  | Emumerate users.
+|dbe | Export database.
 
 <p align = "center">
 <img src = "/assets/images/img-backdoor/captura19.png">
@@ -343,43 +346,41 @@ Interesting Finding(s):
 [32m[+][0m Memory used: 239.539 MB
 [32m[+][0m Elapsed time: 00:00:04
 ```
-With the wpscan scan I did not find relevant information about the plugins that this page has. I could have done a more aggressive scan using the command ***wpscan --url http: //backdoor.htb --plugins-detection aggressive*** but the scan would take a long time. 
+So apparently it didn't scan any shit. We can try to scan in more aggressive way using the command ***wpscan --url http: //backdoor.htb --plugins-detection aggressive*** but the scan would take a long time. I think maybe this tool it's not useful anymore or it can be that we need some token. 
 
-So what I did is to go in the path ***wp-content/plugins*** and I found a plugin that is installed.
+So what i did is access on the path ***wp-content/plugins*** and i found a plugin that is installed called ***ebook-download*** on the target wordpress site, so i was right maybe the wpscan it can be deprecated or it could be that i need some special token to perform the scan.
 
 <p align = "center">
 <img src = "/assets/images/img-backdoor/captura20.png">
 </p>
 
-## Exploitation phase 
-
-When I opened the folder of this plugin I found the file "readme.txt" and that is where I could see the version of this plugin.
+So, if we access the directory of that plugin there is a ***readme.txt*** which is shows the information about that plugin including the version, so we know that this plugin is using the version ***1.1***. 
 
 <p align = "center">
 <img src = "/assets/images/img-backdoor/captura21.png">
 </p>
  
-Then with searchsploit we search if that have any exploit, and I found one specifically about the version that have installed in the wordpress and it is also a very critical one that is "Directory traversal".
-
+If we quick search with searchsploit about that plugin, we can see that the version ***1.1*** its's vulnerable to ***directory traversal*** which is the same version that is using the target machine. So we will download that file using the ***-m*** which is will copy and download, and with flag ***-x*** we can view that exploit without downloading.
+ 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura22.png">
+<img src = "/assets/images/img-backdoor2/captura13.png">
 </p>
 
-Open the exploit and we can see that there is a specific path that is vulnerable to directory traversal.
+So if we look the content of that exploit we can see that this plugin is vulnerable to directory path traversal on the following route.
 
 <p align = "center">
 <img src = "/assets/images/img-backdoor/captura23.png">
 </p>
 
-When I go to the path I installed the wordpress configuration file which is ***wp-config.php*** and we can see that we have a username and password for the database and more information about the server.
+If we try to access on that particular route it will download a file called ***wp-config.php***, which is the wordpress config file of the target site and in this file normally are stored the username and password of the database and more information about the server, as we can see on the following:
 
 <p align = "center">
 <img src = "/assets/images/img-backdoor/captura24.png">
 </p>
 
-What I did is to try in the login page with admin user to see if the password that was in the configuration file was valid also to access with the admin account and the password didt'nt work.
+So, we can't take advantage about this credentials for now because we need to access to the machine to access to the database, so we can use this credentials when we access on the machine.
 
-So what I did is to save the database credentials in a file.
+If we go back to the root directory using ***../***, and we specify the file ***/etc/passwd*** we can see that we are able to list users on the target system.
 
 <p align = "center">
 <img src = "/assets/images/img-backdoor/captura25.png">

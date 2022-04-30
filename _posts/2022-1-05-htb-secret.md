@@ -556,7 +556,7 @@ And if we execute the command ***sudo -l*** to see the sudo permissions, and it 
 <img src = "/assets/images/img-secret/captura66.png">
 </p>
 
-With the ***find*** command let's check what interesting files on the system have SUID perssiona which is the permission ***4000***.
+With the ***find*** command let's check what interesting files on the system have SUID permission, which is the permission ***4000***.
 
 <p align = "center">
 <img src = "/assets/images/img-secret/captura67.png">

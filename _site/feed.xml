@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-03T19:37:39-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Ransom</title><link href="http://localhost:4000/htb-ransom/" rel="alternate" type="text/html" title="HTB - Ransom" /><published>2022-03-18T00:00:00-04:00</published><updated>2022-03-18T00:00:00-04:00</updated><id>http://localhost:4000/htb-ransom</id><content type="html" xml:base="http://localhost:4000/htb-ransom/">&lt;p&gt;Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps u  s gain access to the web page, and we will also have an encrypted zip file that we must access through a plaintext attack and for privilege escalation we must review some code files of the web page that will help us access as the root user.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-29T21:48:20-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Ransom</title><link href="http://localhost:4000/htb-ransom/" rel="alternate" type="text/html" title="HTB - Ransom" /><published>2022-03-18T00:00:00-04:00</published><updated>2022-03-18T00:00:00-04:00</updated><id>http://localhost:4000/htb-ransom</id><content type="html" xml:base="http://localhost:4000/htb-ransom/">&lt;p&gt;Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps u  s gain access to the web page, and we will also have an encrypted zip file that we must access through a plaintext attack and for privilege escalation we must review some code files of the web page that will help us access as the root user.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-ransom/portada.png&quot; /&gt;
@@ -525,40 +525,7 @@ Host: 10.10.11.153 ()   Ports: 22/open/tcp//ssh///, 80/open/tcp//http///        
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-ransom/captura56.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="Linux" /><category term="Web" /><category term="PHP" /><category term="Api" /><summary type="html">Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps us gain access to the web page, and we will also have an encrypted zip file that we must...</summary></entry><entry><title type="html">Attacking Web Browser - Beef</title><link href="http://localhost:4000/Beef/" rel="alternate" type="text/html" title="Attacking Web Browser - Beef" /><published>2022-02-16T00:00:00-05:00</published><updated>2022-02-16T00:00:00-05:00</updated><id>http://localhost:4000/Beef</id><content type="html" xml:base="http://localhost:4000/Beef/">&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-beef/beef.jpg&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;BeEF is short for The Browser Exploitation Framework. It is a penetration testing tool that focuses on the web browser, It allows hooking the browser of the victim machine, allowing attackers to carry out social engineering attacks, scan the victim’s network, see the traffic of the victim’s browser and allows the use of tools such as metasploit. What it’s does this framwork is to snip up a fake website with embedded malicious code and all we need to do is send the url that generate this framework and send it to the victim, and once the victim click that url it will execute a malicious js file called “hook.js” and it will hooked the browser of the victim.&lt;/p&gt;
-
-&lt;h2 id=&quot;how-works&quot;&gt;How works?&lt;/h2&gt;
-
-&lt;p&gt;Firt to understand beef we need to know some few concepts:&lt;/p&gt;
-
-&lt;p&gt;API:&lt;/p&gt;
-
-&lt;p&gt;Rest API:&lt;/p&gt;
-
-&lt;p&gt;Restfull API:&lt;/p&gt;
-
-&lt;p&gt;Hooking attack:&lt;/p&gt;
-
-&lt;p&gt;Man-in-the-browser attack:&lt;/p&gt;
-
-&lt;p&gt;What i mention before beef uses a javascript file called &lt;strong&gt;&lt;em&gt;hook.js&lt;/em&gt;&lt;/strong&gt; that will hook one or more browsers and will use them for launching directed command modiles and further attacks against the system though a opem door: the we browser context, beef use a web interface to manega and sedn commands (attacks) to the browser zombies.&lt;/p&gt;
-
-&lt;p&gt;Features:&lt;/p&gt;
-
-&lt;p&gt;Beef has a page list with 128 exploits that we can use on the victim machine, beef is a modular framework means that it can be easily extended with custom browser exploitation commands, it provides restful api that allows to control beef throuth HTTP request in json format and beef it can be configured to be integrated with metasploit.&lt;/p&gt;
-
-&lt;h2 id=&quot;configuration&quot;&gt;Configuration&lt;/h2&gt;
-
-&lt;p&gt;In kali linux and i think in parrot this tool comes by default, but if you don’t have install it you can use the following command:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt install beef-xss -y
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;note&lt;/em&gt;&lt;/strong&gt;: In some distros it may be that you can’t install it with the apt packege manager, you will need to install it manually cloning the &lt;a href=&quot;https://github.com/beefproject/beef/wiki/Installation&quot;&gt;repo&lt;/a&gt;.&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Beef" /><category term="Linux" /><category term="Social engineering" /><category term="Metasploit" /><summary type="html">BeEF is short for The Browser Exploitation Framework. It is a penetration testing tool that focuses on the web browser, It allows hooking the browser of the victim machine, allowing attackers to carry out social engineering attacks, scan the victim's network, see the traffic of the victim's browser and allows the use of tools such as metasploit.</summary></entry><entry><title type="html">Tryhackme - Solar</title><link href="http://localhost:4000/tryh-solar/" rel="alternate" type="text/html" title="Tryhackme - Solar" /><published>2022-01-16T00:00:00-05:00</published><updated>2022-01-16T00:00:00-05:00</updated><id>http://localhost:4000/tryh-solar</id><content type="html" xml:base="http://localhost:4000/tryh-solar/">&lt;p&gt;Solar is a linux machine with medium difficulty level in the exploitation phase and easy in privilege escalation, this machine runs the apache solr 8.11.0 service which is vulnerable to log4shell and also explains what is log4j, how it works, how to exploit log4shell step by step and ways to mitigate this vulnerability.&lt;/p&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="Linux" /><category term="Web" /><category term="PHP" /><category term="Api" /><summary type="html">Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps us gain access to the web page, and we will also have an encrypted zip file that we must...</summary></entry><entry><title type="html">Tryhackme - Solar</title><link href="http://localhost:4000/tryh-solar/" rel="alternate" type="text/html" title="Tryhackme - Solar" /><published>2022-01-16T00:00:00-05:00</published><updated>2022-01-16T00:00:00-05:00</updated><id>http://localhost:4000/tryh-solar</id><content type="html" xml:base="http://localhost:4000/tryh-solar/">&lt;p&gt;Solar is a linux machine with medium difficulty level in the exploitation phase and easy in privilege escalation, this machine runs the apache solr 8.11.0 service which is vulnerable to log4shell and also explains what is log4j, how it works, how to exploit log4shell step by step and ways to mitigate this vulnerability.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-solar/portada.png&quot; /&gt;
@@ -2735,7 +2702,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 &lt;img src=&quot;/assets/images/img-secret/captura66.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;With the &lt;strong&gt;&lt;em&gt;find&lt;/em&gt;&lt;/strong&gt; command let’s check what interesting files on the system have SUID perssiona which is the permission &lt;strong&gt;&lt;em&gt;4000&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;With the &lt;strong&gt;&lt;em&gt;find&lt;/em&gt;&lt;/strong&gt; command let’s check what interesting files on the system have SUID permission, which is the permission &lt;strong&gt;&lt;em&gt;4000&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-secret/captura67.png&quot; /&gt;
@@ -3637,7 +3604,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-pikaboo/captura48.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="reverse shell" /><category term="lfi" /><summary type="html">pikaboo is a machine with hard difficulty both at the level of instruction and escalation of privileges, It has vunlerabilities such as lfi on the web side and also perl vunlerability, as well as crendential access via ldap.</summary></entry><entry><title type="html">HTB - Backdoor</title><link href="http://localhost:4000/htb-backdoor/" rel="alternate" type="text/html" title="HTB - Backdoor" /><published>2021-11-30T00:00:00-05:00</published><updated>2021-11-30T00:00:00-05:00</updated><id>http://localhost:4000/htb-backdoor</id><content type="html" xml:base="http://localhost:4000/htb-backdoor/">&lt;p&gt;Backdoor is a machine that has linux OS with easy level of difficulty both in terms of intrusion and privilege escalation. on the port 80 runs wordpress which is vulnerable to local file inclusion and also the machine is vulnerable to remote command execution.&lt;/p&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="reverse shell" /><category term="lfi" /><summary type="html">pikaboo is a machine with hard difficulty both at the level of instruction and escalation of privileges, It has vunlerabilities such as lfi on the web side and also perl vunlerability, as well as crendential access via ldap.</summary></entry><entry><title type="html">HTB - Backdoor</title><link href="http://localhost:4000/htb-backdoor/" rel="alternate" type="text/html" title="HTB - Backdoor" /><published>2021-11-30T00:00:00-05:00</published><updated>2021-11-30T00:00:00-05:00</updated><id>http://localhost:4000/htb-backdoor</id><content type="html" xml:base="http://localhost:4000/htb-backdoor/">&lt;p&gt;Backdoor is a linux machine with easy level both in explatation phase and PrivEs, in my opinion for me the explatation it’s medium level of difficulty, this machine is hosting a wordpress website with one plugin install it which is vulnerable to directory path traversal and the machine have a gdbserver running in background on the port 1337 which is vulnerable to RCE, and lastly on the PrivEsc is very simple because is running a screen session to the user root with SUID permission.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/portada.png&quot; /&gt;
@@ -3649,7 +3616,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 &lt;img src=&quot;/assets/images/img-backdoor/nivel.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;First I will create a directory with the name of the machine, and with &lt;strong&gt;&lt;em&gt;mkt&lt;/em&gt;&lt;/strong&gt; I will create the following directories to be able to move better the content of each one of those directories.&lt;/p&gt;
+&lt;p&gt;First we will create a directory with the name of the machine, and with &lt;strong&gt;&lt;em&gt;mkt&lt;/em&gt;&lt;/strong&gt; i will create the following directories to be able to move better the content of each one of those directories.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/captura1.png&quot; /&gt;
@@ -3663,25 +3630,25 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 &lt;h2 id=&quot;recognition&quot;&gt;Recognition&lt;/h2&gt;
 
-&lt;p&gt;We send one icmp trace to the victim machine, and we can see that we have sent a packet and received that packet back. and through the TTL I know that I am on a linux machine. since linux machines have ttl 64 and windows machines have ttl 128.&lt;/p&gt;
+&lt;p&gt;We send one icmp trace to the victim machine, and we can see that we have sent a packet and received that packet back. and through the TTL we can know that the target machine is linux. since linux machines have ttl 64 and windows machines have ttl 128.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/captura3.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;If you asking why when I receive the packet the ttl shows 63 instead of 64? this is because when we send icmp traces to the machine it goes through a series of intermediary nodes and this causes the ttl to decrease by one digit or unit whatever you want to call it. we can see this if we do a traceroute with the &lt;strong&gt;&lt;em&gt;-R&lt;/em&gt;&lt;/strong&gt; parameter.&lt;/p&gt;
+&lt;p&gt;If you asking why when we receive the packet the ttl shows 63 instead of 64? this is because when we send icmp packet to the machine it goes through a series of intermediary nodes and this causes the ttl to decrease by one digit, and this process is known a traceroute. We can see this if we use the &lt;strong&gt;&lt;em&gt;-R&lt;/em&gt;&lt;/strong&gt; parameter.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/trace.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/trace.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Anyway i have a tool on my system called &lt;strong&gt;&lt;em&gt;wichsystem&lt;/em&gt;&lt;/strong&gt; that tells you if the machine is linux or windows through the ttl.&lt;/p&gt;
+&lt;p&gt;Anyway i have a tool on my system called &lt;strong&gt;&lt;em&gt;wichsystem&lt;/em&gt;&lt;/strong&gt; that tells if the machine is linux or windows through the ttl.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/captura4.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;And this is the python script of the function wichsystem.&lt;/p&gt;
+&lt;p&gt;Wichsystem script.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/python3
 #coding: utf-8
@@ -3728,23 +3695,87 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;ports-recognition&quot;&gt;Ports recognition&lt;/h2&gt;
+&lt;h2 id=&quot;scanning&quot;&gt;Scanning&lt;/h2&gt;
 
-&lt;p&gt;Now with nmap we are going to do the port recognition and services that run those ports.&lt;/p&gt;
+&lt;p&gt;Now with nmap we are going to do the scanning process to know what’s ports and services are running on the target machine, with the following parameters.&lt;/p&gt;
 
-&lt;p&gt;First we are going to scan how many open ports this machine has and export it in grepable format to the allports file.&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Flags&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-p-&lt;/td&gt;
+      &lt;td&gt;Means that we want to scan all the ports that exists in tcp and udp which is in total 65,535 ports.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-sS&lt;/td&gt;
+      &lt;td&gt;Means that we want tcp syn scan.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;–min-rate 5000&lt;/td&gt;
+      &lt;td&gt;Means we just want to send packets no slower then 5000 packets per second to discover ports, and with that parameter our scan will be most faster.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;–open&lt;/td&gt;
+      &lt;td&gt;Means that we want only output the ports with the status open not filtred.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-vvv&lt;/td&gt;
+      &lt;td&gt;Means that we want to output more information.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-n&lt;/td&gt;
+      &lt;td&gt;Means we don’t want DNS resolution, because sometimes the DNS resolution can take our scan much slower.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-Pn&lt;/td&gt;
+      &lt;td&gt;Means that we don’t to ping to discover ports.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-oG&lt;/td&gt;
+      &lt;td&gt;Means that we want to save the scan in grapable format to not rescan again, you have more formats to save like nmap, xml, etc.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Basically i export the scan in grepable format because I have a function that i define in the ~/.zshrc which is the &lt;strong&gt;&lt;em&gt;extractports&lt;/em&gt;&lt;/strong&gt; function, basically it allows me to visualize the ports in a more elegant way and it copies the ports in the clipboard, so this is useful when we are scanning a target machine and it has to much ports and we don’t need to write one by one to scan those ports.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura6.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/extrac.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Basically I export it in grepable format because I have a function define in the ~/.zshrc which is the &lt;strong&gt;&lt;em&gt;extractports&lt;/em&gt;&lt;/strong&gt; function, basically it allows me to visualize the ports in a more elegant way and it copies the ports in the clipboard.&lt;/p&gt;
+&lt;h2 id=&quot;scanning---port-recognition&quot;&gt;Scanning - Port Recognition&lt;/h2&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura7.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;Once we discoverd the ports that are open on the target machine, it’s time for scanning those ports to know what version of services are running this ports, with the following parameters.&lt;/p&gt;
 
-&lt;p&gt;Now let’s do another scan to see the versions of the services running on each of these ports.&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Flags&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-sCV&lt;/td&gt;
+      &lt;td&gt;Means that we want to use some nmap scripts, in this case to discover the version and services that are running each of those ports.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-p&lt;/td&gt;
+      &lt;td&gt;To specify the ports.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-oN&lt;/td&gt;
+      &lt;td&gt;Save the scan in nmap format.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The scanning results:&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Nmap 7.91 scan initiated Tue Nov 30 03:14:40 2021 as: nmap -sCV -p22,80,1337 -oN targeted 10.10.11.125
 Nmap scan report for backdoor.htb (10.10.11.125)
@@ -3767,47 +3798,53 @@ Service detection performed. Please report any incorrect results at https://nmap
 # Nmap done at Tue Nov 30 03:17:36 2021 -- 1 IP address (1 host up) scanned in 175.66 seconds
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;With the command &lt;strong&gt;&lt;em&gt;whatweb&lt;/em&gt;&lt;/strong&gt; we can make a small recognition of the web, to be able to see the services used by the web.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura8.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now we access the website to see some information that may be useful to us.&lt;/p&gt;
+&lt;p&gt;Now we access the website to see some information that may be useful to us. In wappalyzer we can see that this is a wordpress website with the version 5.8.1, let’s check if this particular version of wordpress is vulnerable.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/captura9.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;When I click on the home menu it does not let me access because it does not find the following domain. And this means that virtual hosting is being applied.&lt;/p&gt;
+&lt;p&gt;With searchsploit i didm’t find any vuln with this particular version of wordpress.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura10.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-backdoor/captura16.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;To apply the virtual hosting we have to go to the file &lt;strong&gt;&lt;em&gt;/etc/hosts&lt;/em&gt;&lt;/strong&gt; and we put the ip and the domain.&lt;/p&gt;
+&lt;p&gt;When I click on the home menu it does not let me access because it didn’t find the following domain. And this means that virtual hosting is being applied.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura11.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura8.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Now we can see that the domain is now recognized.&lt;/p&gt;
+&lt;p&gt;To apply the virtual hosting we need to access on the file &lt;strong&gt;&lt;em&gt;/etc/hosts&lt;/em&gt;&lt;/strong&gt; and we need put the ip of the target machine and the domain. And if we ping that domain it will redirect with that ip address.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura12.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura9.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Now when accessing the home page with the domain there is no difference in the web by putting the domain.&lt;/p&gt;
+&lt;p&gt;Now if we access on the home page it will recognize the domain, but anything interesting on the home page.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura13.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura10.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Now with nmap we are going to do a simple fuzzing to see potential routes.&lt;/p&gt;
+&lt;p&gt;So if we go on the blog sectition there is a post that is posted by the admin user, so we know that there is an admin users inside on that wordpress site. One way to enumerate users in wordpress is by looking the user who post a certain article if in the case it is a blog or we can find it in some othere section in the site.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Nmap 7.91 scan initiated Tue Nov 23 20:18:33 2021 as: nmap --script http-enum -p80 -oN WebScan 10.129.109.254
-Nmap scan report for backdoor.htb (10.129.109.254)
-Host is up (0.043s latency).
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura11.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So normally in wordpress the loggin page it should be located in &lt;strong&gt;&lt;em&gt;wp-login.php&lt;/em&gt;&lt;/strong&gt;, and if we try to access with the admin user with some default password we can see that we don’t have a access.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura12.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So, what we can do now it’s try to fuzzing the website to see of there is a pontential route that we can take advantage, with nmap you can try fuzzing specifying the script &lt;strong&gt;&lt;em&gt;http-enum&lt;/em&gt;&lt;/strong&gt;, and it will output the following routes, normally in wordpress sites the paths will start with &lt;strong&gt;&lt;em&gt;wp&lt;/em&gt;&lt;/strong&gt; which stands for wordpress.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Nmap 7.92 scan initiated Thu Apr 28 11:09:30 2022 as: nmap --script http-enum -p 80 -oN webscan 10.10.11.125
+Nmap scan report for backdoor.htb (10.10.11.125)
+Host is up (0.049s latency).
 
 PORT   STATE SERVICE
 80/tcp open  http
@@ -3823,43 +3860,66 @@ PORT   STATE SERVICE
 |   /wp-admin/upgrade.php: Wordpress login page.
 |_  /readme.html: Interesting, a readme.
 
-# Nmap done at Tue Nov 23 20:18:47 2021 -- 1 IP address (1 host up) scanned in 13.31 seconds
-
+# Nmap done at Thu Apr 28 11:09:40 2022 -- 1 IP address (1 host up) scanned in 9.56 seconds
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;We can see a login page but we don’t have credentials at the moment.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura14.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;if we go to the blog section of the web page we see that there is a post published by the admin user so I deduce that in this web there is only one user who is the admin.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura15.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;With searchspliot tool I tried to search if there is any vulnerability in the version of wordpress that came with this machine, but I did not find anything interesting.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura16.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now what I did is apply fuzzing with &lt;strong&gt;&lt;em&gt;wfuzz&lt;/em&gt;&lt;/strong&gt; to find potential routes. I know I did fuzzing with nmap but nmap is not as powerful as wfuzz and wfuzz gives us more information.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura17.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Another alternative to the wfuzz tool is &lt;strong&gt;&lt;em&gt;gobuster&lt;/em&gt;&lt;/strong&gt; which is made in go language and as you know go works well with sockets and connections.&lt;/p&gt;
+&lt;p&gt;So nmap can be noisy and sometimes the fuzzing with nmap can be a little bit trash, another alternative is using &lt;strong&gt;&lt;em&gt;gobuster&lt;/em&gt;&lt;/strong&gt; which is made in golang language and go works well with sockets and connections, so the fuzzing process can be much faster.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/captura18.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Using wfuzz and gobuster are almost the same routes that i found with nmap only the only interesting route i found is wp-content as it may contain plugins that are installed on this page, and we can find possible vulnerabilities but we will see that below.&lt;/p&gt;
+&lt;p&gt;So, in wordpress sites normally the plugins that are installed are stored on the &lt;strong&gt;&lt;em&gt;wp-content&lt;/em&gt;&lt;/strong&gt; path specifically on &lt;strong&gt;&lt;em&gt;wp-content/plugins&lt;/em&gt;&lt;/strong&gt;, what we can do is use a tool called &lt;strong&gt;&lt;em&gt;wpscan&lt;/em&gt;&lt;/strong&gt; which is a wordpress scanner to scan the users, plugins that can have the particular wordpress site and it can output if that plugin is vulnerable or not. So we are going to scan usig this tool with the following parameters:&lt;/p&gt;
 
-&lt;p&gt;What I am going to do is with the tool &lt;strong&gt;&lt;em&gt;WPscan&lt;/em&gt;&lt;/strong&gt; we are going to scan this wordpress page to see if there are more plugins or themes that have installed and the possible vulnerabilities they have.&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Flags&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-u&lt;/td&gt;
+      &lt;td&gt;Specify the url.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-v&lt;/td&gt;
+      &lt;td&gt;Verbose mode.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;–enumerate&lt;/td&gt;
+      &lt;td&gt;Specify that we want to enumerate someting.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;vp&lt;/td&gt;
+      &lt;td&gt;Find Vulnerable plugins.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ap&lt;/td&gt;
+      &lt;td&gt;Scan all plugins.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;p&lt;/td&gt;
+      &lt;td&gt;Popular plugins.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;vt&lt;/td&gt;
+      &lt;td&gt;Vulnerable themes.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;cb&lt;/td&gt;
+      &lt;td&gt;Find config backups files.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u&lt;/td&gt;
+      &lt;td&gt;Emumerate users.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;dbe&lt;/td&gt;
+      &lt;td&gt;Export database.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/captura19.png&quot; /&gt;
@@ -3956,43 +4016,41 @@ Interesting Finding(s):
 [32m[+][0m Memory used: 239.539 MB
 [32m[+][0m Elapsed time: 00:00:04
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;With the wpscan scan I did not find relevant information about the plugins that this page has. I could have done a more aggressive scan using the command &lt;strong&gt;&lt;em&gt;wpscan –url http: //backdoor.htb –plugins-detection aggressive&lt;/em&gt;&lt;/strong&gt; but the scan would take a long time.&lt;/p&gt;
+&lt;p&gt;So apparently it didn’t scan any shit. We can try to scan in more aggressive way using the command &lt;strong&gt;&lt;em&gt;wpscan –url http: //backdoor.htb –plugins-detection aggressive&lt;/em&gt;&lt;/strong&gt; but the scan would take a long time. I think maybe this tool it’s not useful anymore or it can be that we need some token.&lt;/p&gt;
 
-&lt;p&gt;So what I did is to go in the path &lt;strong&gt;&lt;em&gt;wp-content/plugins&lt;/em&gt;&lt;/strong&gt; and I found a plugin that is installed.&lt;/p&gt;
+&lt;p&gt;So what i did is access on the path &lt;strong&gt;&lt;em&gt;wp-content/plugins&lt;/em&gt;&lt;/strong&gt; and i found a plugin that is installed called &lt;strong&gt;&lt;em&gt;ebook-download&lt;/em&gt;&lt;/strong&gt; on the target wordpress site, so i was right maybe the wpscan it can be deprecated or it could be that i need some special token to perform the scan.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/captura20.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;h2 id=&quot;exploitation-phase&quot;&gt;Exploitation phase&lt;/h2&gt;
-
-&lt;p&gt;When I opened the folder of this plugin I found the file “readme.txt” and that is where I could see the version of this plugin.&lt;/p&gt;
+&lt;p&gt;So, if we access the directory of that plugin there is a &lt;strong&gt;&lt;em&gt;readme.txt&lt;/em&gt;&lt;/strong&gt; which is shows the information about that plugin including the version, so we know that this plugin is using the version &lt;strong&gt;&lt;em&gt;1.1&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/captura21.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Then with searchsploit we search if that have any exploit, and I found one specifically about the version that have installed in the wordpress and it is also a very critical one that is “Directory traversal”.&lt;/p&gt;
+&lt;p&gt;If we quick search with searchsploit about that plugin, we can see that the version &lt;strong&gt;&lt;em&gt;1.1&lt;/em&gt;&lt;/strong&gt; its’s vulnerable to &lt;strong&gt;&lt;em&gt;directory traversal&lt;/em&gt;&lt;/strong&gt; which is the same version that is using the target machine. So we will download that file using the &lt;strong&gt;&lt;em&gt;-m&lt;/em&gt;&lt;/strong&gt; which is will copy and download, and with flag &lt;strong&gt;&lt;em&gt;-x&lt;/em&gt;&lt;/strong&gt; we can view that exploit without downloading.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura22.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura13.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Open the exploit and we can see that there is a specific path that is vulnerable to directory traversal.&lt;/p&gt;
+&lt;p&gt;So if we look the content of that exploit we can see that this plugin is vulnerable to directory path traversal on the following route.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/captura23.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;When I go to the path I installed the wordpress configuration file which is &lt;strong&gt;&lt;em&gt;wp-config.php&lt;/em&gt;&lt;/strong&gt; and we can see that we have a username and password for the database and more information about the server.&lt;/p&gt;
+&lt;p&gt;If we try to access on that particular route it will download a file called &lt;strong&gt;&lt;em&gt;wp-config.php&lt;/em&gt;&lt;/strong&gt;, which is the wordpress config file of the target site and in this file normally are stored the username and password of the database and more information about the server, as we can see on the following:&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/captura24.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;What I did is to try in the login page with admin user to see if the password that was in the configuration file was valid also to access with the admin account and the password didt’nt work.&lt;/p&gt;
+&lt;p&gt;So, we can’t take advantage about this credentials for now because we need to access to the machine to access to the database, so we can use this credentials when we access on the machine.&lt;/p&gt;
 
-&lt;p&gt;So what I did is to save the database credentials in a file.&lt;/p&gt;
+&lt;p&gt;If we go back to the root directory using &lt;strong&gt;&lt;em&gt;../&lt;/em&gt;&lt;/strong&gt;, and we specify the file &lt;strong&gt;&lt;em&gt;/etc/passwd&lt;/em&gt;&lt;/strong&gt; we can see that we are able to list users on the target system.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/captura25.png&quot; /&gt;
@@ -4231,4 +4289,221 @@ $ python3 {sys.argv[0]} 10.10.10.200:1337 rev.bin
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/captura44.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="wordpress" /><category term="reverse shell" /><category term="lfi" /><summary type="html">Backdoor is a machine that has linux OS with easy level of difficulty both in terms of intrusion and privilege escalation. on the port 80 runs wordpress which is vulnerable to local file inclusion and also the machine is vulnerable to remote command execution.</summary></entry></feed>
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="wordpress" /><category term="lfi" /><summary type="html">Backdoor is a linux machine with easy level both in explatation phase and PrivEs, in my opinion for me the explatation it's medium level of difficulty...</summary></entry><entry><title type="html">Tmux Shortcuts</title><link href="http://localhost:4000/tmux-short/" rel="alternate" type="text/html" title="Tmux Shortcuts" /><published>2021-11-25T00:00:00-05:00</published><updated>2021-11-25T00:00:00-05:00</updated><id>http://localhost:4000/tmux-short</id><content type="html" xml:base="http://localhost:4000/tmux-short/">&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/tmux/tmux22.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Tmux is a tool that allows us to divide a terminal in several panes and also to speed up when we are working in the console with different functions and shortcuts. tmux sessions are persistent, which means that programs running in tmux will continue to run if we get disconnect our computer.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-works&quot;&gt;How works?&lt;/h2&gt;
+
+&lt;p&gt;Tmux is a multiplexer terminal, the term multiplexer is a term used in telecommunications where multiple signals converge into one. And this term in tmux means that we can use multiple terminals in a single terminal.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/tmux/multiplexer.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;To use tmux we have to understand these concepts: sessions, windows, panes&lt;/p&gt;
+
+&lt;p&gt;The sessions are collection of virtual consoles managed by tmux that the session can have one or more windows associate, the window occupy the entire terminal screen and can be devided into a rectangular regions called panes, and in the panes is execute multiple virtual consoles.&lt;/p&gt;
+
+&lt;p&gt;The tmux architecture is client/server, when we execute the tmux command in our terminal, there are gonna be two process that are executing, one for the client and one for the server, these processes can communicate with each other by sending commands.&lt;/p&gt;
+
+&lt;p&gt;The functions of the client is to send to the server the commands that we want tmux to execute, create sessions, windows and panels that the server is going to manage. While the tmux server is responsable for executing the commands it receives from the client and managing our sessions and virtual consoles. And thanks to this architecture, if the client process is finish, the server will continue executing the tasks in the background and this allows us to recover the sessions in the case that we have closed the terminal or shutdown our computer.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/tmux/arctmux.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So if you list the processes on your machine, your are gonna see processes like “tmux: client” which is the client of the tmux (we are the clients) and tmux which is the tmux server.&lt;/p&gt;
+
+&lt;p&gt;For example if we need to connect via ssh into a particular server or machine and we are opening several terminals and make sevaral ssh connections to that server, we can use tmux and it will make our life easier and we don’t need to open another terminal and connect to the server via ssh.&lt;/p&gt;
+
+&lt;h2 id=&quot;tmux-shortcuts&quot;&gt;Tmux shortcuts&lt;/h2&gt;
+
+&lt;p&gt;Prefix&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ctrl + b 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Create session&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tmux new -s &quot;nameofthesession&quot;  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;List session&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tmux ls 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Change session name&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + $  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Kill session&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tmux kill-session -t [name]  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Enter a session&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tmux attach -t [name] 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Save the session&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + d
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Another wey to save a session if we are in on that particular session.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + shift + : = &quot;detach&quot; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Rename window&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ctrl + b + , 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Create a window&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ctrl + b + c  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Move from windows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ctrl + b + 1,2,3,4  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Vertical panel&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ctrl + b + shift + 2 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Panel in horizontal position&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ctrl + b + shift + 5   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Move the second panel in horizontal or in vertical.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ctrl + b + space
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;See the hour in the panel.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + t 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;If we want to write in the panel 1,2,3,4 use this shortcut.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + arrows - ↑ - ↓ - ← - →  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Delete bash o zsh window&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + &amp;amp; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Resize the panel, (hold the ctrl key and use the arrows)&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + arrows ↑ and ↓, if we have horizontal panel to resize use ← and →
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;View the sessions, panes and windows that we have created and their contents, we can use this shortcut if we are in a prevoius tmux session and we do not want to leave that session to list the available sessions.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + s 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Another way to view sessions with hierarchy. We can use both shortcuts to move betweeen sessions, we simply select the sessions that we want with the arrows key and press enter. I presonally recommend using this shortcut since it shows us the sessions and their window in a hierarchical wey.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + w 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Delete a session if we are inside a previous session of tmux and we don’t want to leave that session.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + s + [Select the session that u want to delete with the arrows] + x + y (yes option)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To see the number of panes, This is useful if we dont what is the order of the panel.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + q  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Move the content of a panel in another.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + {} (&quot;{&quot; means right and &quot;}&quot; left)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Allows you to move the contents of the panes in a clockwise direction.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + o 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Use the mouse on the tmux session, so you can move through panes and split panels with the mouse like in terminator. To disable this option, use the same shurcut. Personally i don’t recommend use this shortcut because the main function of tmux is using shortcuts with the keyboard so that we are much faster and more versatility using the terminal.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + m
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Unify or compact windows.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + shift + : write this command &quot;join-pane -s (window we are currently in) 1 -t (and in the window we want to move) 2&quot; -&amp;gt; join-pane -s 1 -t 2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Copy the content of a file or some command output.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + [ (copy mode), ctrl + space (selection mode), alt + w (copy content), prefix + ] (paste content in the clipboard or in a file)   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Search for info using filters.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + [ (copy mode) + ctrl + s + Write what u are searching for + enter
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If we want to scroll up some output of a command we can use the copy mode to do that.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + alt + [ (copy mode) - ctrl + u (if we want to sroll up slowly) - Repag (if u want to scroll up fast) - Avpag (if u want to scroll down fast, this is useful when we need to copy some output on the terminal) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Window swap, for example if u want window 2 to be in window 1.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + shift + : = &quot;swap-window -s 2(current window) -t 1 (window you want to move)  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Move a pane in a new window.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + shift + 1 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Zoom a particular pane to view better the content of that pane. Use the same shortcut if u want to disable the zoom mode.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;prefix + z
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;bonus&quot;&gt;Bonus&lt;/h2&gt;
+
+&lt;p&gt;Concatenate files with micro&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cat /etc/passwd | micro
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Create a script using micro and it will detect the syntax in bash or zsh.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;micro script.sh 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;See the modification of a file in another window in real time, like a live serve.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tail -f namefile 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;tmux-autopwn-script&quot;&gt;Tmux autopwn script&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Put the session name: '&lt;/span&gt; sessions
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'First window name: '&lt;/span&gt; firstwin
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Seconde window name: '&lt;/span&gt; secondwin
+
+tmux new-session &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$sessions&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sleep&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$time&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# u can use the &quot;-t&quot; flag to put the num of the session on the name of the session.&lt;/span&gt;
+tmux rename-window &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$firstwin&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; tmux split-window &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; tmux &lt;span class=&quot;k&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-pane&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; 1
+&lt;span class=&quot;c&quot;&gt;#tmux new-window -t $sessions:2 -n &quot;$secondwin&quot;&lt;/span&gt;
+tmux &lt;span class=&quot;k&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-window&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; 1
+&lt;span class=&quot;c&quot;&gt;#---------------------------------------------------------------------------&lt;/span&gt;
+tmux send-keys &lt;span class=&quot;s2&quot;&gt;&quot;ifconfig&quot;&lt;/span&gt; C-m &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sleep&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$time&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# -&amp;gt; &quot;C-m&quot; means that write the command and hide enter&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#tmux send-keys &quot;id&quot; C-m &amp;amp;&amp;amp; sleep $time # -&amp;gt; &quot;send-keys&quot; this command option is to send keystroke in the terminal&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#tmux send-keys &quot;ps -a&quot; C-m &amp;amp;&amp;amp; sleep $time&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#tmux send-keys &quot;ifconfig&quot; C-m &amp;amp;&amp;amp; sleep $time&lt;/span&gt;
+tmux &lt;span class=&quot;k&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-pane&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; 2 &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; tmux send-keys &lt;span class=&quot;s2&quot;&gt;&quot;cat /etc/passwd&quot;&lt;/span&gt; C-m &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sleep&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$time&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# this line on the pane of the window 1 it gonna be execute &quot;cat /etc/passwd&quot;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#---------------------------------------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#tmux select-window -t 2 &amp;amp;&amp;amp; sleep $time &amp;amp;&amp;amp; tmux send-keys &quot;cat /etc/group&quot; C-m &amp;amp;&amp;amp; sleep $time &amp;amp;&amp;amp; tmux select-window -t 1 # -&amp;gt; this line it will execute the command &quot;cat /etc/group&quot; on the window 2&lt;/span&gt;
+tmux new-window &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$sessions&lt;/span&gt;:2 &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$secondwin&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sleep&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; tmux send-keys &lt;span class=&quot;s2&quot;&gt;&quot;cat /etc/group&quot;&lt;/span&gt; C-m &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sleep&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; tmux &lt;span class=&quot;k&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-window&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; 1 &lt;span class=&quot;c&quot;&gt;#if we want to create a new window and execute some command.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#---------------------------------------------------------------------------&lt;/span&gt;
+tmux attach &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$sessions&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Nafsu Uddin</name></author><category term="tmux" /><category term="linux" /><summary type="html">Tmux is a tool that allows us to divide a terminal in several panes and also to speed up when we are working in the console with different functions and shortcuts.</summary></entry></feed>

@@ -25,8 +25,8 @@ var store = [{
         "url": "http://localhost:4000/tmux-short/",
         "teaser":"http://localhost:4000/assets/images/tmux/tmux22.png"},{
         "title": "HTB - Backdoor",
-        "excerpt":"Backdoor is a machine that has linux OS with easy level of difficulty both in terms of intrusion and privilege escalation. on the port 80 runs wordpress which is vulnerable to local file inclusion and also the machine is vulnerable to remote command execution. Machine matrix: First I will create...","categories": ["CTF","Pentest","web pentesting"],
-        "tags": ["Hack the box","wordpress","reverse shell","lfi"],
+        "excerpt":"Backdoor is a linux machine with easy level both in explatation phase and PrivEs, in my opinion for me the explatation it’s medium level of difficulty, this machine is hosting a wordpress website with one plugin install it which is vulnerable to directory path traversal and the machine have a...","categories": ["CTF","web pentesting"],
+        "tags": ["Hack the box","wordpress","lfi"],
         "url": "http://localhost:4000/htb-backdoor/",
         "teaser":"http://localhost:4000/assets/images/img-backdoor/portada.png"},{
         "title": "HTB - Pikaboo",
@@ -64,11 +64,6 @@ var store = [{
         "tags": ["Tryhackme","Linux","CVE","RCE"],
         "url": "http://localhost:4000/tryh-solar/",
         "teaser":"http://localhost:4000/assets/images/img-solar/portada.png"},{
-        "title": "Attacking Web Browser - Beef",
-        "excerpt":"BeEF is short for The Browser Exploitation Framework. It is a penetration testing tool that focuses on the web browser, It allows hooking the browser of the victim machine, allowing attackers to carry out social engineering attacks, scan the victim’s network, see the traffic of the victim’s browser and allows...","categories": ["Kali tools","Pentest"],
-        "tags": ["Beef","Linux","Social engineering","Metasploit"],
-        "url": "http://localhost:4000/Beef/",
-        "teaser":"http://localhost:4000/assets/images/img-beef/beef.jpg"},{
         "title": "HTB - Ransom",
         "excerpt":"Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps u s gain access to the web page, and we will also have an encrypted zip file that we must access through a plaintext...","categories": ["CTF","Pentest"],
         "tags": ["Hack the box","Linux","Web","PHP","Api"],
