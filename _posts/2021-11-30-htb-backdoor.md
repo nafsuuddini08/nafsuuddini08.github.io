@@ -380,33 +380,124 @@ If we try to access on that particular route it will download a file called ***w
 
 So, we can't take advantage about this credentials for now because we need to access to the machine to access to the database, so we can use this credentials when we access on the machine.
 
-If we go back to the root directory using ***../***, and we specify the file ***/etc/passwd*** we can see that we are able to list users on the target system.
+If we go back to the root directory using ***../***, and we specify the file ***/etc/passwd*** we can see that we are able to list users on the target system, and we can see that there is a user called ***user***.
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura25.png">
+<img src = "/assets/images/img-backdoor2/captura14.png">
 </p>
 
-Then what I did is try using the traversal dirictory to see if it would let me view the file ***/etc/passwd*** to see the users that exist on the victim machine. and we see that it works and there is a user named ***user***.
+Before on the scanning process we saw that there is a port 22 open, if we try to view the private ssh key for this particular we can't.
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura26.png">
+<img src = "/assets/images/img-backdoor2/captura15.png">
 </p>
 
-Then I tried to test if it would let me view the content of the directory "/user/home/.ssh/id_rsa" to see if it has the id_rsa key and so I could access via ssh on port 22, but it would not let me view anything.
-
-Then I remembered that port 1337 was open but at the time of the port scan I could not see which service was running, so to find out which service is running on port 1337 we can use lfi.
-
-using burpsuite we are going to use it as a proxy to intercept the request and sent it in the ***intruder*** to manipulate it and send it to the server. and here what we are going to do is use lfi through the path ***/proc***, basically this path contains information about the processes that are running on the system. and we are going to use the path ***/proc / pid / cmdline*** that contains commands to start processes. here the ***pid*** will be a variable number
+But we are able to see the content of the ***proc*** files which is the directory where stores the processes on the system, as we can see here i am able to view the content of the file ***version*** which tell us the version of the kernel and OS on the target system.
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura27.png">
+<img src = "/assets/images/img-backdoor2/captura16.png">
 </p>
 
-And in the payload section we will specify that the type of payload will be ***numeric ***. and in ***payload option*** I will specify that it generates the number of payloads in the range 900-1000. 
+Normally on each of those process directories it contain a file called ***cmdline*** which is the file where stores the command that is running on the background, So What we can do is try to see the content of this file in every process on the system using ***brute force attack***, to see if we find anything interesting or we can see what service is running on the port 1337 as we saw on the scanning process that it don't tell us what service is running, because this port it can use for general purposes.
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura28.png">
+<img src = "/assets/images/img-backdoor2/captura18.png">
 </p>
+
+On the path ***/proc/self/cmdline*** we can view the actual process command that are running in the background, in this case we can that the apache services is running, but anything else.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura19.png">
+</p>
+
+So we have a several options to do this process, in this i am going to show three ways to do it. Starting with the first which will going to be with ***burpsuite*** i don't recommend brute do it with burpsuite because it can take a long time.
+
+So first, open burpsuite and intercept the request.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura53.png">
+</p>
+
+Then we are going to send this request to ***intruder*** with ***ctrl+i*** and where are going to add the path ***/proc/pid/cmdline***, and where is says ***pid*** where going to add the payload marker which is those two "s", we can do that selecting the word pid and click on the button ***add***. Remember that the pid is the process ID of each proceses on the system.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura54.png">
+</p>
+
+So we are going to move on the payloads section and here on the ***payload type*** we are going to select ***numbers***. So what we are going to do here is add a sequential which it gonna be the range of PIDs that we want to brute force or check. So in my case i want to brute force from 800 to 1000 PID, and this sequence number can be variant because let's say that you will need to check between 700 to 1000 or 1 to 1000 to find what command is running on background, depending the range you specify it can take a long time and also if we are using burpsuite.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura56.png">
+</p>
+
+So click on ***start attack*** and this it going to send a requests with each PIDs range that we specify. So on the response we can see that on the PID 800 that there is a system process running on the backgroung. 
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura57.png">
+</p>
+
+If i continue to scrolling down we can see on the PID 855 there is process that is running a screen command with the user ***root*** session, so here we can think that if the screen command is SUID we can access on that particular session, and we are able to be root. This is similar when we save a session with tmux.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura58.png">
+</p>
+
+And if i continue to scrolling down we can see that on the PID 857 on the port 1337 is running a ***gdbserver*** in background, which is a debugger that it can be used to debug remotly on linux systems.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura59.png">
+</p>
+
+Another way to do this attack and that i recommend is using ***Wfuzz***. What we need to do is with the parameter ***-z*** specify the PID range and hidding the word "1w" using the flag ***--hw= 1***, and wfuzz it going to report the PIDs that contain someting on file ***cmdline*** inside in that range that we specify. 
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura20.png">
+</p>
+
+Once we find those PIDs what we can do with ***curl*** is output the content in a file, and here we can see the content of the file "cmdline" of the process 850 which is the screen process that we saw in burpsuite. If we want to avoid strange outputs use the flag ***-s*** which is the silence mode.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura21.png">
+</p>
+
+Same thing with the process that are running the gdbserver which in this case is 851. Remember that in your case the PID can be different.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura20.png">
+</p>
+
+Another way that we can do this attack is using python. So let's create a simple python script to automate this task:
+
+First we are going to import the following libraries and then we are going to defined a function that when we are going to exit the program pressing the key ***ctrl+c*** it will appears the following message instead of python error messages.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/ctrlc.png">
+</p>
+
+Now we are going to create a variable that contain thath vulnerable url. So in this case i am going to create another function called ***makerequest*** that inside it will contain a for loop specifying a range between 1 and 1000 which will gonna be the PIDs, and then we are going to create a variable inside of that for loop called ***url*** which we will going to specify the vulnerable url and the path "/route/pid/cmdlien" which pid is the sequential numbers that we sapecify on the loop.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura39.png">
+</p>
+
+And if print the variable ***url*** and execute the script it will output the route "/proc/pid/cmdline" up to the range that we have specified, which in this case is from 1 to 1000. But the script is not useful is it? we need to add few more things to our scripts.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura40.png">
+</p>
+
+Now we are going to import ***pdb*** library which allows to debug our code in python, and we are going to use this to apply a breakepoint. 
+
+So if you asking what is a breakpoint? to understand that we need to know few concepts, first of all our program can have differents bugs, a bug is when we write a piece of code in our program that it doesn't work correctly as we expected meaning that our program have some kind of fault or error, and this is called a ***program having a bug***. And the process to find a bug and fixing it is called ***debugging***. And the tool that we use to debugging is called ***debugger***. And a ***breakepoint*** which essentially tells the debugger that we want to stop or pause and have a look at what's going on in a certain line of our program, let's say i want to debug from the line 1 to 50 but i don't want to debug the rest of lines of the program, here is where we apply a breakpoint.
+
+But why we use a debugger? usually when the people are "debugging" what they'll do is they'll do someting called "print debugging", so let's say that we are never use a debugger, but you'll prints things to your terminal or in your code to know what's going on, let's say that i want to check if a particular variable is working correctly and what i do is print that variable to know if it's working what i expect to be. But as you soon your code get more complicated and there are bunch of lines of code where you might not know the values you actually want to look at, or you have a lot of files, there is a lot of different states that we want to examine, and it's get really messy and long time printing things in to the console or in your code instead you can use debugger to do all that complicated and long time task in few seconds, basically it's to know what's going wrong in your code. https://www.youtube.com/watch?v=7qZBwhSlfOo
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/pdb.png">
+</p>
+
+
+
 
 This process we can do it to with wfuzz with the command: 
 
