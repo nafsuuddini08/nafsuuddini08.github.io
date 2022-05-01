@@ -68,9 +68,4 @@ var store = [{
         "excerpt":"Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps u s gain access to the web page, and we will also have an encrypted zip file that we must access through a plaintext...","categories": ["CTF","Pentest"],
         "tags": ["Hack the box","Linux","Web","PHP","Api"],
         "url": "http://localhost:4000/htb-ransom/",
-        "teaser":"http://localhost:4000/assets/images/img-ransom/portada.png"},{
-        "title": "HTB - Driver",
-        "excerpt":"wichSystem script: #!/usr/bin/python3 #coding: utf-8 import re, sys, subprocess # python3 wichSystem.py 10.10.10.188 if len(sys.argv) != 2: print(\"\\n[!] Uso: python3 \" + sys.argv[0] + \" &lt;direccion-ip&gt;\\n\") sys.exit(1) def get_ttl(ip_address): proc = subprocess.Popen([\"/usr/bin/ping -c 1 %s\" % ip_address, \"\"], stdout=subprocess.PIPE, shell=True) (out,err) = proc.communicate() out = out.split() out = out[12].decode('utf-8') ttl_value...","categories": ["CTF","Pentest"],
-        "tags": ["Hack the box","Linux","Web","PHP","Api"],
-        "url": "http://localhost:4000/htb-driver/",
-        "teaser":"http://localhost:4000/assets/images/"}]
+        "teaser":"http://localhost:4000/assets/images/img-ransom/portada.png"}]
