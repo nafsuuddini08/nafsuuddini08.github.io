@@ -490,32 +490,109 @@ Now we are going to import ***pdb*** library which allows to debug our code in p
 
 So if you asking what is a breakpoint? to understand that we need to know few concepts, first of all our program can have differents bugs, a bug is when we write a piece of code in our program that it doesn't work correctly as we expected meaning that our program have some kind of fault or error, and this is called a ***program having a bug***. And the process to find a bug and fixing it is called ***debugging***. And the tool that we use to debugging is called ***debugger***. And a ***breakepoint*** which essentially tells the debugger that we want to stop or pause and have a look at what's going on in a certain line of our program, let's say i want to debug from the line 1 to 50 but i don't want to debug the rest of lines of the program, here is where we apply a breakpoint.
 
-But why we use a debugger? usually when the people are "debugging" what they'll do is they'll do someting called "print debugging", so let's say that we are never use a debugger, but you'll prints things to your terminal or in your code to know what's going on, let's say that i want to check if a particular variable is working correctly and what i do is print that variable to know if it's working what i expect to be. But as you soon your code get more complicated and there are bunch of lines of code where you might not know the values you actually want to look at, or you have a lot of files, there is a lot of different states that we want to examine, and it's get really messy and long time printing things in to the console or in your code instead you can use debugger to do all that complicated and long time task in few seconds, basically it's to know what's going wrong in your code. https://www.youtube.com/watch?v=7qZBwhSlfOo
+But why we use a debugger? usually when the people are "debugging" what they'll do is they'll do someting called "print debugging", so let's say that we are never use a debugger, but you'll prints things to your terminal or in your code to know what's going on, let's say that i want to check if a particular variable is working correctly and what i do is print that variable to know if it's working what i expect to be. But as you soon your code get more complicated and there are bunch of lines of code where you might not know the values you actually want to look at, or you have a lot of files, there is a lot of different states that we want to examine, and it's get really messy and long time printing things in to the console or in your code instead you can use debugger to do all that complicated and long time task in few seconds, basically it's to know what's going wrong in your code. more info [here](https://www.youtube.com/watch?v=7qZBwhSlfOo)
+
+So what we are doing here is set a breakpoint, in python to set a breakpoint with pdb library we use ***pdb.set_trace()*** to examine if our code and varibles are working as we expect. And on the variable ***r*** we are sending a GET request to the vulnerable url.
 
 <p align = "center">
 <img src = "/assets/images/img-backdoor2/pdb.png">
 </p>
 
-
-
-
-This process we can do it to with wfuzz with the command: 
-
-```
-wfuzz -u 'http://backdoor.htb/wp-content/plugins/ebook-download/filedownload.php?ebookdownloadurl=/proc/FUZZ/cmdline' -z range,900-1000
-```
-
-We click ***attack*** to start the process. and in the response part we can see the processes that it is executing in the command part in the system. 
+Now if we execute the script we will be in the debugger mode. and if list (which will show the current execution point) it's indicate with arrows the line 18 and this is because since it has gone through the first iteration and it returns to execute the loop again already passed through the breakpoint.
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura29.png">
+<img src = "/assets/images/img-backdoor2/find.png">
 </p>
 
-And boom!!! i found it in the port 1337 its running gdbserver that is a linux debugger. 
+If we list the attributes of variable ***r***, we can see that there is a "command" that we can use which is ***content***, which allows us to see the content of that variable. and can we see that it shows us the content of the cmdline file of PID 1. So that variable is working as we expect. and if we check the value of that content we can see that is 120.
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura30.png">
+<img src = "/assets/images/img-backdoor2/content.png">
 </p>
+
+So in the function ***makerequest*** where we have defined the for loop we are going to add the ***print(len(r.content))*** so that it continuously lists the length of the response (http responses).
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/forloop.png">
+</p>
+
+Now are going to execute the script, and we can see that the first value is 120.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/progress.png">
+</p>
+
+And we see that some values are duplicated and all the answers are 82. With this we can think that the values of the length that are greater than 82 can return the content of cmdline. Because when we have executed the script the first length was 120 and previously we have seen that it has content in a cmdline file.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/progress2.png">
+</p>
+
+Now inside in the function makerequest i we are going to create a progress bar that it defined on the variable ***p1*** and then we want to update that progress bar indicated with ***p1.status***, and we add another ***p1.status*** to update that progress bar with values and we do that specifying with ***%s*** to replace it with num variable ***("/proc/%s/cmdline % str(num)")***. And lastly we create a if statement so that the values of the length that are greater than 82 that have content it report us on the console, and we do that using the ***log.info*** which is from the pwn library to report the path that have tried and the length.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/if.png">
+</p>
+
+And now if we execute the script we can the progress bar and it already reports the first length that 120 has content in the cmdline, which is PID 1 as we have seen previously. And now we need to wait for the others that have content in cmdline.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/execute.png">
+</p>
+
+And we see that it output the process that is executing the gdbserver and screen as we have already seen in burpsuite and with wfuzz.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura48.png">
+</p>
+
+Here is the script if you want to copy:
+
+```python
+#!/usr/bin/env python
+
+from pwn import *
+import requests, signal, time, sys
+
+def handler(sig, frame):
+    print("\n\n[!] Exit...\n")
+    sys.exit(1)
+
+#ctrl+c
+signal.signal(signal.SIGINT, handler)
+
+# Global variable
+main_url = "http://10.10.11.125/wp-content/plugins/ebook-download/filedownload.php?ebookdownloadurl="
+
+def makerequest():
+     # loop for check PID
+
+     p1 = log.progress("Brute Force attack")
+     p1.status("Starting brute force attack")
+
+     time.sleep(2)
+
+     for num in range(1, 1000):
+
+         p1.status("Trying with PATH /proc/%s/cmdline" % str(num))
+
+         url = main_url + "/proc/" + str(num) + "/cmdline"
+
+         r = requests.get(url)
+
+         if len(r.text) > 82:
+             print("------------------------------------------------------------------------------")
+             log.info("PATH: /proc/%s/cmdline" % str(num))
+             log.info("Total length: %s" % len(r.content))
+             print(r.text)
+             print("------------------------------------------------------------------------------")
+
+if __name__ == '__main__':
+
+    makerequest()
+```
+
+## Exploitation
 
 Using searchsploit, I wanted to find out if there was any gdbserver exploit, but fortunately I didn't find anything. 
 
@@ -523,13 +600,13 @@ Using searchsploit, I wanted to find out if there was any gdbserver exploit, but
 <img src = "/assets/images/img-backdoor/captura31.png">
 </p>
 
-Then searching in google i found an gdbserver exploit that allows me to RCE witch is a python script.
+Then searching in google i found an gdbserver exploit that allows to RCE.
 
 <p align = "center">
 <img src = "/assets/images/img-backdoor/captura32.png">
 </p>
 
-So this is the script:
+So this is the exploit:
 
 ```python
 # Exploit Title: GNU gdbserver 9.2 - Remote Command Execution (RCE)
@@ -541,7 +618,6 @@ So this is the script:
 # Tested on: Ubuntu Linux (gdbserver debugging x64 and x86 binaries)
 
 #!/usr/bin/env python3
-
 
 import binascii
 import socket
@@ -638,27 +714,32 @@ def main():
 
 if __name__ == '__main__':
     main()
-
 ```
 Inside the script it tells us the instructions that we must follow, first it tells us to generate a payload with ***msfvenom***. 
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura33.png">
+<img src = "/assets/images/img-backdoor2/captura25.png">
 </p>
 
-Then with netcat we ara going to listen on the port 4444 and then execute the exploit specifying the victim machine ip and the payload that we generate with msfvenom.
+Then with netcat we ara going to listen on the port 443 and then execute the exploit specifying the IP address of the target machine and the payload that we generate with msfvenom, And with that we gain access to the target machine and we are logged in as a user "user".
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura34.png">
+<img src = "/assets/images/img-backdoor2/captura26.png">
 </p>
 
-And as we can see we have a connection and we are as the user ***user***, and we are going to indicate that we want a pseudo console. 
+And now as we always do we are going to import a tty.
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura35.png">
+<img src = "/assets/images/img-backdoor2/captura35.png">
 </p>
 
-If we want another way to report a pseudo console we can do it using python. 
+And we are going to export two env variables, one is ***TERM=xterm*** and the another ***SHELL=bash***. And with that we can use command like "clear", we do ctrl+c, ctrl+l, move comfortably on the reverse shell as if we were in a connection through ssh. 
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura29.png">
+</p>
+
+Remember that we can export a pseudo console with python.
 
 <p align = "center">
 <img src = "/assets/images/img-backdoor/captura38.png">
@@ -666,43 +747,61 @@ If we want another way to report a pseudo console we can do it using python.
 
 ## Privilege escalation 
 
-And with this command I want the remote shell to be the size of my terminal and that it can do ctrl + c and not get out of the session. 
-
-<p align = "center">
-<img src = "/assets/images/img-backdoor/captura36.png">
-</p>
-
-let's export two environment variables.
-
-<p align = "center">
-<img src = "/assets/images/img-backdoor/captura37.png">
-</p>
-
-And i found the first flag. 
+And if we access with the home directory with the user "user" we can view the first flag which is ***user.txt***. 
 
 <p align = "center">
 <img src = "/assets/images/img-backdoor/captura39.png">
 </p>
 
-Ok now i need to access as root for this i am going to test if it works for me with the *** screen *** command. and if it lets me login as root. 
+So we don't have a permission to access to the root directory, we can't list what sudo permissions we have because it requiere password and there is no cron jobs that we can take advantage to escalate privileges.
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura40.png">
+<img src = "/assets/images/img-backdoor2/captura31.png">
 </p>
 
-And we can see tha second flag to submit in the htb.
+So before we saw that there is a screening process running on the background, let's check if the screen command have SUID permissions, and as you can see it is.
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura41.png">
+<img src = "/assets/images/img-backdoor2/captura32.png">
 </p>
 
-And with the credentials of the database that we had saved we can use it to access in the database. 
+So some versions of screen is vulnerable to PrivEsc.
 
 <p align = "center">
-<img src = "/assets/images/img-backdoor/captura42.png">
+<img src = "/assets/images/img-backdoor2/captura33.png">
 </p>
 
-We can see the databases that are created.  
+But in our case we can't use those exploits because it's different and more recent version.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura34.png">
+</p>
+
+If we look the processes on the system and we search for screen, we can see that there is a saved session with the root user and before we see that screen is SUID.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura35.png">
+</p>
+
+So we just need to access with that session that is saved in background, to do that we just use the flag ***-x*** and specify the session. This is similar when we use tmux.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura36.png">
+</p>
+
+And we are logged in with root user and we can view the last flag which is ***root.txt***, and with that we pwned the machine. So the PrivEsc in this case it was very easy.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura37.png">
+</p>
+
+Before we obtain database credentials on the ***wp-config.php*** file, we can try to use them to access on the database in the target machine.
+
+<p align = "center">
+<img src = "/assets/images/img-backdoor2/captura38.png">
+</p>
+
+And we access on the myslq database, and here we can see the databases that are created.
 
 <p align = "center">
 <img src = "/assets/images/img-backdoor/captura43.png">

