@@ -68,4 +68,9 @@ var store = [{
         "excerpt":"Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps u s gain access to the web page, and we will also have an encrypted zip file that we must access through a plaintext...","categories": ["CTF","Pentest"],
         "tags": ["Hack the box","Linux","Web","PHP","Api"],
         "url": "http://localhost:4000/htb-ransom/",
-        "teaser":"http://localhost:4000/assets/images/img-ransom/portada.png"}]
+        "teaser":"http://localhost:4000/assets/images/img-ransom/portada.png"},{
+        "title": "HTB - Driver",
+        "excerpt":"Driver is a windows machine with easy level of difficulty both in exploitation phase and privilage escalation this machine is based to attacking printers on a corporate network, we will going to start to create and upload a malicious scf file which allows to get user ntlmv2 hash which then...","categories": ["CTF","Pentest"],
+        "tags": ["Hack the box","Windows","Web","Printer exploitation","CVE"],
+        "url": "http://localhost:4000/htb-driver/",
+        "teaser":"http://localhost:4000/assets/images/img-driver/portada.png"}]
