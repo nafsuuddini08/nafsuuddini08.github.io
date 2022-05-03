@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-05-01T21:41:21-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Driver</title><link href="http://localhost:4000/htb-driver/" rel="alternate" type="text/html" title="HTB - Driver" /><published>2022-05-01T00:00:00-04:00</published><updated>2022-05-01T00:00:00-04:00</updated><id>http://localhost:4000/htb-driver</id><content type="html" xml:base="http://localhost:4000/htb-driver/">&lt;p&gt;Driver is a windows machine with easy level of difficulty both in exploitation phase and privilage escalation this machine is based to attacking printers on a corporate network, we will going to start to create and upload a malicious scf file which allows to get user ntlmv2 hash which then we will crack it to gain access to the machine, and we will escalate privilage to exploiting the vulnerability called PrintNightMare.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-05-03T10:33:02-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Driver</title><link href="http://localhost:4000/htb-driver/" rel="alternate" type="text/html" title="HTB - Driver" /><published>2022-05-01T00:00:00-04:00</published><updated>2022-05-01T00:00:00-04:00</updated><id>http://localhost:4000/htb-driver</id><content type="html" xml:base="http://localhost:4000/htb-driver/">&lt;p&gt;Driver is a windows machine with easy level of difficulty both in exploitation phase and privilage escalation this machine is based to attacking printers on a corporate network, we will going to start to create and upload a malicious scf file which allows to get user ntlmv2 hash which then we will crack it to gain access to the machine, and we will escalate privilage to exploiting the vulnerability called PrintNightMare.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-driver/portada.png&quot; /&gt;
@@ -247,6 +247,8 @@
 &lt;img src=&quot;/assets/images/img-driver/captura16.png&quot; /&gt;
 &lt;/p&gt;
 
+&lt;h2 id=&quot;exploitation&quot;&gt;Exploitation&lt;/h2&gt;
+
 &lt;p&gt;Before on the section “firmware upload” on the webpage it’s says that the file we upload it will be reviewed by a somebody and then uploaded to the page. Thinking a bit here we can try to use a malicious scf file. So what we can try is to upload the scf file to indicate that we are uploading a new firmware for the printer, and what we can do is that malicious file will load as an icon and on the victim side if the user only sees the icon of that file we can obtain the ntlmv2 hash of that user. More info about scf files on the following website.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
@@ -265,50 +267,134 @@
 &lt;img src=&quot;/assets/images/img-driver/captura19.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;While we are uploading the file, we are going to create our smb server with &lt;strong&gt;&lt;em&gt;impacket&lt;/em&gt;&lt;/strong&gt; in our attacker machine, and we are going to specify a shared resource that is called the same name that we have specify on the csf file that is synchronized in the current working directory at the absolute path level, and since the target machine is windows 10 we are going to add support the version 2 of smb.&lt;/p&gt;
+&lt;p&gt;While we are uploading the file, we are going to create our smb server with &lt;strong&gt;&lt;em&gt;impacket&lt;/em&gt;&lt;/strong&gt; in our attacker machine, and we are going to specify a shared resource that is called the same name that we have specify on the scf file that is synchronized in the current working directory at the absolute path, and since the target machine is windows 10 we are going to add support the version 2 of smb.&lt;/p&gt;
 
-&lt;p&gt;And once we upload the file, it should report the ntlm hash of the user who checked our file, in this case the user is “tony”.&lt;/p&gt;
+&lt;p&gt;And once we upload the file if a user on the victim machine sees that file icon it should be uploaded to our malicious smb server and with this we would get the NTLMv2 hash of that user. in this case the user is “tony”.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-driver/captura20.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Once we obtain the user hash, we are going try to crack it with hashcat or john,  in this case using the rockyou dictionary, it doesn’t take too long to crack the hash and in this case the user “tony” has a very weak password.&lt;/p&gt;
+&lt;p&gt;Once we obtain the user hash, we are going try to crack it with hashcat or john using the rockyou dictionary, it doesn’t take too long to crack the hash because the user “tony” has a very weak password.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-driver/captura21.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-driver/captura6.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;Now with &lt;strong&gt;&lt;em&gt;crackmapexec&lt;/em&gt;&lt;/strong&gt; we are going to check if those crendentials is valid or not, and if it’s output &lt;strong&gt;&lt;em&gt;+&lt;/em&gt;&lt;/strong&gt; means that the credential is valid.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-driver/captura6.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura22.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-driver/captura6.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;Before we have seen that the &lt;strong&gt;&lt;em&gt;winrm&lt;/em&gt;&lt;/strong&gt; service is enable on the target machine which is on the port 5985. So once we have obtained valid credentials what we can do now is use those credentials with crackmapexec specifying the winrm service if the user reports pwned (baiscally means that this user have privileges on that machine), and in this case it does.&lt;/p&gt;
+
+&lt;p&gt;Basically, it’s reports &lt;strong&gt;&lt;em&gt;pwned&lt;/em&gt;&lt;/strong&gt; because the user is in the group &lt;strong&gt;&lt;em&gt;remote management user&lt;/em&gt;&lt;/strong&gt; this group is used to allow users to manage servers through the server manager console, which winrm allows us to do that.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-driver/captura6.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura23.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-driver/captura6.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;In the case that it’s says pwned, what we can do is with &lt;strong&gt;&lt;em&gt;evil-winrm&lt;/em&gt;&lt;/strong&gt; try to access on the target machine with powershell.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-driver/captura6.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura24.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-driver/captura6.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;So if we execute &lt;strong&gt;&lt;em&gt;net user&lt;/em&gt;&lt;/strong&gt; command specifying the user tony, we can see that this user is on the group &lt;strong&gt;&lt;em&gt;remote management users&lt;/em&gt;&lt;/strong&gt;. So we were right.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-driver/captura6.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura25.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So if we access on the user tony desktop we can visualize the first flag, which is &lt;strong&gt;&lt;em&gt;user.txt”&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura26.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So if we try to access the on the administrator user directory we get a permission denied, So now we need to escalate privileges.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura27.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;privesc---enum&quot;&gt;PrivEsc - Enum&lt;/h2&gt;
+
+&lt;p&gt;Let’s check what permissions have the user &lt;strong&gt;&lt;em&gt;tony&lt;/em&gt;&lt;/strong&gt;, and anything interesting here.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura28.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Let’s try with &lt;strong&gt;&lt;em&gt;/all&lt;/em&gt;&lt;/strong&gt; flag we will see more information about the current user, we don’t see any type of permission that we can exploit or that is in a group that we can take advantage, so anything here at the moment.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura29.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we execute the command &lt;strong&gt;&lt;em&gt;systeminfo&lt;/em&gt;&lt;/strong&gt; we get a permission denied, in this case what we can do is try to output an registry to know the information about the system, to do that use the following command: &lt;strong&gt;&lt;em&gt;reg query “hklm\software\microsoft\windowsnt\currentversion” /v ProductName&lt;/em&gt;&lt;/strong&gt; this command it will just output the version of the windows.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura30.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we don’t see a way to escalate privileges we can use &lt;strong&gt;&lt;em&gt;linpeas&lt;/em&gt;&lt;/strong&gt; which automates the process to see potential ways to escalate privileges. Since we are dealing with a windows machine we are going to download the binary &lt;strong&gt;&lt;em&gt;.exe&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura31.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Once we have downloaded what we can do is to host the linpeas binary with python and download it to the target machine with the &lt;strong&gt;&lt;em&gt;upload&lt;/em&gt;&lt;/strong&gt; command or &lt;strong&gt;&lt;em&gt;certutil&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura32.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Linpeas reports several interesting information to us, but we are going to focus on the &lt;strong&gt;&lt;em&gt;spoolsv&lt;/em&gt;&lt;/strong&gt; service that is more related to the theme of this machine, basically this service is used for managing the printer queue or print spooler and managing the interaction with the printers. So every time that we want to print something with windows, this service caches the print job in memory so your printer knows what to print.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura33.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;privesc&quot;&gt;PrivEsc&lt;/h2&gt;
+
+&lt;p&gt;Searching a little bit with this particular service i found vulnerabilities related to this service called “Print Nightmare”, This critical vulnerability occurs within the print spooler service. There are two variants of this vulnerability the first one allows remote code execution &lt;strong&gt;&lt;em&gt;(CVE-2021-34527)&lt;/em&gt;&lt;/strong&gt; and the second it’s allowed to escalate privileges when we have access on the machine &lt;strong&gt;&lt;em&gt;(CVE-2021-1675)&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;So, in this case we are going to use the &lt;strong&gt;&lt;em&gt;CVE-2021-1675&lt;/em&gt;&lt;/strong&gt; for escalate privileges because we have access to the target machine. So, there are two options for using this exploit, in this case we are going to use the first one which is to provide a username and password and then exploit will create a DDL file that creates a local user and adding it to the local administrators group using the credentials the we provide. So, in order to do that I am going to use the following script that is made in PowerShell.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura34.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So once we have downloaded the exploit, we are going to host it with python to transfer that exploit on the target machine. So when we try to execute the exploit it will create a user with admin privilege, but when we try to valid that user in crackmapexec it will report that user isn’t valid and we can’t connect with that user via evil-winrm, so if we will try to import that exploit it gives us permission denied.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura35.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;To solve this issue we need to set some execution policies with the following commands annd with that it will allows to import the exploit and let us to create new users with admin privileges. And what this will do is to put the on group &lt;strong&gt;&lt;em&gt;administrators&lt;/em&gt;&lt;/strong&gt; you can check it using the command &lt;strong&gt;&lt;em&gt;net user username&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura36.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So now with crackmapexec we will try to valid the user that we have ben created, and as you can see it’s output &lt;strong&gt;&lt;em&gt;pwned&lt;/em&gt;&lt;/strong&gt; meaning that the user have privileges.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura37.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now will access to that user with evil-winrm.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura38.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And as you can see, I can access in the admin working directory, and on the desktop folder we can visualize the last flag which is &lt;strong&gt;&lt;em&gt;root.txt&lt;/em&gt;&lt;/strong&gt;. And with that we pwned this machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-driver/captura39.png&quot; /&gt;
 &lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="Windows" /><category term="Web" /><category term="Printer exploitation" /><category term="CVE" /><summary type="html">Driver is a windows machine with easy level of difficulty both in exploitation phase and privilage escalation this machine is based to attacking printers on a corporate network, we will going to start to create...</summary></entry><entry><title type="html">HTB - Ransom</title><link href="http://localhost:4000/htb-ransom/" rel="alternate" type="text/html" title="HTB - Ransom" /><published>2022-03-18T00:00:00-04:00</published><updated>2022-03-18T00:00:00-04:00</updated><id>http://localhost:4000/htb-ransom</id><content type="html" xml:base="http://localhost:4000/htb-ransom/">&lt;p&gt;Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps u  s gain access to the web page, and we will also have an encrypted zip file that we must access through a plaintext attack and for privilege escalation we must review some code files of the web page that will help us access as the root user.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
