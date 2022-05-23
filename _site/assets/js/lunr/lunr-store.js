@@ -73,4 +73,9 @@ var store = [{
         "excerpt":"Driver is a windows machine with easy level of difficulty both in exploitation phase and privilage escalation this machine is based to attacking printers on a corporate network, we will going to start to create and upload a malicious scf file which allows to get user ntlmv2 hash which then...","categories": ["CTF","Pentest"],
         "tags": ["Hack the box","Windows","Web","Printer exploitation","CVE"],
         "url": "http://localhost:4000/htb-driver/",
-        "teaser":"http://localhost:4000/assets/images/img-driver/portada.png"}]
+        "teaser":"http://localhost:4000/assets/images/img-driver/portada.png"},{
+        "title": "HTB - Pandora",
+        "excerpt":"Pandora is a linux machine with easy level of difficulty both in explotation phase and PrivESC, and this machine runs snmp service through UDP that we will use to enumerate the target machine and some processes that it’s running and also this machine runs pandora fms that is vulnerable sqli...","categories": ["CTF","web pentesting"],
+        "tags": ["Hack the box","CVE","SQLi","RCE","CMS exploit"],
+        "url": "http://localhost:4000/htb-pandora/",
+        "teaser":"http://localhost:4000/assets/images/img-pandora/portada.png"}]

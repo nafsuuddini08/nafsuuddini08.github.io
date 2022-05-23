@@ -347,7 +347,7 @@ So once we have downloaded the exploit, we are going to host it with python to t
 <img src = "/assets/images/img-driver/captura35.png">
 </p>
 
-To solve this issue we need to set some execution policies with the following commands annd with that it will allows to import the exploit and let us to create new users with admin privileges. And what this will do is to put the on group ***administrators*** you can check it using the command ***net user username***.
+To solve this issue we need to set some execution policies with the following commands annd with that it will allows to import the exploit and let us to create new users with admin privileges. And what this will do is to put the group ***administrators*** you can check it using the command ***net user <username>***.
 
 <p align = "center">
 <img src = "/assets/images/img-driver/captura36.png">
