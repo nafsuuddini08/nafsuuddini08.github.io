@@ -150,7 +150,7 @@ extractPorts () {
 }
 ```
 
-## Scanning - Ports Recognition
+## Ports Recognition and Enumeration
 
 Once we have discovered possible ports, we will perform another scan to recognize the services and versions that use each of these ports. To order to do that we going to use the following parameters or flags:
 
@@ -427,6 +427,8 @@ If we scroll down on that webpage it will tell us the version of this cms, in th
 <img src = "/assets/images/img-pandora/captura33.png">
 </p>
 
+## Exploitation
+
 If we search in google ***pandora fms v7.0NG exploit*** we can find the following article that explains how we can exploit unauthenticated SQLi and RCE. Here is the [article](https://blog.sonarsource.com/pandora-fms-742-critical-code-vulnerabilities-explained/)
 
 So basically in that article indicate that the SQLi it's vulnerable on the route ***/include/chart_generanador.php*** sending the request with a session id (***session_id***). So if we access on that particular route it's says "Access is not granted".
@@ -441,94 +443,195 @@ In this case i try inject some sql syntax on the url, and when i add this sql sy
 <img src = "/assets/images/img-pandora/captura35.png">
 </p>
 
+In this case i intercept the request with burpsuite and remove the following headers.
+
 <p align = "center">
 <img src = "/assets/images/img-pandora/captura36.png">
 </p>
 
+And then save this request in a file.
 
 <p align = "center">
-<img src = "/assets/images/img-pandora/captura15.png">
+<img src = "/assets/images/img-pandora/captura37.png">
 </p>
 
+And now with ***sqlmap*** we will going dump the tables and the databases that may contain on this machine.
 
 <p align = "center">
-<img src = "/assets/images/img-pandora/captura15.png">
+<img src = "/assets/images/img-pandora/captura38.png">
 </p>
 
+And we can find a table called ***tsessions_php*** in the pandora database, so if we try to dump this table using the following command ***sqlmap -r request.req --batch -D pandora -T tsessions_php --dump*** we can find the ***sessions id*** of the users. 
 
 <p align = "center">
-<img src = "/assets/images/img-pandora/captura15.png">
+<img src = "/assets/images/img-pandora/captura39.png">
 </p>
 
+Once we get the session id let's try to use them to login with the user.
 
 <p align = "center">
-<img src = "/assets/images/img-pandora/captura15.png">
+<img src = "/assets/images/img-pandora/captura40.png">
 </p>
 
+In this case i try to use the session id of the user matt and admin but it will not allow me to access with those users instead it will appear an error message.
 
 <p align = "center">
-<img src = "/assets/images/img-pandora/captura15.png">
+<img src = "/assets/images/img-pandora/captura41.png">
 </p>
 
+So after researching and testing to inject some sql syntax it will works with ***union injection***. The syntax is the following ***1' union select 1,2,'id_usuario|s:5:"admin";'-- -***.
 
 <p align = "center">
-<img src = "/assets/images/img-pandora/captura15.png">
+<img src = "/assets/images/img-pandora/captura42.png">
 </p>
 
+And now if we access on the login page again we are able to access with the admin user.
 
 <p align = "center">
-<img src = "/assets/images/img-pandora/captura15.png">
+<img src = "/assets/images/img-pandora/captura43.png">
 </p>
 
+So what's happen here that it will not expect the session id of the user instead it accept the data column to a user as i am marking on the image:
 
 <p align = "center">
-<img src = "/assets/images/img-pandora/captura15.png">
+<img src = "/assets/images/img-pandora/sqli.png">
 </p>
 
+So if we go to the admin tools we have a section to upload a file.
 
 <p align = "center">
-<img src = "/assets/images/img-pandora/captura15.png">
+<img src = "/assets/images/img-pandora/captura44.png">
 </p>
 
+In this case let's upload this php file to get RCE, as we saw before that the version 7 of pandora fms it's vulnerable to RCE.
 
 <p align = "center">
-<img src = "/assets/images/img-pandora/captura15.png">
+<img src = "/assets/images/img-pandora/captura45.png">
 </p>
 
+Now let's upload the payload.
 
 <p align = "center">
-<img src = "/assets/images/img-pandora/captura15.png">
+<img src = "/assets/images/img-pandora/captura46.png">
 </p>
 
+And the payload it will store on the directory images.
 
 <p align = "center">
-<img src = "/assets/images/img-pandora/captura15.png">
+<img src = "/assets/images/img-pandora/captura47.png">
 </p>
 
+So we click on that file and as you can see we are able to execute command remotly.
 
 <p align = "center">
-<img src = "/assets/images/img-pandora/captura15.png">
+<img src = "/assets/images/img-pandora/captura48.png">
 </p>
 
+And if we execute the command ***ifconfig*** we can see the ip address of the target machine.
 
 <p align = "center">
-<img src = "/assets/images/img-pandora/captura15.png">
+<img src = "/assets/images/img-pandora/captura49.png">
 </p>
 
+Now let's establish a reverse shell, we can to this multiples ways in my case i am going to use python.
 
 <p align = "center">
-<img src = "/assets/images/img-pandora/captura15.png">
+<img src = "/assets/images/img-pandora/captura50.png">
 </p>
 
+In this case i am using [the payload all the things](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#python) repo to establish a reverse shell. Copy and paste the python payload and specify your attacker ip address and listening port.
 
 <p align = "center">
-<img src = "/assets/images/img-pandora/captura15.png">
+<img src = "/assets/images/img-pandora/captura51.png">
 </p>
 
+Now if we go back in our netcat listener we have a connection and we are in.
 
 <p align = "center">
-<img src = "/assets/images/img-pandora/captura15.png">
+<img src = "/assets/images/img-pandora/captura52.png">
 </p>
 
+So let's setup more appropriate shell.
 
+<p align = "center">
+<img src = "/assets/images/img-pandora/captura53.png">
+</p>
+
+Let's export two env variable which is one ***xterm*** and ***bash***, now we are able to use command like ***clear*** and we can use shortcut like ***ctrl+c***, ***ctrl+l***, etc.
+
+<p align = "center">
+<img src = "/assets/images/img-pandora/captura54.png">
+</p>
+
+And now we if we move on the home directory of the user "matt" we have a permission to read the ***user.txt*** flag.
+
+<p align = "center">
+<img src = "/assets/images/img-pandora/captura55.png">
+</p>
+
+## PrivEsc
+
+So before we saw a binary called ***pandora_backup*** but we still don't have permission to execute this binary.
+
+<p align = "center">
+<img src = "/assets/images/img-pandora/captura56.png">
+</p>
+
+This shell it will get me some issues so i decide to generate ssh key on the target machine, but when i try to access with private it will ask me for a password a little bit weird.
+
+<p align = "center">
+<img src = "/assets/images/img-pandora/captura57.png">
+</p>
+
+So then i decide to upload my public ssh key of my attacker machine and then i able to ssh with the user matt.
+
+<p align = "center">
+<img src = "/assets/images/img-pandora/captura58.png">
+</p>
+
+And then i execute again the ***pandora_backup*** binary and now it allow me to execute it, it's a little bit weird because i am still login with the matt user maybe it's because the reverse shell that i establish before. So this binary allow us to backups files that are specified by the root user.
+
+<p align = "center">
+<img src = "/assets/images/img-pandora/captura59.png">
+</p>
+
+So if we look the content of this binary using the command ***ltrace*** we can that is using ***tar*** to compress the files and send it to a file called ***pandora_backup.tar.gz***.
+
+<p align = "center">
+<img src = "/assets/images/img-pandora/captura60.png">
+</p>
+
+First of all we know a important thing that the file is SUID and the owner of that file is root, so what we can do here is try to use PATH hijacking attack. So move to the ***tmp*** directory and if we echo the actual PATH variable we see that it first prioritizes the path ***/usr/local/sbin***. i recommend to save the actual PATH variable if we mess up something.
+
+<p align = "center">
+<img src = "/assets/images/img-pandora/captura61.png">
+</p>
+
+Before we saw that the pandora backup file is using the ***tar*** command, so here we are going to create a file called "tar" and inside of that file we indicate that we want to execute a ***sh*** shell and then add execute permission. 
+
+<p align = "center">
+<img src = "/assets/images/img-pandora/captura62.png">
+</p>
+
+Now we are going to export the ***PATH*** variable for it to be worth the ***/tmp*** directory. So basically what we are doing here is a simple PATH hijacking, we are specifying that when we execute the binary ***pandora_backup*** it will start from the path ***/tmp*** where we have our little script.
+
+<p align = "center">
+<img src = "/assets/images/img-pandora/captura63.png">
+</p>
+
+And now if we execute again the binary ***pandora_backup*** it will execute a ***sh*** shell and we are root. Remember that this happens because the binary ***pandora_backup*** have SUID permission and the owner is the root user and because of that we are able to exploit this vulnerablity and converd to the root user, and now we can visualize the last flag which is ***root.txt***.
+
+<p align = "center">
+<img src = "/assets/images/img-pandora/captura64.png">
+</p>
+
+And with that we ***pwned!!!!*** the machine.
+
+<p align = "center">
+<img src = "/assets/images/img-pandora/pwned.png">
+</p>
+
+## Pandora Writeup in real time
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dLi0c4aCDas" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

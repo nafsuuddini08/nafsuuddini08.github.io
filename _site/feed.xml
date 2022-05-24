@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-05-23T21:20:56-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Pandora</title><link href="http://localhost:4000/htb-pandora/" rel="alternate" type="text/html" title="HTB - Pandora" /><published>2022-05-22T00:00:00-04:00</published><updated>2022-05-22T00:00:00-04:00</updated><id>http://localhost:4000/htb-pandora</id><content type="html" xml:base="http://localhost:4000/htb-pandora/">&lt;p&gt;Pandora is a linux machine with easy level of difficulty both in explotation phase and PrivESC, and this machine runs snmp service through UDP that we will use to enumerate the target machine and some processes that it’s running and also this machine runs pandora fms that is vulnerable sqli and RCE that will help us to gain access to the machine and with that we will escalate privileges with PATH hijacking.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-05-24T15:29:42-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Pandora</title><link href="http://localhost:4000/htb-pandora/" rel="alternate" type="text/html" title="HTB - Pandora" /><published>2022-05-22T00:00:00-04:00</published><updated>2022-05-22T00:00:00-04:00</updated><id>http://localhost:4000/htb-pandora</id><content type="html" xml:base="http://localhost:4000/htb-pandora/">&lt;p&gt;Pandora is a linux machine with easy level of difficulty both in explotation phase and PrivESC, and this machine runs snmp service through UDP that we will use to enumerate the target machine and some processes that it’s running and also this machine runs pandora fms that is vulnerable sqli and RCE that will help us to gain access to the machine and with that we will escalate privileges with PATH hijacking.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-pandora/portada.png&quot; /&gt;
@@ -158,7 +158,7 @@
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;scanning---ports-recognition&quot;&gt;Scanning - Ports Recognition&lt;/h2&gt;
+&lt;h2 id=&quot;ports-recognition-and-enumeration&quot;&gt;Ports Recognition and Enumeration&lt;/h2&gt;
 
 &lt;p&gt;Once we have discovered possible ports, we will perform another scan to recognize the services and versions that use each of these ports. To order to do that we going to use the following parameters or flags:&lt;/p&gt;
 
@@ -450,6 +450,8 @@ PORT      STATE  SERVICE
 &lt;img src=&quot;/assets/images/img-pandora/captura33.png&quot; /&gt;
 &lt;/p&gt;
 
+&lt;h2 id=&quot;exploitation&quot;&gt;Exploitation&lt;/h2&gt;
+
 &lt;p&gt;If we search in google &lt;strong&gt;&lt;em&gt;pandora fms v7.0NG exploit&lt;/em&gt;&lt;/strong&gt; we can find the following article that explains how we can exploit unauthenticated SQLi and RCE. Here is the &lt;a href=&quot;https://blog.sonarsource.com/pandora-fms-742-critical-code-vulnerabilities-explained/&quot;&gt;article&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;So basically in that article indicate that the SQLi it’s vulnerable on the route &lt;strong&gt;&lt;em&gt;/include/chart_generanador.php&lt;/em&gt;&lt;/strong&gt; sending the request with a session id (&lt;strong&gt;&lt;em&gt;session_id&lt;/em&gt;&lt;/strong&gt;). So if we access on that particular route it’s says “Access is not granted”.&lt;/p&gt;
@@ -464,77 +466,204 @@ PORT      STATE  SERVICE
 &lt;img src=&quot;/assets/images/img-pandora/captura35.png&quot; /&gt;
 &lt;/p&gt;
 
+&lt;p&gt;In this case i intercept the request with burpsuite and remove the following headers.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-pandora/captura36.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;And then save this request in a file.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura37.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;And now with &lt;strong&gt;&lt;em&gt;sqlmap&lt;/em&gt;&lt;/strong&gt; we will going dump the tables and the databases that may contain on this machine.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura38.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;And we can find a table called &lt;strong&gt;&lt;em&gt;tsessions_php&lt;/em&gt;&lt;/strong&gt; in the pandora database, so if we try to dump this table using the following command &lt;strong&gt;&lt;em&gt;sqlmap -r request.req –batch -D pandora -T tsessions_php –dump&lt;/em&gt;&lt;/strong&gt; we can find the &lt;strong&gt;&lt;em&gt;sessions id&lt;/em&gt;&lt;/strong&gt; of the users.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura39.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;Once we get the session id let’s try to use them to login with the user.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura40.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;In this case i try to use the session id of the user matt and admin but it will not allow me to access with those users instead it will appear an error message.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura41.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
-&lt;/p&gt;
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;So after researching and testing to inject some sql syntax it will works with &lt;strong&gt;&lt;em&gt;union injection&lt;/em&gt;&lt;/strong&gt;. The syntax is the following ***1’ union select 1,2,’id_usuario&lt;/td&gt;
+      &lt;td&gt;s:5:”admin”;’– -***.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura42.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;And now if we access on the login page again we are able to access with the admin user.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura43.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
-&lt;/p&gt;
+&lt;p&gt;So what’s happen here that it will not expect the session id of the user instead it accept the data column to a user as i am marking on the image:&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-pandora/sqli.png&quot; /&gt;
 &lt;/p&gt;
 
+&lt;p&gt;So if we go to the admin tools we have a section to upload a file.&lt;/p&gt;
+
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="CVE" /><category term="SQLi" /><category term="RCE" /><category term="CMS exploit" /><summary type="html">Pandora is a linux machine with easy level of difficulty both in explotation phase and PrivESC, and this machine runs snmp service through UDP...</summary></entry><entry><title type="html">HTB - Driver</title><link href="http://localhost:4000/htb-driver/" rel="alternate" type="text/html" title="HTB - Driver" /><published>2022-05-01T00:00:00-04:00</published><updated>2022-05-01T00:00:00-04:00</updated><id>http://localhost:4000/htb-driver</id><content type="html" xml:base="http://localhost:4000/htb-driver/">&lt;p&gt;Driver is a windows machine with easy level of difficulty both in exploitation phase and privilage escalation this machine is based to attacking printers on a corporate network, we will going to start to create and upload a malicious scf file which allows to get user ntlmv2 hash which then we will crack it to gain access to the machine, and we will escalate privilage to exploiting the vulnerability called PrintNightMare.&lt;/p&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura44.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In this case let’s upload this php file to get RCE, as we saw before that the version 7 of pandora fms it’s vulnerable to RCE.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura45.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now let’s upload the payload.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura46.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And the payload it will store on the directory images.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura47.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So we click on that file and as you can see we are able to execute command remotly.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura48.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And if we execute the command &lt;strong&gt;&lt;em&gt;ifconfig&lt;/em&gt;&lt;/strong&gt; we can see the ip address of the target machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura49.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now let’s establish a reverse shell, we can to this multiples ways in my case i am going to use python.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura50.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In this case i am using &lt;a href=&quot;https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#python&quot;&gt;the payload all the things&lt;/a&gt; repo to establish a reverse shell. Copy and paste the python payload and specify your attacker ip address and listening port.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura51.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now if we go back in our netcat listener we have a connection and we are in.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura52.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So let’s setup more appropriate shell.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura53.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Let’s export two env variable which is one &lt;strong&gt;&lt;em&gt;xterm&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;bash&lt;/em&gt;&lt;/strong&gt;, now we are able to use command like &lt;strong&gt;&lt;em&gt;clear&lt;/em&gt;&lt;/strong&gt; and we can use shortcut like &lt;strong&gt;&lt;em&gt;ctrl+c&lt;/em&gt;&lt;/strong&gt;, &lt;strong&gt;&lt;em&gt;ctrl+l&lt;/em&gt;&lt;/strong&gt;, etc.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura54.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And now we if we move on the home directory of the user “matt” we have a permission to read the &lt;strong&gt;&lt;em&gt;user.txt&lt;/em&gt;&lt;/strong&gt; flag.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura55.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;privesc&quot;&gt;PrivEsc&lt;/h2&gt;
+
+&lt;p&gt;So before we saw a binary called &lt;strong&gt;&lt;em&gt;pandora_backup&lt;/em&gt;&lt;/strong&gt; but we still don’t have permission to execute this binary.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura56.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;This shell it will get me some issues so i decide to generate ssh key on the target machine, but when i try to access with private it will ask me for a password a little bit weird.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura57.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So then i decide to upload my public ssh key of my attacker machine and then i able to ssh with the user matt.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura58.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And then i execute again the &lt;strong&gt;&lt;em&gt;pandora_backup&lt;/em&gt;&lt;/strong&gt; binary and now it allow me to execute it, it’s a little bit weird because i am still login with the matt user maybe it’s because the reverse shell that i establish before. So this binary allow us to backups files that are specified by the root user.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura59.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So if we look the content of this binary using the command &lt;strong&gt;&lt;em&gt;ltrace&lt;/em&gt;&lt;/strong&gt; we can that is using &lt;strong&gt;&lt;em&gt;tar&lt;/em&gt;&lt;/strong&gt; to compress the files and send it to a file called &lt;strong&gt;&lt;em&gt;pandora_backup.tar.gz&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura60.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;First of all we know a important thing that the file is SUID and the owner of that file is root, so what we can do here is try to use PATH hijacking attack. So move to the &lt;strong&gt;&lt;em&gt;tmp&lt;/em&gt;&lt;/strong&gt; directory and if we echo the actual PATH variable we see that it first prioritizes the path &lt;strong&gt;&lt;em&gt;/usr/local/sbin&lt;/em&gt;&lt;/strong&gt;. i recommend to save the actual PATH variable if we mess up something.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura61.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Before we saw that the pandora backup file is using the &lt;strong&gt;&lt;em&gt;tar&lt;/em&gt;&lt;/strong&gt; command, so here we are going to create a file called “tar” and inside of that file we indicate that we want to execute a &lt;strong&gt;&lt;em&gt;sh&lt;/em&gt;&lt;/strong&gt; shell and then add execute permission.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura62.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now we are going to export the &lt;strong&gt;&lt;em&gt;PATH&lt;/em&gt;&lt;/strong&gt; variable for it to be worth the &lt;strong&gt;&lt;em&gt;/tmp&lt;/em&gt;&lt;/strong&gt; directory. So basically what we are doing here is a simple PATH hijacking, we are specifying that when we execute the binary &lt;strong&gt;&lt;em&gt;pandora_backup&lt;/em&gt;&lt;/strong&gt; it will start from the path &lt;strong&gt;&lt;em&gt;/tmp&lt;/em&gt;&lt;/strong&gt; where we have our little script.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura63.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And now if we execute again the binary &lt;strong&gt;&lt;em&gt;pandora_backup&lt;/em&gt;&lt;/strong&gt; it will execute a &lt;strong&gt;&lt;em&gt;sh&lt;/em&gt;&lt;/strong&gt; shell and we are root. Remember that this happens because the binary &lt;strong&gt;&lt;em&gt;pandora_backup&lt;/em&gt;&lt;/strong&gt; have SUID permission and the owner is the root user and because of that we are able to exploit this vulnerablity and converd to the root user, and now we can visualize the last flag which is &lt;strong&gt;&lt;em&gt;root.txt&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura64.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And with that we &lt;strong&gt;&lt;em&gt;pwned!!!!&lt;/em&gt;&lt;/strong&gt; the machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/pwned.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;pandora-writeup-in-real-time&quot;&gt;Pandora Writeup in real time&lt;/h2&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/dLi0c4aCDas&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="CVE" /><category term="SQLi" /><category term="RCE" /><category term="CMS exploit" /><summary type="html">Pandora is a linux machine with easy level of difficulty both in explotation phase and PrivESC, and this machine runs snmp service through UDP...</summary></entry><entry><title type="html">HTB - Driver</title><link href="http://localhost:4000/htb-driver/" rel="alternate" type="text/html" title="HTB - Driver" /><published>2022-05-01T00:00:00-04:00</published><updated>2022-05-01T00:00:00-04:00</updated><id>http://localhost:4000/htb-driver</id><content type="html" xml:base="http://localhost:4000/htb-driver/">&lt;p&gt;Driver is a windows machine with easy level of difficulty both in exploitation phase and privilage escalation this machine is based to attacking printers on a corporate network, we will going to start to create and upload a malicious scf file which allows to get user ntlmv2 hash which then we will crack it to gain access to the machine, and we will escalate privilage to exploiting the vulnerability called PrintNightMare.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-driver/portada.png&quot; /&gt;
