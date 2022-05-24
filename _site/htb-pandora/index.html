@@ -597,22 +597,254 @@ PORT      STATE  SERVICE
 
 # Nmap done at Sat May 21 17:56:31 2022 -- 1 IP address (1 host up) scanned in 16.70 seconds
 </code></pre></div></div>
-<p>So basically snmp (Simple Network Management Protocol) is a protocol used to monitor devices on the network (routers, switches, IoT devices).</p>
+<p>So basically snmp (Simple Network Management Protocol) is a protocol used to monitor devices on the network (routers, switches, IoT devices) it’s provides a framework for asking a device about his performance and configuration, no matter what kind of hardware or software is. SNMP is vital for managing networks without SNMP it will be very difficult to network management tools to identify devices and monitoring their performance, it will also be difficult to keep track of changes on the network that can have multiples vendors. By default the SNMP protocol is not enabled for security reasons, so you will need to enabled manually on your network.</p>
+
+<p>SNMP has a simple architecture based on the client-server model, the servers are called <strong><em>managers</em></strong> they collect process information about the devices on the network and the client are called <strong><em>agents</em></strong> (which are type of devices or device components connected to the network that you wanted to collect information). Data collected by the managers throught SNMP has a tree like hierarchy, and this data tree has multiple braches called management information bases or <strong><em>MIBs</em></strong>, this is used to defined a group of data points that can be collected from specific agents (let’s the manager want to know some information about devices on the network, it will send a request form the agents and that request will be MIBs, and this is basically a plain-text file that contain instructions that the manager needs to know info about the devices, and the MIBs it will be provide by our agents think this like drivers that need for our devices, so in this case the provider of your snmp agent will give a MIB for the device). And this group of data points are called objectes indentifiers or <strong><em>OIDs</em></strong> (so lets aussume that OIDs are kind of IP addresses for the devices), so basically a MIB is a logical grouping of OIDs.</p>
 
 <p align="center">
-<img src="/assets/images/img-pandora/captura5.png" />
+<img src="/assets/images/img-pandora/treeoid.png" />
+</p>
+
+<p>OIDs example:</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/oidexample.png" />
+</p>
+
+<p>There are currently three versions of SNMP, each with differents features specially on the security side.</p>
+
+<p><strong><em>SNMPv1 and v2/2c</em></strong>: the v1 will create in 80s and it has weak security, it uses default credentials and it was not encrypted and v2 it will have better performance but it will not encrypted. And both versions of this protocol send trafic in plain text over the network and the attackers can see passwords and usernames in plain-text and also the v2 uses a community string as authentication.</p>
+
+<p><strong><em>SNMPv3</em></strong>: Uses a better authentication and the information travels encrypted over the network (we can perform dictionary attack but it will be more harder to find credentials and some information about the devices).</p>
+
+<p>Community String: In v1 and v2 you don’t need a username and password in order to access the information saved on MIB files, you just need to know the community string to access those information on the MIB and sometimes with the community string you can see some credentials on v3. There are two types of community string:</p>
+
+<p><strong><em>Public</em></strong>: you can just read the information on the MIB.</p>
+
+<p><strong><em>Private</em></strong> you can Read/Write in general.</p>
+
+<p>So in v1 and v2/2c if you use a bad community string the server will not respond. To guess the communitry string the attacker can perform a brute force attack to know, but in some cases organizations and corporate env uses <strong><em>public</em></strong> community string by default.</p>
+
+<p>The SNMP agent receives requests on UPD on the port <strong><em>161</em></strong> and the manager receives notifications (Traps and inforequests) on the port <strong><em>162</em></strong>, if we used this protocol on the TLS protocol the request will be received on the port <strong><em>10161</em></strong> and the notifications are sent to the port <strong><em>10162</em></strong>.</p>
+
+<p>More about SNMP: <a href="https://book.hacktricks.xyz/network-services-pentesting/pentesting-snmp">resource1</a>, <a href="https://www.dpstele.com/snmp/what-does-oid-network-elements.php">resource2</a>, <a href="https://www.ccapitalia.net/descarga/docs/1998-gestion-snmp-v1.pdf">resource3 (Spanish)</a></p>
+
+<p>So in this case we will enumarete the snmp protocol with namp specifyin the following flags, and as you can see the namp recognization scripts (which we defined with the flags <strong><em>-sCV</em></strong>) it will report us that the target machine is using v1 and v3 of SMNP and it’s says <strong><em>public</em></strong> which means that the community strings its public and that means that we can see information in plain-text.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura12.png" />
+</p>
+
+<p>So the nmap scan reports us some process that are running on the target machine, and if you continue to scrolling we can see some credentials. SNMP has a lot of info about the host and one of them is the process that are running on the host and sometimes those processes can contain passwords.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura13.png" />
+</p>
+
+<p>And if we continue to scrolling we can see a process with a backup file which we will use to escalate privileges when get access to the machine.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura14.png" />
+</p>
+
+<p>We can perform the same enumeration as we did with namp with the command <strong><em>snmpwalk</em></strong> specifying the version of the snmp and the community string with the flag <strong><em>-c</em></strong>.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura15.png" />
+</p>
+
+<p>The <strong><em>snmpwalk</em></strong> command it can be slower, in this case we can use the command <strong><em>snmpbulkwalk</em></strong> to run the enumeration much faster. I recommed to use this two command instead enumerating with nmap because it will gives us more information and it’s much faster then nmap.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura16.png" />
+</p>
+
+<p>We can see that there is a user called <strong><em>daniel</em></strong> that we saw before connecting via ssh, so let’s try to connect via ssh using those credentials as we saw before.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura17.png" />
+</p>
+
+<p>And as we can see it’s work’s, we can access with ssh on the target machine with the user daniel. So in this case on the SNMP enumaration it will contain ssh login credentials of the user daniel.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura18.png" />
+</p>
+
+<p>There is no files and directories on the home direcotry of the user daniel, if we list all the users on the system we can see that there is user called <strong><em>matt</em></strong>.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura19.png" />
+</p>
+
+<p>If we access on the home directory of the user <strong><em>matt</em></strong> we can see that there is the first flag, but we we don’t have permission to read that file and get the flag.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura20.png" />
+</p>
+
+<p>And there is any sudo permission on the user that we are login which is “daniel”, we can’t view the cronjobs and we can’t access on root directory. So here we need to access with the user “matt” in order to escalate privileges.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura21.png" />
+</p>
+
+<p>If we search for files that contain SUID permission on the system we can see that there is a binary called <strong><em>pandora_backup</em></strong> (as we saw before on the snmp enumeration) which is created by the root user, but we don’t have permission to run that binary, so definitely we need to access with the user matt.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura22.png" />
+</p>
+
+<p>In this case what i am going to do is run <strong><em>linpeas</em></strong> to go much faster to escalate privileges. So let’s download the linpeas.sh binary and transfer to the target machine and add execute permission and then execute. To download linpeas <a href="https://github.com/carlospolop/PEASS-ng/releases/tag/20220522">here</a></p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura23.png" />
+</p>
+
+<p>So linpeas it’s reports that this machine is vulnerable to <strong><em>pwnkit</em></strong>, but in this case we don’t escalate privileges with this vulnerability.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura24.png" />
+</p>
+
+<p>If we continue scrolling down linpeas reports the process that are running on the target machine, this processes we saw before when we enumerate snmp with namp.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura25.png" />
+</p>
+
+<p>If we can continue scrolling down we can see that there is a site enbled on the apache service on localhost on the target machine, and it will redirect a subdomain called <strong><em>pandora.panda.htb</em></strong>.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura26.png" />
+</p>
+
+<p>Let’s add this domain on the hosts file in our machine to apply vhost.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura27.png" />
+</p>
+
+<p>But if we access with this domain it will redirect the same webpage as we access before. So this domain is valid on the localhost of the target machine.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura28.png" />
+</p>
+
+<p>So let’s apply local port forwarding with ssh with the following command.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura29.png" />
+</p>
+
+<p>And now if we access on localhost in our browser we can access the webpage of the localhost of the target machine, and as you can see the webpage it’s a pandora fms which is used to monitor network and the devices so thats why the target machine used the protocol snmp.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura30.png" />
+</p>
+
+<p>If we try to login with the credentials of the user “daniel” that we use before it will not allow to login, and it popups a error messages that the users can only use the API, for now we don’t know if this cms uses some kind of API to login and valid users.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura31.png" />
+</p>
+
+<p>Using <strong><em>searchsploit</em></strong> we can see that some version of pandora fms it’s vulnerable, and the version 7 it’s vulnerable to RCE and SQLi.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura32.png" />
+</p>
+
+<p>If we scroll down on that webpage it will tell us the version of this cms, in this case the version it’s 7 so it’s vulnerable.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura33.png" />
+</p>
+
+<p>If we search in google <strong><em>pandora fms v7.0NG exploit</em></strong> we can find the following article that explains how we can exploit unauthenticated SQLi and RCE. Here is the <a href="https://blog.sonarsource.com/pandora-fms-742-critical-code-vulnerabilities-explained/">article</a></p>
+
+<p>So basically in that article indicate that the SQLi it’s vulnerable on the route <strong><em>/include/chart_generanador.php</em></strong> sending the request with a session id (<strong><em>session_id</em></strong>). So if we access on that particular route it’s says “Access is not granted”.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura34.png" />
+</p>
+
+<p>In this case i try inject some sql syntax on the url, and when i add this sql syntax <strong><em>1’ or 1=1– -</em></strong> that message that says “Access is not granted” will disappear. So it’s like it is injectable with some sql syntax.</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura35.png" />
 </p>
 
 <p align="center">
-<img src="/assets/images/img-pandora/captura5.png" />
+<img src="/assets/images/img-pandora/captura36.png" />
 </p>
 
 <p align="center">
-<img src="/assets/images/img-pandora/captura5.png" />
+<img src="/assets/images/img-pandora/captura15.png" />
 </p>
 
 <p align="center">
-<img src="/assets/images/img-pandora/captura5.png" />
+<img src="/assets/images/img-pandora/captura15.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura15.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura15.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura15.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura15.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura15.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura15.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura15.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura15.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura15.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura15.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura15.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura15.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura15.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura15.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/img-pandora/captura15.png" />
 </p>
 
 

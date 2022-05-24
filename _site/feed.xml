@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-05-22T20:43:23-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Pandora</title><link href="http://localhost:4000/htb-pandora/" rel="alternate" type="text/html" title="HTB - Pandora" /><published>2022-05-22T00:00:00-04:00</published><updated>2022-05-22T00:00:00-04:00</updated><id>http://localhost:4000/htb-pandora</id><content type="html" xml:base="http://localhost:4000/htb-pandora/">&lt;p&gt;Pandora is a linux machine with easy level of difficulty both in explotation phase and PrivESC, and this machine runs snmp service through UDP that we will use to enumerate the target machine and some processes that it’s running and also this machine runs pandora fms that is vulnerable sqli and RCE that will help us to gain access to the machine and with that we will escalate privileges with PATH hijacking.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-05-23T21:20:56-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Pandora</title><link href="http://localhost:4000/htb-pandora/" rel="alternate" type="text/html" title="HTB - Pandora" /><published>2022-05-22T00:00:00-04:00</published><updated>2022-05-22T00:00:00-04:00</updated><id>http://localhost:4000/htb-pandora</id><content type="html" xml:base="http://localhost:4000/htb-pandora/">&lt;p&gt;Pandora is a linux machine with easy level of difficulty both in explotation phase and PrivESC, and this machine runs snmp service through UDP that we will use to enumerate the target machine and some processes that it’s running and also this machine runs pandora fms that is vulnerable sqli and RCE that will help us to gain access to the machine and with that we will escalate privileges with PATH hijacking.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-pandora/portada.png&quot; /&gt;
@@ -286,22 +286,254 @@ PORT      STATE  SERVICE
 
 # Nmap done at Sat May 21 17:56:31 2022 -- 1 IP address (1 host up) scanned in 16.70 seconds
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;So basically snmp (Simple Network Management Protocol) is a protocol used to monitor devices on the network (routers, switches, IoT devices).&lt;/p&gt;
+&lt;p&gt;So basically snmp (Simple Network Management Protocol) is a protocol used to monitor devices on the network (routers, switches, IoT devices) it’s provides a framework for asking a device about his performance and configuration, no matter what kind of hardware or software is. SNMP is vital for managing networks without SNMP it will be very difficult to network management tools to identify devices and monitoring their performance, it will also be difficult to keep track of changes on the network that can have multiples vendors. By default the SNMP protocol is not enabled for security reasons, so you will need to enabled manually on your network.&lt;/p&gt;
+
+&lt;p&gt;SNMP has a simple architecture based on the client-server model, the servers are called &lt;strong&gt;&lt;em&gt;managers&lt;/em&gt;&lt;/strong&gt; they collect process information about the devices on the network and the client are called &lt;strong&gt;&lt;em&gt;agents&lt;/em&gt;&lt;/strong&gt; (which are type of devices or device components connected to the network that you wanted to collect information). Data collected by the managers throught SNMP has a tree like hierarchy, and this data tree has multiple braches called management information bases or &lt;strong&gt;&lt;em&gt;MIBs&lt;/em&gt;&lt;/strong&gt;, this is used to defined a group of data points that can be collected from specific agents (let’s the manager want to know some information about devices on the network, it will send a request form the agents and that request will be MIBs, and this is basically a plain-text file that contain instructions that the manager needs to know info about the devices, and the MIBs it will be provide by our agents think this like drivers that need for our devices, so in this case the provider of your snmp agent will give a MIB for the device). And this group of data points are called objectes indentifiers or &lt;strong&gt;&lt;em&gt;OIDs&lt;/em&gt;&lt;/strong&gt; (so lets aussume that OIDs are kind of IP addresses for the devices), so basically a MIB is a logical grouping of OIDs.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura5.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-pandora/treeoid.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;OIDs example:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/oidexample.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;There are currently three versions of SNMP, each with differents features specially on the security side.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;SNMPv1 and v2/2c&lt;/em&gt;&lt;/strong&gt;: the v1 will create in 80s and it has weak security, it uses default credentials and it was not encrypted and v2 it will have better performance but it will not encrypted. And both versions of this protocol send trafic in plain text over the network and the attackers can see passwords and usernames in plain-text and also the v2 uses a community string as authentication.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;SNMPv3&lt;/em&gt;&lt;/strong&gt;: Uses a better authentication and the information travels encrypted over the network (we can perform dictionary attack but it will be more harder to find credentials and some information about the devices).&lt;/p&gt;
+
+&lt;p&gt;Community String: In v1 and v2 you don’t need a username and password in order to access the information saved on MIB files, you just need to know the community string to access those information on the MIB and sometimes with the community string you can see some credentials on v3. There are two types of community string:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Public&lt;/em&gt;&lt;/strong&gt;: you can just read the information on the MIB.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Private&lt;/em&gt;&lt;/strong&gt; you can Read/Write in general.&lt;/p&gt;
+
+&lt;p&gt;So in v1 and v2/2c if you use a bad community string the server will not respond. To guess the communitry string the attacker can perform a brute force attack to know, but in some cases organizations and corporate env uses &lt;strong&gt;&lt;em&gt;public&lt;/em&gt;&lt;/strong&gt; community string by default.&lt;/p&gt;
+
+&lt;p&gt;The SNMP agent receives requests on UPD on the port &lt;strong&gt;&lt;em&gt;161&lt;/em&gt;&lt;/strong&gt; and the manager receives notifications (Traps and inforequests) on the port &lt;strong&gt;&lt;em&gt;162&lt;/em&gt;&lt;/strong&gt;, if we used this protocol on the TLS protocol the request will be received on the port &lt;strong&gt;&lt;em&gt;10161&lt;/em&gt;&lt;/strong&gt; and the notifications are sent to the port &lt;strong&gt;&lt;em&gt;10162&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;More about SNMP: &lt;a href=&quot;https://book.hacktricks.xyz/network-services-pentesting/pentesting-snmp&quot;&gt;resource1&lt;/a&gt;, &lt;a href=&quot;https://www.dpstele.com/snmp/what-does-oid-network-elements.php&quot;&gt;resource2&lt;/a&gt;, &lt;a href=&quot;https://www.ccapitalia.net/descarga/docs/1998-gestion-snmp-v1.pdf&quot;&gt;resource3 (Spanish)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;So in this case we will enumarete the snmp protocol with namp specifyin the following flags, and as you can see the namp recognization scripts (which we defined with the flags &lt;strong&gt;&lt;em&gt;-sCV&lt;/em&gt;&lt;/strong&gt;) it will report us that the target machine is using v1 and v3 of SMNP and it’s says &lt;strong&gt;&lt;em&gt;public&lt;/em&gt;&lt;/strong&gt; which means that the community strings its public and that means that we can see information in plain-text.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura12.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So the nmap scan reports us some process that are running on the target machine, and if you continue to scrolling we can see some credentials. SNMP has a lot of info about the host and one of them is the process that are running on the host and sometimes those processes can contain passwords.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura13.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And if we continue to scrolling we can see a process with a backup file which we will use to escalate privileges when get access to the machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura14.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We can perform the same enumeration as we did with namp with the command &lt;strong&gt;&lt;em&gt;snmpwalk&lt;/em&gt;&lt;/strong&gt; specifying the version of the snmp and the community string with the flag &lt;strong&gt;&lt;em&gt;-c&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;&lt;em&gt;snmpwalk&lt;/em&gt;&lt;/strong&gt; command it can be slower, in this case we can use the command &lt;strong&gt;&lt;em&gt;snmpbulkwalk&lt;/em&gt;&lt;/strong&gt; to run the enumeration much faster. I recommed to use this two command instead enumerating with nmap because it will gives us more information and it’s much faster then nmap.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura16.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We can see that there is a user called &lt;strong&gt;&lt;em&gt;daniel&lt;/em&gt;&lt;/strong&gt; that we saw before connecting via ssh, so let’s try to connect via ssh using those credentials as we saw before.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura17.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And as we can see it’s work’s, we can access with ssh on the target machine with the user daniel. So in this case on the SNMP enumaration it will contain ssh login credentials of the user daniel.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura18.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;There is no files and directories on the home direcotry of the user daniel, if we list all the users on the system we can see that there is user called &lt;strong&gt;&lt;em&gt;matt&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura19.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we access on the home directory of the user &lt;strong&gt;&lt;em&gt;matt&lt;/em&gt;&lt;/strong&gt; we can see that there is the first flag, but we we don’t have permission to read that file and get the flag.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura20.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And there is any sudo permission on the user that we are login which is “daniel”, we can’t view the cronjobs and we can’t access on root directory. So here we need to access with the user “matt” in order to escalate privileges.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura21.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we search for files that contain SUID permission on the system we can see that there is a binary called &lt;strong&gt;&lt;em&gt;pandora_backup&lt;/em&gt;&lt;/strong&gt; (as we saw before on the snmp enumeration) which is created by the root user, but we don’t have permission to run that binary, so definitely we need to access with the user matt.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura22.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In this case what i am going to do is run &lt;strong&gt;&lt;em&gt;linpeas&lt;/em&gt;&lt;/strong&gt; to go much faster to escalate privileges. So let’s download the linpeas.sh binary and transfer to the target machine and add execute permission and then execute. To download linpeas &lt;a href=&quot;https://github.com/carlospolop/PEASS-ng/releases/tag/20220522&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura23.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So linpeas it’s reports that this machine is vulnerable to &lt;strong&gt;&lt;em&gt;pwnkit&lt;/em&gt;&lt;/strong&gt;, but in this case we don’t escalate privileges with this vulnerability.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura24.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we continue scrolling down linpeas reports the process that are running on the target machine, this processes we saw before when we enumerate snmp with namp.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura25.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we can continue scrolling down we can see that there is a site enbled on the apache service on localhost on the target machine, and it will redirect a subdomain called &lt;strong&gt;&lt;em&gt;pandora.panda.htb&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura26.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Let’s add this domain on the hosts file in our machine to apply vhost.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura27.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;But if we access with this domain it will redirect the same webpage as we access before. So this domain is valid on the localhost of the target machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura28.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So let’s apply local port forwarding with ssh with the following command.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura29.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And now if we access on localhost in our browser we can access the webpage of the localhost of the target machine, and as you can see the webpage it’s a pandora fms which is used to monitor network and the devices so thats why the target machine used the protocol snmp.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura30.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we try to login with the credentials of the user “daniel” that we use before it will not allow to login, and it popups a error messages that the users can only use the API, for now we don’t know if this cms uses some kind of API to login and valid users.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura31.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Using &lt;strong&gt;&lt;em&gt;searchsploit&lt;/em&gt;&lt;/strong&gt; we can see that some version of pandora fms it’s vulnerable, and the version 7 it’s vulnerable to RCE and SQLi.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura32.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we scroll down on that webpage it will tell us the version of this cms, in this case the version it’s 7 so it’s vulnerable.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura33.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If we search in google &lt;strong&gt;&lt;em&gt;pandora fms v7.0NG exploit&lt;/em&gt;&lt;/strong&gt; we can find the following article that explains how we can exploit unauthenticated SQLi and RCE. Here is the &lt;a href=&quot;https://blog.sonarsource.com/pandora-fms-742-critical-code-vulnerabilities-explained/&quot;&gt;article&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;So basically in that article indicate that the SQLi it’s vulnerable on the route &lt;strong&gt;&lt;em&gt;/include/chart_generanador.php&lt;/em&gt;&lt;/strong&gt; sending the request with a session id (&lt;strong&gt;&lt;em&gt;session_id&lt;/em&gt;&lt;/strong&gt;). So if we access on that particular route it’s says “Access is not granted”.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura34.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In this case i try inject some sql syntax on the url, and when i add this sql syntax &lt;strong&gt;&lt;em&gt;1’ or 1=1– -&lt;/em&gt;&lt;/strong&gt; that message that says “Access is not granted” will disappear. So it’s like it is injectable with some sql syntax.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura35.png&quot; /&gt;
 &lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura5.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura36.png&quot; /&gt;
 &lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura5.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
 &lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-pandora/captura5.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-pandora/captura15.png&quot; /&gt;
 &lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="CVE" /><category term="SQLi" /><category term="RCE" /><category term="CMS exploit" /><summary type="html">Pandora is a linux machine with easy level of difficulty both in explotation phase and PrivESC, and this machine runs snmp service through UDP...</summary></entry><entry><title type="html">HTB - Driver</title><link href="http://localhost:4000/htb-driver/" rel="alternate" type="text/html" title="HTB - Driver" /><published>2022-05-01T00:00:00-04:00</published><updated>2022-05-01T00:00:00-04:00</updated><id>http://localhost:4000/htb-driver</id><content type="html" xml:base="http://localhost:4000/htb-driver/">&lt;p&gt;Driver is a windows machine with easy level of difficulty both in exploitation phase and privilage escalation this machine is based to attacking printers on a corporate network, we will going to start to create and upload a malicious scf file which allows to get user ntlmv2 hash which then we will crack it to gain access to the machine, and we will escalate privilage to exploiting the vulnerability called PrintNightMare.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
