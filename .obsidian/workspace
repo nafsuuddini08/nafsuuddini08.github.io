@@ -1,0 +1,98 @@
+{
+  "main": {
+    "id": "06e187d304d35c2c",
+    "type": "split",
+    "children": [
+      {
+        "id": "68a33eada7775779",
+        "type": "leaf",
+        "state": {
+          "type": "image",
+          "state": {
+            "file": "assets/images/avatar1.png"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "489609416127cc5f",
+    "type": "split",
+    "children": [
+      {
+        "id": "114084986aa0b419",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b08cacf3453b6130",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "f9bfb0442787283e",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "65f1cd9f038105d9",
+    "type": "split",
+    "children": [
+      {
+        "id": "d0945e13c532a72b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "89aa64e37443851c",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "assets/images/avatar1.png",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "68a33eada7775779",
+  "lastOpenFiles": [
+    "assets/images/avatar1.png",
+    "assets/images/le-0.png",
+    "README.md",
+    "_posts/2022-06-06-htb-AdmirerToo.md",
+    "Pasted image 20220606132613.png",
+    "_posts/2021-10-24-azure-appservice.md",
+    "_posts/2022-05-22-htb-pandora.md"
+  ]
+}

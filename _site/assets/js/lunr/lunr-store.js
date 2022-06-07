@@ -78,4 +78,9 @@ var store = [{
         "excerpt":"Pandora is a linux machine with easy level of difficulty both in explotation phase and PrivESC, and this machine runs snmp service through UDP that we will use to enumerate the target machine and some processes that it’s running and also this machine runs pandora fms that is vulnerable sqli...","categories": ["CTF","web pentesting"],
         "tags": ["Hack the box","CVE","SQLi","RCE","CMS exploit"],
         "url": "http://localhost:4000/htb-pandora/",
-        "teaser":"http://localhost:4000/assets/images/img-pandora/portada.png"}]
+        "teaser":"http://localhost:4000/assets/images/img-pandora/portada.png"},{
+        "title": "HTB - AdmirerToo",
+        "excerpt":" ","categories": ["CTF","web pentesting"],
+        "tags": ["Hack the box","CVE","SSRF","RCE","Password Reuse","PHP"],
+        "url": "http://localhost:4000/htb-AdmirerToo/",
+        "teaser":"http://localhost:4000/assets/images/"}]
