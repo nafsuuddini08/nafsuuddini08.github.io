@@ -1,4 +1,335 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-06-06T13:42:58-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - AdmirerToo</title><link href="http://localhost:4000/htb-AdmirerToo/" rel="alternate" type="text/html" title="HTB - AdmirerToo" /><published>2022-06-06T00:00:00-04:00</published><updated>2022-06-06T00:00:00-04:00</updated><id>http://localhost:4000/htb-AdmirerToo</id><content type="html" xml:base="http://localhost:4000/htb-AdmirerToo/"></content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="CVE" /><category term="SSRF" /><category term="RCE" /><category term="Password Reuse" /><category term="PHP" /></entry><entry><title type="html">HTB - Pandora</title><link href="http://localhost:4000/htb-pandora/" rel="alternate" type="text/html" title="HTB - Pandora" /><published>2022-05-22T00:00:00-04:00</published><updated>2022-05-22T00:00:00-04:00</updated><id>http://localhost:4000/htb-pandora</id><content type="html" xml:base="http://localhost:4000/htb-pandora/">&lt;p&gt;Pandora is a linux machine with easy level of difficulty both in explotation phase and PrivESC, and this machine runs snmp service through UDP that we will use to enumerate the target machine and some processes that it’s running and also this machine runs pandora fms that is vulnerable sqli and RCE that will help us to gain access to the machine and with that we will escalate privileges with PATH hijacking.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-06-17T21:33:39-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Paper</title><link href="http://localhost:4000/htb-paper/" rel="alternate" type="text/html" title="HTB - Paper" /><published>2022-06-17T00:00:00-04:00</published><updated>2022-06-17T00:00:00-04:00</updated><id>http://localhost:4000/htb-paper</id><content type="html" xml:base="http://localhost:4000/htb-paper/">&lt;p&gt;Paper is linux machine with easy level of difficulty on the exploitation phase to access to the machine and a medium level of difficulty on the privESC, this machine have running a wordpress on the port 80 and in this case the version of wordpress it’s vulnerable to view private content on a blog post which this gives us a subdomain that redirects us to a chating service called &lt;strong&gt;&lt;em&gt;rocket.chat&lt;/em&gt;&lt;/strong&gt; that will contains a bot which allow us to list directories and to see the content to a specific file that contains the password to access via ssh to the machine, and the privESC is vulnerable to &lt;strong&gt;&lt;em&gt;CVE-2021-3560&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/portada.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Machine matrix:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/matrix.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;First we are going to create a directory to the name of the machine and inside with &lt;strong&gt;&lt;em&gt;mkt&lt;/em&gt;&lt;/strong&gt; we are going to create the following directories.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;mkt&lt;/em&gt;&lt;/strong&gt; is a function that i have defined in the &lt;strong&gt;&lt;em&gt;~/.zshrc&lt;/em&gt;&lt;/strong&gt; so that I can create these directories without creating them one by one.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkt () {
+        mkdir {nmap,content,exploits,scripts}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And if we send one icmp trace on the target machine we receive a connection, and remember that the linux machine have 64 TTL and windows have 128 TTL and sometimes this values can decrease one digit and this because of traceroute.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura2.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Anyway, in my machine y have defined a script called &lt;strong&gt;&lt;em&gt;wichSystem&lt;/em&gt;&lt;/strong&gt; with just specifying the target ip address it will tell us through the ttl if it’s a windows or linux machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura3.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Wichsystem script.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/python3
+#coding: utf-8
+&lt;/span&gt; 
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;
+ 
+&lt;span class=&quot;c1&quot;&gt;# python3 wichSystem.py YOURIP 
+&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[!] Uso: python3 &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &amp;lt;direccion-ip&amp;gt;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ 
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+ 
+    &lt;span class=&quot;n&quot;&gt;proc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Popen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/usr/bin/ping -c 1 &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ip_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PIPE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shell&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;proc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;communicate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+ 
+    &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ 
+    &lt;span class=&quot;n&quot;&gt;ttl_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findall&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r&quot;\d{1,3}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+ 
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl_value&lt;/span&gt;
+ 
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+ 
+    &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ 
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Linux&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;65&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;128&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Windows&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Not Found&quot;&lt;/span&gt;
+ 
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+ 
+    &lt;span class=&quot;n&quot;&gt;ip_address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+ 
+    &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ 
+    &lt;span class=&quot;n&quot;&gt;os_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s (ttl -&amp;gt; &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s): &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;scanning&quot;&gt;Scanning&lt;/h2&gt;
+
+&lt;p&gt;Now we are going to proceed to scanning the target machine to know what available ports haves and the service that it’s running, so we are going to perform a nmap scan with the following flags.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Flags&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-sC&lt;/td&gt;
+      &lt;td&gt;Use nmap default scripts.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-sV&lt;/td&gt;
+      &lt;td&gt;Probe open ports to determine service/version info.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-oA&lt;/td&gt;
+      &lt;td&gt;Output the scan in the three major formats at once in a file.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The scan:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Nmap 7.92 scan initiated Wed Jun 15 20:08:37 2022 as: nmap -sC -sV -oA allports 10.10.11.143
+Nmap scan report for 10.10.11.143
+Host is up (0.10s latency).
+Not shown: 997 closed tcp ports (reset)
+PORT    STATE SERVICE  VERSION
+22/tcp  open  ssh      OpenSSH 8.0 (protocol 2.0)
+| ssh-hostkey:
+|   2048 10:05:ea:50:56:a6:00:cb:1c:9c:93:df:5f:83:e0:64 (RSA)
+|   256 58:8c:82:1c:c6:63:2a:83:87:5c:2f:2b:4f:4d:c3:79 (ECDSA)
+|_  256 31:78:af:d1:3b:c4:2e:9d:60:4e:eb:5d:03:ec:a0:22 (ED25519)
+80/tcp  open  http     Apache httpd 2.4.37 ((centos) OpenSSL/1.1.1k mod_fcgid/2.3.9)
+|_http-title: HTTP Server Test Page powered by CentOS
+|_http-generator: HTML Tidy for HTML5 for Linux version 5.7.28
+| http-methods:
+|_  Potentially risky methods: TRACE
+|_http-server-header: Apache/2.4.37 (centos) OpenSSL/1.1.1k mod_fcgid/2.3.9
+443/tcp open  ssl/http Apache httpd 2.4.37 ((centos) OpenSSL/1.1.1k mod_fcgid/2.3.9)
+|_http-title: HTTP Server Test Page powered by CentOS
+| http-methods:
+|_  Potentially risky methods: TRACE
+|_http-generator: HTML Tidy for HTML5 for Linux version 5.7.28
+| ssl-cert: Subject: commonName=localhost.localdomain/organizationName=Unspecified/countryName=US
+| Subject Alternative Name: DNS:localhost.localdomain
+| Not valid before: 2021-07-03T08:52:34
+|_Not valid after:  2022-07-08T10:32:34
+| tls-alpn:
+|_  http/1.1
+|_http-server-header: Apache/2.4.37 (centos) OpenSSL/1.1.1k mod_fcgid/2.3.9
+|_ssl-date: TLS randomness does not represent time
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Wed Jun 15 20:09:11 2022 -- 1 IP address (1 host up) scanned in 33.57 seconds
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So if we access on webpage on the port 80 it’s just the default apache page for centos.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura4.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So on the nmap scan it reports us that the webserver is using http TRACE method, so if we send a request to the webserver with curl or burpsuite on the http header &lt;strong&gt;&lt;em&gt;x-backend-Server&lt;/em&gt;&lt;/strong&gt; it’s redirects to the following domain.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura5.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So let’s add this domain on the hosts file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura6.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And if we access with that domain we can see that is a wordpress blog page and the &lt;strong&gt;&lt;em&gt;wappalyzer&lt;/em&gt;&lt;/strong&gt; extension reports us the version that is using.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura7.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And here we can see some interesting post that the user &lt;strong&gt;&lt;em&gt;Michael&lt;/em&gt;&lt;/strong&gt; is leaking some secrets information.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura8.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So with searchsploit if we specify the wordpress version we can see that the version of the target we can view private contents in a posts. So let’s copy that exploit with the &lt;strong&gt;&lt;em&gt;-m&lt;/em&gt;&lt;/strong&gt; flag.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura9.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So basically, it’s tell us that we can view some secret contents specifying &lt;strong&gt;&lt;em&gt;?static=1&lt;/em&gt;&lt;/strong&gt; on the url using some parameters.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura10.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So my case it will works but puting the value two instead of one, and here we can see the secret post that mention the following subdomain.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura11.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Let’s put this subdomain on the hosts file.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura12.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And the url that is mention on that post it will redirect on this register form of &lt;strong&gt;&lt;em&gt;rocket.chat&lt;/em&gt;&lt;/strong&gt; which is a open source application that is used for chating in public or private networks in most cases. So in this case i registered with this test user.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura13.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So if we click on the search icon we can see that there is some users and a general chat.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura14.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And if we go in that general chat we can see that there is bot with some few bugs, hmm interesting.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura15.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So in this let’s check how this bot works, so for that click on the bot profile and then click on the message icon because we don’t have permission to write on the general chat.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura16.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;exploitation&quot;&gt;Exploitation&lt;/h2&gt;
+
+&lt;p&gt;So if we send the command &lt;strong&gt;&lt;em&gt;recyclops help&lt;/em&gt;&lt;/strong&gt; it will show the same thing on the general chat and here we can see that we are able to list directories and see the content of some particular file using the following commands.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura17.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So in this case i try to list the sale directory and will list the content of that directory and it’s seems that is listing using the &lt;strong&gt;&lt;em&gt;ls&lt;/em&gt;&lt;/strong&gt; command, so this reminds me that is listing this directory on the system that is hosted this chat service.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura18.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So if we look the content of that file there is nothing interesting there.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura19.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So if we try to move two directories back we can list some other directories on the system and here we can see a &lt;strong&gt;&lt;em&gt;.ssh&lt;/em&gt;&lt;/strong&gt; directory.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura20.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;But in this case on the directory .ssh there is no ssh keys that we can use to access on the target machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura21.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And if we try to look the content of the user.txt file we don’t have permissions.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura22.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So listing some directories i find this directory with some interesting files like &lt;strong&gt;&lt;em&gt;.env&lt;/em&gt;&lt;/strong&gt; which normally contain some system environment variables.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura23.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And if we try to list that file we can see some user credentials. So before we saw that there is the port 22 open so i try to access with this user but didn’t work.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura24.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;But if we move few directories back to list the &lt;strong&gt;&lt;em&gt;passwd&lt;/em&gt;&lt;/strong&gt; we can see that there is a user called &lt;strong&gt;&lt;em&gt;dwight&lt;/em&gt;&lt;/strong&gt; as we saw before.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura25.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So i try to ssh with this user using the password that we find on the .env file, and as we can see it works and we have access to the machine and we can view the first flag. So in this case the exploitation phase it is very easy.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura26.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;privesc&quot;&gt;PrivESC&lt;/h2&gt;
+
+&lt;p&gt;There is no SUID files or interesting bineries here, so nothing here.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura27.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Let’s to upload linpeas on the target machine to see if there some file or process that we can use to escalate privileges, let’s assign executable permission and execute it.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura28.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So linpeas reports us that this machine it’s vulnerable to the following cve.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura29.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Basically this vulnerability effects the polikt or policykit service on linux systems which this is used to unprivileged processes can communicate with privileged processes on the system, let’s say that you want to do something that requires higher privileges (like creating user,add permissions, etc) then here when polkits comes to decide whether or not we are allowed to do it. And this vulnerability bypasses credential checks for D-bus (which is an authentication agent) request, elevating the requester’s privileges to root. more info &lt;a href=&quot;https://github.blog/2021-06-10-privilege-escalation-polkit-root-on-linux-with-bug/&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;So if we google about this cve we can find some exploits that automates this process and become a root user. So in this case i am going to use the following &lt;a href=&quot;https://github.com/Almorabea/Polkit-exploit/blob/main/CVE-2021-3560.py&quot;&gt;exploit&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura30.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So once we download the exploit let’s upload it on the target machine and then add executable permissions.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura31.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And now just executing this exploilt we become a root user and we can view the root flag.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/captura32.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And with that we pwned this machine.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-paper/pwned.png&quot; /&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="CVE" /><category term="CMS exploit" /><summary type="html">Paper is linux machine with easy level of difficulty on the exploitation phase to access to the machine and a medium level of difficulty on the privESC, this machine have running a wordpress on the port 80 and in this case the version of wordpress...</summary></entry><entry><title type="html">HTB - Pandora</title><link href="http://localhost:4000/htb-pandora/" rel="alternate" type="text/html" title="HTB - Pandora" /><published>2022-05-22T00:00:00-04:00</published><updated>2022-05-22T00:00:00-04:00</updated><id>http://localhost:4000/htb-pandora</id><content type="html" xml:base="http://localhost:4000/htb-pandora/">&lt;p&gt;Pandora is a linux machine with easy level of difficulty both in explotation phase and PrivESC, and this machine runs snmp service through UDP that we will use to enumerate the target machine and some processes that it’s running and also this machine runs pandora fms that is vulnerable sqli and RCE that will help us to gain access to the machine and with that we will escalate privileges with PATH hijacking.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-pandora/portada.png&quot; /&gt;
@@ -502,14 +833,7 @@ PORT      STATE  SERVICE
 &lt;img src=&quot;/assets/images/img-pandora/captura41.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;So after researching and testing to inject some sql syntax it will works with &lt;strong&gt;&lt;em&gt;union injection&lt;/em&gt;&lt;/strong&gt;. The syntax is the following ***1’ union select 1,2,’id_usuario&lt;/td&gt;
-      &lt;td&gt;s:5:”admin”;’– -***.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;So after researching and testing to inject some sql syntax it will works with &lt;strong&gt;&lt;em&gt;union injection&lt;/em&gt;&lt;/strong&gt;. The syntax is the following: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1' union select 1,2,'id_usuario|s:5:&quot;admin&quot;;'-- -&quot;&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-pandora/captura42.png&quot; /&gt;

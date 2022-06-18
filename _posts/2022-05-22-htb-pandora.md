@@ -479,7 +479,7 @@ In this case i try to use the session id of the user matt and admin but it will 
 <img src = "/assets/images/img-pandora/captura41.png">
 </p>
 
-So after researching and testing to inject some sql syntax it will works with ***union injection***. The syntax is the following ***1' union select 1,2,'id_usuario|s:5:"admin";'-- -***.
+So after researching and testing to inject some sql syntax it will works with ***union injection***. The syntax is the following: ```1' union select 1,2,'id_usuario|s:5:"admin";'-- -"```.
 
 <p align = "center">
 <img src = "/assets/images/img-pandora/captura42.png">

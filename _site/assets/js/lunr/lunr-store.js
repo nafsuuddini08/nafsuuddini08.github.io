@@ -79,8 +79,8 @@ var store = [{
         "tags": ["Hack the box","CVE","SQLi","RCE","CMS exploit"],
         "url": "http://localhost:4000/htb-pandora/",
         "teaser":"http://localhost:4000/assets/images/img-pandora/portada.png"},{
-        "title": "HTB - AdmirerToo",
-        "excerpt":" ","categories": ["CTF","web pentesting"],
-        "tags": ["Hack the box","CVE","SSRF","RCE","Password Reuse","PHP"],
-        "url": "http://localhost:4000/htb-AdmirerToo/",
-        "teaser":"http://localhost:4000/assets/images/"}]
+        "title": "HTB - Paper",
+        "excerpt":"Paper is linux machine with easy level of difficulty on the exploitation phase to access to the machine and a medium level of difficulty on the privESC, this machine have running a wordpress on the port 80 and in this case the version of wordpress it’s vulnerable to view private...","categories": ["CTF","web pentesting"],
+        "tags": ["Hack the box","CVE","CMS exploit"],
+        "url": "http://localhost:4000/htb-paper/",
+        "teaser":"http://localhost:4000/assets/images/img-paper/portada.png"}]
