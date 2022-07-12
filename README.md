@@ -1,2 +1,2 @@
 # My blog
-About Offsec, ctf, pentest and programming. https://bynafrez08.github.io
+About Offsec, ctf, pentest and programming. [Viste my site](https://bynafrez08.github.io)
