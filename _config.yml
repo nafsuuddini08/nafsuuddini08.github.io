@@ -18,7 +18,7 @@ minimal_mistakes_skin    : "haxor" # "air", "aqua", "contrast", "dark", "dirt", 
 locale                   : "en-US"
 title                    : "bynafrez08.io"
 title_separator          : "-"
-name                     : "Nafsu"
+name                     : ""
 description              : "This my blog where i post some projects and tutorials stuff."
 url                      : "https://nafsuuddini08.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
@@ -100,9 +100,9 @@ analytics:
 
 # Site Author
 author:
-  name             : "Nafsu Uddin"
+  name             : "Nafsu Uddin | AKA bynafrez"
   avatar           : "/assets/images/avatar1.png"
-  bio              : "Sys Admin / Networking / Pentesting / Offensive Security"
+  bio              : "Networking / Pentesting / Offensive Security"
   uri              :
   home             : # null (default), "absolute or relative url to link to author home"
   bitbucket        :
@@ -112,7 +112,7 @@ author:
   facebook         :
   foursquare       :
   location	   : "Spain"
-  github           : "nafsuuddini08"
+  github           : "bynafrez08"
   gitlab           :
   google_plus      :
   keybase          :
