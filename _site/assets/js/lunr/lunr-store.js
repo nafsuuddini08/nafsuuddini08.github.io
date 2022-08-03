@@ -83,4 +83,9 @@ var store = [{
         "excerpt":"Paper is linux machine with easy level of difficulty on the exploitation phase to access to the machine and a medium level of difficulty on the privESC, this machine have running a wordpress on the port 80 and in this case the version of wordpress it’s vulnerable to view private...","categories": ["CTF","web pentesting"],
         "tags": ["Hack the box","CVE","CMS exploit"],
         "url": "http://localhost:4000/htb-paper/",
-        "teaser":"http://localhost:4000/assets/images/img-paper/portada.png"}]
+        "teaser":"http://localhost:4000/assets/images/img-paper/portada.png"},{
+        "title": "THM - SteelMountain",
+        "excerpt":"Steelmountain is windows machine inspired by the mr.robot serie, first we have a little osint challenge we need to indentify the person on the image on the website, then we exploit the CVE-2014-6287 to gain access to the target machine and finally we utilise powershell for privESC enumeration to gain...","categories": ["CTF"],
+        "tags": ["Tryhackme","Windows","Powershell","CVE"],
+        "url": "http://localhost:4000/thm-steelMountain/",
+        "teaser":"http://localhost:4000/assets/images/img-steelMountain/portada.jpeg"}]

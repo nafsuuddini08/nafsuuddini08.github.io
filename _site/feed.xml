@@ -1,4 +1,135 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-06-17T21:33:39-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nafsuuddini08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin</name></author><entry><title type="html">HTB - Paper</title><link href="http://localhost:4000/htb-paper/" rel="alternate" type="text/html" title="HTB - Paper" /><published>2022-06-17T00:00:00-04:00</published><updated>2022-06-17T00:00:00-04:00</updated><id>http://localhost:4000/htb-paper</id><content type="html" xml:base="http://localhost:4000/htb-paper/">&lt;p&gt;Paper is linux machine with easy level of difficulty on the exploitation phase to access to the machine and a medium level of difficulty on the privESC, this machine have running a wordpress on the port 80 and in this case the version of wordpress it’s vulnerable to view private content on a blog post which this gives us a subdomain that redirects us to a chating service called &lt;strong&gt;&lt;em&gt;rocket.chat&lt;/em&gt;&lt;/strong&gt; that will contains a bot which allow us to list directories and to see the content to a specific file that contains the password to access via ssh to the machine, and the privESC is vulnerable to &lt;strong&gt;&lt;em&gt;CVE-2021-3560&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-02T20:32:27-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">bynafrez08.io</title><subtitle>This my blog where i post some projects and tutorials stuff.</subtitle><author><name>Nafsu Uddin | AKA bynafrez</name></author><entry><title type="html">THM - SteelMountain</title><link href="http://localhost:4000/thm-steelMountain/" rel="alternate" type="text/html" title="THM - SteelMountain" /><published>2022-08-02T00:00:00-04:00</published><updated>2022-08-02T00:00:00-04:00</updated><id>http://localhost:4000/thm-steelMountain</id><content type="html" xml:base="http://localhost:4000/thm-steelMountain/">&lt;p&gt;Steelmountain is windows machine inspired by the mr.robot serie, first we have a little osint challenge we need to indentify the person on the image on the website, then we exploit the CVE-2014-6287  to gain access to the target machine and finally we utilise powershell for privESC enumeration to gain access as a admin.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/portada.jpeg&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;First we going to create a directory with the name of the target machine and inside of that directory with &lt;strong&gt;&lt;em&gt;mkt&lt;/em&gt;&lt;/strong&gt; we going to create the following directories to organize the content.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;mkt is a function that i have defined on my &lt;strong&gt;&lt;em&gt;~/.zshrc&lt;/em&gt;&lt;/strong&gt;, the function is the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkt(){
+	mkdir {nmap,content,exploits,scripts}
+  }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And if we send one icmp trace on the target machine we receive a connection, and remember that the linux machine have 64 TTL and windows have 128 TTL and sometimes this values can decrease one digit or more and this because of traceroute. we can check this by using the flag &lt;strong&gt;&lt;em&gt;-R&lt;/em&gt;&lt;/strong&gt; on the ping command, in the case of windows this flag doesn’t apply.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura2.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;scanning&quot;&gt;Scanning&lt;/h2&gt;
+
+&lt;p&gt;This is the nmap scan result with the following ports that i have discovered with a previous scan. We can see the following ports with versions of the services and the nmap scan reports us that the smb is not signed, so this can be useful to enumerate hosts or the target machine with the smb protocol.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura3.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We can use crackmapexec using the smb protocol to know what version of windows is using, this can be useful when we need to search for certain exploit or vulnerablity with a specific version of windows.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura4.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So one of the challenges in this machine is to identify the person of the picture on the website.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura5.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura6.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura7.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura8.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura9.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/img-steelMountain/captura1.png&quot; /&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin | AKA bynafrez</name></author><category term="Tryhackme" /><category term="Windows" /><category term="Powershell" /><category term="CVE" /><summary type="html">Steelmountain is windows machine inspired by the mr.robot serie, first we have a little osint challenge we need to indentify the person on the image on the website...</summary></entry><entry><title type="html">HTB - Paper</title><link href="http://localhost:4000/htb-paper/" rel="alternate" type="text/html" title="HTB - Paper" /><published>2022-06-17T00:00:00-04:00</published><updated>2022-06-17T00:00:00-04:00</updated><id>http://localhost:4000/htb-paper</id><content type="html" xml:base="http://localhost:4000/htb-paper/">&lt;p&gt;Paper is linux machine with easy level of difficulty on the exploitation phase to access to the machine and a medium level of difficulty on the privESC, this machine have running a wordpress on the port 80 and in this case the version of wordpress it’s vulnerable to view private content on a blog post which this gives us a subdomain that redirects us to a chating service called &lt;strong&gt;&lt;em&gt;rocket.chat&lt;/em&gt;&lt;/strong&gt; that will contains a bot which allow us to list directories and to see the content to a specific file that contains the password to access via ssh to the machine, and the privESC is vulnerable to &lt;strong&gt;&lt;em&gt;CVE-2021-3560&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-paper/portada.png&quot; /&gt;
@@ -329,7 +460,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-paper/pwned.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="CVE" /><category term="CMS exploit" /><summary type="html">Paper is linux machine with easy level of difficulty on the exploitation phase to access to the machine and a medium level of difficulty on the privESC, this machine have running a wordpress on the port 80 and in this case the version of wordpress...</summary></entry><entry><title type="html">HTB - Pandora</title><link href="http://localhost:4000/htb-pandora/" rel="alternate" type="text/html" title="HTB - Pandora" /><published>2022-05-22T00:00:00-04:00</published><updated>2022-05-22T00:00:00-04:00</updated><id>http://localhost:4000/htb-pandora</id><content type="html" xml:base="http://localhost:4000/htb-pandora/">&lt;p&gt;Pandora is a linux machine with easy level of difficulty both in explotation phase and PrivESC, and this machine runs snmp service through UDP that we will use to enumerate the target machine and some processes that it’s running and also this machine runs pandora fms that is vulnerable sqli and RCE that will help us to gain access to the machine and with that we will escalate privileges with PATH hijacking.&lt;/p&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin | AKA bynafrez</name></author><category term="Hack the box" /><category term="CVE" /><category term="CMS exploit" /><summary type="html">Paper is linux machine with easy level of difficulty on the exploitation phase to access to the machine and a medium level of difficulty on the privESC, this machine have running a wordpress on the port 80 and in this case the version of wordpress...</summary></entry><entry><title type="html">HTB - Pandora</title><link href="http://localhost:4000/htb-pandora/" rel="alternate" type="text/html" title="HTB - Pandora" /><published>2022-05-22T00:00:00-04:00</published><updated>2022-05-22T00:00:00-04:00</updated><id>http://localhost:4000/htb-pandora</id><content type="html" xml:base="http://localhost:4000/htb-pandora/">&lt;p&gt;Pandora is a linux machine with easy level of difficulty both in explotation phase and PrivESC, and this machine runs snmp service through UDP that we will use to enumerate the target machine and some processes that it’s running and also this machine runs pandora fms that is vulnerable sqli and RCE that will help us to gain access to the machine and with that we will escalate privileges with PATH hijacking.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-pandora/portada.png&quot; /&gt;
@@ -987,7 +1118,7 @@ PORT      STATE  SERVICE
 
 &lt;h2 id=&quot;pandora-writeup-in-real-time&quot;&gt;Pandora Writeup in real time&lt;/h2&gt;
 
-&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/dLi0c4aCDas&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="CVE" /><category term="SQLi" /><category term="RCE" /><category term="CMS exploit" /><summary type="html">Pandora is a linux machine with easy level of difficulty both in explotation phase and PrivESC, and this machine runs snmp service through UDP...</summary></entry><entry><title type="html">HTB - Driver</title><link href="http://localhost:4000/htb-driver/" rel="alternate" type="text/html" title="HTB - Driver" /><published>2022-05-01T00:00:00-04:00</published><updated>2022-05-01T00:00:00-04:00</updated><id>http://localhost:4000/htb-driver</id><content type="html" xml:base="http://localhost:4000/htb-driver/">&lt;p&gt;Driver is a windows machine with easy level of difficulty both in exploitation phase and privilage escalation this machine is based to attacking printers on a corporate network, we will going to start to create and upload a malicious scf file which allows to get user ntlmv2 hash which then we will crack it to gain access to the machine, and we will escalate privilage to exploiting the vulnerability called PrintNightMare.&lt;/p&gt;
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/dLi0c4aCDas&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;</content><author><name>Nafsu Uddin | AKA bynafrez</name></author><category term="Hack the box" /><category term="CVE" /><category term="SQLi" /><category term="RCE" /><category term="CMS exploit" /><summary type="html">Pandora is a linux machine with easy level of difficulty both in explotation phase and PrivESC, and this machine runs snmp service through UDP...</summary></entry><entry><title type="html">HTB - Driver</title><link href="http://localhost:4000/htb-driver/" rel="alternate" type="text/html" title="HTB - Driver" /><published>2022-05-01T00:00:00-04:00</published><updated>2022-05-01T00:00:00-04:00</updated><id>http://localhost:4000/htb-driver</id><content type="html" xml:base="http://localhost:4000/htb-driver/">&lt;p&gt;Driver is a windows machine with easy level of difficulty both in exploitation phase and privilage escalation this machine is based to attacking printers on a corporate network, we will going to start to create and upload a malicious scf file which allows to get user ntlmv2 hash which then we will crack it to gain access to the machine, and we will escalate privilage to exploiting the vulnerability called PrintNightMare.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-driver/portada.png&quot; /&gt;
@@ -1384,7 +1515,7 @@ PORT      STATE  SERVICE
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-driver/captura39.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="Windows" /><category term="Web" /><category term="Printer exploitation" /><category term="CVE" /><summary type="html">Driver is a windows machine with easy level of difficulty both in exploitation phase and privilage escalation this machine is based to attacking printers on a corporate network, we will going to start to create...</summary></entry><entry><title type="html">HTB - Ransom</title><link href="http://localhost:4000/htb-ransom/" rel="alternate" type="text/html" title="HTB - Ransom" /><published>2022-03-18T00:00:00-04:00</published><updated>2022-03-18T00:00:00-04:00</updated><id>http://localhost:4000/htb-ransom</id><content type="html" xml:base="http://localhost:4000/htb-ransom/">&lt;p&gt;Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps u  s gain access to the web page, and we will also have an encrypted zip file that we must access through a plaintext attack and for privilege escalation we must review some code files of the web page that will help us access as the root user.&lt;/p&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin | AKA bynafrez</name></author><category term="Hack the box" /><category term="Windows" /><category term="Web" /><category term="Printer exploitation" /><category term="CVE" /><summary type="html">Driver is a windows machine with easy level of difficulty both in exploitation phase and privilage escalation this machine is based to attacking printers on a corporate network, we will going to start to create...</summary></entry><entry><title type="html">HTB - Ransom</title><link href="http://localhost:4000/htb-ransom/" rel="alternate" type="text/html" title="HTB - Ransom" /><published>2022-03-18T00:00:00-04:00</published><updated>2022-03-18T00:00:00-04:00</updated><id>http://localhost:4000/htb-ransom</id><content type="html" xml:base="http://localhost:4000/htb-ransom/">&lt;p&gt;Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps u  s gain access to the web page, and we will also have an encrypted zip file that we must access through a plaintext attack and for privilege escalation we must review some code files of the web page that will help us access as the root user.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-ransom/portada.png&quot; /&gt;
@@ -1911,7 +2042,7 @@ Host: 10.10.11.153 ()   Ports: 22/open/tcp//ssh///, 80/open/tcp//http///        
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-ransom/captura56.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="Linux" /><category term="Web" /><category term="PHP" /><category term="Api" /><summary type="html">Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps us gain access to the web page, and we will also have an encrypted zip file that we must...</summary></entry><entry><title type="html">Tryhackme - Solar</title><link href="http://localhost:4000/tryh-solar/" rel="alternate" type="text/html" title="Tryhackme - Solar" /><published>2022-01-16T00:00:00-05:00</published><updated>2022-01-16T00:00:00-05:00</updated><id>http://localhost:4000/tryh-solar</id><content type="html" xml:base="http://localhost:4000/tryh-solar/">&lt;p&gt;Solar is a linux machine with medium difficulty level in the exploitation phase and easy in privilege escalation, this machine runs the apache solr 8.11.0 service which is vulnerable to log4shell and also explains what is log4j, how it works, how to exploit log4shell step by step and ways to mitigate this vulnerability.&lt;/p&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin | AKA bynafrez</name></author><category term="Hack the box" /><category term="Linux" /><category term="Web" /><category term="PHP" /><category term="Api" /><summary type="html">Ransom is Linux machine with a medium level defficulty both in exploitain, user own, privilage escalation phase, this involves vulnerabilities such as type juggling that helps us gain access to the web page, and we will also have an encrypted zip file that we must...</summary></entry><entry><title type="html">Tryhackme - Solar</title><link href="http://localhost:4000/tryh-solar/" rel="alternate" type="text/html" title="Tryhackme - Solar" /><published>2022-01-16T00:00:00-05:00</published><updated>2022-01-16T00:00:00-05:00</updated><id>http://localhost:4000/tryh-solar</id><content type="html" xml:base="http://localhost:4000/tryh-solar/">&lt;p&gt;Solar is a linux machine with medium difficulty level in the exploitation phase and easy in privilege escalation, this machine runs the apache solr 8.11.0 service which is vulnerable to log4shell and also explains what is log4j, how it works, how to exploit log4shell step by step and ways to mitigate this vulnerability.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-solar/portada.png&quot; /&gt;
@@ -2252,7 +2383,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-solar/captura50.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Tryhackme" /><category term="Linux" /><category term="CVE" /><category term="RCE" /><summary type="html">Solar is a linux machine with medium difficulty level in the exploitation phase and easy in privilege escalation, this machine runs the apache solr 8.11.0 service which is vulnerable to log4shell and also explains what is log4j, how it works, how to exploit log4shell step by step and ways to mitigate this vulnerability.</summary></entry><entry><title type="html">HTB - LogForge</title><link href="http://localhost:4000/htb-logforge/" rel="alternate" type="text/html" title="HTB - LogForge" /><published>2022-01-14T00:00:00-05:00</published><updated>2022-01-14T00:00:00-05:00</updated><id>http://localhost:4000/htb-logforge</id><content type="html" xml:base="http://localhost:4000/htb-logforge/">&lt;p&gt;LogForge is a linux machine with a medium level of difficulty both in the exploitation phase and the escalation of privileges, in this machine we take advantage of the vulnerability of the apache tomcat service to have access to the manager panel and we will also be exploiting a very critical vulnerability that has just been released recently which is the log4shell.&lt;/p&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin | AKA bynafrez</name></author><category term="Tryhackme" /><category term="Linux" /><category term="CVE" /><category term="RCE" /><summary type="html">Solar is a linux machine with medium difficulty level in the exploitation phase and easy in privilege escalation, this machine runs the apache solr 8.11.0 service which is vulnerable to log4shell and also explains what is log4j, how it works, how to exploit log4shell step by step and ways to mitigate this vulnerability.</summary></entry><entry><title type="html">HTB - LogForge</title><link href="http://localhost:4000/htb-logforge/" rel="alternate" type="text/html" title="HTB - LogForge" /><published>2022-01-14T00:00:00-05:00</published><updated>2022-01-14T00:00:00-05:00</updated><id>http://localhost:4000/htb-logforge</id><content type="html" xml:base="http://localhost:4000/htb-logforge/">&lt;p&gt;LogForge is a linux machine with a medium level of difficulty both in the exploitation phase and the escalation of privileges, in this machine we take advantage of the vulnerability of the apache tomcat service to have access to the manager panel and we will also be exploiting a very critical vulnerability that has just been released recently which is the log4shell.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-logforge/portada.png&quot; /&gt;
@@ -2740,7 +2871,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-logforge/captura60.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="Linux" /><category term="CVE" /><category term="RCE" /><summary type="html">LogForge is a linux machine with a medium level of difficulty both in the exploitation phase and the privileges escalation, in this machine we take advantage of the vulnerability of the apache tomcat service to have access to the manager panel and we will also be exploiting a very critical vulnerability that has just been released recently which is the log4shell.</summary></entry><entry><title type="html">Hak5 - Rubber Ducky</title><link href="http://localhost:4000/hak5-rubberducky/" rel="alternate" type="text/html" title="Hak5 - Rubber Ducky" /><published>2022-01-11T00:00:00-05:00</published><updated>2022-01-11T00:00:00-05:00</updated><id>http://localhost:4000/hak5-rubberducky</id><content type="html" xml:base="http://localhost:4000/hak5-rubberducky/">&lt;p&gt;Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will create some payloads and attacks that we can done and how to mitigate these types of attacks.&lt;/p&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin | AKA bynafrez</name></author><category term="Hack the box" /><category term="Linux" /><category term="CVE" /><category term="RCE" /><summary type="html">LogForge is a linux machine with a medium level of difficulty both in the exploitation phase and the privileges escalation, in this machine we take advantage of the vulnerability of the apache tomcat service to have access to the manager panel and we will also be exploiting a very critical vulnerability that has just been released recently which is the log4shell.</summary></entry><entry><title type="html">Hak5 - Rubber Ducky</title><link href="http://localhost:4000/hak5-rubberducky/" rel="alternate" type="text/html" title="Hak5 - Rubber Ducky" /><published>2022-01-11T00:00:00-05:00</published><updated>2022-01-11T00:00:00-05:00</updated><id>http://localhost:4000/hak5-rubberducky</id><content type="html" xml:base="http://localhost:4000/hak5-rubberducky/">&lt;p&gt;Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will create some payloads and attacks that we can done and how to mitigate these types of attacks.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-rubberd/portada1.jpg&quot; /&gt;
@@ -2927,7 +3058,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-rubberd/password.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Rubber ducky" /><category term="Linux" /><summary type="html">Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will create some payloads and attacks that we can done and how to mitigate these types of attacks.</summary></entry><entry><title type="html">HTB - Horinzontall</title><link href="http://localhost:4000/htb-horizontall/" rel="alternate" type="text/html" title="HTB - Horinzontall" /><published>2022-01-06T00:00:00-05:00</published><updated>2022-01-06T00:00:00-05:00</updated><id>http://localhost:4000/htb-horizontall</id><content type="html" xml:base="http://localhost:4000/htb-horizontall/">&lt;p&gt;Horizontall is a linux machine with easy difficulty level both in the exploitation phase and the privilege escalation is cataloged as medium difficulty, this machine uses the cms strapi version 3.0 beta that has vulnerabilities such as RCE, changes users passwords, and also the machine has an http server running on port 8000 that is running laravel version 8 that has the vulnerability CVE-2021-3129 (RCE).&lt;/p&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin | AKA bynafrez</name></author><category term="Rubber ducky" /><category term="Linux" /><summary type="html">Rubber ducky by hak5 is a usb that simulates a keyboard that as soon as it is connected to a computer starts to write or perform the payload that we have indicated in a super fast way, in this article we will create some payloads and attacks that we can done and how to mitigate these types of attacks.</summary></entry><entry><title type="html">HTB - Horinzontall</title><link href="http://localhost:4000/htb-horizontall/" rel="alternate" type="text/html" title="HTB - Horinzontall" /><published>2022-01-06T00:00:00-05:00</published><updated>2022-01-06T00:00:00-05:00</updated><id>http://localhost:4000/htb-horizontall</id><content type="html" xml:base="http://localhost:4000/htb-horizontall/">&lt;p&gt;Horizontall is a linux machine with easy difficulty level both in the exploitation phase and the privilege escalation is cataloged as medium difficulty, this machine uses the cms strapi version 3.0 beta that has vulnerabilities such as RCE, changes users passwords, and also the machine has an http server running on port 8000 that is running laravel version 8 that has the vulnerability CVE-2021-3129 (RCE).&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-horizontall/portada.png&quot; /&gt;
@@ -3500,7 +3631,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-horizontall/captura41.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="Linux" /><category term="CVE" /><category term="RCE" /><summary type="html">Horizontall is a linux machine with easy difficulty level both in the exploitation phase and the privilege escalation is cataloged as medium difficulty, this machine uses the cms strapi version 3.0 beta that has vulnerabilities such as RCE, change users passwords and also the machine has an http server running on port 8000 that is running laravel version 8 that has the vulnerability CVE-2021-3129 (RCE).</summary></entry><entry><title type="html">HTB - Secret</title><link href="http://localhost:4000/htb-secret/" rel="alternate" type="text/html" title="HTB - Secret" /><published>2022-01-05T00:00:00-05:00</published><updated>2022-01-05T00:00:00-05:00</updated><id>http://localhost:4000/htb-secret</id><content type="html" xml:base="http://localhost:4000/htb-secret/">&lt;p&gt;Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explaining this in this post) and the escalation of privileges is at medium level of difficulty, and this machine consists secret ways to extract information from applications, and this machine is vulnerable to RCE through an API.&lt;/p&gt;
+&lt;/p&gt;</content><author><name>Nafsu Uddin | AKA bynafrez</name></author><category term="Hack the box" /><category term="Linux" /><category term="CVE" /><category term="RCE" /><summary type="html">Horizontall is a linux machine with easy difficulty level both in the exploitation phase and the privilege escalation is cataloged as medium difficulty, this machine uses the cms strapi version 3.0 beta that has vulnerabilities such as RCE, change users passwords and also the machine has an http server running on port 8000 that is running laravel version 8 that has the vulnerability CVE-2021-3129 (RCE).</summary></entry><entry><title type="html">HTB - Secret</title><link href="http://localhost:4000/htb-secret/" rel="alternate" type="text/html" title="HTB - Secret" /><published>2022-01-05T00:00:00-05:00</published><updated>2022-01-05T00:00:00-05:00</updated><id>http://localhost:4000/htb-secret</id><content type="html" xml:base="http://localhost:4000/htb-secret/">&lt;p&gt;Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explaining this in this post) and the escalation of privileges is at medium level of difficulty, and this machine consists secret ways to extract information from applications, and this machine is vulnerable to RCE through an API.&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-secret/portada.png&quot; /&gt;
@@ -4198,476 +4329,4 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 &lt;p align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/images/img-secret/captura84.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="Linux" /><summary type="html">Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explaining this in this post) and the escalation of privileges is at medium level of difficulty, and this machine consists secret ways to extract information from applications, and this machine is vulnerable to RCE through an API.</summary></entry><entry><title type="html">HTB - Previse</title><link href="http://localhost:4000/htb-previse/" rel="alternate" type="text/html" title="HTB - Previse" /><published>2021-12-09T00:00:00-05:00</published><updated>2021-12-09T00:00:00-05:00</updated><id>http://localhost:4000/htb-previse</id><content type="html" xml:base="http://localhost:4000/htb-previse/">&lt;p&gt;Previse is a linux machine with difficulty esay pulling a little to medium both the level of intrusion and privilege escalation pulls a little to medium level of difficulty. this machine has vulnerabilities such as log poisoning and in the part of escalation we take advantage of nopasswd.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/portada.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Machine rating according to the people.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/cali.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Machine matrix:&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/matrix.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;The first thing we are going to do is to create a file with the machine name, and inside of that file with &lt;strong&gt;&lt;em&gt;mkt&lt;/em&gt;&lt;/strong&gt; we are going to create to following directories.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura1.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&quot;recognition&quot;&gt;recognition&lt;/h2&gt;
-
-&lt;p&gt;Now i am going to send a one icmp packet to know if i have connection to the victim machine, and to know what is the OS in the victim machine through the &lt;strong&gt;&lt;em&gt;ttl&lt;/em&gt;&lt;/strong&gt;. If you that the windows systems have 128 ttl and the linux systems have 64 ttl.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura2.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And in my case i have a function that is &lt;strong&gt;&lt;em&gt;wichsystem&lt;/em&gt;&lt;/strong&gt; that through the ttl reports me if it is a windows or linux machine.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura3.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;wichsystem script:&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/python3
-#coding: utf-8
-&lt;/span&gt; 
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;
- 
-&lt;span class=&quot;c1&quot;&gt;# python3 wichSystem.py YOURIP 
-&lt;/span&gt; 
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[!] Uso: python3 &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &amp;lt;direccion-ip&amp;gt;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
- 
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
- 
-    &lt;span class=&quot;n&quot;&gt;proc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Popen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/usr/bin/ping -c 1 &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ip_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PIPE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shell&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;proc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;communicate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
- 
-    &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
- 
-    &lt;span class=&quot;n&quot;&gt;ttl_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findall&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r&quot;\d{1,3}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
- 
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl_value&lt;/span&gt;
- 
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
- 
-    &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
- 
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Linux&quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;65&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;128&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Windows&quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Not Found&quot;&lt;/span&gt;
- 
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
- 
-    &lt;span class=&quot;n&quot;&gt;ip_address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
- 
-    &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
- 
-    &lt;span class=&quot;n&quot;&gt;os_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s (ttl -&amp;gt; &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s): &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;When we ping the ttl it reports 63 but this is because there are intermediate nodes as we can see.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura4.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&quot;scanning---ports-recognition&quot;&gt;Scanning - Ports recognition&lt;/h2&gt;
-
-&lt;p&gt;With nmap we will scan wich ports are open on the victim machine so that we can attack.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura5.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Basically i report the scan in a grepable format because I have a function defined in the &lt;strong&gt;&lt;em&gt;~/.zshrc&lt;/em&gt;&lt;/strong&gt; called &lt;strong&gt;&lt;em&gt;extractports&lt;/em&gt;&lt;/strong&gt; that shows me the available ports in a much more elegant way and it copies the ports that we can paste it in the clipboard.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura6.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Extractports script:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;extractPorts&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
-        &lt;span class=&quot;nv&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-oP&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\d{1,5}/open'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $1}'&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;FS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/'&lt;/span&gt; | xargs | &lt;span class=&quot;nb&quot;&gt;tr&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;','&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-        &lt;span class=&quot;nv&quot;&gt;ip_address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-oP&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] Extracting information...&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
-        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] IP Address: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ip_address&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
-        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] Open ports: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ports&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
-        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ports&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;tr&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\n'&lt;/span&gt; | xclip &lt;span class=&quot;nt&quot;&gt;-sel&lt;/span&gt; clip
-        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[*] Ports copied to clipboard&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; extractPorts.tmp
-        &lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;extractPorts.tmp&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;extractPorts.tmp
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Now with the ports we have discovered we will do another scan to find out what version and services are running on each of those ports.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Nmap 7.91 scan initiated Mon Dec  6 17:36:15 2021 as: nmap -sCV -p22,80 -oN targeted 10.10.11.104
-Nmap scan report for 10.10.11.104
-Host is up (0.047s latency).
-
-PORT   STATE SERVICE VERSION
-22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
-| ssh-hostkey:
-|   2048 53:ed:44:40:11:6e:8b:da:69:85:79:c0:81:f2:3a:12 (RSA)
-|   256 bc:54:20:ac:17:23:bb:50:20:f4:e1:6e:62:0f:01:b5 (ECDSA)
-|_  256 33:c1:89:ea:59:73:b1:78:84:38:a4:21:10:0c:91:d8 (ED25519)
-80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
-| http-cookie-flags:
-|   /:
-|     PHPSESSID:
-|_      httponly flag not set
-|_http-server-header: Apache/2.4.29 (Ubuntu)
-| http-title: Previse Login
-|_Requested resource was login.php
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-# Nmap done at Mon Dec  6 17:36:26 2021 -- 1 IP address (1 host up) scanned in 10.48 seconds
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;With &lt;strong&gt;&lt;em&gt;whatweb&lt;/em&gt;&lt;/strong&gt; we can make a small recognition of the web service to know if the victim machine is using any cms and the web server that is using.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura7.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;I am access to the website and it is a login page that i dont have credentials to access and i can’t create an account.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura8.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Looking at the page code i don’t see anything interesting.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura9.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now with nmap i am going to do a simple fuzzing to see potential routes, but i didn’t find any shit and its because nmap its not to powerful to fuzzing.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Nmap 7.91 scan initiated Mon Dec  6 17:42:20 2021 as: nmap --script http-enum -p80 -oN Webscan 10.10.11.104
-Nmap scan report for 10.10.11.104
-Host is up (0.044s latency).
-
-PORT   STATE SERVICE
-80/tcp open  http
-| http-enum:
-|   /login.php: Possible admin folder
-|   /css/: Potentially interesting directory w/ listing on 'apache/2.4.29 (ubuntu)'
-|_  /js/: Potentially interesting directory w/ listing on 'apache/2.4.29 (ubuntu)'
-
-# Nmap done at Mon Dec  6 17:42:29 2021 -- 1 IP address (1 host up) scanned in 9.51 seconds
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Now with &lt;strong&gt;&lt;em&gt;wfuzz&lt;/em&gt;&lt;/strong&gt; we are going to perform fuzzing using a dictionary to see more potential routes and it is also more powerful than nmap.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura11.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;In the word &lt;strong&gt;&lt;em&gt;FUZZ&lt;/em&gt;&lt;/strong&gt; I am going to indicate the php extension so that it looks for paths containing the php extension, and i found some interesting paths&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura12.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And basically when accessing each of those routes it does not let me show the content.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura13.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;As the ftp service was open i try to access if the user &lt;strong&gt;&lt;em&gt;anonymous&lt;/em&gt;&lt;/strong&gt; was enabled, but in this case it is not enabled.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura14.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Ok so in the login page i tried to test if the web was vulnerable to sql injections, and we can see it’s not.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura15.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;I try to apply virtual hosting to see if there is any change in the web if it is with the domain name, and if i can access in the php paths i found above.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura16.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;But as we can see i can’t view tha content each of the php paths.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura17.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;So then i use burpsuite if i can see anything, and as we can see in the route &lt;strong&gt;&lt;em&gt;accounts.php&lt;/em&gt;&lt;/strong&gt; there is a form to sing up on the website.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura18.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;If you look at the response part of the code of the page, we see that the http server returns a status code &lt;strong&gt;&lt;em&gt;302&lt;/em&gt;&lt;/strong&gt; which means that the resource we have solved was found, but not in the expected place, basically it is used for the temporary redirection of the url. So thinking a little bit what would happen if we change tha http status code with 200 (which is successful)? let’s try.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura19.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Then what we will do is intercept that request before sending it to the server, so in burpsuite in the &lt;strong&gt;&lt;em&gt;intercept&lt;/em&gt;&lt;/strong&gt; section we right click and select &lt;strong&gt;&lt;em&gt;“Do intercept -&amp;gt; Response to this request”&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura20.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We are going to put &lt;strong&gt;&lt;em&gt;200&lt;/em&gt;&lt;/strong&gt; and then click in &lt;strong&gt;&lt;em&gt;forward&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura21.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And magic!!!, now we can access in “accounts.php” and now we go to create an account anN click on &lt;strong&gt;&lt;em&gt;submit&lt;/em&gt;&lt;/strong&gt;, and in burpsuite we click on &lt;strong&gt;&lt;em&gt;forward&lt;/em&gt;&lt;/strong&gt; or send the request that we have modified to the server.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura22.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now close tha proxy, and we are going to try login with the account that we have created.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura23.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And boom!! we can access on the website.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura24.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;If we go to the &lt;strong&gt;&lt;em&gt;files&lt;/em&gt;&lt;/strong&gt; section we see that there are interesting files as you can see we can download the files and we can also upload files, We are going to download the 3 files.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura25.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Let’s unzip the the backup file.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura26.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;So in the &lt;strong&gt;&lt;em&gt;config.php&lt;/em&gt;&lt;/strong&gt; we have mysql database credentials, that we are going to save this credentials for letter.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura27.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Ok so in the &lt;strong&gt;&lt;em&gt;revshell.php&lt;/em&gt;&lt;/strong&gt; file we see that a reverse shell is being applied using netcat and php code for command execution.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura28.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And in the file &lt;strong&gt;&lt;em&gt;combinazione.txt&lt;/em&gt;&lt;/strong&gt; we can see the admin credentials idk, i don’t find this useful this file.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura29.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;On the web it reports that the mysql server is active and that there are 11 admin users logged in, and 3 files uploaded.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura30.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And in the &lt;strong&gt;&lt;em&gt;log data&lt;/em&gt;&lt;/strong&gt; part i download a .log file, let’s see what it is.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura31.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And we see that the file contains logs of the users who have uploaded the files or who have registered, well we see that there is a user called &lt;strong&gt;&lt;em&gt;m4lwhere&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura32.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&quot;explotation&quot;&gt;Explotation&lt;/h2&gt;
-
-&lt;p&gt;I came up with an idea is to make a reverse shell inside a php file and upload it on the web to see if I can connect to the machine on port “4444”.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura33.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;It lets me upload the file but unfortunately i can’t connect to the machine.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura34.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;I trying to make a reverse shell with python.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura35.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;But it doesn’t work anyway.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura36.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Well thinking about it a bit, as before we could download the logs i thought of intercepting the request in burpsuite when downloading the log to see if we can see something.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura36.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;In the burpsuite in the request part there is a parameter called &lt;strong&gt;&lt;em&gt;delim=comma&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura37.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Well so we are going to establish reverse shell with bash on the port 4444 in the &lt;strong&gt;&lt;em&gt;delim=comma** parameter. And click on **&lt;/em&gt;forward or send&lt;/strong&gt;* to send the request we have just modified.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura38.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We can do tha same process with python.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura39.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And on our attacker machine we see that we have a connection on the victim machine.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura40.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now we are as the user “www-data” and do &lt;strong&gt;&lt;em&gt;cat /etc/passwd&lt;/em&gt;&lt;/strong&gt; we see all the users of the victim machine. Ok so let’s access to the home directory of the user &lt;strong&gt;&lt;em&gt;m4lwhere&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura41.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;I access the home directory of the user m4lwhere and we see that the first flag is there, but i can’t see the content because i don’t have permissions.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura42.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Well let’s access to the mysql database, since we have the credentials from the &lt;strong&gt;&lt;em&gt;config.php&lt;/em&gt;&lt;/strong&gt; file we downloaded earlier.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura43.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We can see that there are an database called &lt;strong&gt;&lt;em&gt;previse&lt;/em&gt;&lt;/strong&gt;, let’s access on that database and we can see there two tables called &lt;strong&gt;&lt;em&gt;account&lt;/em&gt;&lt;/strong&gt;, huhuhu let’s see what is there on that table.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura44.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And gentlemens as we can see we have usernames and passwords. and well i also see my credentials when i created the account which is the user &lt;strong&gt;&lt;em&gt;test101&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura45.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;As the password is hashed we are going to crack it with &lt;strong&gt;&lt;em&gt;john&lt;/em&gt;&lt;/strong&gt;. The first thing I’m going to do is to unzip the file where the &lt;strong&gt;&lt;em&gt;rockyou.txt&lt;/em&gt;&lt;/strong&gt;, because we are going to use it this dictionary.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura46.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;What we do is with john specify the dictionary &lt;strong&gt;&lt;em&gt;rockyou.txt&lt;/em&gt;&lt;/strong&gt; and then what i have done is to put the hashed password of the user m4lwhere in the file called &lt;strong&gt;&lt;em&gt;hash.txt&lt;/em&gt;&lt;/strong&gt;. As it is an md5-crypt hash it reports in terminal that we must specify the format.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura47.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Here are some of the most commonly used hashes, but there are other types of hashes.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/hashes.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Now specify the hash type and wait for it to finish cracking the password using the &lt;strong&gt;&lt;em&gt;rockyou.txt&lt;/em&gt;&lt;/strong&gt; dictionary. And we can see the hash is cracked and we found the password.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura48.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;With john let’s visualize the password better way.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura49.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And with the password obtained we can see that I can access via ssh in the user &lt;strong&gt;&lt;em&gt;m4lwhere&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura50.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;And as we are with the user &lt;strong&gt;&lt;em&gt;m4lwhere&lt;/em&gt;&lt;/strong&gt; we can visualize the first flag.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura51.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&quot;privilege-escalation&quot;&gt;Privilege Escalation&lt;/h2&gt;
-
-&lt;p&gt;With the command &lt;strong&gt;&lt;em&gt;sudo -l&lt;/em&gt;&lt;/strong&gt; we are going to check which commands we can execute with the privileges in this case of root we can execute without using the password. And we can see that we can execute a script as the user &lt;strong&gt;&lt;em&gt;root&lt;/em&gt;&lt;/strong&gt;, let’s check that script.&lt;/p&gt;
-
-&lt;p&gt;reference = https://book.hacktricks.xyz/linux-unix/privilege-escalation#nopasswd&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura52.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Basically the script must store the logs using gzip and that there are backups that is a task that should have been configured with cron, as commented in the comments of the script.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura53.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;After analyzing the script and investigating a little, there is a possible vulnerability that we can exploit that is the &lt;strong&gt;&lt;em&gt;path injection&lt;/em&gt;&lt;/strong&gt;. this attack is based on changing the value of variable &lt;strong&gt;&lt;em&gt;$PATH&lt;/em&gt;&lt;/strong&gt;, this variable contains the paths where certain programs or commands run on our systems, so if we want our malicious script to run in &lt;strong&gt;&lt;em&gt;/tmp&lt;/em&gt;&lt;/strong&gt; or &lt;strong&gt;&lt;em&gt;/dev/shm&lt;/em&gt;&lt;/strong&gt; we must change the path so that it can run. normally by default are in / “usr/bin”.&lt;/p&gt;
-
-&lt;p&gt;what we will do it’s go inside a directory that we have permissions of sudo in this case can be the &lt;strong&gt;&lt;em&gt;/tmp&lt;/em&gt;&lt;/strong&gt; or &lt;strong&gt;&lt;em&gt;/dev/shm&lt;/em&gt;&lt;/strong&gt;, then we will create our small script execute so that it returns us a revershell through netcat, we assign permissions to our script and finally we will change the variable &lt;strong&gt;&lt;em&gt;$path&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura54.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We going to listen on port 4444 with netcat, now with sudo we are going to execute the script &lt;strong&gt;&lt;em&gt;access_backup&lt;/em&gt;&lt;/strong&gt; in the same path where we were. And SIUUUUUUUU we have connection with root user.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura55.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;So we are going to the root path, and as you can see we can view the second flag.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/img-previse/captura56.png&quot; /&gt;
-&lt;/p&gt;</content><author><name>Nafsu Uddin</name></author><category term="Hack the box" /><category term="Linux" /><category term="reverse shell" /><summary type="html">Previse is a linux machine with difficulty esay pulling a little to medium both the level of intrusion and privilege escalation pulls a little to medium level of difficulty. this machine has vulnerabilities such as log poisoning and in the part of escalation we take advantage of nopasswd.</summary></entry></feed>
+&lt;/p&gt;</content><author><name>Nafsu Uddin | AKA bynafrez</name></author><category term="Hack the box" /><category term="Linux" /><summary type="html">Secret is a linux machine with difficulty esay pulling in the exploitation phase when accessing the machine (which for me has not been easy, I will explaining this in this post) and the escalation of privileges is at medium level of difficulty, and this machine consists secret ways to extract information from applications, and this machine is vulnerable to RCE through an API.</summary></entry></feed>
